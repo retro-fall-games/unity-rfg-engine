@@ -1,8 +1,8 @@
 using UnityEngine;
 using RFG.Events;
-using RFG.Utils.Singletons;
+using RFG.Utils;
 
-namespace RFG.Engine.Managers
+namespace RFG.Managers
 {
   [AddComponentMenu("RFG Engine/Managers/Game Manager")]
   public class GameManager : PersistentSingleton<GameManager>, EventListener<GameEvent>

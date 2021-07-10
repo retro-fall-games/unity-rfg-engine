@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RFG.Utils.Singletons
+namespace RFG.Utils
 {
   public class Singleton<T> : MonoBehaviour where T : Component
   {

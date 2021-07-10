@@ -1,7 +1,7 @@
 using UnityEngine;
-using RFG.Utils.StateMachines;
+using RFG.Utils;
 
-namespace RFG.Engine.Input
+namespace RFG.Input
 {
   public enum ButtonStates { Off, Down, Pressed, Up }
 
@@ -19,7 +19,7 @@ namespace RFG.Engine.Input
     public Button(string buttonId)
     {
       this.buttonId = buttonId;
-      State = new StateMachine<ButtonStates>(null);
+      State = new StateMachine<ButtonStates>(null, false);
       State.ChangeState(ButtonStates.Off);
     }
 

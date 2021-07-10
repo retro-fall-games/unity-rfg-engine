@@ -1,17 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
-using RFG.Utils.Singletons;
-using RFG.Engine.Input;
+using RFG.Utils;
+using RFG.Input;
 using RFG.Events;
 
-namespace RFG.Engine.Managers
+namespace RFG.Managers
 {
   [AddComponentMenu("RFG Engine/Managers/Input Manager")]
   public class InputManager : Singleton<InputManager>
   {
+    public string axisHortizontal = "Horizontal";
+    public string axisVertical = "Vertical";
     public Button JumpButton { get; private set; }
     public Button PauseMenuButton { get; private set; }
+    public Vector2 PrimaryMovement => _primaryMovement;
     private List<Button> _buttons;
+    private Vector2 _primaryMovement = Vector2.zero;
 
     private void Start()
     {
@@ -27,14 +31,15 @@ namespace RFG.Engine.Managers
       PauseMenuButton.State.OnStateChange += PauseMenuButtonOnStateChange;
     }
 
+    private void Update()
+    {
+      SetMovement();
+      GetInputButtons();
+    }
+
     private void LateUpdate()
     {
       ProcessButtonStates();
-    }
-
-    private void Update()
-    {
-      GetInputButtons();
     }
 
     private void GetInputButtons()
@@ -69,6 +74,12 @@ namespace RFG.Engine.Managers
           button.State.ChangeState(ButtonStates.Off);
         }
       }
+    }
+
+    private void SetMovement()
+    {
+      _primaryMovement.x = UnityEngine.Input.GetAxis(axisHortizontal);
+      _primaryMovement.y = UnityEngine.Input.GetAxis(axisVertical);
     }
 
     private void PauseMenuButtonOnStateChange(ButtonStates state)
