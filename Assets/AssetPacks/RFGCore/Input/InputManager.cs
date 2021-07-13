@@ -4,13 +4,14 @@ using RFG.Utils;
 using RFG.Input;
 using RFG.Events;
 
-namespace RFG.Managers
+namespace RFG.Core
 {
-  [AddComponentMenu("RFG Engine/Managers/Input Manager")]
+  [AddComponentMenu("RFG Engine/Core/Managers/Input Manager")]
   public class InputManager : Singleton<InputManager>
   {
     public string axisHortizontal = "Horizontal";
     public string axisVertical = "Vertical";
+    public Vector2 threshold = new Vector2(0.1f, 0.4f);
     public Button JumpButton { get; private set; }
     public Button PauseMenuButton { get; private set; }
     public Vector2 PrimaryMovement => _primaryMovement;
@@ -19,50 +20,36 @@ namespace RFG.Managers
 
     private void Start()
     {
-      InitializeButtons();
-    }
-
-    private void InitializeButtons()
-    {
       _buttons = new List<Button>();
-      _buttons.Add(JumpButton = new Button("Jump"));
-      _buttons.Add(PauseMenuButton = new Button("PauseMenu"));
-
-      PauseMenuButton.State.OnStateChange += PauseMenuButtonOnStateChange;
     }
 
     private void Update()
     {
-      SetMovement();
-      GetInputButtons();
-    }
+      // Set the primary movement
+      _primaryMovement.x = UnityEngine.Input.GetAxis(axisHortizontal);
+      _primaryMovement.y = UnityEngine.Input.GetAxis(axisVertical);
 
-    private void LateUpdate()
-    {
-      ProcessButtonStates();
-    }
-
-    private void GetInputButtons()
-    {
+      // Check all button states
       foreach (Button button in _buttons)
       {
         if (UnityEngine.Input.GetButton(button.buttonId))
         {
-          button.TriggerButtonPressed();
+          button.State.ChangeState(ButtonStates.Pressed);
         }
         if (UnityEngine.Input.GetButtonDown(button.buttonId))
         {
-          button.TriggerButtonDown();
+          button.State.ChangeState(ButtonStates.Down);
         }
         if (UnityEngine.Input.GetButtonUp(button.buttonId))
         {
-          button.TriggerButtonUp();
+          button.State.ChangeState(ButtonStates.Up);
         }
       }
     }
 
-    private void ProcessButtonStates()
+    private void LateUpdate()
     {
+      // After all Updates have run, change button states
       foreach (Button button in _buttons)
       {
         if (button.State.CurrentState == ButtonStates.Down)
@@ -76,18 +63,9 @@ namespace RFG.Managers
       }
     }
 
-    private void SetMovement()
+    public void AddButton(Button button)
     {
-      _primaryMovement.x = UnityEngine.Input.GetAxis(axisHortizontal);
-      _primaryMovement.y = UnityEngine.Input.GetAxis(axisVertical);
-    }
-
-    private void PauseMenuButtonOnStateChange(ButtonStates state)
-    {
-      if (state == ButtonStates.Down)
-      {
-        EventManager.TriggerEvent(new GameEvent(GameEvent.GameEventType.Pause));
-      }
+      _buttons.Add(button);
     }
   }
 }

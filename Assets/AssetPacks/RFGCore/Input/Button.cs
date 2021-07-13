@@ -9,10 +9,8 @@ namespace RFG.Input
   {
     public StateMachine<ButtonStates> State { get; private set; }
     public string buttonId;
-
     public float TimeSinceLastButtonDown { get { return Time.unscaledTime - _lastButtonDownAt; } }
     public float TimeSinceLastButtonUp { get { return Time.unscaledTime - _lastButtonUpAt; } }
-
     private float _lastButtonDownAt;
     private float _lastButtonUpAt;
 
@@ -21,6 +19,7 @@ namespace RFG.Input
       this.buttonId = buttonId;
       State = new StateMachine<ButtonStates>(null, false);
       State.ChangeState(ButtonStates.Off);
+      State.OnStateChange += OnStateChange;
     }
 
     public bool ButtonDownRecently(float time)
@@ -31,21 +30,18 @@ namespace RFG.Input
     {
       return (Time.unscaledTime - TimeSinceLastButtonUp <= time);
     }
-    public void TriggerButtonDown()
-    {
-      _lastButtonDownAt = Time.unscaledTime;
-      State.ChangeState(ButtonStates.Down);
-    }
 
-    public void TriggerButtonPressed()
+    private void OnStateChange(ButtonStates state)
     {
-      State.ChangeState(ButtonStates.Pressed);
-    }
-
-    public void TriggerButtonUp()
-    {
-      _lastButtonUpAt = Time.unscaledTime;
-      State.ChangeState(ButtonStates.Up);
+      switch (state)
+      {
+        case ButtonStates.Down:
+          _lastButtonDownAt = Time.unscaledTime;
+          break;
+        case ButtonStates.Up:
+          _lastButtonUpAt = Time.unscaledTime;
+          break;
+      }
     }
 
   }

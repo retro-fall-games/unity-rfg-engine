@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using RFG.Utils;
+using RFG.Core;
 
-namespace RFG.Managers
+namespace RFG.Platformer
 {
   [CustomEditor(typeof(GameManager))]
   [CanEditMultipleObjects]
@@ -18,8 +16,8 @@ namespace RFG.Managers
       DrawDefaultInspector();
 
       EditorGUILayout.Space();
-      EditorGUILayout.LabelField("Setup", EditorStyles.boldLabel);
-      EditorGUILayout.HelpBox("This will create any Tags, Layers, and Sorting Layers needed", MessageType.Warning, true);
+      EditorGUILayout.LabelField("Platformer Setup", EditorStyles.boldLabel);
+      EditorGUILayout.HelpBox("This will create any Tags, Layers, and Sorting Layers needed for a Platformer Game", MessageType.Warning, true);
       if (GUILayout.Button("Create Tags, Layers, and Sorting Layers"))
       {
         Setup();
@@ -32,7 +30,7 @@ namespace RFG.Managers
     private void Setup()
     {
       RFG.Utils.Setup.CheckTags(new string[] { "Player" });
-      RFG.Utils.Setup.CheckLayers(new string[] { "Player", "Platforms" });
+      RFG.Utils.Setup.CheckLayers(new string[] { "Player", "Platforms", "OneWayPlatforms", "MovingPlatforms", "OneWayMovingPlatforms", "Stairs" });
       // RFG.Utils.Setup.CheckSortLayers(new string[] { "Player" });
     }
 

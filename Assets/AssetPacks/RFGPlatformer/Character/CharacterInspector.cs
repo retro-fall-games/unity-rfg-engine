@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using RFG.Utils;
 
-namespace RFG.Character
+namespace RFG.Platformer
 {
   [CustomEditor(typeof(Character))]
   [CanEditMultipleObjects]
@@ -16,9 +16,9 @@ namespace RFG.Character
       serializedObject.Update();
       Character character = (Character)target;
 
-      if (character.characterState != null)
+      if (character.CharacterState != null)
       {
-        EditorGUILayout.LabelField("Movement State", character.movementState.CurrentState.ToString());
+        EditorGUILayout.LabelField("Movement State", character.MovementState.CurrentState.ToString());
         // EditorGUILayout.LabelField("Condition State", character.conditionState.CurrentState.ToString());
       }
 
@@ -53,17 +53,30 @@ namespace RFG.Character
       _rigidbody.sleepMode = RigidbodySleepMode2D.NeverSleep;
       _rigidbody.collisionDetectionMode = CollisionDetectionMode2D.Discrete;
       _rigidbody.isKinematic = true;
+      _rigidbody.simulated = true;
 
       BoxCollider2D _collider = (character.GetComponent<BoxCollider2D>() == null) ? character.gameObject.AddComponent<BoxCollider2D>() : character.GetComponent<BoxCollider2D>();
       _collider.isTrigger = true;
 
       CharacterController2D _controller = (character.GetComponent<CharacterController2D>() == null) ? character.gameObject.AddComponent<CharacterController2D>() : character.GetComponent<CharacterController2D>();
       _controller.platformMask = LayerMask.GetMask("Platforms");
+      _controller.oneWayPlatformMask = LayerMask.GetMask("OneWayPlatforms");
+      _controller.movingPlatformMask = LayerMask.GetMask("MovingPlatforms");
+      _controller.oneWayMovingPlatformMask = LayerMask.GetMask("OneWayMovingPlatforms");
+      _controller.stairsMask = LayerMask.GetMask("Stairs");
 
       // Add behaviors
-      if (character.GetComponent<CharacterWalk>() == null)
+      if (character.GetComponent<CharacterInput>() == null)
       {
-        character.gameObject.AddComponent<CharacterWalk>();
+        character.gameObject.AddComponent<CharacterInput>();
+      }
+      if (character.GetComponent<HorizontalMovementBehavior>() == null)
+      {
+        character.gameObject.AddComponent<HorizontalMovementBehavior>();
+      }
+      if (character.GetComponent<JumpBehavior>() == null)
+      {
+        character.gameObject.AddComponent<JumpBehavior>();
       }
     }
 

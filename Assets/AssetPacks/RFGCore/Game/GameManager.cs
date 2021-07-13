@@ -2,9 +2,9 @@ using UnityEngine;
 using RFG.Events;
 using RFG.Utils;
 
-namespace RFG.Managers
+namespace RFG.Core
 {
-  [AddComponentMenu("RFG Engine/Managers/Game Manager")]
+  [AddComponentMenu("RFG Engine/Core/Managers/Game Manager")]
   public class GameManager : PersistentSingleton<GameManager>, EventListener<GameEvent>
   {
     [Header("Settings")]
