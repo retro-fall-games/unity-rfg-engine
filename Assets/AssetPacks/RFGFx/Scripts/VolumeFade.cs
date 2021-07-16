@@ -1,0 +1,39 @@
+using System.Collections;
+using UnityEngine;
+
+
+namespace RFGFx
+{
+  public class VolumnFade : MonoBehaviour
+  {
+    public static IEnumerator FadeInVolume(AudioSource audioSource, float targetVolume, float duration)
+    {
+      float currentTime = 0;
+      float start = 0;
+      while (currentTime < duration)
+      {
+        currentTime += Time.deltaTime;
+        audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+        yield return null;
+      }
+      yield break;
+    }
+    public static IEnumerator FadeOutVolume(AudioSource audioSource, float targetVolume, float duration, bool stop = false)
+    {
+      float currentTime = 0;
+      float start = targetVolume;
+      while (currentTime < duration)
+      {
+        currentTime += Time.deltaTime;
+        audioSource.volume = Mathf.Lerp(start, 0, currentTime / duration);
+        yield return null;
+      }
+      if (stop)
+      {
+        audioSource.Stop();
+      }
+      yield break;
+    }
+
+  }
+}

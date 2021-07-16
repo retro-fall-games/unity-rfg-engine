@@ -1,9 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using RFG.Input;
 
-namespace RFG.Platformer
+
+namespace RFG
 {
+  [AddComponentMenu("RFG Platformer/Character/Behavior/Jump Behavior")]
   public class JumpBehavior : CharacterBehavior
   {
     public enum JumpRestrictions
@@ -26,6 +27,8 @@ namespace RFG.Platformer
     public bool jumpIsProportionalToThePressTime = true;
     public float jumpMinAirTime = 0.1f;
     public float jumpReleaseForceFactor = 2f;
+
+    public int NumberOfJumpsLeft { get { return _numberOfJumpsLeft; } }
 
     [HideInInspector]
     private int _numberOfJumpsLeft = 0;
@@ -74,16 +77,22 @@ namespace RFG.Platformer
         return;
       }
 
+      _character.Controller.CollisionsOnStairs(true);
+
       if (_verticalInput < 0f)
       {
         _lastJumpTime = Time.time;
+        _character.Controller.State.IsFalling = true;
         _character.MovementState.ChangeState(MovementStates.Falling);
         _character.Controller.IgnoreOneWayPlatformsThisFrame = true;
         _character.Controller.SetVerticalForce(oneWayPlatformFallVelocity);
+        _character.Controller.IgnoreStairsForTime(0.1f);
       }
       else
       {
         _lastJumpTime = Time.time;
+        _character.Controller.State.IsFalling = false;
+        _character.Controller.State.IsJumping = true;
         _character.MovementState.ChangeState(MovementStates.Jumping);
         _numberOfJumpsLeft--;
         _character.Controller.AddVerticalForce(Mathf.Sqrt(2f * jumpHeight * Mathf.Abs(_character.Controller.Parameters.gravity)));
@@ -107,6 +116,7 @@ namespace RFG.Platformer
           _character.Controller.AddVerticalForce(-_character.Controller.Velocity.y / jumpReleaseForceFactor);
         }
       }
+      _character.Controller.State.IsFalling = true;
       _character.MovementState.ChangeState(MovementStates.Falling);
     }
 
@@ -123,6 +133,11 @@ namespace RFG.Platformer
       }
 
       return true;
+    }
+
+    public void SetNumberOfJumpsLeft(int numberLeft)
+    {
+      _numberOfJumpsLeft = numberLeft;
     }
 
   }

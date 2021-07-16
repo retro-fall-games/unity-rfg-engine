@@ -1,7 +1,7 @@
 using UnityEngine;
-using RFG.Utils;
 
-namespace RFG.Events
+
+namespace RFG
 {
   public struct StateChangeEvent<T> where T : struct
   {

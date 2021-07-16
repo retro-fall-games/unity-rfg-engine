@@ -1,4 +1,4 @@
-namespace RFG.Events
+namespace RFG
 {
   public enum EventType
   {

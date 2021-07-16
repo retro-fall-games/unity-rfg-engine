@@ -1,5 +1,5 @@
 
-namespace RFG.Events
+namespace RFG
 {
   public interface EventListenerBase { };
   public interface EventListener<T> : EventListenerBase

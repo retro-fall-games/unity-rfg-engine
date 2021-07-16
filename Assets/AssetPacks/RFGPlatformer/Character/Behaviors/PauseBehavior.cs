@@ -1,9 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using RFG.Input;
 
-namespace RFG.Platformer
+
+namespace RFG
 {
+  [AddComponentMenu("RFG Platformer/Character/Behavior/Pause Behavior")]
   public class PauseBehavior : CharacterBehavior
   {
 
@@ -16,7 +17,7 @@ namespace RFG.Platformer
     {
       yield return new WaitUntil(() => _character.CharacterInput.InputManager != null);
       yield return new WaitUntil(() => _character.CharacterInput.PauseButton != null);
-      _character.CharacterInput.PauseButton.State.OnStateChange += JumpButtonOnStateChanged;
+      _character.CharacterInput.PauseButton.State.OnStateChange += PauseButtonOnStateChanged;
     }
 
     public override void ProcessBehavior()
@@ -24,12 +25,12 @@ namespace RFG.Platformer
 
     }
 
-    private void JumpButtonOnStateChanged(ButtonStates state)
+    private void PauseButtonOnStateChanged(ButtonStates state)
     {
       switch (state)
       {
         case ButtonStates.Down:
-
+          EventManager.TriggerEvent(new GameEvent(GameEvent.GameEventType.Pause));
           break;
         case ButtonStates.Up:
 

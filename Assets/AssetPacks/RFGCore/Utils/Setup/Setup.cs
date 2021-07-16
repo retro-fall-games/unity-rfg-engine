@@ -2,7 +2,7 @@ using UnityEditor;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace RFG.Utils
+namespace RFG
 {
   public class Setup
   {

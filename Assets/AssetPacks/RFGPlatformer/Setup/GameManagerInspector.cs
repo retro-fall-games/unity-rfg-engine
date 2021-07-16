@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEditor;
-using RFG.Core;
 
-namespace RFG.Platformer
+namespace RFG
 {
   [CustomEditor(typeof(GameManager))]
   [CanEditMultipleObjects]
@@ -29,9 +28,9 @@ namespace RFG.Platformer
 
     private void Setup()
     {
-      RFG.Utils.Setup.CheckTags(new string[] { "Player" });
-      RFG.Utils.Setup.CheckLayers(new string[] { "Player", "Platforms", "OneWayPlatforms", "MovingPlatforms", "OneWayMovingPlatforms", "Stairs" });
-      // RFG.Utils.Setup.CheckSortLayers(new string[] { "Player" });
+      RFG.Setup.CheckTags(new string[] { "Player", "Checkpoint", "Warp", "Level Portal", "Trigger" });
+      RFG.Setup.CheckLayers(new string[] { "Player", "Platforms", "OneWayPlatforms", "MovingPlatforms", "OneWayMovingPlatforms", "Stairs" });
+      RFG.Setup.CheckSortLayers(new string[] { "Background", "Foreground" });
     }
 
   }

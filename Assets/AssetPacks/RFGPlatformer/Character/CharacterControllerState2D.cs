@@ -1,5 +1,4 @@
-
-namespace RFG.Platformer
+namespace RFG
 {
   public class CharacterControllerState2D
   {
@@ -15,8 +14,9 @@ namespace RFG.Platformer
     public float SlopeAngle { get; set; }
     public bool HasCollisions { get { return IsCollidingRight || IsCollidingLeft || IsCollidingAbove || IsCollidingBelow; } }
     public bool IsFacingRight { get; set; }
-    public bool IsOnStairs { get; set; }
-
+    public bool IsFalling { get; set; }
+    public bool IsJumping { get; set; }
+    public bool IsStandingOnStairs { get; set; }
 
     // public float DistanceToLeftCollider;
     // public float DistanceToRightCollider;
@@ -33,7 +33,6 @@ namespace RFG.Platformer
     // public bool ColliderResized { get; set; }
     // public bool TouchingLevelBounds { get; set; }
 
-
     public void Reset()
     {
       IsCollidingLeft = false;
@@ -43,7 +42,7 @@ namespace RFG.Platformer
       IsMovingDownSlope = false;
       IsMovingUpSlope = false;
       JustGotGrounded = false;
-      IsOnStairs = false;
+      IsFalling = true;
       SlopeAngle = 0f;
     }
 

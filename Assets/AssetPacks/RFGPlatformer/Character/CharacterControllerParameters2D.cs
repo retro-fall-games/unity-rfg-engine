@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace RFG.Platformer
+namespace RFG
 {
   [Serializable]
   public class CharacterControllerParameters2D

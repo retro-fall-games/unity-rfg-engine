@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace RFG.Events
+namespace RFG
 {
   public static class EventManager
   {

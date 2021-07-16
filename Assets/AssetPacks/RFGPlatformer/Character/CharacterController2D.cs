@@ -1,8 +1,9 @@
+using System.Collections;
 using UnityEngine;
-using RFG.Utils;
 
-namespace RFG.Platformer
+namespace RFG
 {
+  [AddComponentMenu("RFG Platformer/Character/Character Controller 2D")]
   public class CharacterController2D : MonoBehaviour
   {
 
@@ -32,7 +33,6 @@ namespace RFG.Platformer
     public AnimationCurve slopeSpeedMultiplier = new AnimationCurve(new Keyframe(-90f, 1.5f), new Keyframe(0f, 1f), new Keyframe(90f, 0f));
     private Vector2 _velocity;
     private Transform _transform;
-    private Vector3 _localScale;
     private BoxCollider2D _boxCollider;
     private float _verticalDistanceBetweenRays;
     private float _horizontalDistanceBetweenRays;
@@ -43,13 +43,21 @@ namespace RFG.Platformer
     private Vector3 _activeLocalPlatformPoint;
     private Vector3 _activeGlobalPlatformPoint;
     private GameObject _lastStandingOn;
+    private bool _ignoreStairs;
+    private float _fallSlowFactor;
+    private float _boundsWidth;
+    private float _boundsHeight;
+    private bool _gravityActive = true;
+    private Vector3 _colliderBottomCenterPosition;
+    private Vector3 _colliderLeftCenterPosition;
+    private Vector3 _colliderRightCenterPosition;
+    private Vector3 _colliderTopCenterPosition;
 
 
     private void Awake()
     {
       State = new CharacterControllerState2D();
       _transform = transform;
-      _localScale = transform.localScale;
       _boxCollider = GetComponent<BoxCollider2D>();
 
       CalculateDistanceBetweenRays();
@@ -63,6 +71,8 @@ namespace RFG.Platformer
       platformMask |= movingPlatformMask;
       platformMask |= oneWayMovingPlatformMask;
 
+      CollisionsOnStairs(false);
+
     }
 
     private void Start()
@@ -70,60 +80,28 @@ namespace RFG.Platformer
       State.IsFacingRight = transform.localScale.x > 0;
     }
 
-    public void AddForce(Vector2 force)
-    {
-      _velocity += force;
-    }
-
-    public void AddHorizontalForce(float x)
-    {
-      _velocity.x += x;
-    }
-
-    public void AddVerticalForce(float y)
-    {
-      _velocity.y += y;
-    }
-
-    public void SetForce(Vector2 force)
-    {
-      _velocity = force;
-    }
-
-    public void SetHorizontalForce(float x)
-    {
-      _velocity.x = x;
-    }
-
-    public void SetVerticalForce(float y)
-    {
-      _velocity.y = y;
-    }
-
-    public void ResetVelocity()
-    {
-      _velocity = new Vector2(0f, 0f);
-    }
-
-    public void SetOverrideParameters(CharacterControllerParameters2D parameters)
-    {
-      _overrideParameters = parameters;
-    }
-
-    public void Flip()
-    {
-      transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-      State.IsFacingRight = transform.localScale.x > 0;
-    }
 
     private void Update()
     {
-      _velocity.y += Parameters.gravity * Time.deltaTime;
+      ApplyGravity();
       Move(_velocity * Time.deltaTime);
 
       if (!State.WasGroundedLastFrame && State.IsCollidingBelow)
       {
         State.JustGotGrounded = true;
+      }
+    }
+
+    private void ApplyGravity()
+    {
+      if (_gravityActive)
+      {
+        _velocity.y += Parameters.gravity * Time.deltaTime;
+      }
+
+      if (_fallSlowFactor != 0)
+      {
+        _velocity.y *= _fallSlowFactor;
       }
     }
 
@@ -179,6 +157,12 @@ namespace RFG.Platformer
 
       if (StandingOn != null)
       {
+
+        if (!stairsMask.Contains(StandingOn.layer))
+        {
+          CollisionsOnStairs(false);
+        }
+
         _activeGlobalPlatformPoint = _transform.position;
         _activeLocalPlatformPoint = StandingOn.transform.InverseTransformPoint(_transform.position);
 
@@ -203,7 +187,6 @@ namespace RFG.Platformer
       }
 
       IgnoreOneWayPlatformsThisFrame = false;
-
     }
 
     private void HandleMovingPlaforms()
@@ -230,7 +213,7 @@ namespace RFG.Platformer
 
     private void CorrectHorizontalPlacement(ref Vector2 deltaMovement, bool isRight)
     {
-      var halfWidth = (_boxCollider.size.x * _localScale.x) / 2;
+      var halfWidth = (_boxCollider.size.x * Mathf.Abs(_transform.localScale.x)) / 2;
       var rayOrigin = isRight ? _raycastBottomRight : _raycastBottomLeft;
 
       if (isRight)
@@ -248,7 +231,7 @@ namespace RFG.Platformer
       for (var i = 1; i < numberOfHorizontalRays - 1; i++)
       {
         var rayVector = new Vector2(deltaMovement.x + rayOrigin.x, deltaMovement.y + rayOrigin.y + (i * _verticalDistanceBetweenRays));
-        var raycastHit = RFG.Utils.Physics2D.Raycast(rayVector, rayDirection, halfWidth, movingPlatformMask);
+        var raycastHit = RFG.Physics2D.Raycast(rayVector, rayDirection, halfWidth, movingPlatformMask, Color.yellow);
 
         if (!raycastHit)
         {
@@ -266,11 +249,11 @@ namespace RFG.Platformer
     {
       // figure out the distance between our rays in both directions
       // horizontal
-      var colliderUseableHeight = _boxCollider.size.y * Mathf.Abs(_localScale.y) - (2f * Parameters.skinWidth);
+      var colliderUseableHeight = _boxCollider.size.y * Mathf.Abs(_transform.localScale.y) - (2f * Parameters.skinWidth);
       _verticalDistanceBetweenRays = colliderUseableHeight / (numberOfHorizontalRays - 1);
 
       // vertical
-      var colliderUseableWidth = _boxCollider.size.x * Mathf.Abs(_localScale.x) - (2f * Parameters.skinWidth);
+      var colliderUseableWidth = _boxCollider.size.x * Mathf.Abs(_transform.localScale.x) - (2f * Parameters.skinWidth);
       _horizontalDistanceBetweenRays = colliderUseableWidth / (numberOfVerticalRays - 1);
     }
 
@@ -284,6 +267,9 @@ namespace RFG.Platformer
       _raycastTopLeft = new Vector2(modifiedBounds.min.x, modifiedBounds.max.y);
       _raycastBottomRight = new Vector2(modifiedBounds.max.x, modifiedBounds.min.y);
       _raycastBottomLeft = modifiedBounds.min;
+
+      _boundsWidth = Vector2.Distance(_raycastBottomLeft, _raycastBottomRight);
+      _boundsHeight = Vector2.Distance(_raycastBottomLeft, _raycastTopLeft);
 
     }
 
@@ -303,11 +289,11 @@ namespace RFG.Platformer
         // walk up sloped oneWayPlatforms
         if (i == 0 && State.WasGroundedLastFrame)
         {
-          raycastHit = RFG.Utils.Physics2D.Raycast(rayVector, rayDirection, rayDistance, platformMask);
+          raycastHit = RFG.Physics2D.Raycast(rayVector, rayDirection, rayDistance, platformMask, Color.red);
         }
         else
         {
-          raycastHit = RFG.Utils.Physics2D.Raycast(rayVector, rayDirection, rayDistance, platformMask & ~oneWayPlatformMask);
+          raycastHit = RFG.Physics2D.Raycast(rayVector, rayDirection, rayDistance, platformMask & ~oneWayPlatformMask, Color.green);
         }
 
         if (!raycastHit)
@@ -367,6 +353,7 @@ namespace RFG.Platformer
       {
         mask &= ~oneWayPlatformMask;
         mask &= ~oneWayMovingPlatformMask;
+        mask &= ~stairsMask;
       }
 
       var standingOnDistance = float.MaxValue;
@@ -374,7 +361,7 @@ namespace RFG.Platformer
       for (var i = 0; i < numberOfVerticalRays; i++)
       {
         var rayVector = new Vector2(rayOrigin.x + (i * _horizontalDistanceBetweenRays), rayOrigin.y);
-        var raycastHit = RFG.Utils.Physics2D.Raycast(rayVector, rayDirection, rayDistance, mask);
+        var raycastHit = RFG.Physics2D.Raycast(rayVector, rayDirection, rayDistance, mask, Color.blue);
 
         if (!raycastHit)
         {
@@ -405,6 +392,7 @@ namespace RFG.Platformer
         {
           deltaMovement.y += Parameters.skinWidth;
           State.IsCollidingBelow = true;
+          State.IsFalling = false;
         }
 
         if (!isGoingUp && deltaMovement.y > 0.0001f)
@@ -437,7 +425,7 @@ namespace RFG.Platformer
 
           var rayOrigin = isGoingRight ? _raycastBottomRight : _raycastBottomLeft;
 
-          RaycastHit2D raycastHit = RFG.Utils.Physics2D.Raycast(rayOrigin, deltaMovement.normalized, deltaMovement.magnitude, platformMask);
+          RaycastHit2D raycastHit = RFG.Physics2D.Raycast(rayOrigin, deltaMovement.normalized, deltaMovement.magnitude, stairsMask, Color.magenta);
 
           if (raycastHit)
           {
@@ -447,6 +435,8 @@ namespace RFG.Platformer
 
           State.IsMovingUpSlope = true;
           State.IsCollidingBelow = true;
+
+          return true;
         }
 
       }
@@ -455,7 +445,7 @@ namespace RFG.Platformer
         deltaMovement.x = 0;
       }
 
-      return true;
+      return false;
     }
 
     private void HandleVerticalSlope(ref Vector2 deltaMovement)
@@ -466,12 +456,14 @@ namespace RFG.Platformer
       var slopeDistance = slopeLimitTanget * (_raycastBottomRight.x - center);
       var slopeRayVector = new Vector2(center, _raycastBottomLeft.y);
 
-      var raycastHit = RFG.Utils.Physics2D.Raycast(slopeRayVector, direction, slopeDistance, platformMask);
+      var raycastHit = RFG.Physics2D.Raycast(slopeRayVector, direction, slopeDistance, stairsMask, Color.red);
 
       if (!raycastHit)
       {
         return;
       }
+
+      CollisionsOnStairs(true);
 
       var angle = Vector2.Angle(raycastHit.normal, Vector2.up);
 
@@ -488,6 +480,7 @@ namespace RFG.Platformer
         deltaMovement.y += raycastHit.point.y - slopeRayVector.y - Parameters.skinWidth;
         // deltaMovement.x *= slopeModifier;
         State.IsMovingDownSlope = true;
+        State.IsCollidingBelow = true;
         State.SlopeAngle = angle;
       }
 
@@ -499,6 +492,160 @@ namespace RFG.Platformer
 
     private void OnTriggerExit2D(Collider2D other)
     {
+    }
+
+    public float Width()
+    {
+      return _boundsWidth;
+    }
+
+    public float Height()
+    {
+      return _boundsHeight;
+    }
+
+    public void AddForce(Vector2 force)
+    {
+      _velocity += force;
+    }
+
+    public void AddHorizontalForce(float x)
+    {
+      _velocity.x += x;
+    }
+
+    public void AddVerticalForce(float y)
+    {
+      _velocity.y += y;
+    }
+
+    public void SetForce(Vector2 force)
+    {
+      _velocity = force;
+    }
+
+    public void SetHorizontalForce(float x)
+    {
+      _velocity.x = x;
+    }
+
+    public void SetVerticalForce(float y)
+    {
+      _velocity.y = y;
+    }
+
+    public void ResetVelocity()
+    {
+      _velocity = new Vector2(0f, 0f);
+    }
+
+    public void SetOverrideParameters(CharacterControllerParameters2D parameters)
+    {
+      _overrideParameters = parameters;
+    }
+
+    public void Flip()
+    {
+      transform.localScale = new Vector3(-_transform.localScale.x, _transform.localScale.y, _transform.localScale.z);
+      State.IsFacingRight = _transform.localScale.x > 0;
+    }
+
+    public void IgnoreStairsForTime(float time)
+    {
+      _ignoreStairs = true;
+      CollisionsOnStairs(false);
+      StartCoroutine(IgnoreStairsForTimeCo(time));
+    }
+
+    public IEnumerator IgnoreStairsForTimeCo(float time)
+    {
+      yield return new WaitForSeconds(time);
+      _ignoreStairs = false;
+      CollisionsOnStairs(true);
+    }
+
+    public void CollisionsOnStairs(bool turnOn)
+    {
+      if (turnOn && !_ignoreStairs)
+      {
+        platformMask |= stairsMask;
+        oneWayPlatformMask |= stairsMask;
+      }
+      else
+      {
+        platformMask &= ~stairsMask;
+        oneWayPlatformMask &= ~stairsMask;
+      }
+    }
+
+    public void SlowFall(float factor)
+    {
+      _fallSlowFactor = factor;
+    }
+
+    public void GravityActive(bool state)
+    {
+      _gravityActive = state;
+    }
+
+    public Vector3 ColliderSize
+    {
+      get
+      {
+        return Vector3.Scale(_transform.localScale, _boxCollider.size);
+      }
+    }
+
+    public Vector3 ColliderCenterPosition
+    {
+      get
+      {
+        return _boxCollider.bounds.center;
+      }
+    }
+
+    public Vector3 ColliderBottomPosition
+    {
+      get
+      {
+        _colliderBottomCenterPosition.x = _boxCollider.bounds.center.x;
+        _colliderBottomCenterPosition.y = _boxCollider.bounds.min.y;
+        _colliderBottomCenterPosition.z = 0;
+        return _colliderBottomCenterPosition;
+      }
+    }
+
+    public Vector3 ColliderLeftPosition
+    {
+      get
+      {
+        _colliderLeftCenterPosition.x = _boxCollider.bounds.min.x;
+        _colliderLeftCenterPosition.y = _boxCollider.bounds.center.y;
+        _colliderLeftCenterPosition.z = 0;
+        return _colliderLeftCenterPosition;
+      }
+    }
+
+    public Vector3 ColliderTopPosition
+    {
+      get
+      {
+        _colliderTopCenterPosition.x = _boxCollider.bounds.center.x;
+        _colliderTopCenterPosition.y = _boxCollider.bounds.max.y;
+        _colliderTopCenterPosition.z = 0;
+        return _colliderTopCenterPosition;
+      }
+    }
+
+    public Vector3 ColliderRightPosition
+    {
+      get
+      {
+        _colliderRightCenterPosition.x = _boxCollider.bounds.max.x;
+        _colliderRightCenterPosition.y = _boxCollider.bounds.center.y;
+        _colliderRightCenterPosition.z = 0;
+        return _colliderRightCenterPosition;
+      }
     }
 
   }

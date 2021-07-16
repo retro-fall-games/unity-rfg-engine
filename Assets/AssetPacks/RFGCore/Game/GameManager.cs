@@ -1,14 +1,17 @@
+using System.Collections;
 using UnityEngine;
-using RFG.Events;
-using RFG.Utils;
+using RFGFx;
 
-namespace RFG.Core
+namespace RFG
 {
   [AddComponentMenu("RFG Engine/Core/Managers/Game Manager")]
   public class GameManager : PersistentSingleton<GameManager>, EventListener<GameEvent>
   {
     [Header("Settings")]
     public int targetFrameRate = 300;
+
+    [Header("Debug")]
+    public bool drawRaycasts = true;
     public bool IsPaused { get; private set; }
 
     private void Start()
@@ -16,14 +19,34 @@ namespace RFG.Core
       Application.targetFrameRate = targetFrameRate;
     }
 
+    public void Quit()
+    {
+      StartCoroutine(QuitGameCo());
+    }
+
+    private IEnumerator QuitGameCo()
+    {
+      AudioManager.Instance.StopAll(true);
+      Transition.Instance.Show("CrossFade", "Start");
+      yield return new WaitForSeconds(3f);
+      Application.Quit();
+    }
+
+    public void DebugMessage(string message)
+    {
+      Debug.Log(message);
+    }
+
     public void Pause()
     {
       IsPaused = true;
+      Time.timeScale = 0f;
     }
 
     public void UnPause()
     {
       IsPaused = false;
+      Time.timeScale = 1f;
     }
 
     public void OnEvent(GameEvent gameEvent)

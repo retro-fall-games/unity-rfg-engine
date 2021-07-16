@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using RFG.Utils;
 
-namespace RFG.Platformer
+
+namespace RFG
 {
   [CustomEditor(typeof(Character))]
   [CanEditMultipleObjects]
@@ -77,6 +77,22 @@ namespace RFG.Platformer
       if (character.GetComponent<JumpBehavior>() == null)
       {
         character.gameObject.AddComponent<JumpBehavior>();
+      }
+      if (character.GetComponent<WallClingingBehavior>() == null)
+      {
+        character.gameObject.AddComponent<WallClingingBehavior>();
+      }
+      if (character.GetComponent<WallJumpBehavior>() == null)
+      {
+        character.gameObject.AddComponent<WallJumpBehavior>();
+      }
+      if (character.GetComponent<DashBehavior>() == null)
+      {
+        character.gameObject.AddComponent<DashBehavior>();
+      }
+      if (character.GetComponent<AnimationBehavior>() == null)
+      {
+        character.gameObject.AddComponent<AnimationBehavior>();
       }
     }
 

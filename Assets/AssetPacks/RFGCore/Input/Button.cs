@@ -1,7 +1,7 @@
 using UnityEngine;
-using RFG.Utils;
 
-namespace RFG.Input
+
+namespace RFG
 {
   public enum ButtonStates { Off, Down, Pressed, Up }
 

@@ -1,15 +1,17 @@
 using UnityEngine;
 
-namespace RFG.Platformer
+namespace RFG
 {
   public class CharacterBehavior : MonoBehaviour
   {
+    protected Transform _transform;
     protected Character _character;
     protected float _horizontalInput;
     protected float _verticalInput;
 
     private void Awake()
     {
+      _transform = transform;
       _character = GetComponent<Character>();
     }
 

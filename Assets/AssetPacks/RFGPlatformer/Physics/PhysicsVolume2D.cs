@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace RFG.Platformer
+namespace RFG
 {
   [AddComponentMenu("RFG Platformer/Physics/PhysicsVolume2D")]
   public class PhysicsVolume2D : MonoBehaviour

@@ -1,7 +1,8 @@
 using UnityEngine;
 
-namespace RFG.Platformer
+namespace RFG
 {
+  [AddComponentMenu("RFG Platformer/Character/Behavior/Horizontal Movement Behavior")]
   public class HorizontalMovementBehavior : CharacterBehavior
   {
     public float walkSpeed = 5f;
@@ -29,6 +30,17 @@ namespace RFG.Platformer
       else
       {
         _normalizedHorizontalSpeed = 0f;
+      }
+
+      // If we are dashing then return here so it wont get set back to idle
+      if (_character.MovementState.CurrentState == MovementStates.Dashing)
+      {
+        return;
+      }
+
+      if (_verticalInput >= 1 || _verticalInput <= -1)
+      {
+        _character.Controller.CollisionsOnStairs(true);
       }
 
       _character.MovementState.ChangeState(_normalizedHorizontalSpeed == 0 ? MovementStates.Idle : MovementStates.Walking);

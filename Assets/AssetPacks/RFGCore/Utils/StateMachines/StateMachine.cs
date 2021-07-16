@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
-using RFG.Events;
 
-namespace RFG.Utils
+
+namespace RFG
 {
   public class StateMachine<T> where T : struct
   {

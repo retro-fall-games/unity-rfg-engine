@@ -1,10 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using RFG.Utils;
-using RFG.Input;
-using RFG.Events;
 
-namespace RFG.Core
+
+namespace RFG
 {
   [AddComponentMenu("RFG Engine/Core/Managers/Input Manager")]
   public class InputManager : Singleton<InputManager>
@@ -12,8 +10,6 @@ namespace RFG.Core
     public string axisHortizontal = "Horizontal";
     public string axisVertical = "Vertical";
     public Vector2 threshold = new Vector2(0.1f, 0.4f);
-    public Button JumpButton { get; private set; }
-    public Button PauseMenuButton { get; private set; }
     public Vector2 PrimaryMovement => _primaryMovement;
     private List<Button> _buttons;
     private Vector2 _primaryMovement = Vector2.zero;
