@@ -9130,6 +9130,7 @@ GameObject:
   - component: {fileID: 1743281164}
   - component: {fileID: 1743281163}
   - component: {fileID: 1743281165}
+  - component: {fileID: 1743281166}
   m_Layer: 14
   m_Name: Robot
   m_TagString: AI Character
@@ -9475,9 +9476,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b49e1071b34e494e8fc49d6d6a22182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpHeight: 12
-  horizontalSpeed: 2
+  jumpHeight: 3
+  horizontalSpeed: 3
   jumpRestrictions: 0
+--- !u!114 &1743281166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743281150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dc53e45e97bb174db3b313a5b6017fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons: []
 --- !u!1001 &1883592837
 PrefabInstance:
   m_ObjectHideFlags: 0

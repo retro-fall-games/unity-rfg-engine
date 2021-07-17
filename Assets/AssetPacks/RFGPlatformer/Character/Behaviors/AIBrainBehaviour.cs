@@ -9,6 +9,12 @@ namespace RFG
     public float decisionSpeed = 3f;
     public int decisionOffset = 10;
     private float _decisionTimeElapsed = 0f;
+    private AIWeaponBehaviour _weaponBehavior;
+
+    public override void InitBehaviour()
+    {
+      _weaponBehavior = _character.FindBehaviour<AIWeaponBehaviour>();
+    }
 
     public override void ProcessBehaviour()
     {
@@ -52,6 +58,33 @@ namespace RFG
           default:
             _character.AIMovementState.ChangeState(AIMovementStates.Idle);
             break;
+        }
+      }
+      else if (_character.AIState.CurrentState == AIStates.Attacking)
+      {
+        if (_weaponBehavior != null)
+        {
+          int weaponDecision = DecisionTree(1000, 500, 100 + decisionOffset);
+          Weapon weapon;
+
+          switch (weaponDecision)
+          {
+            case -1:
+              weapon = _weaponBehavior.PrimaryWeapon;
+              break;
+            case 1:
+              weapon = _weaponBehavior.SecondaryWeapon;
+              break;
+            case 0:
+            default:
+              weapon = _weaponBehavior.PrimaryWeapon;
+              break;
+          }
+
+          if (weapon != null && weapon.weaponState.CurrentState == Weapon.WeaponState.Off)
+          {
+            weapon.Fire();
+          }
         }
       }
     }

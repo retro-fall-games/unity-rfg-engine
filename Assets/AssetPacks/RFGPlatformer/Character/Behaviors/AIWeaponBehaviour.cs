@@ -9,12 +9,12 @@ namespace RFG
   {
     [Header("Weapons")]
     public List<Weapon> weapons;
-    public Weapon PrimaryWeapon => weapons[_equippedPrimaryWeaponIndex];
-    public Weapon SecondaryWeapon => weapons[_equippedSecondaryWeaponIndex];
+    public Weapon PrimaryWeapon { get; private set; }
+    public Weapon SecondaryWeapon { get; private set; }
 
     [HideInInspector]
-    private int _equippedPrimaryWeaponIndex;
-    private int _equippedSecondaryWeaponIndex;
+    private int _equippedPrimaryWeaponIndex = 0;
+    private int _equippedSecondaryWeaponIndex = 0;
     private Button _primaryFireButton;
     private Button _secondaryFireButton;
 
@@ -34,10 +34,13 @@ namespace RFG
       {
         weapons = new List<Weapon>();
       }
-      int equipOnStart = weapons.FindIndex(0, weapons.Count, w => w.equipOnStart == true);
-      if (equipOnStart != -1)
+      else
       {
-        EquipPrimary(equipOnStart);
+        int equipOnStart = weapons.FindIndex(0, weapons.Count, w => w.equipOnStart == true);
+        if (equipOnStart != -1)
+        {
+          EquipPrimary(equipOnStart);
+        }
       }
     }
 
@@ -79,16 +82,16 @@ namespace RFG
         Debug.Log("Cannot equip primary weapon at index: " + index);
         return;
       }
-      Weapon equippedWeapon = PrimaryWeapon;
-      if (equippedWeapon != null)
+
+      if (PrimaryWeapon != null)
       {
-        equippedWeapon.Unequip();
+        PrimaryWeapon.Unequip();
       }
       _equippedPrimaryWeaponIndex = index;
-      equippedWeapon = weapons[_equippedPrimaryWeaponIndex];
-      if (equippedWeapon != null)
+      PrimaryWeapon = weapons[_equippedPrimaryWeaponIndex];
+      if (PrimaryWeapon != null)
       {
-        equippedWeapon.Equip();
+        PrimaryWeapon.Equip();
       }
     }
 
@@ -99,37 +102,33 @@ namespace RFG
         Debug.Log("Cannot equip secondary weapon at index: " + index);
         return;
       }
-      Weapon equippedWeapon = SecondaryWeapon;
-      if (equippedWeapon != null)
+      if (SecondaryWeapon != null)
       {
-        equippedWeapon.Unequip();
+        SecondaryWeapon.Unequip();
       }
       _equippedSecondaryWeaponIndex = index;
-      equippedWeapon = weapons[_equippedSecondaryWeaponIndex];
-      if (equippedWeapon != null)
+      SecondaryWeapon = weapons[_equippedSecondaryWeaponIndex];
+      if (SecondaryWeapon != null)
       {
-        equippedWeapon.Equip();
+        SecondaryWeapon.Equip();
       }
     }
 
     public void UnequipPrimary()
     {
-      Weapon equippedWeapon = PrimaryWeapon;
-      if (equippedWeapon != null)
+      if (PrimaryWeapon != null)
       {
-        equippedWeapon.Unequip();
+        PrimaryWeapon.Unequip();
       }
     }
 
     public void UnequipSecondary()
     {
-      Weapon equippedWeapon = SecondaryWeapon;
-      if (equippedWeapon != null)
+      if (SecondaryWeapon != null)
       {
-        equippedWeapon.Unequip();
+        SecondaryWeapon.Unequip();
       }
     }
-
 
   }
 }
