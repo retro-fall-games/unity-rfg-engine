@@ -4,6 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - AI Character
   - Trigger
   - Level Portal
   - Warp
@@ -23,7 +24,7 @@ TagManager:
   - Stairs
   - MovingPlatforms
   - OneWayMovingPlatforms
-  - 
+  - AI Character
   - 
   - 
   - 

@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace RFG
 {
+  public enum CharacterType { Player, AI }
+
   public enum CharacterStates
   {
     Alive,
@@ -25,6 +27,9 @@ namespace RFG
   [AddComponentMenu("RFG Platformer/Character/Character")]
   public class Character : MonoBehaviour
   {
+    [Header("Settings")]
+    public CharacterType characterType = CharacterType.Player;
+
     public StateMachine<CharacterStates> CharacterState => _characterState;
     public StateMachine<MovementStates> MovementState => _movementState;
     public CharacterController2D Controller => _controller;
@@ -32,86 +37,86 @@ namespace RFG
 
     private StateMachine<CharacterStates> _characterState;
     private StateMachine<MovementStates> _movementState;
-    private List<CharacterBehavior> _behaviors;
+    private List<CharacterBehaviour> _Behaviours;
     private CharacterController2D _controller;
     private CharacterInput _characterInput;
+    private TickStateMachine _aiStateMachine;
 
-
-    private void Awake()
+    protected virtual void Awake()
     {
       _characterState = new StateMachine<CharacterStates>(gameObject, true);
       _movementState = new StateMachine<MovementStates>(gameObject, true);
       _controller = GetComponent<CharacterController2D>();
       _characterInput = GetComponent<CharacterInput>();
 
-      // Create all the behaviors
-      _behaviors = new List<CharacterBehavior>();
-      _behaviors.AddRange(GetComponents<CharacterBehavior>());
+      // Create all the Behaviours
+      _Behaviours = new List<CharacterBehaviour>();
+      _Behaviours.AddRange(GetComponents<CharacterBehaviour>());
 
       MovementState.OnStateChange += OnMovementStateChange;
     }
 
     private void Start()
     {
-      InitBehaviors();
+      InitBehaviours();
     }
 
     private void Update()
     {
-      EarlyProcessBehaviors();
+      EarlyProcessBehaviours();
       if (Time.timeScale != 0f)
       {
-        ProcessBehaviors();
-        LateProcessBehaviors();
+        ProcessBehaviours();
+        LateProcessBehaviours();
       }
     }
 
-    private void InitBehaviors()
+    private void InitBehaviours()
     {
-      foreach (CharacterBehavior behavior in _behaviors)
+      foreach (CharacterBehaviour Behaviour in _Behaviours)
       {
-        behavior.InitBehavior();
+        Behaviour.InitBehaviour();
       }
     }
 
 
-    private void EarlyProcessBehaviors()
+    private void EarlyProcessBehaviours()
     {
-      foreach (CharacterBehavior behavior in _behaviors)
+      foreach (CharacterBehaviour Behaviour in _Behaviours)
       {
-        behavior.EarlyProcessBehavior();
+        Behaviour.EarlyProcessBehaviour();
       }
     }
 
-    private void ProcessBehaviors()
+    private void ProcessBehaviours()
     {
       if (_characterState.CurrentState == CharacterStates.Dead)
       {
         return;
       }
-      foreach (CharacterBehavior behavior in _behaviors)
+      foreach (CharacterBehaviour Behaviour in _Behaviours)
       {
-        behavior.ProcessBehavior();
+        Behaviour.ProcessBehaviour();
       }
     }
 
-    private void LateProcessBehaviors()
+    private void LateProcessBehaviours()
     {
-      foreach (CharacterBehavior behavior in _behaviors)
+      foreach (CharacterBehaviour Behaviour in _Behaviours)
       {
-        behavior.LateProcessBehavior();
+        Behaviour.LateProcessBehaviour();
       }
     }
 
-    public T FindBehavior<T>() where T : CharacterBehavior
+    public T FindBehaviour<T>() where T : CharacterBehaviour
     {
-      Type behaviorType = typeof(T);
+      Type BehaviourType = typeof(T);
 
-      foreach (CharacterBehavior behavior in _behaviors)
+      foreach (CharacterBehaviour Behaviour in _Behaviours)
       {
-        if (behavior is T characterBehavior)
+        if (Behaviour is T characterBehaviour)
         {
-          return characterBehavior;
+          return characterBehaviour;
         }
       }
       return null;

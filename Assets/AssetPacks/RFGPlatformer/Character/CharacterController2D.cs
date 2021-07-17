@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RFG
@@ -24,6 +26,10 @@ namespace RFG
     public int numberOfVerticalRays = 4;
 
     [HideInInspector]
+    public event Action<RaycastHit2D> onControllerCollidedEvent;
+    public event Action<Collider2D> onTriggerEnterEvent;
+    public event Action<Collider2D> onTriggerStayEvent;
+    public event Action<Collider2D> onTriggerExitEvent;
     public Vector2 Velocity { get { return _velocity; } }
     public bool HandleCollisions { get; set; }
     public GameObject StandingOn { get; private set; }
@@ -34,6 +40,7 @@ namespace RFG
     private Vector2 _velocity;
     private Transform _transform;
     private BoxCollider2D _boxCollider;
+    private List<RaycastHit2D> _raycastHitsThisFrame = new List<RaycastHit2D>(2);
     private float _verticalDistanceBetweenRays;
     private float _horizontalDistanceBetweenRays;
     private CharacterControllerParameters2D _overrideParameters;
@@ -109,6 +116,7 @@ namespace RFG
     {
       State.WasGroundedLastFrame = State.IsCollidingBelow;
       State.Reset();
+      _raycastHitsThisFrame.Clear();
 
       if (HandleCollisions)
       {
@@ -184,6 +192,13 @@ namespace RFG
       {
         _lastStandingOn.SendMessage("ControllerExit2D", this, SendMessageOptions.DontRequireReceiver);
         _lastStandingOn = null;
+      }
+
+      // send off the collision events if we have a listener
+      if (onControllerCollidedEvent != null)
+      {
+        for (var i = 0; i < _raycastHitsThisFrame.Count; i++)
+          onControllerCollidedEvent(_raycastHitsThisFrame[i]);
       }
 
       IgnoreOneWayPlatformsThisFrame = false;
@@ -303,6 +318,7 @@ namespace RFG
 
         if (i == 0 && HandleHorizontalSlope(ref deltaMovement, Vector2.Angle(raycastHit.normal, Vector2.up), isGoingRight))
         {
+          _raycastHitsThisFrame.Add(raycastHit);
           // if we weren't grounded last frame, that means we're landing on a slope horizontally.
           // this ensures that we stay flush to that slope
           if (!State.WasGroundedLastFrame)
@@ -327,6 +343,8 @@ namespace RFG
           deltaMovement.x += Parameters.skinWidth;
           State.IsCollidingLeft = true;
         }
+
+        _raycastHitsThisFrame.Add(raycastHit);
 
         if (rayDistance < Parameters.skinWidth + 0.0001f)
         {
@@ -394,6 +412,8 @@ namespace RFG
           State.IsCollidingBelow = true;
           State.IsFalling = false;
         }
+
+        _raycastHitsThisFrame.Add(raycastHit);
 
         if (!isGoingUp && deltaMovement.y > 0.0001f)
         {
@@ -486,12 +506,22 @@ namespace RFG
 
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void OnTriggerEnter2D(Collider2D col)
     {
+      if (onTriggerEnterEvent != null)
+        onTriggerEnterEvent(col);
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    public void OnTriggerStay2D(Collider2D col)
     {
+      if (onTriggerStayEvent != null)
+        onTriggerStayEvent(col);
+    }
+
+    public void OnTriggerExit2D(Collider2D col)
+    {
+      if (onTriggerExitEvent != null)
+        onTriggerExitEvent(col);
     }
 
     public float Width()
@@ -645,6 +675,18 @@ namespace RFG
         _colliderRightCenterPosition.y = _boxCollider.bounds.center.y;
         _colliderRightCenterPosition.z = 0;
         return _colliderRightCenterPosition;
+      }
+    }
+
+    public void RotateTowards(Transform target)
+    {
+      if (target.position.x > _transform.position.x)
+      {
+        Flip();
+      }
+      else if (target.position.x < _transform.position.x)
+      {
+        Flip();
       }
     }
 

@@ -17,10 +17,10 @@ namespace RFG
         // character.ResetVelocity();
         character.SetOverrideParameters(parameters);
       }
-      JumpBehavior jumpBehavior = other.gameObject.GetComponent<JumpBehavior>();
-      if (jumpBehavior != null)
+      JumpBehaviour jumpBehaviour = other.gameObject.GetComponent<JumpBehaviour>();
+      if (jumpBehaviour != null)
       {
-        jumpBehavior.jumpRestrictions = JumpBehavior.JumpRestrictions.CanJumpAnywhere;
+        jumpBehaviour.jumpRestrictions = JumpBehaviour.JumpRestrictions.CanJumpAnywhere;
       }
     }
 
@@ -32,10 +32,10 @@ namespace RFG
         // character.ResetVelocity();
         character.SetOverrideParameters(null);
       }
-      JumpBehavior jumpBehavior = other.gameObject.GetComponent<JumpBehavior>();
-      if (jumpBehavior != null)
+      JumpBehaviour jumpBehaviour = other.gameObject.GetComponent<JumpBehaviour>();
+      if (jumpBehaviour != null)
       {
-        jumpBehavior.jumpRestrictions = JumpBehavior.JumpRestrictions.CanJumpOnGround;
+        jumpBehaviour.jumpRestrictions = JumpBehaviour.JumpRestrictions.CanJumpOnGround;
       }
     }
   }

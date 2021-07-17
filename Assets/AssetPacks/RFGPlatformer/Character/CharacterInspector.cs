@@ -32,6 +32,13 @@ namespace RFG
         GenerateCharacter();
       }
 
+      EditorGUILayout.Space();
+      EditorGUILayout.HelpBox("The AI Autobuild button will automatically add all the components needed.", MessageType.Warning, true);
+      if (GUILayout.Button("Autobuild AI Character"))
+      {
+        GenerateAICharacter();
+      }
+
       serializedObject.ApplyModifiedProperties();
 
     }
@@ -39,7 +46,7 @@ namespace RFG
     private void GenerateCharacter()
     {
       Character character = (Character)target;
-
+      character.characterType = CharacterType.Player;
       character.gameObject.layer = LayerMask.NameToLayer("Player");
       character.gameObject.tag = "Player";
 
@@ -65,34 +72,88 @@ namespace RFG
       _controller.oneWayMovingPlatformMask = LayerMask.GetMask("OneWayMovingPlatforms");
       _controller.stairsMask = LayerMask.GetMask("Stairs");
 
-      // Add behaviors
+      // Add Behaviours
       if (character.GetComponent<CharacterInput>() == null)
       {
         character.gameObject.AddComponent<CharacterInput>();
       }
-      if (character.GetComponent<HorizontalMovementBehavior>() == null)
+      if (character.GetComponent<HorizontalMovementBehaviour>() == null)
       {
-        character.gameObject.AddComponent<HorizontalMovementBehavior>();
+        character.gameObject.AddComponent<HorizontalMovementBehaviour>();
       }
-      if (character.GetComponent<JumpBehavior>() == null)
+      if (character.GetComponent<JumpBehaviour>() == null)
       {
-        character.gameObject.AddComponent<JumpBehavior>();
+        character.gameObject.AddComponent<JumpBehaviour>();
       }
-      if (character.GetComponent<WallClingingBehavior>() == null)
+      if (character.GetComponent<WallClingingBehaviour>() == null)
       {
-        character.gameObject.AddComponent<WallClingingBehavior>();
+        character.gameObject.AddComponent<WallClingingBehaviour>();
       }
-      if (character.GetComponent<WallJumpBehavior>() == null)
+      if (character.GetComponent<WallJumpBehaviour>() == null)
       {
-        character.gameObject.AddComponent<WallJumpBehavior>();
+        character.gameObject.AddComponent<WallJumpBehaviour>();
       }
-      if (character.GetComponent<DashBehavior>() == null)
+      if (character.GetComponent<DashBehaviour>() == null)
       {
-        character.gameObject.AddComponent<DashBehavior>();
+        character.gameObject.AddComponent<DashBehaviour>();
       }
-      if (character.GetComponent<AnimationBehavior>() == null)
+      if (character.GetComponent<AnimationBehaviour>() == null)
       {
-        character.gameObject.AddComponent<AnimationBehavior>();
+        character.gameObject.AddComponent<AnimationBehaviour>();
+      }
+      if (character.GetComponent<HealthBehaviour>() == null)
+      {
+        character.gameObject.AddComponent<HealthBehaviour>();
+      }
+    }
+
+    private void GenerateAICharacter()
+    {
+      Character character = (Character)target;
+      character.characterType = CharacterType.AI;
+      character.gameObject.layer = LayerMask.NameToLayer("AI Character");
+      character.gameObject.tag = "AI Character";
+
+      Rigidbody2D _rigidbody = (character.GetComponent<Rigidbody2D>() == null) ? character.gameObject.AddComponent<Rigidbody2D>() : character.GetComponent<Rigidbody2D>();
+      _rigidbody.useAutoMass = false;
+      _rigidbody.mass = 1;
+      _rigidbody.drag = 0;
+      _rigidbody.angularDrag = 0.05f;
+      _rigidbody.gravityScale = 1;
+      _rigidbody.interpolation = RigidbodyInterpolation2D.None;
+      _rigidbody.sleepMode = RigidbodySleepMode2D.NeverSleep;
+      _rigidbody.collisionDetectionMode = CollisionDetectionMode2D.Discrete;
+      _rigidbody.isKinematic = true;
+      _rigidbody.simulated = true;
+
+      BoxCollider2D _collider = (character.GetComponent<BoxCollider2D>() == null) ? character.gameObject.AddComponent<BoxCollider2D>() : character.GetComponent<BoxCollider2D>();
+      _collider.isTrigger = true;
+
+      CharacterController2D _controller = (character.GetComponent<CharacterController2D>() == null) ? character.gameObject.AddComponent<CharacterController2D>() : character.GetComponent<CharacterController2D>();
+      _controller.platformMask = LayerMask.GetMask("Platforms");
+      _controller.oneWayPlatformMask = LayerMask.GetMask("OneWayPlatforms");
+      _controller.movingPlatformMask = LayerMask.GetMask("MovingPlatforms");
+      _controller.oneWayMovingPlatformMask = LayerMask.GetMask("OneWayMovingPlatforms");
+      _controller.stairsMask = LayerMask.GetMask("Stairs");
+
+      // Add Behaviours
+      if (character.GetComponent<AnimationBehaviour>() == null)
+      {
+        character.gameObject.AddComponent<AnimationBehaviour>();
+      }
+      if (character.GetComponent<HealthBehaviour>() == null)
+      {
+        character.gameObject.AddComponent<HealthBehaviour>();
+      }
+      if (character.GetComponent<JumpBehaviour>() == null)
+      {
+        character.gameObject.AddComponent<JumpBehaviour>();
+      }
+
+      // Add Tick State Machine
+      if (character.GetComponent<TickStateMachine>() == null)
+      {
+        character.gameObject.AddComponent<TickStateMachine>();
       }
     }
 
