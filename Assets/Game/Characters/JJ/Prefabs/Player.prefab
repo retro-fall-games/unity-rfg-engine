@@ -14,14 +14,16 @@ GameObject:
   - component: {fileID: 6724250356888919235}
   - component: {fileID: 6724250356888919234}
   - component: {fileID: 6724250356888919261}
-  - component: {fileID: 6724250356888919232}
-  - component: {fileID: 6724250356888919233}
   - component: {fileID: 6724250356888919238}
-  - component: {fileID: 6724250356888919239}
-  - component: {fileID: 6724250356888919236}
-  - component: {fileID: 6724250356888919237}
-  - component: {fileID: 3057941541617484250}
+  - component: {fileID: 3727698164976964351}
+  - component: {fileID: 7637188250932784358}
+  - component: {fileID: 4862821622182035514}
+  - component: {fileID: 5241477774619064366}
+  - component: {fileID: 6101489435137338607}
   - component: {fileID: 3481442818595317702}
+  - component: {fileID: 5581365155145726145}
+  - component: {fileID: 4100562160056189929}
+  - component: {fileID: 8926402088648912618}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -106,6 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65be5b1e4f0c73f4b9658fa06623599d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterType: 0
+  showDebugLog: 0
 --- !u!50 &6724250356888919235
 Rigidbody2D:
   serializedVersion: 4
@@ -173,6 +177,7 @@ MonoBehaviour:
     airSpeedFactor: 5
     maxSlopeAngle: 60
     skinWidth: 0.02
+  rotateOnMouseCursor: 1
   platformMask:
     serializedVersion: 2
     m_Bits: 512
@@ -223,39 +228,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6724250356888919232
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6724250356888919257}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e5035695cf6ef248b2bb9ac2d24d3a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 1
---- !u!114 &6724250356888919233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6724250356888919257}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc32c7d2c6d55974290dc2e801979af8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpHeight: 5
-  oneWayPlatformFallVelocity: -10
-  jumpRestrictions: 0
-  numberOfJumps: 2
-  canJumpDownOneWayPlatforms: 1
-  jumpIsProportionalToThePressTime: 1
-  jumpMinAirTime: 0.05
-  jumpReleaseForceFactor: 2
 --- !u!114 &6724250356888919238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26504c56c5fb2ba43b1d053aa661a3a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6724250356888919239
+--- !u!114 &3727698164976964351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -277,13 +249,46 @@ MonoBehaviour:
   m_GameObject: {fileID: 6724250356888919257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dddd3489837792a41ba659d200fd0e6c, type: 3}
+  m_Script: {fileID: 11500000, guid: 1aca8bb45e8fe4c4a8012f5c7739fb9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 1
+--- !u!114 &7637188250932784358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724250356888919257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8f9f7eaa58f10f4aa2abf2d63b118de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpHeight: 3
+  oneWayPlatformFallVelocity: -10
+  jumpRestrictions: 0
+  numberOfJumps: 2
+  canJumpDownOneWayPlatforms: 1
+  jumpIsProportionalToThePressTime: 1
+  jumpMinAirTime: 0.1
+  jumpReleaseForceFactor: 3
+--- !u!114 &4862821622182035514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724250356888919257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58221963ebd6c9e4a951dcf850fbcce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   wallClingingSlowFactor: 0.6
   raycastVerticalOffset: 0
   wallClingingTolerance: 0.3
---- !u!114 &6724250356888919236
+--- !u!114 &5241477774619064366
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -292,12 +297,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6724250356888919257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a590cb44ca947f0408f4e25076a87f1b, type: 3}
+  m_Script: {fileID: 11500000, guid: 36dbfe0a8843679409024922ee7fe146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallJumpForce: {x: 15, y: 4}
+  wallJumpForce: {x: 10, y: 4}
   shouldReduceNumberOfJumpsLeft: 1
---- !u!114 &6724250356888919237
+--- !u!114 &6101489435137338607
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -306,10 +311,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6724250356888919257}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b8c653d675dfb64c92e2bf16dfb374b, type: 3}
+  m_Script: {fileID: 11500000, guid: 76e0bc2e77ad7a3438085a26b17147b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashDistance: 5
+  dashDistance: 3
   dashForce: 40
   totalDashes: 2
   numberOfDashesLeft: 2
@@ -320,29 +325,7 @@ MonoBehaviour:
     maxAngle: 180
     currentAngle: 0
   minInputThreshold: 0.1
-  cooldown: 0.3
---- !u!114 &3057941541617484250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6724250356888919257}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b65f85580b4d6941ad09609062e41b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 3481442818595317702}
-  layer: Base Layer
-  idle: Idle
-  walking: Walking
-  running: Running
-  falling: Falling
-  jumping: Jumping
-  wallJumping: WallJumping
-  wallClinging: WallClinging
-  dashing: Dashing
+  cooldown: 1
 --- !u!95 &3481442818595317702
 Animator:
   serializedVersion: 3
@@ -362,3 +345,53 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5581365155145726145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724250356888919257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c296b2cc66db40b4db43218f4f2f2594, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 3481442818595317702}
+  layer: Base Layer
+  idle: Idle
+  walking: Walking
+  running: Running
+  falling: Falling
+  jumping: Jumping
+  wallJumping: WallJumping
+  wallClinging: WallClinging
+  dashing: Dashing
+--- !u!114 &4100562160056189929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724250356888919257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a7cdf0ae1ef5ab4e8a3f0888ca307be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
+  slider: {fileID: 0}
+--- !u!114 &8926402088648912618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724250356888919257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eb0a77aa39bb0a48b7788deebe67554, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons: []

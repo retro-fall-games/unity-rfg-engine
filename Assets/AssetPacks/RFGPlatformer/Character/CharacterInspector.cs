@@ -18,8 +18,19 @@ namespace RFG
 
       if (character.CharacterState != null)
       {
+        EditorGUILayout.LabelField("Character State", character.CharacterState.CurrentState.ToString());
+      }
+      if (character.MovementState != null)
+      {
         EditorGUILayout.LabelField("Movement State", character.MovementState.CurrentState.ToString());
-        // EditorGUILayout.LabelField("Condition State", character.conditionState.CurrentState.ToString());
+      }
+      if (character.AIState != null)
+      {
+        EditorGUILayout.LabelField("AI State", character.AIState.CurrentState.ToString());
+      }
+      if (character.AIMovementState != null)
+      {
+        EditorGUILayout.LabelField("AI Movement State", character.AIMovementState.CurrentState.ToString());
       }
 
       DrawDefaultInspector();
@@ -105,6 +116,10 @@ namespace RFG
       {
         character.gameObject.AddComponent<HealthBehaviour>();
       }
+      if (character.GetComponent<WeaponBehaviour>() == null)
+      {
+        character.gameObject.AddComponent<WeaponBehaviour>();
+      }
     }
 
     private void GenerateAICharacter()
@@ -130,7 +145,7 @@ namespace RFG
       _collider.isTrigger = true;
 
       CharacterController2D _controller = (character.GetComponent<CharacterController2D>() == null) ? character.gameObject.AddComponent<CharacterController2D>() : character.GetComponent<CharacterController2D>();
-      _controller.platformMask = LayerMask.GetMask("Platforms");
+      _controller.platformMask = LayerMask.GetMask("Platforms") | LayerMask.GetMask("AI Edge Colliders");
       _controller.oneWayPlatformMask = LayerMask.GetMask("OneWayPlatforms");
       _controller.movingPlatformMask = LayerMask.GetMask("MovingPlatforms");
       _controller.oneWayMovingPlatformMask = LayerMask.GetMask("OneWayMovingPlatforms");
@@ -145,16 +160,31 @@ namespace RFG
       {
         character.gameObject.AddComponent<HealthBehaviour>();
       }
-      if (character.GetComponent<JumpBehaviour>() == null)
+      if (character.GetComponent<AIBrainBehaviour>() == null)
       {
-        character.gameObject.AddComponent<JumpBehaviour>();
+        character.gameObject.AddComponent<AIBrainBehaviour>();
+      }
+      if (character.GetComponent<AIWanderingBehaviour>() == null)
+      {
+        character.gameObject.AddComponent<AIWanderingBehaviour>();
+      }
+      if (character.GetComponent<AIRotateOnCollisionBehaviour>() == null)
+      {
+        character.gameObject.AddComponent<AIRotateOnCollisionBehaviour>();
+      }
+      if (character.GetComponent<AIAggroBehaviour>() == null)
+      {
+        character.gameObject.AddComponent<AIAggroBehaviour>();
+      }
+      if (character.GetComponent<AIJumpBehaviour>() == null)
+      {
+        character.gameObject.AddComponent<AIJumpBehaviour>();
+      }
+      if (character.GetComponent<AIWeaponBehaviour>() == null)
+      {
+        character.gameObject.AddComponent<AIWeaponBehaviour>();
       }
 
-      // Add Tick State Machine
-      if (character.GetComponent<TickStateMachine>() == null)
-      {
-        character.gameObject.AddComponent<TickStateMachine>();
-      }
     }
 
   }

@@ -24,19 +24,46 @@ namespace RFG
     WallClinging,
     Dashing
   }
+
+  public enum AIStates
+  {
+    Wandering,
+    Attacking
+  }
+
+  public enum AIMovementStates
+  {
+    Idle,
+    WalkingLeft,
+    WalkingRight,
+    RunningLeft,
+    RunningRight,
+    JumpingLeft,
+    JumpingRight,
+  }
+
+
   [AddComponentMenu("RFG Platformer/Character/Character")]
   public class Character : MonoBehaviour
   {
     [Header("Settings")]
     public CharacterType characterType = CharacterType.Player;
 
+    [Header("Debug")]
+    public bool showDebugLog = false;
+
+    [HideInInspector]
     public StateMachine<CharacterStates> CharacterState => _characterState;
     public StateMachine<MovementStates> MovementState => _movementState;
+    public StateMachine<AIStates> AIState => _aiState;
+    public StateMachine<AIMovementStates> AIMovementState => _aiMovementState;
     public CharacterController2D Controller => _controller;
     public CharacterInput CharacterInput => _characterInput;
 
     private StateMachine<CharacterStates> _characterState;
     private StateMachine<MovementStates> _movementState;
+    private StateMachine<AIStates> _aiState;
+    private StateMachine<AIMovementStates> _aiMovementState;
     private List<CharacterBehaviour> _Behaviours;
     private CharacterController2D _controller;
     private CharacterInput _characterInput;
@@ -44,8 +71,30 @@ namespace RFG
 
     protected virtual void Awake()
     {
+      // States
       _characterState = new StateMachine<CharacterStates>(gameObject, true);
       _movementState = new StateMachine<MovementStates>(gameObject, true);
+
+      // State Listeners
+      _characterState.OnStateChange += OnCharacterStateChange;
+      _movementState.OnStateChange += OnMovementStateChange;
+
+      // AI
+      if (characterType == CharacterType.AI)
+      {
+        _aiState = new StateMachine<AIStates>(gameObject, true);
+        _aiMovementState = new StateMachine<AIMovementStates>(gameObject, true);
+
+        // State Listeners
+        _aiState.OnStateChange += OnAIStateChange;
+        _aiMovementState.OnStateChange += OnAIMovementStateChange;
+
+        // Default AI state
+        _aiState.ChangeState(AIStates.Wandering);
+        _aiMovementState.ChangeState(AIMovementStates.Idle);
+      }
+
+      // Controllers
       _controller = GetComponent<CharacterController2D>();
       _characterInput = GetComponent<CharacterInput>();
 
@@ -53,7 +102,6 @@ namespace RFG
       _Behaviours = new List<CharacterBehaviour>();
       _Behaviours.AddRange(GetComponents<CharacterBehaviour>());
 
-      MovementState.OnStateChange += OnMovementStateChange;
     }
 
     private void Start()
@@ -122,9 +170,36 @@ namespace RFG
       return null;
     }
 
+    private void OnCharacterStateChange(CharacterStates state)
+    {
+      if (showDebugLog)
+      {
+        Debug.Log("Character State Change: " + state);
+      }
+    }
+
     private void OnMovementStateChange(MovementStates state)
     {
-      // Debug.Log("Movement State Change: " + state);
+      if (showDebugLog)
+      {
+        Debug.Log("Movement State Change: " + state);
+      }
+    }
+
+    private void OnAIStateChange(AIStates state)
+    {
+      if (showDebugLog)
+      {
+        Debug.Log("AI State Change: " + state);
+      }
+    }
+
+    private void OnAIMovementStateChange(AIMovementStates state)
+    {
+      if (showDebugLog)
+      {
+        Debug.Log("AI Movement State Change: " + state);
+      }
     }
 
     public void Birth()

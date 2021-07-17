@@ -29,7 +29,7 @@ namespace RFG
     private void Setup()
     {
       RFG.Setup.CheckTags(new string[] { "Player", "Checkpoint", "Warp", "Level Portal", "Trigger", "AI Character" });
-      RFG.Setup.CheckLayers(new string[] { "Player", "Platforms", "OneWayPlatforms", "MovingPlatforms", "OneWayMovingPlatforms", "Stairs", "AI Character" });
+      RFG.Setup.CheckLayers(new string[] { "Player", "Platforms", "OneWayPlatforms", "MovingPlatforms", "OneWayMovingPlatforms", "Stairs", "AI Character", "AI Edge Colliders" });
       RFG.Setup.CheckSortLayers(new string[] { "Background", "Foreground" });
     }
 

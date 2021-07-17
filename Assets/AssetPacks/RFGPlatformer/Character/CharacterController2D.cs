@@ -13,6 +13,7 @@ namespace RFG
     public CharacterControllerParameters2D defaultParameters;
     public CharacterControllerState2D State { get; private set; }
     public CharacterControllerParameters2D Parameters => _overrideParameters ?? defaultParameters;
+    public bool rotateOnMouseCursor = false;
 
     [Header("Layer Masks")]
     public LayerMask platformMask;
@@ -59,10 +60,12 @@ namespace RFG
     private Vector3 _colliderLeftCenterPosition;
     private Vector3 _colliderRightCenterPosition;
     private Vector3 _colliderTopCenterPosition;
+    private Camera _mainCamera;
 
 
     private void Awake()
     {
+      _mainCamera = Camera.main;
       State = new CharacterControllerState2D();
       _transform = transform;
       _boxCollider = GetComponent<BoxCollider2D>();
@@ -96,6 +99,14 @@ namespace RFG
       if (!State.WasGroundedLastFrame && State.IsCollidingBelow)
       {
         State.JustGotGrounded = true;
+      }
+    }
+
+    private void LateUpdate()
+    {
+      if (rotateOnMouseCursor)
+      {
+        RotateOnMouseCursor();
       }
     }
 
@@ -680,11 +691,24 @@ namespace RFG
 
     public void RotateTowards(Transform target)
     {
-      if (target.position.x > _transform.position.x)
+      if (!State.IsFacingRight && target.position.x > _transform.position.x)
       {
         Flip();
       }
-      else if (target.position.x < _transform.position.x)
+      else if (State.IsFacingRight && target.position.x < _transform.position.x)
+      {
+        Flip();
+      }
+    }
+
+    private void RotateOnMouseCursor()
+    {
+      var mousePos = (Vector2)_mainCamera.ScreenToWorldPoint(Input.mousePosition);
+      if (State.IsFacingRight && mousePos.x < _transform.position.x)
+      {
+        Flip();
+      }
+      else if (!State.IsFacingRight && mousePos.x > _transform.position.x)
       {
         Flip();
       }

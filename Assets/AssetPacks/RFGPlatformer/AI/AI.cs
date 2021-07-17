@@ -5,44 +5,38 @@ using UnityEngine;
 
 namespace RFG
 {
+
+
+
+  [AddComponentMenu("RFG Platformer/AI/AI Character")]
   public class AI : Character
   {
-    public TickStateMachine StateMachine => _stateMachine;
     private Aggro _aggro;
     private HealthBehaviour _healthBehaviour;
     private Dictionary<string, System.Action<Collider2D>> _collisionActions = new Dictionary<string, System.Action<Collider2D>>();
-
-    protected TickStateMachine _stateMachine;
-
 
     protected override void Awake()
     {
       base.Awake();
 
-      _stateMachine = GetComponent<TickStateMachine>();
-      _aggro = GetComponent<Aggro>();
-      _healthBehaviour = FindBehaviour<HealthBehaviour>();
+      // aiState = new StateMachine<AIStates>(gameObject, true);
+      // aiMovementState = new StateMachine<AIMovementStates>(gameObject, true);
 
-      // Setup events
-      Controller.onControllerCollidedEvent += onControllerCollider;
-      Controller.onTriggerEnterEvent += onTriggerEnterEvent;
-      Controller.onTriggerExitEvent += onTriggerExitEvent;
-      _healthBehaviour.OnKill += OnKill;
-      _aggro.OnAggroChange += OnAggroChange;
+      // aiState.ChangeState(AIStates.Wandering);
+      // aiMovementState.ChangeState(AIMovementStates.Idle);
+
+      // _aggro = GetComponent<Aggro>();
+      // _healthBehaviour = FindBehaviour<HealthBehaviour>();
+
+      // // Setup events
+      // Controller.onControllerCollidedEvent += onControllerCollider;
+      // Controller.onTriggerEnterEvent += onTriggerEnterEvent;
+      // Controller.onTriggerExitEvent += onTriggerExitEvent;
+      // _healthBehaviour.OnKill += OnKill;
+      // _aggro.OnAggroChange += OnAggroChange;
 
       // Register any collision tag events here:
-      _collisionActions.Add("Player", PlayerCollision);
-
-      // Initialize State Machine
-      _stateMachine = GetComponent<TickStateMachine>();
-      var states = new Dictionary<Type, TickBaseState>()
-      {
-        { typeof(AIIdleState), new AIIdleState(this)},
-        { typeof(AIWanderState), new AIWanderState(this)},
-        { typeof(AIAggroState), new AIAggroState(this, _aggro)},
-      };
-      _stateMachine.SetStates(states);
-      _stateMachine.OnStateChange += OnTickStateChanged;
+      // _collisionActions.Add("Player", PlayerCollision);
 
     }
 
@@ -96,22 +90,17 @@ namespace RFG
       Destroy(gameObject);
     }
 
-    private void OnTickStateChanged(TickBaseState state)
-    {
-      // Debug.Log(state.GetType());
-    }
-
-    private void OnAggroChange(bool hasAggro)
-    {
-      if (hasAggro)
-      {
-        _stateMachine.SwitchToNewState(typeof(AIAggroState));
-      }
-      else
-      {
-        _stateMachine.SwitchToDefaultState();
-      }
-    }
+    // private void OnAggroChange(bool hasAggro)
+    // {
+    //   if (hasAggro)
+    //   {
+    //     _stateMachine.SwitchToNewState(typeof(AIAggroState));
+    //   }
+    //   else
+    //   {
+    //     _stateMachine.SwitchToDefaultState();
+    //   }
+    // }
 
   }
 }

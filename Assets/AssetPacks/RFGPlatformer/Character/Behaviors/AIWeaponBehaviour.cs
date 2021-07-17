@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace RFG
 {
-  public class WeaponBehaviour : CharacterBehaviour
+  [AddComponentMenu("RFG Platformer/Character/Behaviour/AI Weapon Behaviour")]
+  public class AIWeaponBehaviour : CharacterBehaviour
   {
     [Header("Weapons")]
     public List<Weapon> weapons;
@@ -28,13 +29,6 @@ namespace RFG
       yield return new WaitUntil(() => _character.CharacterInput.PrimaryFireButton != null);
       yield return new WaitUntil(() => _character.CharacterInput.SecondaryFireButton != null);
 
-      // Setup buttons
-      _primaryFireButton = _character.CharacterInput.PrimaryFireButton;
-      _primaryFireButton.State.OnStateChange += PrimaryFireButtonOnStateChanged;
-
-      _secondaryFireButton = _character.CharacterInput.SecondaryFireButton;
-      _secondaryFireButton.State.OnStateChange += SecondaryFireButtonOnStateChanged;
-
       // Setup weapons
       if (weapons.Count == 0)
       {
@@ -47,74 +41,35 @@ namespace RFG
       }
     }
 
-    private void PrimaryFireButtonOnStateChanged(ButtonStates state)
-    {
-      // Weapon equippedWeapon = PrimaryWeapon;
-      // if (equippedWeapon == null)
-      // {
-      //   return;
-      // }
-      // switch (state)
-      // {
-      //   case ButtonStates.Down:
-      //     if (equippedWeapon.weaponState.CurrentState == Weapon.WeaponState.Off)
-      //     {
-      //       equippedWeapon.Use();
-      //     }
-      //     break;
-      //   case ButtonStates.Up:
-      //     equippedWeapon.Stop();
-      //     break;
-      // }
-    }
-
-    private void SecondaryFireButtonOnStateChanged(ButtonStates state)
-    {
-      // Weapon equippedWeapon = SecondaryWeapon;
-      // if (equippedWeapon == null)
-      // {
-      //   return;
-      // }
-      // switch (state)
-      // {
-      //   case ButtonStates.Down:
-      //     if (equippedWeapon.weaponState.CurrentState == Weapon.WeaponState.Off)
-      //     {
-      //       equippedWeapon.Use();
-      //     }
-      //     break;
-      //   case ButtonStates.Up:
-      //     equippedWeapon.Stop();
-      //     break;
-      // }
-    }
-
     public override void ProcessBehaviour()
     {
-      // Weapon primary = PrimaryWeapon;
-      // Weapon secondary = SecondaryWeapon;
-      // if (primary != null)
-      // {
-      //   if (primary.weaponState.CurrentState == Weapon.WeaponState.Charging)
-      //   {
-      //     primary.Charging();
-      //   }
-      //   else if (primary.weaponState.CurrentState == Weapon.WeaponState.Firing)
-      //   {
-      //     primary.Firing();
-      //   }
-      // }
-      // if (secondary != null)
-      // {
-      //   if (secondary.weaponState.CurrentState == Weapon.WeaponState.Charging)
-      //   {
-      //     secondary.Charging();
-      //   }
-      //   else if (secondary.weaponState.CurrentState == Weapon.WeaponState.Firing)
-      //   {
-      //     secondary.Firing();
-      //   }
-      // }
+      if (_character.AIState.CurrentState == AIStates.Attacking)
+      {
+        Weapon primary = PrimaryWeapon;
+        Weapon secondary = SecondaryWeapon;
+        if (primary != null)
+        {
+          if (primary.weaponState.CurrentState == Weapon.WeaponState.Charging)
+          {
+            primary.Charging();
+          }
+          else if (primary.weaponState.CurrentState == Weapon.WeaponState.Firing)
+          {
+            primary.Firing();
+          }
+        }
+        if (secondary != null)
+        {
+          if (secondary.weaponState.CurrentState == Weapon.WeaponState.Charging)
+          {
+            secondary.Charging();
+          }
+          else if (secondary.weaponState.CurrentState == Weapon.WeaponState.Firing)
+          {
+            secondary.Firing();
+          }
+        }
+      }
     }
 
     public void EquipPrimary(int index)

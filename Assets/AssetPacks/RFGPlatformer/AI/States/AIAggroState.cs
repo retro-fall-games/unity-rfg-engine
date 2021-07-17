@@ -27,7 +27,7 @@ namespace RFG
       WeaponBehaviour weapon = _character.FindBehaviour<WeaponBehaviour>();
       if (weapon != null)
       {
-        weapon.Equip(0);
+        // weapon.Equip(0);
       }
       return;
     }
@@ -36,7 +36,7 @@ namespace RFG
       WeaponBehaviour weapon = _character.FindBehaviour<WeaponBehaviour>();
       if (weapon != null)
       {
-        weapon.Unequip();
+        // weapon.Unequip();
       }
       return;
     }
