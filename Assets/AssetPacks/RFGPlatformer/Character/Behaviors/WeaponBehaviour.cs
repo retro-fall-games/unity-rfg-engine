@@ -53,72 +53,68 @@ namespace RFG
 
     private void PrimaryFireButtonOnStateChanged(ButtonStates state)
     {
-      // Weapon equippedWeapon = PrimaryWeapon;
-      // if (equippedWeapon == null)
-      // {
-      //   return;
-      // }
-      // switch (state)
-      // {
-      //   case ButtonStates.Down:
-      //     if (equippedWeapon.weaponState.CurrentState == Weapon.WeaponState.Off)
-      //     {
-      //       equippedWeapon.Use();
-      //     }
-      //     break;
-      //   case ButtonStates.Up:
-      //     equippedWeapon.Stop();
-      //     break;
-      // }
+      if (PrimaryWeapon == null)
+      {
+        return;
+      }
+      switch (state)
+      {
+        case ButtonStates.Down:
+          if (PrimaryWeapon.weaponState.CurrentState == Weapon.WeaponState.Off)
+          {
+            PrimaryWeapon.Use();
+          }
+          break;
+        case ButtonStates.Up:
+          PrimaryWeapon.Stop();
+          break;
+      }
     }
 
     private void SecondaryFireButtonOnStateChanged(ButtonStates state)
     {
-      // Weapon equippedWeapon = SecondaryWeapon;
-      // if (equippedWeapon == null)
-      // {
-      //   return;
-      // }
-      // switch (state)
-      // {
-      //   case ButtonStates.Down:
-      //     if (equippedWeapon.weaponState.CurrentState == Weapon.WeaponState.Off)
-      //     {
-      //       equippedWeapon.Use();
-      //     }
-      //     break;
-      //   case ButtonStates.Up:
-      //     equippedWeapon.Stop();
-      //     break;
-      // }
+      if (SecondaryWeapon == null)
+      {
+        return;
+      }
+      switch (state)
+      {
+        case ButtonStates.Down:
+          if (SecondaryWeapon.weaponState.CurrentState == Weapon.WeaponState.Off)
+          {
+            SecondaryWeapon.Use();
+          }
+          break;
+        case ButtonStates.Up:
+          SecondaryWeapon.Stop();
+          break;
+      }
     }
 
     public override void ProcessBehaviour()
     {
-      // Weapon primary = PrimaryWeapon;
-      // Weapon secondary = SecondaryWeapon;
-      // if (primary != null)
-      // {
-      //   if (primary.weaponState.CurrentState == Weapon.WeaponState.Charging)
-      //   {
-      //     primary.Charging();
-      //   }
-      //   else if (primary.weaponState.CurrentState == Weapon.WeaponState.Firing)
-      //   {
-      //     primary.Firing();
-      //   }
-      // }
-      // if (secondary != null)
-      // {
-      //   if (secondary.weaponState.CurrentState == Weapon.WeaponState.Charging)
-      //   {
-      //     secondary.Charging();
-      //   }
-      //   else if (secondary.weaponState.CurrentState == Weapon.WeaponState.Firing)
-      //   {
-      //     secondary.Firing();
-      //   }
-      // }
+      if (PrimaryWeapon != null)
+      {
+        if (PrimaryWeapon.weaponState.CurrentState == Weapon.WeaponState.Charging)
+        {
+          PrimaryWeapon.Charging();
+        }
+        else if (PrimaryWeapon.weaponState.CurrentState == Weapon.WeaponState.Firing)
+        {
+          PrimaryWeapon.Firing();
+        }
+      }
+      if (SecondaryWeapon != null)
+      {
+        if (SecondaryWeapon.weaponState.CurrentState == Weapon.WeaponState.Charging)
+        {
+          SecondaryWeapon.Charging();
+        }
+        else if (SecondaryWeapon.weaponState.CurrentState == Weapon.WeaponState.Firing)
+        {
+          SecondaryWeapon.Firing();
+        }
+      }
     }
 
     public void EquipPrimary(int index)
