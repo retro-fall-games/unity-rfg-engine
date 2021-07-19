@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MyBox;
 
 namespace RFG
 {
@@ -13,7 +14,13 @@ namespace RFG
     public CharacterControllerParameters2D defaultParameters;
     public CharacterControllerState2D State { get; private set; }
     public CharacterControllerParameters2D Parameters => _overrideParameters ?? defaultParameters;
+
+    [Space(10)]
+    [Header("Settings")]
     public bool rotateOnMouseCursor = false;
+    [DefinedValues("Face Right", "Face Left")]
+    public string facingOnStart = "Face Right";
+
 
     [Header("Layer Masks")]
     public LayerMask platformMask;
@@ -82,6 +89,11 @@ namespace RFG
       platformMask |= oneWayMovingPlatformMask;
 
       CollisionsOnStairs(false);
+
+      if (facingOnStart.Equals("Face Left"))
+      {
+        Flip();
+      }
 
     }
 
@@ -587,8 +599,6 @@ namespace RFG
 
     public void Flip()
     {
-      // transform.localScale = new Vector3(-_transform.localScale.x, _transform.localScale.y, _transform.localScale.z);
-
       transform.Rotate(0f, 180f, 0f);
       State.IsFacingRight = !State.IsFacingRight;
     }

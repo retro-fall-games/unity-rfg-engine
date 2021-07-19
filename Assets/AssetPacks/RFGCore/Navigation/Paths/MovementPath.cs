@@ -29,7 +29,6 @@ namespace RFG
       _transform = transform;
     }
 
-
     private void Start()
     {
       if (spawnAtStart)
@@ -43,9 +42,14 @@ namespace RFG
     {
       if (autoMove)
       {
-        CheckPath();
-        _transform.position = Vector2.MoveTowards(_transform.position, NextPath.position, speed * Time.deltaTime);
+        Move();
       }
+    }
+
+    public void Move()
+    {
+      CheckPath();
+      _transform.position = Vector2.MoveTowards(_transform.position, NextPath.position, speed * Time.deltaTime);
     }
 
     public void CheckPath()

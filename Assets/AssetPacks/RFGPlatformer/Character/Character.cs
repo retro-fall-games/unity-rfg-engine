@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using MyBox;
 
 namespace RFG
 {
@@ -27,7 +28,9 @@ namespace RFG
 
   public enum AIStates
   {
+    Idle,
     Wandering,
+    MovementPath,
     Attacking
   }
 

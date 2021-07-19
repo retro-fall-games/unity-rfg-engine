@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
 
 namespace RFG
 {
@@ -183,6 +180,10 @@ namespace RFG
       if (character.GetComponent<AIWeaponBehaviour>() == null)
       {
         character.gameObject.AddComponent<AIWeaponBehaviour>();
+      }
+      if (character.GetComponent<Aggro>() == null)
+      {
+        character.gameObject.AddComponent<Aggro>();
       }
 
     }
