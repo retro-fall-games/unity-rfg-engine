@@ -5,22 +5,22 @@ namespace RFG
   public class ProfileManager : PersistentSingleton<ProfileManager>
   {
     public int loadProfileId = -1;
-    private Profile _profile;
+    private Profile<ProfileData> _profile;
 
     private void Start()
     {
       if (loadProfileId > -1)
       {
-        _profile = new Profile();
+        _profile = new Profile<ProfileData>();
         _profile.Load(loadProfileId);
       }
     }
-    public void SetProfile(Profile profile)
+    public void SetProfile(Profile<ProfileData> profile)
     {
       _profile = profile;
     }
 
-    public Profile GetProfile()
+    public Profile<ProfileData> GetProfile()
     {
       return _profile;
     }
@@ -32,8 +32,6 @@ namespace RFG
 
     private IEnumerator SaveProfileCo()
     {
-      // _profile.xp = 0;
-      // _profile.timePlayed = 0;
       _profile.Save();
       yield break;
     }

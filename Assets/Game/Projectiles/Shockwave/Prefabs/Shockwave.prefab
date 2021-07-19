@@ -123,12 +123,10 @@ MonoBehaviour:
   knockback: {fileID: -3665444438838682569}
   target: {fileID: 0}
   targetIsPlayer: 0
-  damageLayerMask:
+  layerMask:
     serializedVersion: 2
-    m_Bits: 16384
-  destroyLayerMask:
-    serializedVersion: 2
-    m_Bits: 15872
+    m_Bits: 16896
+  collisionEffect: {fileID: 3959827734333515761, guid: e753f1f9fb68e6649a3aa306fd8be1bc, type: 3}
 --- !u!114 &-3665444438838682569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  velocity: {x: 5, y: 5}
+  velocity: {x: 10, y: 10}
 --- !u!50 &26071844252189597
 Rigidbody2D:
   serializedVersion: 4

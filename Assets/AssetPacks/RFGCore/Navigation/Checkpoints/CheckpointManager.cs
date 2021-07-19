@@ -11,6 +11,7 @@ namespace RFG
     [Header("Checkpoint Config")]
     public int startingCheckpoint = 0;
     public int currentCheckpointIndex = 0;
+    public bool overrideStartingCheckpoint = false;
     public Transform CurrentCheckpoint => _currentCheckpoint;
 
     [HideInInspector]
@@ -30,6 +31,12 @@ namespace RFG
           int index = checkpoint.index;
           _checkpoints.Insert(index, checkpointTransform);
         }
+      }
+      // So if we haven't modified the starting checkpoint and we have a startingCheckpoint
+      // from player prefs, then use that
+      if (!overrideStartingCheckpoint && startingCheckpoint == 0 && PlayerPrefs.HasKey("startingCheckpoint"))
+      {
+        startingCheckpoint = PlayerPrefs.GetInt("startingCheckpoint", 0);
       }
       SetCurrentCheckpoint(startingCheckpoint);
     }

@@ -11,11 +11,11 @@ namespace Game
     public TMP_Text headerText;
     public TMP_Text startText;
     public GameObject deleteButton;
-    private Profile _profile;
+    private Profile<Game.ProfileData> _profile;
 
     private void Awake()
     {
-      _profile = new Profile();
+      _profile = new Profile<Game.ProfileData>();
     }
 
     private void Start()
@@ -25,7 +25,7 @@ namespace Game
 
     private IEnumerator StartCo()
     {
-      yield return new WaitUntil(() => ProfileManager.Instance != null);
+      yield return new WaitUntil(() => Game.ProfileManager.Instance != null);
       yield return new WaitUntil(() => SceneManager.Instance != null);
       LoadPanel();
     }
@@ -34,7 +34,7 @@ namespace Game
     {
       _profile.Load(id);
       headerText.SetText($"Profile {id + 1}");
-      if (_profile.id > -1)
+      if (_profile.data != null)
       {
         deleteButton.SetActive(true);
         startText.SetText("Continue");
@@ -48,26 +48,26 @@ namespace Game
 
     public void StartGame()
     {
-      if (_profile.id > -1)
+      if (_profile.data != null)
       {
-        ProfileManager.Instance.SetProfile(_profile);
+        Game.ProfileManager.Instance.SetProfile(_profile);
+        PlayerPrefs.SetInt("startingCheckpoint", _profile.data.checkpoint);
       }
       else
       {
-        _profile.id = id;
-        _profile.Save();
-        ProfileManager.Instance.SetProfile(_profile);
+        Game.ProfileData data = new Game.ProfileData();
+        data.id = id;
+        _profile.Create(data);
+        Game.ProfileManager.Instance.SetProfile(_profile);
+        PlayerPrefs.SetInt("startingCheckpoint", 0);
       }
-      SceneManager.Instance.LoadScene("Scene1");
+      SceneManager.Instance.LoadScene(_profile.data.level);
     }
 
     public void DeleteProfile()
     {
-      if (_profile.id > -1)
-      {
-        _profile.Delete();
-        LoadPanel();
-      }
+      _profile.Delete();
+      LoadPanel();
     }
   }
 }

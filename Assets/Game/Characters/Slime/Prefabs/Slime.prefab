@@ -192,11 +192,12 @@ MonoBehaviour:
     gravity: -25
     maxVelocity: {x: 100, y: 100}
     speedFactor: 3
-    groundSpeedFactor: 10
+    groundSpeedFactor: 5
     airSpeedFactor: 5
     maxSlopeAngle: 30
     skinWidth: 0.02
   rotateOnMouseCursor: 0
+  facingOnStart: Face Right
   platformMask:
     serializedVersion: 2
     m_Bits: 33280
@@ -310,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6391808d0461e524f9a2b8fa03b72864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 2
+  walkSpeed: 1
 --- !u!114 &6860869839397524230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ff9f3b1fe240b4ea1bc31b9a3fe79f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 2
+  runSpeed: 1
 --- !u!114 &6860869839397524232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,8 +349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b49e1071b34e494e8fc49d6d6a22182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpHeight: 3
-  horizontalSpeed: 3
+  jumpHeight: 4
+  horizontalSpeed: 4
   jumpRestrictions: 0
 --- !u!114 &6860869839397524235
 MonoBehaviour:

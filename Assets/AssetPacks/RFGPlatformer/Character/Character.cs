@@ -1,7 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MyBox;
 
 namespace RFG
 {
@@ -104,6 +104,13 @@ namespace RFG
       // Create all the Behaviours
       _Behaviours = new List<CharacterBehaviour>();
       _Behaviours.AddRange(GetComponents<CharacterBehaviour>());
+
+      HealthBehaviour health = FindBehaviour<HealthBehaviour>();
+
+      if (health != null)
+      {
+        health.OnKill += Kill;
+      }
 
     }
 
@@ -215,8 +222,23 @@ namespace RFG
     {
       _characterState.ChangeState(CharacterStates.Dead);
       _controller.enabled = false;
+      StartCoroutine(KillCo());
+
     }
 
+    private IEnumerator KillCo()
+    {
+      yield return new WaitForSeconds(0.1f);
+      if (characterType == CharacterType.Player)
+      {
+        EventManager.TriggerEvent(new PlayerKillEvent(this));
+      }
+      else
+      {
+        EventManager.TriggerEvent(new CharacterKillEvent(this));
+        Destroy(gameObject);
+      }
+    }
 
   }
 }

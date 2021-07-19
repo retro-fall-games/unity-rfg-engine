@@ -170,14 +170,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultParameters:
-    gravity: -30
+    gravity: -25
     maxVelocity: {x: 100, y: 100}
-    speedFactor: 3
+    speedFactor: 1
     groundSpeedFactor: 5
     airSpeedFactor: 5
     maxSlopeAngle: 30
     skinWidth: 0.02
   rotateOnMouseCursor: 0
+  facingOnStart: Face Right
   platformMask:
     serializedVersion: 2
     m_Bits: 33280
@@ -384,4 +385,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ff9f3b1fe240b4ea1bc31b9a3fe79f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 2
+  runSpeed: 1

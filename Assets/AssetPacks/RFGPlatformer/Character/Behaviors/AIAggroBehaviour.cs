@@ -21,7 +21,6 @@ namespace RFG
         // Rotate to always face the target
         _character.Controller.RotateTowards(_aggro.target2);
 
-
         // Move towards that target
         float _normalizedHorizontalSpeed = 0f;
 

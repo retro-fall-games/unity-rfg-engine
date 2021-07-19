@@ -26,7 +26,6 @@ namespace RFG
     {
       // Wait until everything is loaded
       yield return new WaitUntil(() => GameManager.Instance != null);
-      yield return new WaitUntil(() => ProfileManager.Instance != null);
       yield return new WaitUntil(() => Transition.Instance != null);
       if (onStart != null)
       {

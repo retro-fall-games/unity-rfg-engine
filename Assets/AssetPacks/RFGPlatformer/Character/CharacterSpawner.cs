@@ -1,4 +1,5 @@
 using UnityEngine;
+using MyBox;
 
 namespace RFG
 {
@@ -13,16 +14,19 @@ namespace RFG
     public int spawnLimit = 10;
     public bool separately = false;
 
+    [Header("Aggro")]
+    public Aggro aggro;
+
     [HideInInspector]
     private float _spawnTimeElapsed = 0f;
-    private Aggro _aggro;
+
     private int _spawnCount = 0;
     private bool _canSpawn = false;
     private Character _currentInstance = null;
 
     private void Awake()
     {
-      _aggro = GetComponent<Aggro>();
+      aggro = GetComponent<Aggro>();
     }
 
     private void Update()
@@ -42,7 +46,7 @@ namespace RFG
 
         }
       }
-      if (_aggro.HasAggro && _canSpawn && (separately && _currentInstance == null))
+      if (aggro.HasAggro && _canSpawn && (separately && _currentInstance == null))
       {
         _canSpawn = false;
         Spawn();
@@ -54,5 +58,14 @@ namespace RFG
       _currentInstance = Instantiate(character, transform.position, Quaternion.identity);
       _spawnCount++;
     }
+
+#if UNITY_EDITOR
+    [ButtonMethod]
+    private void AddAggro()
+    {
+      this.aggro = gameObject.AddComponent<Aggro>();
+      this.aggro.target1 = transform;
+    }
+#endif
   }
 }

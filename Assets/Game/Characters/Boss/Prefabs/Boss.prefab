@@ -192,11 +192,12 @@ MonoBehaviour:
     gravity: -25
     maxVelocity: {x: 100, y: 100}
     speedFactor: 3
-    groundSpeedFactor: 10
+    groundSpeedFactor: 5
     airSpeedFactor: 5
     maxSlopeAngle: 30
     skinWidth: 0.02
   rotateOnMouseCursor: 0
+  facingOnStart: Face Right
   platformMask:
     serializedVersion: 2
     m_Bits: 33280
@@ -310,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6391808d0461e524f9a2b8fa03b72864, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 5
+  walkSpeed: 2
 --- !u!114 &5881885254669170466
 MonoBehaviour:
   m_ObjectHideFlags: 0

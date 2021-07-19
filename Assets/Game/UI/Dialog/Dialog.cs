@@ -45,7 +45,7 @@ namespace Game
       else
       {
         string fullDialog = "";
-        yield return TextFade.FadeInText(text, fadeSpeed);
+        // yield return TextFade.FadeInText(text, fadeSpeed);
         for (int i = 0; i < dialog.Length; i++)
         {
           yield return new WaitForSeconds(speed);
@@ -53,7 +53,8 @@ namespace Game
           text.SetText(fullDialog);
         }
         yield return new WaitForSeconds(waitAfter);
-        yield return TextFade.FadeOutText(text, fadeSpeed);
+        text.SetText("");
+        // yield return TextFade.FadeOutText(text, fadeSpeed);
       }
     }
 

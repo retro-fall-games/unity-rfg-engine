@@ -48,6 +48,7 @@ MonoBehaviour:
   equipOnStart: 1
   firePoint: {fileID: 6195815004324459948}
   projectile: {fileID: -2544510476540891604, guid: 34b33c35182d15a4c9db21992f0cb8ef, type: 3}
+  fireRate: 0.1
 --- !u!1 &2951424207667140232
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,6 +290,7 @@ MonoBehaviour:
     maxSlopeAngle: 60
     skinWidth: 0.02
   rotateOnMouseCursor: 1
+  facingOnStart: Face Right
   platformMask:
     serializedVersion: 2
     m_Bits: 512

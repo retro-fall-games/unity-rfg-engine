@@ -99,9 +99,17 @@ namespace RFG
         {
           PrimaryWeapon.Charging();
         }
+        else if (PrimaryWeapon.weaponState.CurrentState == Weapon.WeaponState.Charged)
+        {
+          PrimaryWeapon.Charged();
+        }
         else if (PrimaryWeapon.weaponState.CurrentState == Weapon.WeaponState.Firing)
         {
           PrimaryWeapon.Firing();
+        }
+        else if (PrimaryWeapon.weaponState.CurrentState == Weapon.WeaponState.Fired)
+        {
+          PrimaryWeapon.Fired();
         }
       }
       if (SecondaryWeapon != null)
@@ -110,9 +118,17 @@ namespace RFG
         {
           SecondaryWeapon.Charging();
         }
+        else if (SecondaryWeapon.weaponState.CurrentState == Weapon.WeaponState.Charged)
+        {
+          SecondaryWeapon.Charged();
+        }
         else if (SecondaryWeapon.weaponState.CurrentState == Weapon.WeaponState.Firing)
         {
           SecondaryWeapon.Firing();
+        }
+        else if (SecondaryWeapon.weaponState.CurrentState == Weapon.WeaponState.Fired)
+        {
+          SecondaryWeapon.Fired();
         }
       }
     }

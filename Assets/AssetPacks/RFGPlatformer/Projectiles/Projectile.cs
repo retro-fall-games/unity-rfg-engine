@@ -16,8 +16,10 @@ namespace RFG
     public bool targetIsPlayer = false;
 
     [Header("Layer Mask")]
-    public LayerMask damageLayerMask;
-    public LayerMask destroyLayerMask;
+    public LayerMask layerMask;
+
+    [Header("Collision Effect")]
+    public GameObject collisionEffect;
 
     [HideInInspector]
     private Rigidbody2D rb;
@@ -54,34 +56,24 @@ namespace RFG
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-      if (damageLayerMask.Contains(col.gameObject.layer))
+      if (layerMask.Contains(col.gameObject.layer))
       {
-        DamageCollision(col);
-      }
-      else if (destroyLayerMask.Contains(col.gameObject.layer))
-      {
-        DamageCollision(col);
-      }
-    }
-
-    private void DamageCollision(Collider2D col)
-    {
-      HealthBehaviour health = col.gameObject.GetComponent<HealthBehaviour>();
-      if (health != null)
-      {
-        Vector2 velocity = Vector2.zero;
-        if (knockback != null)
+        HealthBehaviour health = col.gameObject.GetComponent<HealthBehaviour>();
+        if (health != null)
         {
-          velocity = knockback.GetKnockbackVelocity(col.transform.position, transform.position);
+          Vector2 velocity = Vector2.zero;
+          if (knockback != null)
+          {
+            velocity = knockback.GetKnockbackVelocity(col.transform.position, transform.position);
+          }
+          health.TakeDamage(damage, velocity);
         }
-        health.TakeDamage(damage, velocity);
+        if (collisionEffect != null)
+        {
+          Instantiate(collisionEffect, transform.position, Quaternion.identity);
+        }
+        Destroy(gameObject);
       }
-      Destroy(gameObject);
-    }
-
-    private void DestroyCollision(Collider2D col)
-    {
-      Destroy(gameObject);
     }
 
   }

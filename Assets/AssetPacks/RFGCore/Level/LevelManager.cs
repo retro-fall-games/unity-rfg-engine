@@ -6,7 +6,7 @@ using Cinemachine;
 namespace RFG
 {
   [AddComponentMenu("RFG Engine/Level/Level Manager")]
-  public class LevelManager : Singleton<LevelManager>, EventListener<LevelPortalEvent>
+  public class LevelManager : Singleton<LevelManager>, EventListener<LevelPortalEvent>, EventListener<PlayerKillEvent>
   {
     public enum BoundsBehaviour { Nothing, Constrain, Kill }
 
@@ -194,7 +194,7 @@ namespace RFG
       Gizmos.DrawLine(p4, p8);
     }
 
-    private void KillPlayer()
+    public void KillPlayer()
     {
       StartCoroutine(KillPlayerCo());
     }
@@ -212,14 +212,21 @@ namespace RFG
       SceneManager.Instance.LoadScene(levelPortalEvent.toScene, levelPortalEvent.waitForSeconds);
     }
 
+    public void OnEvent(PlayerKillEvent playerKillEvent)
+    {
+      SpawnPlayer();
+    }
+
     private void OnEnable()
     {
       this.AddListener<LevelPortalEvent>();
+      this.AddListener<PlayerKillEvent>();
     }
 
     private void OnDisable()
     {
       this.RemoveListener<LevelPortalEvent>();
+      this.RemoveListener<PlayerKillEvent>();
     }
 
   }

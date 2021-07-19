@@ -14,7 +14,7 @@ namespace RFG
       if (_horizontalInput > 0f)
       {
         _normalizedHorizontalSpeed = 1f;
-        if (!_character.Controller.State.IsFacingRight)
+        if (!_character.Controller.State.IsFacingRight && !_character.Controller.rotateOnMouseCursor)
         {
           _character.Controller.Flip();
         }
@@ -22,7 +22,7 @@ namespace RFG
       else if (_horizontalInput < 0f)
       {
         _normalizedHorizontalSpeed = -1f;
-        if (_character.Controller.State.IsFacingRight)
+        if (_character.Controller.State.IsFacingRight && !_character.Controller.rotateOnMouseCursor)
         {
           _character.Controller.Flip();
         }

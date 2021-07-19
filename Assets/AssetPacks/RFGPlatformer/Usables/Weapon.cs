@@ -15,15 +15,22 @@ namespace RFG
     public bool equipOnStart = false;
     public Transform firePoint;
     public Projectile projectile;
+    public float fireRate = 1f;
 
     [HideInInspector]
     public StateMachine<WeaponState> weaponState;
+    private float _fireRateElapsed = 0f;
 
     private void Awake()
     {
       weaponState = new StateMachine<WeaponState>(gameObject, true);
       weaponState.OnStateChange += OnStateChange;
       Unequip();
+    }
+
+    private void LateUpdate()
+    {
+      _fireRateElapsed += Time.deltaTime;
     }
 
     public void Equip()
@@ -37,38 +44,37 @@ namespace RFG
 
     public void Use()
     {
-      switch (weaponType)
+      if (_fireRateElapsed >= fireRate)
       {
-        case WeaponType.Chargable:
-          Charging();
-          break;
-        case WeaponType.InstaFire:
-        default:
-          Firing();
-          break;
+        _fireRateElapsed = 0;
+        switch (weaponType)
+        {
+          case WeaponType.Chargable:
+            weaponState.ChangeState(WeaponState.Charging);
+            break;
+          case WeaponType.InstaFire:
+          default:
+            weaponState.ChangeState(WeaponState.Firing);
+            break;
+        }
       }
     }
 
     public void Charging()
     {
-      weaponState.ChangeState(WeaponState.Charging);
+      Debug.Log("Start Charging");
+      weaponState.ChangeState(WeaponState.Charged);
     }
 
     public void Firing()
     {
-      weaponState.ChangeState(WeaponState.Firing);
-      StartCoroutine(FiringCo());
-    }
-
-    private IEnumerator FiringCo()
-    {
-      yield return new WaitForEndOfFrame();
+      Debug.Log("Start Firing");
       Fire();
     }
 
-    public void Charge()
+    public void Charged()
     {
-      weaponState.ChangeState(WeaponState.Charging);
+      Debug.Log("Fully Charged");
     }
 
     public void Fire()
@@ -77,13 +83,13 @@ namespace RFG
       {
         Instantiate(projectile, firePoint.position, firePoint.rotation);
       }
-      StartCoroutine(FireCo());
+      weaponState.ChangeState(WeaponState.Fired);
     }
 
-    private IEnumerator FireCo()
+    public void Fired()
     {
-      yield return new WaitForEndOfFrame();
-      weaponState.ChangeState(WeaponState.Fired);
+      Debug.Log("Fired");
+      Stop();
     }
 
     public void Stop()
@@ -93,7 +99,7 @@ namespace RFG
 
     private void OnStateChange(WeaponState state)
     {
-      Debug.Log("Weapon State: " + state);
+      // Debug.Log("Weapon State: " + state);
     }
 
   }
