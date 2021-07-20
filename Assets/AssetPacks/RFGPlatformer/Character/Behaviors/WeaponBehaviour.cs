@@ -62,7 +62,7 @@ namespace RFG
         case ButtonStates.Down:
           if (PrimaryWeapon.weaponState.CurrentState == Weapon.WeaponState.Off)
           {
-            PrimaryWeapon.Use();
+            PrimaryWeapon.Use(_character.Controller.State.IsFacingRight);
           }
           break;
         case ButtonStates.Up:
@@ -82,7 +82,7 @@ namespace RFG
         case ButtonStates.Down:
           if (SecondaryWeapon.weaponState.CurrentState == Weapon.WeaponState.Off)
           {
-            SecondaryWeapon.Use();
+            SecondaryWeapon.Use(_character.Controller.State.IsFacingRight);
           }
           break;
         case ButtonStates.Up:

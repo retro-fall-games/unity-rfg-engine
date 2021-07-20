@@ -599,8 +599,9 @@ namespace RFG
 
     public void Flip()
     {
+      // transform.localScale = new Vector3(-_transform.localScale.x, _transform.localScale.y, _transform.localScale.z);
       transform.Rotate(0f, 180f, 0f);
-      State.IsFacingRight = !State.IsFacingRight;
+      State.IsFacingRight = _transform.right.x > 0;
     }
 
     public void IgnoreStairsForTime(float time)

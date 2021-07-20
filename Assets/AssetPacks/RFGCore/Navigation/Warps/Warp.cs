@@ -50,10 +50,13 @@ namespace RFG
       JustWarped = false;
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
       UnityEditor.Handles.color = Color.yellow;
       UnityEditor.Handles.Label(transform.position, $"Warp {index}");
     }
+#endif 
+
   }
 }

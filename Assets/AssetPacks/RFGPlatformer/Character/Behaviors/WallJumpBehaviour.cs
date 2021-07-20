@@ -11,9 +11,15 @@ namespace RFG
     public bool shouldReduceNumberOfJumpsLeft = true;
     private JumpBehaviour _jumpBehaviour;
     private Button _jumpButton;
+    private CharacterController2D _controller;
+    private CharacterControllerState2D _state;
+    private InputManager _input;
 
     public override void InitBehaviour()
     {
+      _controller = _character.Controller;
+      _state = _character.Controller.State;
+      _input = _character.CharacterInput.InputManager;
       _jumpBehaviour = _character.FindBehaviour<JumpBehaviour>();
       StartCoroutine(InitBehaviourCo());
     }
@@ -50,9 +56,13 @@ namespace RFG
         _jumpBehaviour.SetNumberOfJumpsLeft(_jumpBehaviour.NumberOfJumpsLeft - 1);
       }
 
-      _character.Controller.SlowFall(0f);
+      _controller.SlowFall(0f);
 
-      if (_character.Controller.State.IsFacingRight)
+      float threshold = _input.threshold.x;
+      bool isClingingLeft = _state.IsCollidingLeft && _horizontalInput <= -threshold;
+      bool isClingingRight = _state.IsCollidingRight && _horizontalInput >= threshold;
+
+      if (isClingingRight)
       {
         wallJumpDirection = -1f;
       }
@@ -61,9 +71,9 @@ namespace RFG
         wallJumpDirection = 1f;
       }
 
-      Vector2 wallJumpVector = new Vector2(wallJumpDirection * wallJumpForce.x, Mathf.Sqrt(2f * wallJumpForce.y * Mathf.Abs(_character.Controller.Parameters.gravity)));
+      Vector2 wallJumpVector = new Vector2(wallJumpDirection * wallJumpForce.x, Mathf.Sqrt(2f * wallJumpForce.y * Mathf.Abs(_controller.Parameters.gravity)));
 
-      _character.Controller.AddForce(wallJumpVector);
+      _controller.AddForce(wallJumpVector);
     }
 
   }

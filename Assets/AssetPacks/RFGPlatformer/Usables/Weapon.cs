@@ -20,6 +20,7 @@ namespace RFG
     [HideInInspector]
     public StateMachine<WeaponState> weaponState;
     private float _fireRateElapsed = 0f;
+    private bool _isFacingRight = true;
 
     private void Awake()
     {
@@ -42,8 +43,9 @@ namespace RFG
       weaponState.ChangeState(WeaponState.Off);
     }
 
-    public void Use()
+    public void Use(bool isFacingRight)
     {
+      _isFacingRight = isFacingRight;
       if (_fireRateElapsed >= fireRate)
       {
         _fireRateElapsed = 0;
@@ -62,19 +64,16 @@ namespace RFG
 
     public void Charging()
     {
-      Debug.Log("Start Charging");
       weaponState.ChangeState(WeaponState.Charged);
     }
 
     public void Firing()
     {
-      Debug.Log("Start Firing");
       Fire();
     }
 
     public void Charged()
     {
-      Debug.Log("Fully Charged");
     }
 
     public void Fire()
@@ -88,7 +87,6 @@ namespace RFG
 
     public void Fired()
     {
-      Debug.Log("Fired");
       Stop();
     }
 

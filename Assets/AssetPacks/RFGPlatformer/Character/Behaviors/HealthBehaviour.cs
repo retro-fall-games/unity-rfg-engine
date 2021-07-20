@@ -66,5 +66,17 @@ namespace RFG
       SetHealth(maxHealth);
     }
 
+    public void OnTriggerEnter2D(Collider2D col)
+    {
+      Knockback knockback = col.gameObject.GetComponent<Knockback>();
+      if (knockback != null)
+      {
+        if (knockback.layerMask.Contains(gameObject.layer))
+        {
+          TakeDamage(knockback.damage, knockback.GetKnockbackVelocity(transform.position, col.gameObject.transform.position));
+        }
+      }
+    }
+
   }
 }

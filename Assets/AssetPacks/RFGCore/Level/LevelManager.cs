@@ -196,14 +196,7 @@ namespace RFG
 
     public void KillPlayer()
     {
-      StartCoroutine(KillPlayerCo());
-    }
-
-    private IEnumerator KillPlayerCo()
-    {
       _character.Kill();
-      yield return new WaitForSeconds(1f);
-      SpawnPlayer();
     }
 
     public void OnEvent(LevelPortalEvent levelPortalEvent)

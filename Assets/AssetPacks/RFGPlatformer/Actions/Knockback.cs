@@ -8,6 +8,7 @@ namespace RFG
     [Header("Settings")]
     public float damage;
     public Vector2 velocity;
+    public LayerMask layerMask;
     public Vector2 GetKnockbackVelocity(Vector2 target1, Vector2 target2)
     {
       Vector2 dir = (target1 - target2).normalized;

@@ -215,7 +215,13 @@ namespace RFG
     public void Birth()
     {
       _characterState.ChangeState(CharacterStates.Alive);
+      _controller.ResetVelocity();
       _controller.enabled = true;
+      HealthBehaviour health = FindBehaviour<HealthBehaviour>();
+      if (health != null)
+      {
+        health.Reset();
+      }
     }
 
     public void Kill()
@@ -223,7 +229,6 @@ namespace RFG
       _characterState.ChangeState(CharacterStates.Dead);
       _controller.enabled = false;
       StartCoroutine(KillCo());
-
     }
 
     private IEnumerator KillCo()

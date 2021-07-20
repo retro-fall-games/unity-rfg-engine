@@ -132,6 +132,11 @@ namespace RFG
         return false;
       }
 
+      if (_character.MovementState.CurrentState == MovementStates.WallClinging)
+      {
+        return false;
+      }
+
       return true;
     }
 
