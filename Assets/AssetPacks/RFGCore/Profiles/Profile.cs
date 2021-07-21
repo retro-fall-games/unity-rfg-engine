@@ -42,13 +42,17 @@ namespace RFG
       string fileName = $"{Application.persistentDataPath}/profile{id}.dat";
       if (File.Exists(fileName))
       {
+        Debug.Log("Loaded Profile: " + id);
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Open(fileName, FileMode.Open);
-        data = (T)bf.Deserialize(file);
+        T fileData = (T)bf.Deserialize(file);
+        Debug.Log(fileData);
+        this.data = fileData;
         file.Close();
       }
       else
       {
+        Debug.Log("File does not exist");
         data = null;
       }
     }

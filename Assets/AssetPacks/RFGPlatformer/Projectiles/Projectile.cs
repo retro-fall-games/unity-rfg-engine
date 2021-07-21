@@ -4,11 +4,12 @@ using UnityEngine;
 namespace RFG
 {
   [AddComponentMenu("RFG Platformer/Projectiles/Projectile")]
-  public class Projectile : MonoBehaviour
+  public class Projectile : MonoBehaviour, IPooledObject
   {
     [Header("Settings")]
     public float speed = 5f;
     public float damage = 10f;
+    public bool destroyOnCollision = false;
     public Knockback knockback;
 
     [Header("Target")]
@@ -18,15 +19,22 @@ namespace RFG
     [Header("Layer Mask")]
     public LayerMask layerMask;
 
-    [Header("Collision Effect")]
+    [Header("Effects")]
     public GameObject collisionEffect;
+    public float cameraShakeIntensity = 0f;
+    public float cameraShakeTime = 0f;
+    public bool cameraShakeFade = false;
 
     [HideInInspector]
     private Rigidbody2D rb;
 
-    private void Start()
+    private void Awake()
     {
       rb = GetComponent<Rigidbody2D>();
+    }
+
+    public void OnObjectSpawn()
+    {
       if (targetIsPlayer)
       {
         StartCoroutine(WaitForPlayer());
@@ -58,6 +66,11 @@ namespace RFG
     {
       if (layerMask.Contains(col.gameObject.layer))
       {
+        if (cameraShakeIntensity > 0)
+        {
+          CinemachineShake.Instance.ShakeCamera(cameraShakeIntensity, cameraShakeTime, cameraShakeFade);
+        }
+
         HealthBehaviour health = col.gameObject.GetComponent<HealthBehaviour>();
         if (health != null)
         {
@@ -72,7 +85,14 @@ namespace RFG
         {
           Instantiate(collisionEffect, transform.position, Quaternion.identity);
         }
-        Destroy(gameObject);
+        if (destroyOnCollision)
+        {
+          Destroy(gameObject);
+        }
+        else
+        {
+          gameObject.SetActive(false);
+        }
       }
     }
 

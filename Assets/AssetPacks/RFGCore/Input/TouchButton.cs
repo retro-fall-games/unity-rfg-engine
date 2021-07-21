@@ -23,7 +23,6 @@ namespace RFG
       yield return new WaitUntil(() => InputManager.Instance != null);
       yield return new WaitUntil(() => InputManager.Instance.GetButton(buttonId) != null);
       _button = InputManager.Instance.GetButton(buttonId);
-      Debug.Log("Got the button");
     }
 
     private void Update()
@@ -53,6 +52,10 @@ namespace RFG
         {
           _button.State.ChangeState(ButtonStates.Up);
         }
+      }
+      else
+      {
+        _button.State.ChangeState(ButtonStates.Up);
       }
     }
 

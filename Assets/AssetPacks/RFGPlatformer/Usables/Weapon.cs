@@ -14,8 +14,11 @@ namespace RFG
     public int damage = 10;
     public bool equipOnStart = false;
     public Transform firePoint;
-    public Projectile projectile;
     public float fireRate = 1f;
+
+    [Header("Projectile")]
+    public Projectile projectile;
+    public string objectPoolTag = "";
 
     [HideInInspector]
     public StateMachine<WeaponState> weaponState;
@@ -81,6 +84,10 @@ namespace RFG
       if (projectile != null)
       {
         Instantiate(projectile, firePoint.position, firePoint.rotation);
+      }
+      else if (!objectPoolTag.Equals(""))
+      {
+        ObjectPool.Instance.SpawnFromPool(objectPoolTag, firePoint.position, firePoint.rotation);
       }
       weaponState.ChangeState(WeaponState.Fired);
     }

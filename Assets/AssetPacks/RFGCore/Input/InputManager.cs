@@ -11,6 +11,9 @@ namespace RFG
     public string axisVertical = "Vertical";
     public Vector2 threshold = new Vector2(0.1f, 0.4f);
 
+    [Header("Cursor")]
+    public Texture2D customCursor;
+
     [Header("Joystick Pack")]
     public VariableJoystick variableJoystick;
 
@@ -21,6 +24,10 @@ namespace RFG
     private void Start()
     {
       _buttons = new Dictionary<string, Button>();
+      if (customCursor != null)
+      {
+        Cursor.SetCursor(customCursor, Vector2.zero, CursorMode.ForceSoftware);
+      }
     }
 
     private void Update()

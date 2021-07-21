@@ -16,9 +16,17 @@ namespace Game
       // This is here for debuggin purposes, this wont be used in a real game
       if (loadProfileId > -1)
       {
+        Debug.Log("Loading profile: " + loadProfileId);
         _profile = new Profile<Game.ProfileData>();
         _profile.Load(loadProfileId);
-        PlayerPrefs.SetInt("startingCheckpoint", _profile.data.checkpoint);
+        if (_profile.data != null)
+        {
+          PlayerPrefs.SetInt("startingCheckpoint", _profile.data.checkpoint);
+        }
+        else
+        {
+          Debug.Log("Did not load profile");
+        }
       }
     }
     public void SetProfile(Profile<Game.ProfileData> profile)
@@ -38,12 +46,15 @@ namespace Game
 
     public void OnEvent(CheckpointEvent checkpointEvent)
     {
-      _profile.data.level = SceneManager.Instance.GetCurrentScene();
-      _profile.data.checkpoint = checkpointEvent.checkpointIndex;
-      Debug.Log("Hit Checkpoint and saving profile");
-      Debug.Log(_profile.data.level);
-      Debug.Log(_profile.data.checkpoint);
-      _profile.Save();
+      if (_profile != null && _profile.data != null)
+      {
+        _profile.data.level = SceneManager.Instance.GetCurrentScene();
+        _profile.data.checkpoint = checkpointEvent.checkpointIndex;
+        Debug.Log("Hit Checkpoint and saving profile");
+        Debug.Log(_profile.data.level);
+        Debug.Log(_profile.data.checkpoint);
+        _profile.Save();
+      }
     }
 
     private void OnEnable()

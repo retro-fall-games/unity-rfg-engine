@@ -1,12 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace RFG
 {
+  [AddComponentMenu("RFG Engine/Utils/Object Pool")]
   public class ObjectPool : Singleton<ObjectPool>
   {
-
     [System.Serializable]
     public class Pool
     {
