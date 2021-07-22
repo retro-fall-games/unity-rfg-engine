@@ -674,7 +674,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterType: 0
-  showDebugLog: 0
+  destroyOnKill: 1
+  spawnSoundFx: []
+  deathSoundFx: []
 --- !u!50 &6724250356888919235
 Rigidbody2D:
   serializedVersion: 4
@@ -742,7 +744,7 @@ MonoBehaviour:
     airSpeedFactor: 5
     maxSlopeAngle: 60
     skinWidth: 0.02
-  rotateOnMouseCursor: 1
+  rotateOnMouseCursor: 0
   facingOnStart: Face Right
   platformMask:
     serializedVersion: 2
@@ -839,6 +841,10 @@ MonoBehaviour:
   jumpIsProportionalToThePressTime: 1
   jumpMinAirTime: 0.1
   jumpReleaseForceFactor: 3
+  jumpSoundFx:
+  - Jump
+  landSoundFx:
+  - Land Thud
 --- !u!114 &4862821622182035514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -868,6 +874,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallJumpForce: {x: 10, y: 4}
   shouldReduceNumberOfJumpsLeft: 1
+  soundFx:
+  - Jump
 --- !u!114 &6101489435137338607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -885,13 +893,15 @@ MonoBehaviour:
   totalDashes: 2
   numberOfDashesLeft: 2
   aim:
-    aimControl: 2
+    aimControl: 1
     rotationMode: 2
     minAngle: -180
     maxAngle: 180
     currentAngle: 0
   minInputThreshold: 0.1
   cooldown: 1
+  soundFx:
+  - Dash
 --- !u!95 &3481442818595317702
 Animator:
   serializedVersion: 3

@@ -6441,6 +6441,17 @@ SpriteShapeRenderer:
   m_LocalAABB:
     m_Center: {x: 0.5, y: 0, z: -0.00005}
     m_Extent: {x: 2.5, y: 0.5, z: 0.00005}
+--- !u!114 &505372501 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2171900812786630903, guid: 71bdcc8a21ac8b04591293e6617ea13f, type: 3}
+  m_PrefabInstance: {fileID: 3168353269762642724}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42844a4fccbd54746b90cade4ff70f73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &506605665 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8098398653585821199, guid: aac3c7a68b9725d40862742966bc9961, type: 3}
@@ -9472,7 +9483,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3168353269565629440, guid: 71bdcc8a21ac8b04591293e6617ea13f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -61.2966
+      value: -61.29663
       objectReference: {fileID: 0}
     - target: {fileID: 3168353270974340552, guid: 71bdcc8a21ac8b04591293e6617ea13f, type: 3}
       propertyPath: m_Name
@@ -9480,7 +9491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3168353270974340552, guid: 71bdcc8a21ac8b04591293e6617ea13f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3168353270974340555, guid: 71bdcc8a21ac8b04591293e6617ea13f, type: 3}
       propertyPath: m_Camera
@@ -9594,7 +9605,7 @@ PrefabInstance:
     - target: {fileID: 3676744675940195358, guid: d5636620706153c4dba30f6fa917bb4a, type: 3}
       propertyPath: variableJoystick
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 505372501}
     - target: {fileID: 3676744675940195359, guid: d5636620706153c4dba30f6fa917bb4a, type: 3}
       propertyPath: m_Name
       value: InputManager

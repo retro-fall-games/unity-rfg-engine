@@ -6,7 +6,7 @@ using UnityEngine;
 #if !(DEVELOPMENT_BUILD || UNITY_EDITOR)
   // Only show exceptions
   // Debug.unityLogger.filterLogType = LogType.Exception;
-  Debug.unityLogger.logEnabled = false; 
+  // Debug.unityLogger.logEnabled = false; 
 #endif
 
 namespace RFG

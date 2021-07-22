@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-
+using RFGFx;
 
 namespace RFG
 {
@@ -19,6 +19,8 @@ namespace RFG
 
     [Header("Cooldown")]
     public float cooldown = 1f;
+    [Header("Audio")]
+    public string[] soundFx;
 
     private Vector2 _dashDirection;
     private float _distanceTraveled = 0f;
@@ -73,6 +75,11 @@ namespace RFG
       if (numberOfDashesLeft <= 0)
       {
         return;
+      }
+
+      if (soundFx != null && soundFx.Length > 0)
+      {
+        FXAudio.Instance.Play(soundFx, false);
       }
 
       _character.Controller.CollisionsOnStairs(true);

@@ -1,14 +1,17 @@
 using System.Collections;
 using UnityEngine;
-
+using RFGFx;
 
 namespace RFG
 {
   [AddComponentMenu("RFG Platformer/Character/Behaviour/Wall Jump Behaviour")]
   public class WallJumpBehaviour : CharacterBehaviour
   {
+    [Header("Settings")]
     public Vector2 wallJumpForce = new Vector2(10f, 4f);
     public bool shouldReduceNumberOfJumpsLeft = true;
+    [Header("Audio")]
+    public string[] soundFx;
     private JumpBehaviour _jumpBehaviour;
     private Button _jumpButton;
     private CharacterController2D _controller;
@@ -47,6 +50,10 @@ namespace RFG
 
     private void WallJump()
     {
+      if (soundFx != null && soundFx.Length > 0)
+      {
+        FXAudio.Instance.Play(soundFx, false);
+      }
       float wallJumpDirection;
 
       _character.MovementState.ChangeState(MovementStates.WallJumping);

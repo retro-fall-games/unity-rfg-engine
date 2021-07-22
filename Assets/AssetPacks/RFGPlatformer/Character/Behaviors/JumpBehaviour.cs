@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-
+using RFGFx;
 
 namespace RFG
 {
@@ -27,6 +27,10 @@ namespace RFG
     public bool jumpIsProportionalToThePressTime = true;
     public float jumpMinAirTime = 0.1f;
     public float jumpReleaseForceFactor = 2f;
+
+    [Header("Audio")]
+    public string[] jumpSoundFx;
+    public string[] landSoundFx;
 
     public int NumberOfJumpsLeft { get { return _numberOfJumpsLeft; } }
 
@@ -66,6 +70,10 @@ namespace RFG
       // Reset the number of jumps back because just got grounded
       if (_character.Controller.State.JustGotGrounded)
       {
+        if (landSoundFx != null && landSoundFx.Length > 0)
+        {
+          FXAudio.Instance.Play(landSoundFx, false);
+        }
         _numberOfJumpsLeft = numberOfJumps;
       }
     }
@@ -75,6 +83,11 @@ namespace RFG
       if (!CanJump())
       {
         return;
+      }
+
+      if (jumpSoundFx != null && jumpSoundFx.Length > 0)
+      {
+        FXAudio.Instance.Play(jumpSoundFx, false);
       }
 
       _character.Controller.CollisionsOnStairs(true);
