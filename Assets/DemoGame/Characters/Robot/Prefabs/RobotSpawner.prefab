@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ccfe86fb3d4330479b1397502e31a33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 8275720483749746163, guid: c7052f8ddb71a574087415c5d2eaca79, type: 3}
+  character: {fileID: 0}
+  objectPoolTag: Robot
   spawnSpeed: 5
   spawnLimit: 10
   separately: 1

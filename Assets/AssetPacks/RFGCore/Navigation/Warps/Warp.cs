@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RFGFx;
 
 namespace RFG
 {
@@ -11,6 +11,10 @@ namespace RFG
     [Header("Settings")]
     public int index = 0;
     public int warpToIndex = 0;
+
+    [Header("Audio")]
+    public string[] soundFx;
+    public bool soundFxFade;
 
     [HideInInspector]
     private bool JustWarped { get; set; }
@@ -41,6 +45,10 @@ namespace RFG
           JustWarped = true;
           col.gameObject.transform.position = warpTo.transform.position;
           EventManager.TriggerEvent(new WarpEvent(index, warpToIndex));
+          if (soundFx != null && soundFx.Length > 0)
+          {
+            FXAudio.Instance.Play(soundFx, soundFxFade);
+          }
         }
       }
     }

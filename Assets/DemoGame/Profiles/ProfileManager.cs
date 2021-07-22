@@ -1,7 +1,5 @@
 using UnityEngine;
-using System.Collections;
 using RFG;
-
 
 namespace Game
 {
@@ -13,10 +11,10 @@ namespace Game
     protected override void Awake()
     {
       base.Awake();
-      // This is here for debuggin purposes, this wont be used in a real game
+      // This is here for debugging purposes, this wont be used in a real game
       if (loadProfileId > -1)
       {
-        Debug.Log("Loading profile: " + loadProfileId);
+        // LogExt.Log<ProfileManager>("Loading profile: " + loadProfileId);
         _profile = new Profile<Game.ProfileData>();
         _profile.Load(loadProfileId);
         if (_profile.data != null)
@@ -25,7 +23,7 @@ namespace Game
         }
         else
         {
-          Debug.Log("Did not load profile");
+          LogExt.Warn<ProfileManager>("Did not load profile");
         }
       }
     }
@@ -50,9 +48,7 @@ namespace Game
       {
         _profile.data.level = SceneManager.Instance.GetCurrentScene();
         _profile.data.checkpoint = checkpointEvent.checkpointIndex;
-        Debug.Log("Hit Checkpoint and saving profile");
-        Debug.Log(_profile.data.level);
-        Debug.Log(_profile.data.checkpoint);
+        LogExt.Log<ProfileManager>($"Hit Checkpoint and saving profile. Level: {_profile.data.level}, Checkpoint: {_profile.data.checkpoint}");
         _profile.Save();
       }
     }

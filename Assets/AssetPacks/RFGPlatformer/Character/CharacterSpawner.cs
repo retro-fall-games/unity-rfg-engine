@@ -8,6 +8,7 @@ namespace RFG
   {
     [Header("Prefabs")]
     public Character character;
+    public string objectPoolTag = "";
 
     [Header("Controls")]
     public float spawnSpeed = 0f;
@@ -55,7 +56,14 @@ namespace RFG
 
     private void Spawn()
     {
-      _currentInstance = Instantiate(character, transform.position, Quaternion.identity);
+      if (character != null)
+      {
+        _currentInstance = Instantiate(character, transform.position, Quaternion.identity);
+      }
+      else if (!objectPoolTag.Equals(""))
+      {
+        ObjectPool.Instance.SpawnFromPool(objectPoolTag, transform.position, Quaternion.identity);
+      }
       _spawnCount++;
     }
 

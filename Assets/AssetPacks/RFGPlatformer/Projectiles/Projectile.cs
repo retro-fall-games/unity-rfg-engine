@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using RFGFx;
 
 namespace RFG
 {
@@ -25,6 +26,11 @@ namespace RFG
     public float cameraShakeTime = 0f;
     public bool cameraShakeFade = false;
 
+    [Header("Audio")]
+    public string[] spawnSoundFx;
+    public string[] deathSoundFx;
+
+
     [HideInInspector]
     private Rigidbody2D rb;
 
@@ -47,6 +53,10 @@ namespace RFG
       {
         CalculateVelocity(transform.right);
       }
+      if (spawnSoundFx != null && spawnSoundFx.Length > 0)
+      {
+        FXAudio.Instance.Play(spawnSoundFx, false);
+      }
     }
 
     private IEnumerator WaitForPlayer()
@@ -66,6 +76,11 @@ namespace RFG
     {
       if (layerMask.Contains(col.gameObject.layer))
       {
+        if (deathSoundFx != null && deathSoundFx.Length > 0)
+        {
+          FXAudio.Instance.Play(deathSoundFx, false);
+        }
+
         if (cameraShakeIntensity > 0)
         {
           CinemachineShake.Instance.ShakeCamera(cameraShakeIntensity, cameraShakeTime, cameraShakeFade);

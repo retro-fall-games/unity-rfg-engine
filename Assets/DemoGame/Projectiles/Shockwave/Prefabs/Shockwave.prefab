@@ -120,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   damage: 10
+  destroyOnCollision: 0
   knockback: {fileID: -3665444438838682569}
   target: {fileID: 0}
   targetIsPlayer: 0
@@ -130,6 +131,10 @@ MonoBehaviour:
   cameraShakeIntensity: 1
   cameraShakeTime: 0.3
   cameraShakeFade: 0
+  spawnSoundFx:
+  - Hit Laser
+  deathSoundFx:
+  - Hit 3
 --- !u!114 &-3665444438838682569
 MonoBehaviour:
   m_ObjectHideFlags: 0

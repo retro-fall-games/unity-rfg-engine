@@ -40,7 +40,7 @@ namespace RFG
     {
       if (!poolDictionary.ContainsKey(tag))
       {
-        Debug.LogWarning($"Pool with tag {tag} does not exist");
+        LogExt.Warn<ObjectPool>($"Pool with tag {tag} does not exist");
         return null;
       }
       GameObject objectToSpawn = poolDictionary[tag].Dequeue();

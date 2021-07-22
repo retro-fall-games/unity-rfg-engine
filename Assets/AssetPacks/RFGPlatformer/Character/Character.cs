@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RFGFx;
 
 namespace RFG
 {
@@ -47,13 +48,15 @@ namespace RFG
 
 
   [AddComponentMenu("RFG Platformer/Character/Character")]
-  public class Character : MonoBehaviour
+  public class Character : MonoBehaviour, IPooledObject
   {
     [Header("Settings")]
     public CharacterType characterType = CharacterType.Player;
+    public bool destroyOnKill = true;
 
-    [Header("Debug")]
-    public bool showDebugLog = false;
+    [Header("Audio")]
+    public string[] spawnSoundFx;
+    public string[] deathSoundFx;
 
     [HideInInspector]
     public StateMachine<CharacterStates> CharacterState => _characterState;
@@ -119,6 +122,11 @@ namespace RFG
       InitBehaviours();
     }
 
+    public void OnObjectSpawn()
+    {
+      Birth();
+    }
+
     private void Update()
     {
       EarlyProcessBehaviours();
@@ -182,38 +190,30 @@ namespace RFG
 
     private void OnCharacterStateChange(CharacterStates state)
     {
-      if (showDebugLog)
-      {
-        Debug.Log("Character State Change: " + state);
-      }
+      // LogExt.Log<Character>("Character State Change: " + state);
     }
 
     private void OnMovementStateChange(MovementStates state)
     {
-      if (showDebugLog)
-      {
-        Debug.Log("Movement State Change: " + state);
-      }
+      // LogExt.Log<Character>("Movement State Change: " + state);
     }
 
     private void OnAIStateChange(AIStates state)
     {
-      if (showDebugLog)
-      {
-        Debug.Log("AI State Change: " + state);
-      }
+      // LogExt.Log<Character>("AI State Change: " + state);
     }
 
     private void OnAIMovementStateChange(AIMovementStates state)
     {
-      if (showDebugLog)
-      {
-        Debug.Log("AI Movement State Change: " + state);
-      }
+      // LogExt.Log<Character>("AI Movement State Change: " + state);
     }
 
     public void Birth()
     {
+      if (spawnSoundFx != null && spawnSoundFx.Length > 0)
+      {
+        FXAudio.Instance.Play(spawnSoundFx, false);
+      }
       _characterState.ChangeState(CharacterStates.Alive);
       _controller.ResetVelocity();
       _controller.enabled = true;
@@ -222,10 +222,15 @@ namespace RFG
       {
         health.Reset();
       }
+
     }
 
     public void Kill()
     {
+      if (deathSoundFx != null && deathSoundFx.Length > 0)
+      {
+        FXAudio.Instance.Play(deathSoundFx, false);
+      }
       _characterState.ChangeState(CharacterStates.Dead);
       _controller.enabled = false;
       StartCoroutine(KillCo());
@@ -241,7 +246,14 @@ namespace RFG
       else
       {
         EventManager.TriggerEvent(new CharacterKillEvent(this));
-        Destroy(gameObject);
+        if (destroyOnKill)
+        {
+          Destroy(gameObject);
+        }
+        else
+        {
+          gameObject.SetActive(false);
+        }
       }
     }
 

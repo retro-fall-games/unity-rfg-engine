@@ -104,7 +104,7 @@ namespace RFG
 
     private void OnStateChange(WeaponState state)
     {
-      // Debug.Log("Weapon State: " + state);
+      // LogExt.Log<Weapon>("Weapon State: " + state);
     }
 
   }

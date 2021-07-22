@@ -89,15 +89,6 @@ namespace RFG
       SerializedObject manager = new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/TagManager.asset")[0]);
       SerializedProperty sortLayersProp = manager.FindProperty("m_SortingLayers");
 
-      //for (int i = 0; i < sortLayersProp.arraySize; i++)
-      //{ // used to figure out how all of this works and what properties values look like
-      //    SerializedProperty entry = sortLayersProp.GetArrayElementAtIndex(i);
-      //    SerializedProperty name = entry.FindPropertyRelative("name");
-      //    SerializedProperty unique = entry.FindPropertyRelative("uniqueID");
-      //    SerializedProperty locked = entry.FindPropertyRelative("locked");
-      //    Debug.Log(name.stringValue + " => " + unique.intValue + " => " + locked.boolValue);
-      //}
-
       foreach (string name in tagNames)
       {
         // check if tag is present

@@ -32,11 +32,6 @@ namespace RFG
       Application.Quit();
     }
 
-    public void DebugMessage(string message)
-    {
-      Debug.Log(message);
-    }
-
     public void Pause()
     {
       IsPaused = true;

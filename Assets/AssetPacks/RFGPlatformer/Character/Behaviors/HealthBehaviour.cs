@@ -73,6 +73,7 @@ namespace RFG
       {
         if (knockback.layerMask.Contains(gameObject.layer))
         {
+          knockback.PlayFX();
           TakeDamage(knockback.damage, knockback.GetKnockbackVelocity(transform.position, col.gameObject.transform.position));
         }
       }

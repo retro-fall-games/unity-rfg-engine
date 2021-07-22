@@ -1,28 +1,25 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using RFG;
 
 namespace RFGFx
 {
-  public class AmbienceAudio : MonoBehaviour
+  public class AmbienceAudio : Singleton<AmbienceAudio>
   {
-    public static AmbienceAudio Instance { get; private set; }
     private Dictionary<string, AudioSource> ambience = new Dictionary<string, AudioSource>();
     private Dictionary<string, float> ambienceVolumes = new Dictionary<string, float>();
 
-    private void Awake()
+    protected override void Awake()
     {
-      if (Instance == null)
+      base.Awake();
+
+      AudioSource[] audioSources = GetComponents<AudioSource>();
+
+      foreach (AudioSource audioSource in audioSources)
       {
-        Instance = this;
-
-        AudioSource[] audioSources = GetComponents<AudioSource>();
-
-        foreach (AudioSource audioSource in audioSources)
-        {
-          ambience.Add(audioSource.clip.name, audioSource);
-          ambienceVolumes.Add(audioSource.clip.name, audioSource.volume);
-        }
+        ambience.Add(audioSource.clip.name, audioSource);
+        ambienceVolumes.Add(audioSource.clip.name, audioSource.volume);
       }
     }
 
@@ -42,18 +39,34 @@ namespace RFGFx
       }
     }
 
+    public void Play(string[] names, bool fade = false)
+    {
+      foreach (string name in names)
+      {
+        Play(name, fade);
+      }
+    }
+
     public void Stop(string name, bool fade = false)
     {
       if (ambience.ContainsKey(name))
       {
         if (fade)
         {
-          StartCoroutine(VolumnFade.FadeOutVolume(ambience[name], ambienceVolumes[name], 1f, true));
+          StartCoroutine(VolumnFade.FadeOutVolume(ambience[name], ambienceVolumes[name], 1f));
         }
         else
         {
           ambience[name].Stop();
         }
+      }
+    }
+
+    public void Stop(string[] names, bool fade = false)
+    {
+      foreach (string name in names)
+      {
+        Stop(name, fade);
       }
     }
 

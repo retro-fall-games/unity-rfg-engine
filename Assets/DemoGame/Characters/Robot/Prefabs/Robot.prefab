@@ -157,7 +157,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterType: 1
-  showDebugLog: 0
+  destroyOnKill: 0
+  spawnSoundFx: []
+  deathSoundFx:
+  - Hit
+  - Warp
 --- !u!114 &8275720483749746165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,3 +409,5 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
+  soundFx:
+  - Hit 3

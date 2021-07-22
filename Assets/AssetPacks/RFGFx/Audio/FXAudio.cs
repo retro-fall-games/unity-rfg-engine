@@ -1,28 +1,25 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using RFG;
 
 namespace RFGFx
 {
-  public class FXAudio : MonoBehaviour
+  public class FXAudio : Singleton<FXAudio>
   {
-    public static FXAudio Instance { get; private set; }
     private Dictionary<string, AudioSource> fx = new Dictionary<string, AudioSource>();
     private Dictionary<string, float> fxVolumes = new Dictionary<string, float>();
 
-    private void Awake()
+    protected override void Awake()
     {
-      if (Instance == null)
+      base.Awake();
+
+      AudioSource[] audioSources = GetComponents<AudioSource>();
+
+      foreach (AudioSource audioSource in audioSources)
       {
-        Instance = this;
-
-        AudioSource[] audioSources = GetComponents<AudioSource>();
-
-        foreach (AudioSource audioSource in audioSources)
-        {
-          fx.Add(audioSource.clip.name, audioSource);
-          fxVolumes.Add(audioSource.clip.name, audioSource.volume);
-        }
+        fx.Add(audioSource.clip.name, audioSource);
+        fxVolumes.Add(audioSource.clip.name, audioSource.volume);
       }
     }
 
@@ -30,7 +27,6 @@ namespace RFGFx
     {
       if (fx.ContainsKey(name))
       {
-
         if (fade)
         {
           StartCoroutine(VolumnFade.FadeInVolume(fx[name], fxVolumes[name], 1f));
@@ -43,18 +39,34 @@ namespace RFGFx
       }
     }
 
+    public void Play(string[] names, bool fade = false)
+    {
+      foreach (string name in names)
+      {
+        Play(name, fade);
+      }
+    }
+
     public void Stop(string name, bool fade = false)
     {
       if (fx.ContainsKey(name))
       {
         if (fade)
         {
-          StartCoroutine(VolumnFade.FadeOutVolume(fx[name], fxVolumes[name], 1f, true));
+          StartCoroutine(VolumnFade.FadeOutVolume(fx[name], fxVolumes[name], 1f));
         }
         else
         {
           fx[name].Stop();
         }
+      }
+    }
+
+    public void Stop(string[] names, bool fade = false)
+    {
+      foreach (string name in names)
+      {
+        Stop(name, fade);
       }
     }
 

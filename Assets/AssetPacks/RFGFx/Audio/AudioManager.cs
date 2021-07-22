@@ -1,22 +1,11 @@
 using System.Collections;
 using UnityEngine;
+using RFG;
 
 namespace RFGFx
 {
-  public class AudioManager : MonoBehaviour
+  public class AudioManager : PersistentSingleton<AudioManager>
   {
-    public static AudioManager Instance { get; private set; }
-
-    private void Awake()
-    {
-      if (Instance != null && Instance != this)
-        Destroy(gameObject);
-      else
-      {
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-      }
-    }
 
     private void Start()
     {

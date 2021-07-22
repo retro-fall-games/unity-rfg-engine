@@ -1,30 +1,26 @@
 
 using UnityEngine;
-using System;
 using System.Collections.Generic;
+using RFG;
 
 namespace RFGFx
 {
-  public class SoundTrackAudio : MonoBehaviour
+  public class SoundTrackAudio : Singleton<SoundTrackAudio>
   {
-    public static SoundTrackAudio Instance { get; private set; }
     public string playOnStart;
     public Dictionary<string, AudioSource> soundtrack = new Dictionary<string, AudioSource>();
     private Dictionary<string, float> soundtrackVolumes = new Dictionary<string, float>();
 
-    private void Awake()
+    protected override void Awake()
     {
-      if (Instance == null)
+      base.Awake();
+
+      AudioSource[] audioSources = GetComponents<AudioSource>();
+
+      foreach (AudioSource audioSource in audioSources)
       {
-        Instance = this;
-
-        AudioSource[] audioSources = GetComponents<AudioSource>();
-
-        foreach (AudioSource audioSource in audioSources)
-        {
-          soundtrack.Add(audioSource.clip.name, audioSource);
-          soundtrackVolumes.Add(audioSource.clip.name, audioSource.volume);
-        }
+        soundtrack.Add(audioSource.clip.name, audioSource);
+        soundtrackVolumes.Add(audioSource.clip.name, audioSource.volume);
       }
     }
 
@@ -52,18 +48,34 @@ namespace RFGFx
       }
     }
 
+    public void Play(string[] names, bool fade = false)
+    {
+      foreach (string name in names)
+      {
+        Play(name, fade);
+      }
+    }
+
     public void Stop(string name, bool fade = false)
     {
       if (soundtrack.ContainsKey(name))
       {
         if (fade)
         {
-          StartCoroutine(VolumnFade.FadeOutVolume(soundtrack[name], soundtrackVolumes[name], 1f, true));
+          StartCoroutine(VolumnFade.FadeOutVolume(soundtrack[name], soundtrackVolumes[name], 1f));
         }
         else
         {
           soundtrack[name].Stop();
         }
+      }
+    }
+
+    public void Stop(string[] names, bool fade = false)
+    {
+      foreach (string name in names)
+      {
+        Stop(name, fade);
       }
     }
 

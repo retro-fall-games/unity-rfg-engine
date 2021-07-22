@@ -16,9 +16,10 @@ namespace RFGFx
         audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
         yield return null;
       }
+      audioSource.Play();
       yield break;
     }
-    public static IEnumerator FadeOutVolume(AudioSource audioSource, float targetVolume, float duration, bool stop = false)
+    public static IEnumerator FadeOutVolume(AudioSource audioSource, float targetVolume, float duration)
     {
       float currentTime = 0;
       float start = targetVolume;
@@ -28,10 +29,7 @@ namespace RFGFx
         audioSource.volume = Mathf.Lerp(start, 0, currentTime / duration);
         yield return null;
       }
-      if (stop)
-      {
-        audioSource.Stop();
-      }
+      audioSource.Stop();
       yield break;
     }
 

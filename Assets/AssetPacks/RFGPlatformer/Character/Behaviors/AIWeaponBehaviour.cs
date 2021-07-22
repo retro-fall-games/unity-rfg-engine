@@ -79,7 +79,7 @@ namespace RFG
     {
       if (index < 0 || index >= weapons.Count)
       {
-        Debug.Log("Cannot equip primary weapon at index: " + index);
+        LogExt.Warn<AIWeaponBehaviour>("Cannot equip primary weapon at index: " + index);
         return;
       }
 
@@ -99,7 +99,7 @@ namespace RFG
     {
       if (index < 0 || index >= weapons.Count)
       {
-        Debug.Log("Cannot equip secondary weapon at index: " + index);
+        LogExt.Warn<AIWeaponBehaviour>("Cannot equip secondary weapon at index: " + index);
         return;
       }
       if (SecondaryWeapon != null)
