@@ -53,6 +53,10 @@ namespace RFG
 
     private void PrimaryFireButtonOnStateChanged(ButtonStates state)
     {
+      if (Time.timeScale == 0f)
+      {
+        return;
+      }
       if (PrimaryWeapon == null)
       {
         return;
@@ -73,6 +77,10 @@ namespace RFG
 
     private void SecondaryFireButtonOnStateChanged(ButtonStates state)
     {
+      if (Time.timeScale == 0f)
+      {
+        return;
+      }
       if (SecondaryWeapon == null)
       {
         return;

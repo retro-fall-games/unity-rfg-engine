@@ -345,6 +345,10 @@ MonoBehaviour:
   jumpHeight: 3
   horizontalSpeed: 3
   jumpRestrictions: 0
+  jumpSoundFx:
+  - Jump
+  landSoundFx:
+  - Land
 --- !u!114 &8275720483749746170
 MonoBehaviour:
   m_ObjectHideFlags: 0

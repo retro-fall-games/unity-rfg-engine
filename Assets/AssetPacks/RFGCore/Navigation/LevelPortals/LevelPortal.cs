@@ -14,6 +14,9 @@ namespace RFG
     public int toLevelPortalIndex = -1;
     public float waitForSeconds = 0f;
 
+    [Header("Soundtrack")]
+    public bool fadeSoundtrack = false;
+
     [HideInInspector]
     public bool JustWarped { get; set; }
 
@@ -23,7 +26,7 @@ namespace RFG
       {
         if (!JustWarped && toLevelPortalIndex != -1 && !toScene.Equals(""))
         {
-          EventManager.TriggerEvent(new LevelPortalEvent(toScene, toLevelPortalIndex, waitForSeconds));
+          EventManager.TriggerEvent(new LevelPortalEvent(toScene, toLevelPortalIndex, fadeSoundtrack, waitForSeconds));
         }
       }
     }

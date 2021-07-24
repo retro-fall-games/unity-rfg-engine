@@ -202,7 +202,7 @@ namespace RFG
     public void OnEvent(LevelPortalEvent levelPortalEvent)
     {
       PlayerPrefs.SetInt("levelPortalTo", levelPortalEvent.toLevelPortalIndex);
-      SceneManager.Instance.LoadScene(levelPortalEvent.toScene, levelPortalEvent.waitForSeconds);
+      SceneManager.Instance.LoadScene(levelPortalEvent.toScene, levelPortalEvent.fadeSoundtrack, levelPortalEvent.waitForSeconds);
     }
 
     public void OnEvent(PlayerKillEvent playerKillEvent)

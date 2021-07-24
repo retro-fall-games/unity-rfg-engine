@@ -1,4 +1,5 @@
 using UnityEngine;
+using RFGFx;
 
 namespace RFG
 {
@@ -19,8 +20,19 @@ namespace RFG
     [Header("Jump Restrictions")]
     public JumpRestrictions jumpRestrictions;
 
+    [Header("Audio")]
+    public string[] jumpSoundFx;
+    public string[] landSoundFx;
+
     public override void ProcessBehaviour()
     {
+      if (_character.Controller.State.JustGotGrounded)
+      {
+        if (landSoundFx != null && landSoundFx.Length > 0)
+        {
+          FXAudio.Instance.Play(landSoundFx, false);
+        }
+      }
       if (_character.AIMovementState.CurrentState == AIMovementStates.JumpingLeft || _character.AIMovementState.CurrentState == AIMovementStates.JumpingRight)
       {
         JumpStart();
@@ -33,6 +45,12 @@ namespace RFG
       {
         return;
       }
+
+      if (jumpSoundFx != null && jumpSoundFx.Length > 0)
+      {
+        FXAudio.Instance.Play(jumpSoundFx, false);
+      }
+
       if (_character.AIMovementState.CurrentState == AIMovementStates.JumpingLeft && _character.Controller.State.IsFacingRight)
       {
         _character.Controller.Flip();

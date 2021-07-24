@@ -392,7 +392,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0.000015258789, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 16, y: 16}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &7870443104553943793
@@ -475,6 +475,8 @@ GameObject:
   - component: {fileID: 5911220477912836827}
   - component: {fileID: 3310096266536322791}
   - component: {fileID: 6908246177037150425}
+  - component: {fileID: 7158165740851286721}
+  - component: {fileID: 451804467763293596}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -563,6 +565,33 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7158165740851286721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4597992241397248110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a18f99dc10880f48911be52b8e5ac1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvas: {fileID: 5911220477912836827}
+--- !u!114 &451804467763293596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4597992241397248110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb212231f675e3d4799e3ae190485a8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sortingLayer: UI
+  canvas: {fileID: 5911220477912836827}
 --- !u!1 &6724250356888919257
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +616,7 @@ GameObject:
   - component: {fileID: 5581365155145726145}
   - component: {fileID: 4100562160056189929}
   - component: {fileID: 8926402088648912618}
+  - component: {fileID: 2093635291171879254}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -674,9 +704,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterType: 0
-  destroyOnKill: 1
-  spawnSoundFx: []
-  deathSoundFx: []
+  destroyOnKill: 0
+  spawnSoundFx:
+  - Orbital
+  deathSoundFx:
+  - Hit
+  - Warp
 --- !u!50 &6724250356888919235
 Rigidbody2D:
   serializedVersion: 4
@@ -844,7 +877,7 @@ MonoBehaviour:
   jumpSoundFx:
   - Jump
   landSoundFx:
-  - Land Thud
+  - Land
 --- !u!114 &4862821622182035514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -973,3 +1006,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons:
   - {fileID: 7667347513528325601}
+--- !u!114 &2093635291171879254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6724250356888919257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb81f8433a4417d4a8a027ae45c95298, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

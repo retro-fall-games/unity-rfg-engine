@@ -28,20 +28,27 @@ namespace RFG
     {
       AudioManager.Instance.StopAll(true);
       Transition.Instance.Show("CrossFade", "Start");
-      yield return new WaitForSeconds(3f);
+      yield return new WaitForSecondsRealtime(3f);
+
+#if UNITY_EDITOR
+      UnityEditor.EditorApplication.isPlaying = false;
+#else
       Application.Quit();
+#endif
     }
 
     public void Pause()
     {
       IsPaused = true;
       Time.timeScale = 0f;
+      EventManager.TriggerEvent(new GameEvent(GameEvent.GameEventType.Paused));
     }
 
     public void UnPause()
     {
       IsPaused = false;
       Time.timeScale = 1f;
+      EventManager.TriggerEvent(new GameEvent(GameEvent.GameEventType.UnPaused));
     }
 
     public void OnEvent(GameEvent gameEvent)

@@ -54,6 +54,10 @@ namespace RFG
 
     private void JumpButtonOnStateChanged(ButtonStates state)
     {
+      if (Time.timeScale == 0f)
+      {
+        return;
+      }
       switch (state)
       {
         case ButtonStates.Down:

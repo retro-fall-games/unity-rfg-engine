@@ -57,6 +57,10 @@ namespace RFG
 
     private void DashButtonOnStateChanged(ButtonStates state)
     {
+      if (Time.timeScale == 0f)
+      {
+        return;
+      }
       switch (state)
       {
         case ButtonStates.Down:

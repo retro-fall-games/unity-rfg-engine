@@ -61,7 +61,7 @@ namespace Game
         Game.ProfileManager.Instance.SetProfile(_profile);
         PlayerPrefs.SetInt("startingCheckpoint", 0);
       }
-      SceneManager.Instance.LoadScene(_profile.data.level);
+      SceneManager.Instance.LoadScene(_profile.data.level, true);
     }
 
     public void DeleteProfile()

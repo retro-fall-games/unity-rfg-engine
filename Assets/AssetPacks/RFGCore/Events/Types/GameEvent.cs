@@ -3,7 +3,7 @@ namespace RFG
 {
   public struct GameEvent
   {
-    public enum GameEventType { Pause }
+    public enum GameEventType { Pause, Paused, UnPaused }
     public GameEventType eventType;
     public GameEvent(GameEventType eventType)
     {

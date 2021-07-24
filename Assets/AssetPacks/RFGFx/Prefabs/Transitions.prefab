@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4090499528224423896}
   - component: {fileID: 4090499528224423897}
   - component: {fileID: 4090499528224423879}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 4090499529782186521}
   - component: {fileID: 4090499529782186522}
   - component: {fileID: 4090499529782186503}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: CrossFade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +245,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 9f2a4f48d1466984f8e1d19a4499cef3, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 

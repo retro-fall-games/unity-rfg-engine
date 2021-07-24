@@ -68,7 +68,7 @@ namespace Game
       // Stop everything and go play the game
       AudioManager.Instance.StopAll(true);
       yield return new WaitForSeconds(4f);
-      SceneManager.Instance.LoadScene("Scene1");
+      SceneManager.Instance.LoadScene("Scene1", true);
     }
 
     protected override void OnSkipEnter()
@@ -84,7 +84,7 @@ namespace Game
 
     protected override void OnSkipExit()
     {
-      SceneManager.Instance.LoadScene("Scene1");
+      SceneManager.Instance.LoadScene("Scene1", true);
     }
 
   }

@@ -12,6 +12,9 @@ namespace RFG
     public Cutscene onStart;
     public bool fadeInOnStart = false;
 
+    [Header("Soundtrack")]
+    public string playOnStart = "";
+
     [HideInInspector]
     public bool Loaded { get; set; }
     private string _lastScene;
@@ -27,6 +30,15 @@ namespace RFG
       // Wait until everything is loaded
       yield return new WaitUntil(() => GameManager.Instance != null);
       yield return new WaitUntil(() => Transition.Instance != null);
+      yield return new WaitUntil(() => SoundTrackAudio.Instance != null);
+
+
+      if (!playOnStart.Equals(""))
+      {
+        SoundTrackAudio.Instance.StopAll();
+        SoundTrackAudio.Instance.Play(playOnStart);
+      }
+
       if (onStart != null)
       {
         onStart.Run();
@@ -43,16 +55,25 @@ namespace RFG
 
     public void LoadScene(string name)
     {
-      LoadScene(name, 3f);
+      LoadScene(name, false, 3f);
     }
 
-    public void LoadScene(string name, float waitForSeconds = 3f)
+    public void LoadScene(string name, bool fadeSoundtrack = false)
     {
-      StartCoroutine(LoadSceneCo(name, waitForSeconds));
+      LoadScene(name, fadeSoundtrack, 3f);
     }
 
-    private IEnumerator LoadSceneCo(string name, float waitForSeconds)
+    public void LoadScene(string name, bool fadeSoundtrack, float waitForSeconds = 3f)
     {
+      StartCoroutine(LoadSceneCo(name, fadeSoundtrack, waitForSeconds));
+    }
+
+    private IEnumerator LoadSceneCo(string name, bool fadeSoundtrack, float waitForSeconds)
+    {
+      if (fadeSoundtrack)
+      {
+        SoundTrackAudio.Instance.StopAll(fadeSoundtrack);
+      }
       Transition.Instance.Show("CrossFade", "Start");
       yield return new WaitForSeconds(waitForSeconds);
       PlayerPrefs.SetString("lastScene", GetCurrentScene());
