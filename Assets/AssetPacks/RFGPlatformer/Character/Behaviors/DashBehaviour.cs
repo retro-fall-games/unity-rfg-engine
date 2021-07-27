@@ -1,24 +1,24 @@
 using System.Collections;
 using UnityEngine;
-using RFGFx;
 
 namespace RFG
 {
-  [AddComponentMenu("RFG Platformer/Character/Behaviour/Dash Behaviour")]
-  public class DashBehaviour : CharacterBehaviour
+  [AddComponentMenu("RFG Engine/Character/Behaviour/Dash Behaviour")]
+  public class DashBehaviour : PlatformerCharacterBehaviour
   {
-
     [Header("Dash")]
     public float dashDistance = 3f;
     public float dashForce = 40f;
     public int totalDashes = 2;
     public int numberOfDashesLeft = 2;
+
     [Header("Direction")]
     public Aim aim;
     public float minInputThreshold = 0.1f;
 
     [Header("Cooldown")]
     public float cooldown = 1f;
+
     [Header("Audio")]
     public string[] soundFx;
 
@@ -40,9 +40,9 @@ namespace RFG
 
     private IEnumerator InitBehaviourCo()
     {
-      yield return new WaitUntil(() => _character.CharacterInput != null);
-      yield return new WaitUntil(() => _character.CharacterInput.DashButton != null);
-      _dashButton = _character.CharacterInput.DashButton;
+      yield return new WaitUntil(() => InputManager.Instance != null);
+      yield return new WaitUntil(() => InputManager.Instance.DashButton != null);
+      _dashButton = InputManager.Instance.DashButton;
       _dashButton.State.OnStateChange += DashButtonOnStateChanged;
     }
 
@@ -105,9 +105,9 @@ namespace RFG
 
     private void ComputerDashDirection()
     {
-      if (_character.CharacterInput != null && _character.CharacterInput.InputManager != null)
+      if (InputManager.Instance != null)
       {
-        aim.PrimaryMovement = _character.CharacterInput.InputManager.PrimaryMovement;
+        aim.PrimaryMovement = InputManager.Instance.PrimaryMovement;
       }
       aim.CurrentPosition = _transform.position;
       _dashDirection = aim.GetCurrentAim();

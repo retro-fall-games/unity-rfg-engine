@@ -7,8 +7,8 @@ namespace Game
 {
   public class IntroCutscene : Cutscene
   {
-    public Character player;
-    public Character boss;
+    public PlatformerCharacter player;
+    public PlatformerCharacter boss;
 
     public SpriteRenderer sword;
     public Sprite emptySword;

@@ -3,7 +3,7 @@ using UnityEngine;
 namespace RFG
 {
   [AddComponentMenu("RFG Platformer/Character/Behaviour/AI Wandering Behaviour")]
-  public class AIWanderingBehaviour : CharacterBehaviour
+  public class AIWanderingBehaviour : PlatformerCharacterBehaviour
   {
     [Header("Settings")]
     public float walkSpeed = 5f;

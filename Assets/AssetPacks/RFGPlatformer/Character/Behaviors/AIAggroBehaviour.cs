@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace RFG
 {
-  [AddComponentMenu("RFG Platformer/Character/Behaviour/AI Aggro Behaviour")]
-  public class AIAggroBehaviour : CharacterBehaviour
+  [AddComponentMenu("RFG Engine/Character/Behaviour/AI Aggro Behaviour")]
+  public class AIAggroBehaviour : PlatformerCharacterBehaviour
   {
     [Header("Settings")]
     public float runSpeed = 5f;
@@ -42,7 +42,6 @@ namespace RFG
         float horizontalMovementForce = Mathf.Lerp(_character.Controller.Velocity.x, movementSpeed, Time.deltaTime * movementFactor);
 
         _character.Controller.SetHorizontalForce(horizontalMovementForce);
-
       }
     }
 

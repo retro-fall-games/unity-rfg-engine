@@ -3,7 +3,7 @@ using UnityEngine;
 namespace RFG
 {
   [AddComponentMenu("RFG Platformer/Character/Behaviour/Wall Clinging Behaviour")]
-  public class WallClingingBehaviour : CharacterBehaviour
+  public class WallClingingBehaviour : PlatformerCharacterBehaviour
   {
 
     [Range(0.01f, 1f)]
@@ -19,7 +19,7 @@ namespace RFG
     {
       _controller = _character.Controller;
       _state = _character.Controller.State;
-      _input = _character.CharacterInput.InputManager;
+      _input = InputManager.Instance;
     }
 
     public override void ProcessBehaviour()
@@ -29,6 +29,9 @@ namespace RFG
         _controller.SlowFall(0f);
         return;
       }
+
+      float _horizontalInput = _input.PrimaryMovement.x;
+      float _verticalInput = _input.PrimaryMovement.y;
 
       float threshold = _input.threshold.x;
       bool isClingingLeft = _state.IsCollidingLeft && _horizontalInput <= -threshold;

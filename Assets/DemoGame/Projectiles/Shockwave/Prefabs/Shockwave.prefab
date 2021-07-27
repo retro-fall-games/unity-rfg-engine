@@ -120,14 +120,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   damage: 10
-  destroyOnCollision: 0
-  knockback: {fileID: -3665444438838682569}
   target: {fileID: 0}
   targetIsPlayer: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 16896
   collisionEffect: {fileID: 3959827734333515761, guid: e753f1f9fb68e6649a3aa306fd8be1bc, type: 3}
+  collisionEffectPoolTag: 
   cameraShakeIntensity: 1
   cameraShakeTime: 0.3
   cameraShakeFade: 0
@@ -135,6 +134,10 @@ MonoBehaviour:
   - Hit Laser
   deathSoundFx:
   - Hit 3
+  rb: {fileID: 26071844252189597}
+  boxCollider: {fileID: 4095533716030735900}
+  destroyOnCollision: 0
+  knockback: {fileID: -3665444438838682569}
 --- !u!114 &-3665444438838682569
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,7 +154,8 @@ MonoBehaviour:
   velocity: {x: 10, y: 10}
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 16384
+  soundFx: []
 --- !u!50 &26071844252189597
 Rigidbody2D:
   serializedVersion: 4

@@ -2,14 +2,17 @@ using UnityEngine;
 
 namespace RFG
 {
-  [AddComponentMenu("RFG Platformer/Character/Behaviour/Horizontal Movement Behaviour")]
-  public class HorizontalMovementBehaviour : CharacterBehaviour
+  [AddComponentMenu("RFG Engine/Character/Behaviour/Horizontal Movement Behaviour")]
+  public class HorizontalMovementBehaviour : PlatformerCharacterBehaviour
   {
+    [Header("Settings")]
     public float walkSpeed = 5f;
 
     public override void ProcessBehaviour()
     {
       float _normalizedHorizontalSpeed = 0f;
+      float _horizontalInput = InputManager.Instance.PrimaryMovement.x;
+      float _verticalInput = InputManager.Instance.PrimaryMovement.y;
 
       if (_horizontalInput > 0f)
       {

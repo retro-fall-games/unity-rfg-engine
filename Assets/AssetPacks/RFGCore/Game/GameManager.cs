@@ -16,7 +16,7 @@ namespace RFG
 
     private void Start()
     {
-      Application.targetFrameRate = targetFrameRate;
+      // Application.targetFrameRate = targetFrameRate;
     }
 
     public void Quit()

@@ -4,7 +4,7 @@ using MyBox;
 namespace RFG
 {
   [AddComponentMenu("RFG Platformer/Character/Behaviour/AI Movement Path Behaviour")]
-  public class AIMovementPathBehaviour : CharacterBehaviour
+  public class AIMovementPathBehaviour : PlatformerCharacterBehaviour
   {
     [Header("Settings")]
     public float walkSpeed = 5f;

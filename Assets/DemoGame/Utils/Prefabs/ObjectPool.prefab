@@ -46,4 +46,13 @@ MonoBehaviour:
   pools:
   - tag: Shockwave
     prefab: {fileID: 1365983511011801032, guid: 34b33c35182d15a4c9db21992f0cb8ef, type: 3}
-    size: 1
+    size: 2
+  - tag: Slingshot
+    prefab: {fileID: 3866315227574023345, guid: 098109227f85c8d4b9c88fe4a82805e0, type: 3}
+    size: 10
+  - tag: Robot
+    prefab: {fileID: 8275720483749745162, guid: c7052f8ddb71a574087415c5d2eaca79, type: 3}
+    size: 10
+  - tag: SlingshotHit
+    prefab: {fileID: 29594085034254252, guid: 339835331ddf3264ea9ff7760106aac5, type: 3}
+    size: 10

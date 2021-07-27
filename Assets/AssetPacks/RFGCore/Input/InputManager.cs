@@ -17,13 +17,27 @@ namespace RFG
     [Header("Joystick Pack")]
     public VariableJoystick variableJoystick;
 
+    [HideInInspector]
     public Vector2 PrimaryMovement => _primaryMovement;
     private Dictionary<string, Button> _buttons;
     private Vector2 _primaryMovement = Vector2.zero;
 
+    public Button JumpButton { get; private set; }
+    public Button DashButton { get; private set; }
+    public Button PauseButton { get; private set; }
+    public Button PrimaryFireButton { get; private set; }
+    public Button SecondaryFireButton { get; private set; }
+
     private void Start()
     {
       _buttons = new Dictionary<string, Button>();
+
+      AddButton(JumpButton = new Button("Jump"));
+      AddButton(DashButton = new Button("Dash"));
+      AddButton(PauseButton = new Button("Pause"));
+      AddButton(PrimaryFireButton = new Button("Fire1"));
+      AddButton(SecondaryFireButton = new Button("Fire2"));
+
       if (customCursor != null)
       {
         Cursor.SetCursor(customCursor, Vector2.zero, CursorMode.ForceSoftware);

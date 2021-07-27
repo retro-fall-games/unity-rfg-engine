@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace RFG
 {
-  [AddComponentMenu("RFG Platformer/Physics/PhysicsVolume2D")]
+  [AddComponentMenu("RFG Engine/Physics/PhysicsVolume2D")]
   public class PhysicsVolume2D : MonoBehaviour
   {
     public enum VolumeType { Water }

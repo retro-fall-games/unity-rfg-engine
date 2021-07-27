@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace RFG
 {
-  [AddComponentMenu("RFG Platformer/Character/Behaviour/AI Brain Behaviour")]
-  public class AIBrainBehaviour : CharacterBehaviour
+  [AddComponentMenu("RFG Engine/Character/Behaviour/AI Brain Behaviour")]
+  public class AIBrainBehaviour : PlatformerCharacterBehaviour
   {
     [Header("Settings")]
     public float decisionSpeed = 3f;
@@ -65,7 +65,7 @@ namespace RFG
         if (_weaponBehavior != null)
         {
           int weaponDecision = DecisionTree(1000, 500, 100 + decisionOffset);
-          Weapon weapon;
+          WeaponItem weapon;
 
           switch (weaponDecision)
           {
@@ -81,7 +81,7 @@ namespace RFG
               break;
           }
 
-          if (weapon != null && weapon.weaponState.CurrentState == Weapon.WeaponState.Off)
+          if (weapon != null && weapon.weaponFiringState == WeaponItem.WeaponFiringState.Off)
           {
             weapon.Fire();
           }

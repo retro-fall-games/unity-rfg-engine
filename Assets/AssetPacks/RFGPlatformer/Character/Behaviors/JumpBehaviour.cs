@@ -1,11 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using RFGFx;
 
 namespace RFG
 {
-  [AddComponentMenu("RFG Platformer/Character/Behaviour/Jump Behaviour")]
-  public class JumpBehaviour : CharacterBehaviour
+  [AddComponentMenu("RFG Engine/Character/Behaviour/Jump Behaviour")]
+  public class JumpBehaviour : PlatformerCharacterBehaviour
   {
     public enum JumpRestrictions
     {
@@ -46,9 +45,9 @@ namespace RFG
 
     private IEnumerator InitBehaviourCo()
     {
-      yield return new WaitUntil(() => _character.CharacterInput != null);
-      yield return new WaitUntil(() => _character.CharacterInput.JumpButton != null);
-      _jumpButton = _character.CharacterInput.JumpButton;
+      yield return new WaitUntil(() => InputManager.Instance != null);
+      yield return new WaitUntil(() => InputManager.Instance.JumpButton != null);
+      _jumpButton = InputManager.Instance.JumpButton;
       _jumpButton.State.OnStateChange += JumpButtonOnStateChanged;
     }
 
@@ -96,6 +95,8 @@ namespace RFG
 
       _character.Controller.CollisionsOnStairs(true);
 
+      float _verticalInput = InputManager.Instance.PrimaryMovement.y;
+
       if (_verticalInput < 0f)
       {
         _lastJumpTime = Time.time;
@@ -119,18 +120,21 @@ namespace RFG
 
     private void JumpStop()
     {
-      bool hasMinAirTime = Time.time - _lastJumpTime >= jumpMinAirTime;
-      bool speedGreaterThanGravity = _character.Controller.Velocity.y > Mathf.Sqrt(Mathf.Abs(_character.Controller.Parameters.gravity));
-      if (hasMinAirTime && speedGreaterThanGravity && jumpIsProportionalToThePressTime)
+      if (jumpIsProportionalToThePressTime)
       {
-        _lastJumpTime = 0f;
-        if (jumpReleaseForceFactor == 0f)
+        bool hasMinAirTime = Time.time - _lastJumpTime >= jumpMinAirTime;
+        bool speedGreaterThanGravity = _character.Controller.Velocity.y > Mathf.Sqrt(Mathf.Abs(_character.Controller.Parameters.gravity));
+        if (hasMinAirTime && speedGreaterThanGravity)
         {
-          _character.Controller.SetVerticalForce(0f);
-        }
-        else
-        {
-          _character.Controller.AddVerticalForce(-_character.Controller.Velocity.y / jumpReleaseForceFactor);
+          _lastJumpTime = 0f;
+          if (jumpReleaseForceFactor == 0f)
+          {
+            _character.Controller.SetVerticalForce(0f);
+          }
+          else
+          {
+            _character.Controller.AddVerticalForce(-_character.Controller.Velocity.y / jumpReleaseForceFactor);
+          }
         }
       }
       _character.Controller.State.IsFalling = true;

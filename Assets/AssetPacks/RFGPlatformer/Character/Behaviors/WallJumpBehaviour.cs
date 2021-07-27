@@ -1,11 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using RFGFx;
 
 namespace RFG
 {
-  [AddComponentMenu("RFG Platformer/Character/Behaviour/Wall Jump Behaviour")]
-  public class WallJumpBehaviour : CharacterBehaviour
+  [AddComponentMenu("RFG Engine/Character/Behaviour/Wall Jump Behaviour")]
+  public class WallJumpBehaviour : PlatformerCharacterBehaviour
   {
     [Header("Settings")]
     public Vector2 wallJumpForce = new Vector2(10f, 4f);
@@ -16,22 +15,20 @@ namespace RFG
     private Button _jumpButton;
     private CharacterController2D _controller;
     private CharacterControllerState2D _state;
-    private InputManager _input;
 
     public override void InitBehaviour()
     {
       _controller = _character.Controller;
       _state = _character.Controller.State;
-      _input = _character.CharacterInput.InputManager;
       _jumpBehaviour = _character.FindBehaviour<JumpBehaviour>();
       StartCoroutine(InitBehaviourCo());
     }
 
     private IEnumerator InitBehaviourCo()
     {
-      yield return new WaitUntil(() => _character.CharacterInput != null);
-      yield return new WaitUntil(() => _character.CharacterInput.JumpButton != null);
-      _jumpButton = _character.CharacterInput.JumpButton;
+      yield return new WaitUntil(() => InputManager.Instance != null);
+      yield return new WaitUntil(() => InputManager.Instance.JumpButton != null);
+      _jumpButton = InputManager.Instance.JumpButton;
       _jumpButton.State.OnStateChange += JumpButtonOnStateChanged;
     }
 
@@ -69,7 +66,8 @@ namespace RFG
 
       _controller.SlowFall(0f);
 
-      float threshold = _input.threshold.x;
+      float threshold = InputManager.Instance.threshold.x;
+      float _horizontalInput = InputManager.Instance.PrimaryMovement.x;
       bool isClingingLeft = _state.IsCollidingLeft && _horizontalInput <= -threshold;
       bool isClingingRight = _state.IsCollidingRight && _horizontalInput >= threshold;
 

@@ -1,10 +1,9 @@
 using UnityEngine;
-using RFGFx;
 
 namespace RFG
 {
-  [AddComponentMenu("RFG Platformer/Character/Behaviour/AI Jump Behaviour")]
-  public class AIJumpBehaviour : CharacterBehaviour
+  [AddComponentMenu("RFG Engine/Character/Behaviour/AI Jump Behaviour")]
+  public class AIJumpBehaviour : PlatformerCharacterBehaviour
   {
     public enum JumpRestrictions
     {

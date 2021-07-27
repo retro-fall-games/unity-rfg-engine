@@ -287,9 +287,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7cdf0ae1ef5ab4e8a3f0888ca307be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  maxHealth: 100
-  slider: {fileID: 0}
+  health: 20
+  maxHealth: 20
   deathEffect: {fileID: 5346417957786371929, guid: b71d7b97bfecc604a8eb446904dd63d6, type: 3}
 --- !u!114 &8275720483749746173
 MonoBehaviour:
@@ -409,7 +408,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
-  velocity: {x: 20, y: 20}
+  velocity: {x: 15, y: 5}
   layerMask:
     serializedVersion: 2
     m_Bits: 256

@@ -3,7 +3,7 @@ using UnityEngine;
 namespace RFG
 {
   [AddComponentMenu("RFG Platformer/Character/Behaviour/AI Rotate On Collision Behaviour")]
-  public class AIRotateOnCollisionBehaviour : CharacterBehaviour
+  public class AIRotateOnCollisionBehaviour : PlatformerCharacterBehaviour
   {
     public override void ProcessBehaviour()
     {

@@ -1,16 +1,15 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace RFG
 {
   [AddComponentMenu("RFG Platformer/Character/Behaviour/AI Weapon Behaviour")]
-  public class AIWeaponBehaviour : CharacterBehaviour
+  public class AIWeaponBehaviour : PlatformerCharacterBehaviour
   {
     [Header("Weapons")]
-    public List<Weapon> weapons;
-    public Weapon PrimaryWeapon { get; private set; }
-    public Weapon SecondaryWeapon { get; private set; }
+    public List<WeaponItem> weapons;
+    public WeaponItem PrimaryWeapon { get; private set; }
+    public WeaponItem SecondaryWeapon { get; private set; }
 
     [HideInInspector]
     private int _equippedPrimaryWeaponIndex = 0;
@@ -20,27 +19,17 @@ namespace RFG
 
     public override void InitBehaviour()
     {
-      StartCoroutine(InitBehaviourCo());
-    }
-
-    private IEnumerator InitBehaviourCo()
-    {
-      yield return new WaitUntil(() => _character.CharacterInput != null);
-      yield return new WaitUntil(() => _character.CharacterInput.PrimaryFireButton != null);
-      yield return new WaitUntil(() => _character.CharacterInput.SecondaryFireButton != null);
-
-      // Setup weapons
       if (weapons.Count == 0)
       {
-        weapons = new List<Weapon>();
+        weapons = new List<WeaponItem>();
       }
       else
       {
-        int equipOnStart = weapons.FindIndex(0, weapons.Count, w => w.equipOnStart == true);
-        if (equipOnStart != -1)
-        {
-          EquipPrimary(equipOnStart);
-        }
+        // int equipOnStart = weapons.FindIndex(0, weapons.Count, w => w.equipOnStart == true);
+        // if (equipOnStart != -1)
+        // {
+        //   EquipPrimary(equipOnStart);
+        // }
       }
     }
 
@@ -48,26 +37,26 @@ namespace RFG
     {
       if (_character.AIState.CurrentState == AIStates.Attacking)
       {
-        Weapon primary = PrimaryWeapon;
-        Weapon secondary = SecondaryWeapon;
+        WeaponItem primary = PrimaryWeapon;
+        WeaponItem secondary = SecondaryWeapon;
         if (primary != null)
         {
-          if (primary.weaponState.CurrentState == Weapon.WeaponState.Charging)
+          if (primary.weaponFiringState == WeaponItem.WeaponFiringState.Charging)
           {
             primary.Charging();
           }
-          else if (primary.weaponState.CurrentState == Weapon.WeaponState.Firing)
+          else if (primary.weaponFiringState == WeaponItem.WeaponFiringState.Firing)
           {
             primary.Firing();
           }
         }
         if (secondary != null)
         {
-          if (secondary.weaponState.CurrentState == Weapon.WeaponState.Charging)
+          if (secondary.weaponFiringState == WeaponItem.WeaponFiringState.Charging)
           {
             secondary.Charging();
           }
-          else if (secondary.weaponState.CurrentState == Weapon.WeaponState.Firing)
+          else if (secondary.weaponFiringState == WeaponItem.WeaponFiringState.Firing)
           {
             secondary.Firing();
           }
