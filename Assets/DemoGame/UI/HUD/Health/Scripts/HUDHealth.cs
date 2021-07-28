@@ -8,11 +8,12 @@ namespace Game
   public class HUDHealth : MonoBehaviour
   {
     [Header("Settings")]
-    public int maxHearts = 3;
+    public float heartDivisionPercent = .3f;
     public int heartSteps = 5;
     public GameObject[] hearts;
 
     [HideInInspector]
+    private int maxHearts;
     private List<SpriteSwitcher> _spriteSwitchers;
 
     private void Awake()
@@ -23,7 +24,6 @@ namespace Game
         GameObject heart = hearts[i];
         _spriteSwitchers.Add(heart.GetComponent<SpriteSwitcher>());
       }
-      SetMaxHearts(maxHearts);
     }
 
     private void Start()
@@ -37,6 +37,13 @@ namespace Game
       GameObject player = GameObject.FindGameObjectWithTag("Player");
       HealthBehaviour health = player.gameObject.GetComponent<HealthBehaviour>();
       health.OnHealthChange += OnHealthChange;
+      CalculateMaxHearts(health.maxHealth);
+    }
+
+    private void CalculateMaxHearts(float maxHealth)
+    {
+      maxHearts = (int)(maxHealth * heartDivisionPercent);
+      SetMaxHearts(maxHearts);
     }
 
     public void SetMaxHearts(int max)
@@ -44,16 +51,14 @@ namespace Game
       maxHearts = max;
       for (int i = 0; i < hearts.Length; i++)
       {
-        GameObject heart = hearts[i];
-        if (i >= maxHearts)
-        {
-          heart.SetActive(false);
-        }
+        hearts[i].SetActive(i < maxHearts);
       }
     }
 
     public void OnHealthChange(float maxHealth, float currentHealth)
     {
+      CalculateMaxHearts(maxHealth);
+
       float heartHealthPercent = maxHealth / maxHearts / 100;
       // 100 / 3 / 100 = .33;
 

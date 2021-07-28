@@ -45,6 +45,14 @@ namespace RFG
     JumpingRight,
   }
 
+  public enum CharacterAbilities
+  {
+    DoubleJump,
+    WallCling,
+    WallJump,
+    Dash,
+  }
+
   public class BaseCharacter : MonoBehaviour, IPooledObject
   {
     [Header("Settings")]

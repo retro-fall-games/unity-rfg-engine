@@ -51,5 +51,10 @@ namespace RFG
       SetHealth(maxHealth);
     }
 
+    public void SetMaxHealth(float amount)
+    {
+      maxHealth = amount;
+    }
+
   }
 }

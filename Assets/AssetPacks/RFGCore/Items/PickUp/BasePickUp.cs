@@ -1,14 +1,11 @@
 using UnityEngine;
-using RFG;
 using MyBox;
 
-namespace Game
+namespace RFG
 {
-  public class WeaponPickUp : MonoBehaviour
+  public class BasePickUp : MonoBehaviour
   {
-    [Header("Settings")]
-    public WeaponItem weapon;
-    public bool autoEquipOnPickup;
+    public PickUpItem item;
     public SpriteRenderer spriteRenderer;
     public BoxCollider2D boxCollider;
     public LayerMask layerMask;
@@ -17,7 +14,7 @@ namespace Game
 
     private void LateUpdate()
     {
-      if (respawnTime > 0f)
+      if (spriteRenderer.enabled == false && respawnTime > 0f)
       {
         if (_respawnTimeElapsed > respawnTime)
         {
@@ -25,35 +22,6 @@ namespace Game
           Spawn();
         }
         _respawnTimeElapsed += Time.deltaTime;
-      }
-    }
-
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-      if (layerMask.Contains(col.gameObject.layer))
-      {
-        WeaponInventory inventory = col.gameObject.GetComponent<WeaponInventory>();
-        inventory.Add(weapon);
-
-        weapon.firePoint = col.gameObject.transform.Find("FirePoint");
-
-        if (autoEquipOnPickup)
-        {
-          WeaponBehaviour weaponBehaviour = col.gameObject.GetComponent<WeaponBehaviour>();
-          if (weaponBehaviour.PrimaryWeapon == null || weaponBehaviour.PrimaryWeapon.weaponState == WeaponItem.WeaponState.Unequiped)
-          {
-            weaponBehaviour.EquipPrimary(weapon);
-          }
-          else
-          {
-            if (weaponBehaviour.SecondaryWeapon == null || weaponBehaviour.SecondaryWeapon.weaponState == WeaponItem.WeaponState.Unequiped)
-            {
-              weaponBehaviour.EquipSecondary(weapon);
-            }
-          }
-        }
-
-        Kill();
       }
     }
 
@@ -76,6 +44,19 @@ namespace Game
       }
     }
 
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+      if (layerMask.Contains(col.gameObject.layer))
+      {
+        OnPickup(col);
+        Kill();
+      }
+    }
+
+    public virtual void OnPickup(Collider2D col)
+    {
+    }
+
 #if UNITY_EDITOR
     [ButtonMethod]
     private void GeneratePickup()
@@ -83,7 +64,7 @@ namespace Game
       if (gameObject.GetComponent<SpriteRenderer>() == null)
       {
         spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
-        spriteRenderer.sprite = weapon.pickupSprite;
+        spriteRenderer.sprite = item.pickupSprite;
       }
 
       if (gameObject.GetComponent<BoxCollider2D>() == null)

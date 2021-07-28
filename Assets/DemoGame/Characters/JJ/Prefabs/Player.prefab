@@ -215,7 +215,7 @@ MonoBehaviour:
     airSpeedFactor: 5
     maxSlopeAngle: 60
     skinWidth: 0.02
-  rotateOnMouseCursor: 1
+  rotateOnMouseCursor: 0
   facingOnStart: Face Right
   platformMask:
     serializedVersion: 2
@@ -352,7 +352,7 @@ MonoBehaviour:
   totalDashes: 2
   numberOfDashesLeft: 2
   aim:
-    aimControl: 2
+    aimControl: 1
     rotationMode: 2
     minAngle: -180
     maxAngle: 180

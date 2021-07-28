@@ -125,6 +125,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 16896
+  animator: {fileID: 1365983511011801079}
   collisionEffect: {fileID: 3959827734333515761, guid: e753f1f9fb68e6649a3aa306fd8be1bc, type: 3}
   collisionEffectPoolTag: 
   cameraShakeIntensity: 1

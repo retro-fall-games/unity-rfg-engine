@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdf9d8f01be9124438fbbd7261eca71e, type: 3}
   m_Name: Slingshot
   m_EditorClassIdentifier: 
-  weaponName: Slingshot
   weaponType: 0
-  fireRate: 1
+  weaponState: 0
+  weaponFiringState: 0
+  fireRate: 0.5
+  firePoint: {fileID: 0}
   projectile: {fileID: 0}
   objectPoolTag: Slingshot
   pickupSprite: {fileID: 5601323976189978565, guid: ab1028699cf091246a0ffaf259c28a4c, type: 3}

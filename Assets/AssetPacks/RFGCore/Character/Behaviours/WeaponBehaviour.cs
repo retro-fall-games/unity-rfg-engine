@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,13 +9,18 @@ namespace RFG
   {
     public WeaponItem PrimaryWeapon { get; set; }
     public WeaponItem SecondaryWeapon { get; set; }
+    public Action OnPrimaryEquip;
+    public Action OnSecondaryEquip;
 
     [HideInInspector]
     private int _equippedPrimaryWeaponIndex;
     private int _equippedSecondaryWeaponIndex;
     private Button _primaryFireButton;
     private Button _secondaryFireButton;
-    private float _fireRateElapsed = 0f;
+    private float _primaryFireRateElapsed = 0f;
+    private float _secondaryFireRateElapsed = 0f;
+    private bool _primaryCanFire = false;
+    private bool _secondaryCanFire = false;
 
     public override void InitBehaviour()
     {
@@ -37,11 +43,7 @@ namespace RFG
 
     private void PrimaryFireButtonOnStateChanged(ButtonStates state)
     {
-      if (Time.timeScale == 0f)
-      {
-        return;
-      }
-      if (PrimaryWeapon == null)
+      if (Time.timeScale == 0f || PrimaryWeapon == null || !_primaryCanFire)
       {
         return;
       }
@@ -50,6 +52,7 @@ namespace RFG
         case ButtonStates.Down:
           if (PrimaryWeapon.weaponFiringState == WeaponItem.WeaponFiringState.Off)
           {
+            _primaryCanFire = false;
             PrimaryWeapon.Use();
           }
           break;
@@ -61,11 +64,7 @@ namespace RFG
 
     private void SecondaryFireButtonOnStateChanged(ButtonStates state)
     {
-      if (Time.timeScale == 0f)
-      {
-        return;
-      }
-      if (SecondaryWeapon == null)
+      if (Time.timeScale == 0f || SecondaryWeapon == null || !_secondaryCanFire)
       {
         return;
       }
@@ -74,6 +73,7 @@ namespace RFG
         case ButtonStates.Down:
           if (SecondaryWeapon.weaponFiringState == WeaponItem.WeaponFiringState.Off)
           {
+            _secondaryCanFire = false;
             SecondaryWeapon.Use();
           }
           break;
@@ -103,6 +103,12 @@ namespace RFG
         {
           PrimaryWeapon.Fired();
         }
+        _primaryFireRateElapsed += Time.deltaTime;
+        if (_primaryFireRateElapsed >= PrimaryWeapon.fireRate)
+        {
+          _primaryFireRateElapsed = 0;
+          _primaryCanFire = true;
+        }
       }
       if (SecondaryWeapon != null)
       {
@@ -122,12 +128,13 @@ namespace RFG
         {
           SecondaryWeapon.Fired();
         }
+        _secondaryFireRateElapsed += Time.deltaTime;
+        if (_secondaryFireRateElapsed >= SecondaryWeapon.fireRate)
+        {
+          _secondaryFireRateElapsed = 0;
+          _secondaryCanFire = true;
+        }
       }
-      _fireRateElapsed += Time.deltaTime;
-      // if (_fireRateElapsed >= PrimaryWeapon.fireRate)
-      // {
-      //   _fireRateElapsed = 0;
-      // }
     }
 
     public void EquipPrimary(int index)
@@ -148,6 +155,7 @@ namespace RFG
       if (PrimaryWeapon != null)
       {
         PrimaryWeapon.Equip();
+        OnPrimaryEquip?.Invoke();
       }
     }
 
@@ -174,6 +182,7 @@ namespace RFG
       if (SecondaryWeapon != null)
       {
         SecondaryWeapon.Equip();
+        OnSecondaryEquip?.Invoke();
       }
     }
 

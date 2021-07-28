@@ -19,6 +19,7 @@ namespace RFG
     public LayerMask layerMask;
 
     [Header("Effects")]
+    public Animator animator;
     public GameObject collisionEffect;
     public string collisionEffectPoolTag;
     public float cameraShakeIntensity = 0f;
@@ -37,6 +38,10 @@ namespace RFG
 
     public void OnObjectSpawn()
     {
+      if (animator != null)
+      {
+        animator.ResetCurrentClip();
+      }
       if (targetIsPlayer)
       {
         StartCoroutine(WaitForPlayer());
