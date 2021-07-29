@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Shockwave
   m_EditorClassIdentifier: 
   weaponType: 0
-  weaponState: 1
+  weaponState: 0
   weaponFiringState: 0
-  fireRate: 1
+  maxAmmo: 100
+  startingAmmo: 10
+  refillAmmo: 10
+  fireRate: 0.1
   firePoint: {fileID: 0}
   projectile: {fileID: 0}
   objectPoolTag: Shockwave

@@ -15,6 +15,9 @@ MonoBehaviour:
   weaponType: 0
   weaponState: 0
   weaponFiringState: 0
+  maxAmmo: 100
+  currentAmmo: 10
+  refillAmmo: 10
   fireRate: 0.5
   firePoint: {fileID: 0}
   projectile: {fileID: 0}

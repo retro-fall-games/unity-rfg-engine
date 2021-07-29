@@ -12,6 +12,10 @@ namespace RFG
     public Cutscene onStart;
     public bool fadeInOnStart = false;
 
+    [Header("Splash Screen")]
+    public float waitForSeconds = 0f;
+    public string nextSceneToLoad = "Title";
+
     [Header("Soundtrack")]
     public string playOnStart = "";
 
@@ -50,6 +54,12 @@ namespace RFG
 
       Loaded = true;
 
+      if (waitForSeconds > 0f)
+      {
+        yield return new WaitForSecondsRealtime(waitForSeconds);
+        LoadScene(nextSceneToLoad);
+      }
+
       yield break;
     }
 
@@ -75,8 +85,9 @@ namespace RFG
         SoundTrackAudio.Instance.StopAll(fadeSoundtrack);
       }
       Transition.Instance.Show("CrossFade", "Start");
-      yield return new WaitForSeconds(waitForSeconds);
+      yield return new WaitForSecondsRealtime(waitForSeconds);
       PlayerPrefs.SetString("lastScene", GetCurrentScene());
+      GameManager.Instance.UnPause();
       UnityEngine.SceneManagement.SceneManager.LoadScene(name);
     }
 

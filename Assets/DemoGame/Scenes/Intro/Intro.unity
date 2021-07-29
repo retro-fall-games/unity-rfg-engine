@@ -572,8 +572,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d543c0e64c78aa8408b3a1405b051970, type: 2}
-  m_sharedMaterial: {fileID: -3224096599283690714, guid: d543c0e64c78aa8408b3a1405b051970, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0a2f89e5a8fa4b042af89e6af9710218, type: 2}
+  m_sharedMaterial: {fileID: -7170279699392272846, guid: 0a2f89e5a8fa4b042af89e6af9710218, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2540,7 +2540,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterType: 1
-  showDebugLog: 0
+  destroyOnKill: 1
+  deactivateOnKill: 1
+  spawnSoundFx: []
+  deathSoundFx: []
 --- !u!1 &566572031
 GameObject:
   m_ObjectHideFlags: 0
@@ -3417,7 +3420,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Skip
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d543c0e64c78aa8408b3a1405b051970, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0a2f89e5a8fa4b042af89e6af9710218, type: 2}
   m_sharedMaterial: {fileID: -3224096599283690714, guid: d543c0e64c78aa8408b3a1405b051970, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -3481,7 +3484,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1877182841
@@ -3677,7 +3680,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d7f17a50a5612224995a2de57d493483, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.48235294}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4057,7 +4060,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterType: 1
-  showDebugLog: 0
+  destroyOnKill: 1
+  deactivateOnKill: 1
+  spawnSoundFx: []
+  deathSoundFx: []
 --- !u!114 &6375946003085367006
 MonoBehaviour:
   m_ObjectHideFlags: 0

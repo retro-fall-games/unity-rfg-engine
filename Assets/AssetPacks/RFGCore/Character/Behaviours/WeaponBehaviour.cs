@@ -9,8 +9,13 @@ namespace RFG
   {
     public WeaponItem PrimaryWeapon { get; set; }
     public WeaponItem SecondaryWeapon { get; set; }
+    public List<WeaponItem> Inventory => _weapons;
     public Action OnPrimaryEquip;
     public Action OnSecondaryEquip;
+    public Action OnPrimaryUnequip;
+    public Action OnSecondaryUnequip;
+    public Action OnPrimaryFired;
+    public Action OnSecondaryFired;
 
     [HideInInspector]
     private int _equippedPrimaryWeaponIndex;
@@ -21,9 +26,13 @@ namespace RFG
     private float _secondaryFireRateElapsed = 0f;
     private bool _primaryCanFire = false;
     private bool _secondaryCanFire = false;
+    private List<WeaponItem> _weapons;
+    private List<int> _weaponAmmoCount;
 
     public override void InitBehaviour()
     {
+      _weapons = new List<WeaponItem>();
+      _weaponAmmoCount = new List<int>();
       StartCoroutine(InitBehaviourCo());
     }
 
@@ -52,8 +61,11 @@ namespace RFG
         case ButtonStates.Down:
           if (PrimaryWeapon.weaponFiringState == WeaponItem.WeaponFiringState.Off)
           {
-            _primaryCanFire = false;
-            PrimaryWeapon.Use();
+            if (GetPrimaryAmmoCount() > 0)
+            {
+              _primaryCanFire = false;
+              PrimaryWeapon.Use();
+            }
           }
           break;
         case ButtonStates.Up:
@@ -73,8 +85,11 @@ namespace RFG
         case ButtonStates.Down:
           if (SecondaryWeapon.weaponFiringState == WeaponItem.WeaponFiringState.Off)
           {
-            _secondaryCanFire = false;
-            SecondaryWeapon.Use();
+            if (GetSecondaryAmmoCount() > 0)
+            {
+              _secondaryCanFire = false;
+              SecondaryWeapon.Use();
+            }
           }
           break;
         case ButtonStates.Up:
@@ -102,6 +117,8 @@ namespace RFG
         else if (PrimaryWeapon.weaponFiringState == WeaponItem.WeaponFiringState.Fired)
         {
           PrimaryWeapon.Fired();
+          AddAmmoPrimary(-1);
+          OnPrimaryFired?.Invoke();
         }
         _primaryFireRateElapsed += Time.deltaTime;
         if (_primaryFireRateElapsed >= PrimaryWeapon.fireRate)
@@ -127,6 +144,8 @@ namespace RFG
         else if (SecondaryWeapon.weaponFiringState == WeaponItem.WeaponFiringState.Fired)
         {
           SecondaryWeapon.Fired();
+          AddAmmoSecondary(-1);
+          OnSecondaryFired?.Invoke();
         }
         _secondaryFireRateElapsed += Time.deltaTime;
         if (_secondaryFireRateElapsed >= SecondaryWeapon.fireRate)
@@ -139,8 +158,7 @@ namespace RFG
 
     public void EquipPrimary(int index)
     {
-      List<WeaponItem> weapons = _baseCharacter.WeaponInventory.GetAll();
-      if (index < 0 || index >= weapons.Count)
+      if (index < 0 || index >= _weapons.Count)
       {
         LogExt.Warn<WeaponBehaviour>("Cannot equip primary weapon at index: " + index);
         return;
@@ -149,9 +167,10 @@ namespace RFG
       if (PrimaryWeapon != null)
       {
         PrimaryWeapon.Unequip();
+        OnPrimaryUnequip?.Invoke();
       }
       _equippedPrimaryWeaponIndex = index;
-      PrimaryWeapon = weapons[_equippedPrimaryWeaponIndex];
+      PrimaryWeapon = _weapons[_equippedPrimaryWeaponIndex];
       if (PrimaryWeapon != null)
       {
         PrimaryWeapon.Equip();
@@ -161,14 +180,13 @@ namespace RFG
 
     public void EquipPrimary(WeaponItem weapon)
     {
-      int index = _baseCharacter.WeaponInventory.IndexOf(weapon);
+      int index = _weapons.IndexOf(weapon);
       EquipPrimary(index);
     }
 
     public void EquipSecondary(int index)
     {
-      List<WeaponItem> weapons = _baseCharacter.WeaponInventory.GetAll();
-      if (index < 0 || index >= weapons.Count)
+      if (index < 0 || index >= _weapons.Count)
       {
         LogExt.Log<WeaponBehaviour>("Cannot equip secondary weapon at index: " + index);
         return;
@@ -176,9 +194,10 @@ namespace RFG
       if (SecondaryWeapon != null)
       {
         SecondaryWeapon.Unequip();
+        OnSecondaryUnequip?.Invoke();
       }
       _equippedSecondaryWeaponIndex = index;
-      SecondaryWeapon = weapons[_equippedSecondaryWeaponIndex];
+      SecondaryWeapon = _weapons[_equippedSecondaryWeaponIndex];
       if (SecondaryWeapon != null)
       {
         SecondaryWeapon.Equip();
@@ -188,7 +207,7 @@ namespace RFG
 
     public void EquipSecondary(WeaponItem weapon)
     {
-      int index = _baseCharacter.WeaponInventory.IndexOf(weapon);
+      int index = _weapons.IndexOf(weapon);
       EquipSecondary(index);
     }
 
@@ -208,5 +227,77 @@ namespace RFG
       }
     }
 
+    public void UpdateAmmoCounts()
+    {
+      OnPrimaryFired?.Invoke();
+      OnSecondaryFired?.Invoke();
+    }
+
+    public void AddWeapon(WeaponItem weapon)
+    {
+      _weapons.Add(weapon);
+      _weaponAmmoCount.Add(weapon.startingAmmo);
+    }
+
+    private void AddAmmoPrimary(int amount)
+    {
+      int count = _weaponAmmoCount[_equippedPrimaryWeaponIndex];
+      int maxAmmo = _weapons[_equippedPrimaryWeaponIndex].maxAmmo;
+      count += amount;
+      if (count <= 0)
+      {
+        count = 0;
+      }
+      else if (count >= maxAmmo)
+      {
+        count = maxAmmo;
+      }
+      _weaponAmmoCount[_equippedPrimaryWeaponIndex] = count;
+    }
+
+    private void AddAmmoSecondary(int amount)
+    {
+      int count = _weaponAmmoCount[_equippedSecondaryWeaponIndex];
+      int maxAmmo = _weapons[_equippedSecondaryWeaponIndex].maxAmmo;
+      count += amount;
+      if (count <= 0)
+      {
+        count = 0;
+      }
+      else if (count >= maxAmmo)
+      {
+        count = maxAmmo;
+      }
+      _weaponAmmoCount[_equippedSecondaryWeaponIndex] = count;
+    }
+
+    public void RefillWeapon(WeaponItem weapon)
+    {
+      int index = _weapons.IndexOf(weapon);
+      WeaponItem item = _weapons[index];
+      _weaponAmmoCount[index] += item.refillAmmo;
+      if (_weaponAmmoCount[index] >= item.maxAmmo)
+      {
+        _weaponAmmoCount[index] = item.maxAmmo;
+      }
+    }
+
+    public int GetPrimaryAmmoCount()
+    {
+      if (_weaponAmmoCount.Count > 0 && _equippedPrimaryWeaponIndex < _weaponAmmoCount.Count)
+      {
+        return _weaponAmmoCount[_equippedPrimaryWeaponIndex];
+      }
+      return 0;
+    }
+
+    public int GetSecondaryAmmoCount()
+    {
+      if (_weaponAmmoCount.Count > 0 && _equippedSecondaryWeaponIndex < _weaponAmmoCount.Count)
+      {
+        return _weaponAmmoCount[_equippedSecondaryWeaponIndex];
+      }
+      return 0;
+    }
   }
 }

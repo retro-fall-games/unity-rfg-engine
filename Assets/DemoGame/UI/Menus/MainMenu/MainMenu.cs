@@ -7,6 +7,7 @@ namespace Game
   {
     public Animator mainMenuAnimator;
     public Animator optionsAnimator;
+    private bool _optionsToggle = false;
     public void SlideLeftMainMenu()
     {
       if (mainMenuAnimator != null)
@@ -20,6 +21,25 @@ namespace Game
       if (mainMenuAnimator != null)
       {
         mainMenuAnimator.Play("SlideRight");
+      }
+    }
+
+    public void ToggleOptions()
+    {
+      if (optionsAnimator != null)
+      {
+        if (!_optionsToggle)
+        {
+          optionsAnimator.Play("SlideLeft");
+          _optionsToggle = true;
+          GameManager.Instance.Pause();
+        }
+        else
+        {
+          optionsAnimator.Play("SlideRight");
+          _optionsToggle = false;
+          GameManager.Instance.UnPause();
+        }
       }
     }
 

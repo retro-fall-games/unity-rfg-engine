@@ -70,14 +70,12 @@ namespace RFG
     public StateMachine<AIStates> AIState => _aiState;
     public StateMachine<AIMovementStates> AIMovementState => _aiMovementState;
     public InputManager InputManager => _inputMananger;
-    public WeaponInventory WeaponInventory => _weaponInventory;
     private StateMachine<CharacterStates> _characterState;
     private StateMachine<MovementStates> _movementState;
     private StateMachine<AIStates> _aiState;
     private StateMachine<AIMovementStates> _aiMovementState;
     private List<BaseCharacterBehaviour> _Behaviours;
     private InputManager _inputMananger;
-    private WeaponInventory _weaponInventory;
     public event Action OnBirth;
     public event Action OnKill;
 
@@ -109,9 +107,6 @@ namespace RFG
       // Create all the Behaviours
       _Behaviours = new List<BaseCharacterBehaviour>();
       _Behaviours.AddRange(GetComponents<BaseCharacterBehaviour>());
-
-      // Cache the inventories for the character
-      _weaponInventory = GetComponent<WeaponInventory>();
     }
 
     private void Start()

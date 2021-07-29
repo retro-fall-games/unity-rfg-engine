@@ -37,20 +37,24 @@ namespace RFG
     {
       if (Input.touchCount > 0)
       {
-        if (Input.GetTouch(0).phase == TouchPhase.Began)
+        foreach (Touch touch in Input.touches)
         {
-          if (DidTouchButton())
+
+          if (touch.phase == TouchPhase.Began)
           {
-            _button.State.ChangeState(ButtonStates.Down);
+            if (DidTouchButton(touch))
+            {
+              _button.State.ChangeState(ButtonStates.Down);
+            }
+            else
+            {
+              _button.State.ChangeState(ButtonStates.Up);
+            }
           }
-          else
+          if (touch.phase == TouchPhase.Ended)
           {
             _button.State.ChangeState(ButtonStates.Up);
           }
-        }
-        if (Input.GetTouch(0).phase == TouchPhase.Ended)
-        {
-          _button.State.ChangeState(ButtonStates.Up);
         }
       }
       else
@@ -59,9 +63,9 @@ namespace RFG
       }
     }
 
-    private bool DidTouchButton()
+    private bool DidTouchButton(Touch touch)
     {
-      return RectTransformUtility.RectangleContainsScreenPoint(rectTransform, Input.GetTouch(0).position, _cameraMain);
+      return RectTransformUtility.RectangleContainsScreenPoint(rectTransform, touch.position, _cameraMain);
     }
 
     public void OnPointerDown(PointerEventData eventData)

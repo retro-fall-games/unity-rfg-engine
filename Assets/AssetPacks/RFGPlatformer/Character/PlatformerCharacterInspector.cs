@@ -114,12 +114,6 @@ namespace RFG
       {
         character.gameObject.AddComponent<WeaponBehaviour>();
       }
-
-      // Add Inventory
-      if (character.GetComponent<WeaponInventory>() == null)
-      {
-        character.gameObject.AddComponent<WeaponInventory>();
-      }
     }
 
     private void GenerateAICharacter()

@@ -13,6 +13,8 @@ namespace Game
     public BoxCollider2D boxCollider;
     public LayerMask layerMask;
     public float respawnTime = 0f;
+
+    [HideInInspector]
     private float _respawnTimeElapsed = 0f;
 
     private void LateUpdate()
@@ -32,27 +34,36 @@ namespace Game
     {
       if (layerMask.Contains(col.gameObject.layer))
       {
-        WeaponInventory inventory = col.gameObject.GetComponent<WeaponInventory>();
-        inventory.Add(weapon);
-
-        weapon.firePoint = col.gameObject.transform.Find("FirePoint");
-
-        if (autoEquipOnPickup)
+        WeaponBehaviour weaponBehaviour = col.gameObject.GetComponent<WeaponBehaviour>();
+        if (weaponBehaviour != null)
         {
-          WeaponBehaviour weaponBehaviour = col.gameObject.GetComponent<WeaponBehaviour>();
-          if (weaponBehaviour.PrimaryWeapon == null || weaponBehaviour.PrimaryWeapon.weaponState == WeaponItem.WeaponState.Unequiped)
+          if (!weaponBehaviour.Inventory.Contains(weapon))
           {
-            weaponBehaviour.EquipPrimary(weapon);
+            weaponBehaviour.AddWeapon(weapon);
+            weapon.firePoint = col.gameObject.transform.Find("FirePoint");
+            if (autoEquipOnPickup)
+            {
+              if (weaponBehaviour.PrimaryWeapon == null || weaponBehaviour.PrimaryWeapon.weaponState == WeaponItem.WeaponState.Unequiped)
+              {
+                weaponBehaviour.EquipPrimary(weapon);
+              }
+              else
+              {
+                if (weaponBehaviour.SecondaryWeapon == null || weaponBehaviour.SecondaryWeapon.weaponState == WeaponItem.WeaponState.Unequiped)
+                {
+                  weaponBehaviour.EquipSecondary(weapon);
+                }
+              }
+            }
           }
           else
           {
-            if (weaponBehaviour.SecondaryWeapon == null || weaponBehaviour.SecondaryWeapon.weaponState == WeaponItem.WeaponState.Unequiped)
-            {
-              weaponBehaviour.EquipSecondary(weapon);
-            }
+            weaponBehaviour.RefillWeapon(weapon);
           }
-        }
 
+          weaponBehaviour.UpdateAmmoCounts();
+
+        }
         Kill();
       }
     }
