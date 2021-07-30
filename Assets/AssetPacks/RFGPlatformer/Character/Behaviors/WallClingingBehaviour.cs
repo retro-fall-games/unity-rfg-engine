@@ -24,7 +24,7 @@ namespace RFG
 
     public override void ProcessBehaviour()
     {
-      if (_state.IsGrounded || _controller.Velocity.y >= 0)
+      if (_state.IsGrounded || _controller.Velocity.y >= 0 || !authorized)
       {
         _controller.SlowFall(0f);
         return;

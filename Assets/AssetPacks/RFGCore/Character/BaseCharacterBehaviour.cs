@@ -4,6 +4,7 @@ namespace RFG
 {
   public class BaseCharacterBehaviour : MonoBehaviour
   {
+    public bool authorized = true;
     protected Transform _transform;
     protected BaseCharacter _baseCharacter;
 

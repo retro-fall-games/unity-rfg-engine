@@ -52,6 +52,7 @@ namespace RFG
         if (aggro.HasAggro && (separately && (_currentInstance == null || !_currentInstance.gameObject.activeSelf)))
         {
           _canSpawn = false;
+          _spawnTimeElapsed = 0;
           Spawn();
         }
       }

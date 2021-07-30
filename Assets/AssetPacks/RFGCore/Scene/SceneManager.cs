@@ -36,6 +36,8 @@ namespace RFG
       yield return new WaitUntil(() => Transition.Instance != null);
       yield return new WaitUntil(() => SoundTrackAudio.Instance != null);
 
+      // Make sure the game isnt paused
+      GameManager.Instance.UnPause();
 
       if (!playOnStart.Equals(""))
       {
@@ -87,7 +89,6 @@ namespace RFG
       Transition.Instance.Show("CrossFade", "Start");
       yield return new WaitForSecondsRealtime(waitForSeconds);
       PlayerPrefs.SetString("lastScene", GetCurrentScene());
-      GameManager.Instance.UnPause();
       UnityEngine.SceneManagement.SceneManager.LoadScene(name);
     }
 

@@ -59,11 +59,14 @@ namespace Game
     {
       CalculateMaxHearts(maxHealth);
 
-      float heartHealthPercent = maxHealth / maxHearts / 100;
+      float heartHealthPercent = (maxHealth / maxHearts) / 100;
       // 100 / 3 / 100 = .33;
+      // 33 / 1 / 100 = .33
+      // Debug.Log("heartHealthPercent: " + heartHealthPercent);
 
       float heartStepPercent = (1f / heartSteps) * heartHealthPercent;
       // 1 / 5 = (.2) * .33 = .06
+      // Debug.Log("heartStepPercent: " + heartStepPercent);
 
       float currentHealthPercent = currentHealth / maxHealth;
       // 75 / 100 = .75

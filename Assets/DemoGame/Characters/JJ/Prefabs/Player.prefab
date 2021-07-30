@@ -278,6 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aca8bb45e8fe4c4a8012f5c7739fb9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  authorized: 1
   walkSpeed: 1
 --- !u!114 &7637188250932784358
 MonoBehaviour:
@@ -291,10 +292,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8f9f7eaa58f10f4aa2abf2d63b118de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  authorized: 1
   jumpHeight: 3.5
   oneWayPlatformFallVelocity: -10
   jumpRestrictions: 0
-  numberOfJumps: 2
+  numberOfJumps: 1
   canJumpDownOneWayPlatforms: 1
   jumpIsProportionalToThePressTime: 1
   jumpMinAirTime: 0
@@ -315,6 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58221963ebd6c9e4a951dcf850fbcce9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  authorized: 0
   wallClingingSlowFactor: 0.6
   raycastVerticalOffset: 0
   wallClingingTolerance: 0.3
@@ -330,6 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36dbfe0a8843679409024922ee7fe146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  authorized: 0
   wallJumpForce: {x: 10, y: 4}
   shouldReduceNumberOfJumpsLeft: 1
   soundFx:
@@ -346,6 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76e0bc2e77ad7a3438085a26b17147b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  authorized: 0
   dashDistance: 3
   dashForce: 40
   totalDashes: 2
@@ -391,6 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c296b2cc66db40b4db43218f4f2f2594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  authorized: 1
   animator: {fileID: 3481442818595317702}
   layer: Base Layer
   idle: Idle
@@ -413,6 +419,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7cdf0ae1ef5ab4e8a3f0888ca307be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  authorized: 1
   health: 100
   maxHealth: 100
   deathEffect: {fileID: 0}
@@ -428,6 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eb0a77aa39bb0a48b7788deebe67554, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  authorized: 1
 --- !u!114 &2093635291171879254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,3 +448,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb81f8433a4417d4a8a027ae45c95298, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  authorized: 1

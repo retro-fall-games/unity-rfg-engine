@@ -34,7 +34,7 @@ namespace RFG
 
     private void JumpButtonOnStateChanged(ButtonStates state)
     {
-      if (Time.timeScale == 0f)
+      if (Time.timeScale == 0f || !authorized)
       {
         return;
       }

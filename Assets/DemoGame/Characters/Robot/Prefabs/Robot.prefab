@@ -158,6 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterType: 1
   destroyOnKill: 0
+  deactivateOnKill: 1
   spawnSoundFx: []
   deathSoundFx:
   - Hit
@@ -176,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultParameters:
     gravity: -25
-    maxVelocity: {x: 100, y: 100}
+    maxVelocity: {x: 20, y: 20}
     speedFactor: 1
     groundSpeedFactor: 5
     airSpeedFactor: 5
@@ -394,7 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ff9f3b1fe240b4ea1bc31b9a3fe79f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 1
+  runSpeed: 2.5
 --- !u!114 &-1094991446869264778
 MonoBehaviour:
   m_ObjectHideFlags: 0

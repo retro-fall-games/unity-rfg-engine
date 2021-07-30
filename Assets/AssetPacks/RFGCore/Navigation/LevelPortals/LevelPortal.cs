@@ -13,6 +13,7 @@ namespace RFG
     public string toScene = "";
     public int toLevelPortalIndex = -1;
     public float waitForSeconds = 0f;
+    public Vector3 spawnOffset = Vector2.zero;
 
     [Header("Soundtrack")]
     public bool fadeSoundtrack = false;

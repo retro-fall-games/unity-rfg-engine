@@ -19,7 +19,7 @@ namespace RFG
 
     [Header("Jump Restrictions")]
     public JumpRestrictions jumpRestrictions;
-    public int numberOfJumps = 2;
+    public int numberOfJumps = 1;
     public bool canJumpDownOneWayPlatforms = true;
 
     [Header("Proportional Jumps")]

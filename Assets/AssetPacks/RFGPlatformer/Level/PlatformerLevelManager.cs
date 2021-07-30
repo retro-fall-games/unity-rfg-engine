@@ -28,7 +28,7 @@ namespace RFG
     private CinemachineVirtualCamera _virtualCam;
     private Transform _playerTransform;
     private Vector2 _constrainedPosition = Vector2.zero;
-    private List<LevelPortal> _levelPortals = new List<LevelPortal>();
+    private Dictionary<int, LevelPortal> _levelPortals;
     private PlatformerCharacter _character;
 
     protected override void Awake()
@@ -37,6 +37,7 @@ namespace RFG
       _virtualCam = GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>();
 
       // Cache Level Portals By Index
+      _levelPortals = new Dictionary<int, LevelPortal>();
       GameObject[] levelPortals = GameObject.FindGameObjectsWithTag("Level Portal");
       foreach (GameObject levelPortal in levelPortals)
       {
@@ -44,7 +45,7 @@ namespace RFG
         if (_levelPortal)
         {
           int index = _levelPortal.index;
-          _levelPortals.Insert(index, _levelPortal);
+          _levelPortals.Add(index, _levelPortal);
         }
       }
     }
@@ -57,14 +58,22 @@ namespace RFG
 
     private IEnumerator StartCo()
     {
+      Debug.Log("Got here 1");
       yield return new WaitUntil(() => SceneManager.Instance != null);
+      Debug.Log("Got here 2");
       yield return new WaitUntil(() => CheckpointManager.Instance != null);
+      Debug.Log("Got here 3");
       yield return new WaitUntil(() => CheckpointManager.Instance.CurrentCheckpoint != null);
+      Debug.Log("Got here 4");
+
+      Debug.Log("UnityEngine.SceneManagement.SceneManager.GetActiveScene().name ==== " + UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
 
       CreatePlayer();
       yield return new WaitUntil(() => _character != null);
 
       Loaded = true;
+
+      Debug.Log("Got here 5");
 
       yield break;
     }
@@ -105,7 +114,7 @@ namespace RFG
         {
           LevelPortal levelPortal = _levelPortals[levelPortalTo];
           levelPortal.JustWarped = true;
-          _playerInstance.transform.position = levelPortal.transform.position;
+          _playerInstance.transform.position = levelPortal.transform.position + levelPortal.spawnOffset;
           PlayerPrefs.SetInt("levelPortalTo", -1);
         }
       }

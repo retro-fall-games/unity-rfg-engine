@@ -42,14 +42,12 @@ namespace RFG
     {
       IsPaused = true;
       Time.timeScale = 0f;
-      EventManager.TriggerEvent(new GameEvent(GameEvent.GameEventType.Paused));
     }
 
     public void UnPause()
     {
       IsPaused = false;
       Time.timeScale = 1f;
-      EventManager.TriggerEvent(new GameEvent(GameEvent.GameEventType.UnPaused));
     }
 
     public void OnEvent(GameEvent gameEvent)
