@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 using RFG;
-using RFGFx;
 
 namespace Game
 {

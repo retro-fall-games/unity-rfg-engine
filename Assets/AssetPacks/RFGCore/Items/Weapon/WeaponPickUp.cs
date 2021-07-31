@@ -14,6 +14,10 @@ namespace Game
     public LayerMask layerMask;
     public float respawnTime = 0f;
 
+    [Header("FX")]
+    public GameObject[] pickupFx;
+    public string[] objectPoolPickupFx;
+
     [HideInInspector]
     private float _respawnTimeElapsed = 0f;
 
@@ -55,15 +59,18 @@ namespace Game
                 }
               }
             }
+            PickUpFx(weapon.pickupText);
           }
           else
           {
             weaponBehaviour.RefillWeapon(weapon);
+            PickUpFx(weapon.pickupAmmoText);
           }
 
           weaponBehaviour.UpdateAmmoCounts();
 
         }
+
         Kill();
       }
     }
@@ -72,6 +79,35 @@ namespace Game
     {
       boxCollider.enabled = true;
       spriteRenderer.enabled = true;
+    }
+
+    private void PickUpFx(string text)
+    {
+      if (pickupFx.Length > 0)
+      {
+        foreach (GameObject fx in pickupFx)
+        {
+          GameObject instance = Instantiate(fx, transform.position, Quaternion.identity);
+          PickUpFxOnInstance(instance, text);
+        }
+      }
+      if (objectPoolPickupFx.Length > 0)
+      {
+        foreach (string fx in objectPoolPickupFx)
+        {
+          GameObject instance = ObjectPool.Instance.SpawnFromPool(fx, transform.position, Quaternion.identity);
+          PickUpFxOnInstance(instance, text);
+        }
+      }
+    }
+
+    private void PickUpFxOnInstance(GameObject instance, string text)
+    {
+      FloatingText t = instance.GetComponent<FloatingText>();
+      if (t != null)
+      {
+        t.text.SetText(text);
+      }
     }
 
     private void Kill()

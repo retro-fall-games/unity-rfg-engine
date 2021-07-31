@@ -103,6 +103,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   respawnTime: 5
+  pickupFx: []
+  objectPoolPickupFx:
+  - FloatingText
 --- !u!61 &1916198320552152208
 BoxCollider2D:
   m_ObjectHideFlags: 0

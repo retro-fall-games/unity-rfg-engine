@@ -15,14 +15,19 @@ namespace RFG
     public WeaponFiringState weaponFiringState = WeaponFiringState.Off;
 
     [Header("Settings")]
-    public int maxAmmo = 100;
-    public int startingAmmo = 10;
-    public int refillAmmo = 10;
     public float fireRate = 1f;
     public Transform firePoint;
     public Projectile projectile;
     public string objectPoolTag = "";
     public Sprite pickupSprite;
+    public string pickupText;
+
+    [Header("Ammo")]
+    public int maxAmmo = 100;
+    public int startingAmmo = 10;
+    public int refillAmmo = 10;
+    public string pickupAmmoText;
+
 
     public void Equip()
     {

@@ -15,5 +15,7 @@ MonoBehaviour:
   pickupSprite: {fileID: -1131316417390522931, guid: 697109247756ff54ebd1fad284bca7c2, type: 3}
   type: 0
   healthAmount: 5
+  healthIncreaseAmount: 0
   ammoAmount: 0
   ability: 0
+  pickupText: +5 Health

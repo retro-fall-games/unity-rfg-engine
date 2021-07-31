@@ -5,11 +5,18 @@ namespace RFG
 {
   public class BasePickUp : MonoBehaviour
   {
+    [Header("Settings")]
     public PickUpItem item;
     public SpriteRenderer spriteRenderer;
     public BoxCollider2D boxCollider;
     public LayerMask layerMask;
     public float respawnTime = 0f;
+
+    [Header("FX")]
+    public GameObject[] pickupFx;
+    public string[] objectPoolPickupFx;
+
+    [HideInInspector]
     private float _respawnTimeElapsed = 0f;
 
     private void LateUpdate()
@@ -49,12 +56,42 @@ namespace RFG
       if (layerMask.Contains(col.gameObject.layer))
       {
         OnPickup(col);
+        PickUpFx();
         Kill();
       }
     }
 
     public virtual void OnPickup(Collider2D col)
     {
+    }
+
+    private void PickUpFx()
+    {
+      if (pickupFx.Length > 0)
+      {
+        foreach (GameObject fx in pickupFx)
+        {
+          GameObject instance = Instantiate(fx, transform.position, Quaternion.identity);
+          PickUpFxOnInstance(instance);
+        }
+      }
+      if (objectPoolPickupFx.Length > 0)
+      {
+        foreach (string fx in objectPoolPickupFx)
+        {
+          GameObject instance = ObjectPool.Instance.SpawnFromPool(fx, transform.position, Quaternion.identity);
+          PickUpFxOnInstance(instance);
+        }
+      }
+    }
+
+    private void PickUpFxOnInstance(GameObject instance)
+    {
+      FloatingText t = instance.GetComponent<FloatingText>();
+      if (t != null)
+      {
+        t.text.SetText(item.pickupText);
+      }
     }
 
 #if UNITY_EDITOR

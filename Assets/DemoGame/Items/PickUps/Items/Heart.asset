@@ -18,3 +18,4 @@ MonoBehaviour:
   healthIncreaseAmount: 33
   ammoAmount: 0
   ability: 0
+  pickupText: Heart Container

@@ -58,22 +58,14 @@ namespace RFG
 
     private IEnumerator StartCo()
     {
-      Debug.Log("Got here 1");
       yield return new WaitUntil(() => SceneManager.Instance != null);
-      Debug.Log("Got here 2");
       yield return new WaitUntil(() => CheckpointManager.Instance != null);
-      Debug.Log("Got here 3");
       yield return new WaitUntil(() => CheckpointManager.Instance.CurrentCheckpoint != null);
-      Debug.Log("Got here 4");
-
-      Debug.Log("UnityEngine.SceneManagement.SceneManager.GetActiveScene().name ==== " + UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
 
       CreatePlayer();
       yield return new WaitUntil(() => _character != null);
 
       Loaded = true;
-
-      Debug.Log("Got here 5");
 
       yield break;
     }

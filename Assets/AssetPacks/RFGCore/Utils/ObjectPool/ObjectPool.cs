@@ -36,7 +36,7 @@ namespace RFG
       }
     }
 
-    public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
+    public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation, Transform parent = null, bool worldPositionStays = false)
     {
       if (!poolDictionary.ContainsKey(tag))
       {
@@ -47,6 +47,7 @@ namespace RFG
       objectToSpawn.SetActive(true);
       objectToSpawn.transform.position = position;
       objectToSpawn.transform.rotation = rotation;
+      objectToSpawn.transform.SetParent(parent, worldPositionStays);
 
       IPooledObject pooledObj = objectToSpawn.GetComponent<IPooledObject>();
 

@@ -52,6 +52,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   respawnTime: 0
+  pickupFx: []
+  objectPoolPickupFx:
+  - FloatingText
 --- !u!212 &3155309024023954857
 SpriteRenderer:
   m_ObjectHideFlags: 0

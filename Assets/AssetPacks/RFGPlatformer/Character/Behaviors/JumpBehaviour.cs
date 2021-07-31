@@ -120,6 +120,7 @@ namespace RFG
 
     private void JumpStop()
     {
+      // Debug.Log("Jump Stop");
       if (jumpIsProportionalToThePressTime)
       {
         bool hasMinAirTime = Time.time - _lastJumpTime >= jumpMinAirTime;

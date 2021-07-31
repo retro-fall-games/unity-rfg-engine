@@ -7,7 +7,7 @@ namespace Game
   {
     public Animator mainMenuAnimator;
     public Animator optionsAnimator;
-    private bool _optionsToggle = false;
+    private bool _paused = false;
     public void SlideLeftMainMenu()
     {
       if (mainMenuAnimator != null)
@@ -28,16 +28,16 @@ namespace Game
     {
       if (optionsAnimator != null)
       {
-        if (!_optionsToggle)
+        if (!_paused)
         {
           optionsAnimator.Play("SlideLeft");
-          _optionsToggle = true;
+          _paused = true;
           GameManager.Instance.Pause();
         }
         else
         {
           optionsAnimator.Play("SlideRight");
-          _optionsToggle = false;
+          _paused = false;
           GameManager.Instance.UnPause();
         }
       }
@@ -64,9 +64,11 @@ namespace Game
       switch (gameEvent.eventType)
       {
         case GameEvent.GameEventType.Paused:
+          _paused = true;
           SlideLeftOptions();
           break;
         case GameEvent.GameEventType.UnPaused:
+          _paused = false;
           SlideRightOptions();
           break;
       }

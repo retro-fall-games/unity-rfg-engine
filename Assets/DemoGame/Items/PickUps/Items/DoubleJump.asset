@@ -18,3 +18,4 @@ MonoBehaviour:
   healthIncreaseAmount: 0
   ammoAmount: 0
   ability: 0
+  pickupText: Double Jump

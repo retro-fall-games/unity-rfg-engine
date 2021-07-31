@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using RFGFx;
 
 namespace RFG
 {
@@ -42,12 +41,14 @@ namespace RFG
     {
       IsPaused = true;
       Time.timeScale = 0f;
+      EventManager.TriggerEvent<GameEvent>(new GameEvent(GameEvent.GameEventType.Paused));
     }
 
     public void UnPause()
     {
       IsPaused = false;
       Time.timeScale = 1f;
+      EventManager.TriggerEvent<GameEvent>(new GameEvent(GameEvent.GameEventType.UnPaused));
     }
 
     public void OnEvent(GameEvent gameEvent)

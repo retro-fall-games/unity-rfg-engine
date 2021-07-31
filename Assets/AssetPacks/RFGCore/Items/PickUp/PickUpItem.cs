@@ -13,5 +13,6 @@ namespace RFG
     [ConditionalField(nameof(type), false, PickUpType.Heart)] public float healthIncreaseAmount;
     [ConditionalField(nameof(type), false, PickUpType.Ammo)] public float ammoAmount;
     [ConditionalField(nameof(type), false, PickUpType.Ability)] public CharacterAbilities ability;
+    public string pickupText;
   }
 }

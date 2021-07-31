@@ -15,11 +15,13 @@ MonoBehaviour:
   weaponType: 0
   weaponState: 0
   weaponFiringState: 0
-  maxAmmo: 100
-  startingAmmo: 10
-  refillAmmo: 10
   fireRate: 0.1
   firePoint: {fileID: 0}
   projectile: {fileID: 0}
   objectPoolTag: Shockwave
   pickupSprite: {fileID: -761887118410055393, guid: ab1028699cf091246a0ffaf259c28a4c, type: 3}
+  pickupText: Shockwave
+  maxAmmo: 100
+  startingAmmo: 10
+  refillAmmo: 10
+  pickupAmmoText: +10 Shockwave Ammo

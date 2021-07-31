@@ -2,10 +2,14 @@ using System.Collections;
 using UnityEngine;
 using TMPro;
 
-namespace RFGFx
+namespace RFG
 {
   public class TextFade : MonoBehaviour
   {
+    public static void SetAlpha(TMP_Text text, float a)
+    {
+      text.color = new Color(text.color.r, text.color.g, text.color.b, a);
+    }
     public static IEnumerator FadeInText(TMP_Text text, float timeSpeed)
     {
       text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
