@@ -5,7 +5,6 @@ namespace RFG
 
     public void StopAll(bool fade = false)
     {
-      FXAudio.Instance.StopAll(fade);
       SoundTrackAudio.Instance.StopAll(fade);
       AmbienceAudio.Instance.StopAll(fade);
     }

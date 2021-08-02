@@ -237,6 +237,7 @@ namespace RFG
     {
       _weapons.Add(weapon);
       _weaponAmmoCount.Add(weapon.startingAmmo);
+      EventManager.TriggerEvent<WeaponPickupEvent>(new WeaponPickupEvent(_weapons));
     }
 
     private void AddAmmoPrimary(int amount)

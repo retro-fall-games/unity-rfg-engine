@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using MyBox;
 
@@ -12,9 +13,12 @@ namespace RFG
     public LayerMask layerMask;
     public float respawnTime = 0f;
 
-    [Header("FX")]
+    [Header("Visual FX")]
     public GameObject[] pickupFx;
     public string[] objectPoolPickupFx;
+
+    [Header("Audio FX")]
+    public AudioSource pickupAudio;
 
     [HideInInspector]
     private float _respawnTimeElapsed = 0f;
@@ -40,21 +44,28 @@ namespace RFG
 
     private void Kill()
     {
-      if (respawnTime > 0f)
+      boxCollider.enabled = false;
+      spriteRenderer.enabled = false;
+      if (respawnTime == 0f)
       {
-        boxCollider.enabled = false;
-        spriteRenderer.enabled = false;
+        StartCoroutine(KillCo());
       }
-      else
-      {
-        Destroy(gameObject);
-      }
+    }
+
+    private IEnumerator KillCo()
+    {
+      yield return new WaitForSeconds(3f);
+      Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
       if (layerMask.Contains(col.gameObject.layer))
       {
+        if (pickupAudio != null)
+        {
+          pickupAudio.Play();
+        }
         OnPickup(col);
         PickUpFx();
         Kill();

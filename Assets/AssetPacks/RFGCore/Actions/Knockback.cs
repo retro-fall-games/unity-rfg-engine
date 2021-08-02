@@ -22,7 +22,7 @@ namespace RFG
     {
       if (soundFx != null && soundFx.Length > 0)
       {
-        FXAudio.Instance.Play(soundFx, false);
+        // FXAudio.Instance.Play(soundFx, false);
       }
     }
 

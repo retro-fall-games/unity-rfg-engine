@@ -19,16 +19,16 @@ namespace Game
     private IEnumerator StartCo()
     {
       yield return new WaitUntil(() => SoundTrackAudio.Instance != null);
-      yield return new WaitUntil(() => FXAudio.Instance != null);
+      // yield return new WaitUntil(() => FXAudio.Instance != null);
       yield return new WaitUntil(() => AmbienceAudio.Instance != null);
       if (soundTrackVolumeSlider != null)
       {
         soundTrackVolumeSlider.value = SoundTrackAudio.Instance.Volume;
       }
-      if (fxVolumeSlider != null)
-      {
-        fxVolumeSlider.value = FXAudio.Instance.Volume;
-      }
+      // if (fxVolumeSlider != null)
+      // {
+      //   fxVolumeSlider.value = FXAudio.Instance.Volume;
+      // }
       if (ambienceVolumeSlider != null)
       {
         ambienceVolumeSlider.value = AmbienceAudio.Instance.Volume;
@@ -45,10 +45,10 @@ namespace Game
 
     public void SetFXVolume(float volume)
     {
-      if (FXAudio.Instance != null)
-      {
-        FXAudio.Instance.SetVolume(volume);
-      }
+      // if (FXAudio.Instance != null)
+      // {
+      //   FXAudio.Instance.SetVolume(volume);
+      // }
     }
 
     public void SetAmbienceVolume(float volume)

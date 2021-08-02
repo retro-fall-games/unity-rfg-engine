@@ -204,7 +204,7 @@ namespace RFG
     {
       if (spawnSoundFx != null && spawnSoundFx.Length > 0)
       {
-        FXAudio.Instance.Play(spawnSoundFx, false);
+        // FXAudio.Instance.Play(spawnSoundFx, false);
       }
       _characterState.ChangeState(CharacterStates.Alive);
       HealthBehaviour health = FindBehaviour<HealthBehaviour>();
@@ -220,7 +220,7 @@ namespace RFG
     {
       if (deathSoundFx != null && deathSoundFx.Length > 0)
       {
-        FXAudio.Instance.Play(deathSoundFx, false);
+        // FXAudio.Instance.Play(deathSoundFx, false);
       }
       _characterState.ChangeState(CharacterStates.Dead);
       if (destroyOnKill)

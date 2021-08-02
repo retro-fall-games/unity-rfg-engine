@@ -27,9 +27,10 @@ namespace RFG
     public float jumpMinAirTime = 0.1f;
     public float jumpReleaseForceFactor = 2f;
 
-    [Header("Audio")]
-    public string[] jumpSoundFx;
-    public string[] landSoundFx;
+    [Header("Audio FX")]
+    public AudioSource[] jumpAudio;
+    public AudioSource[] landAudio;
+
 
     public int NumberOfJumpsLeft { get { return _numberOfJumpsLeft; } }
 
@@ -73,9 +74,9 @@ namespace RFG
       // Reset the number of jumps back because just got grounded
       if (_character.Controller.State.JustGotGrounded)
       {
-        if (landSoundFx != null && landSoundFx.Length > 0)
+        if (landAudio != null && landAudio.Length > 0)
         {
-          FXAudio.Instance.Play(landSoundFx, false);
+          landAudio.PlayAll();
         }
         _numberOfJumpsLeft = numberOfJumps;
       }
@@ -88,9 +89,9 @@ namespace RFG
         return;
       }
 
-      if (jumpSoundFx != null && jumpSoundFx.Length > 0)
+      if (jumpAudio != null && jumpAudio.Length > 0)
       {
-        FXAudio.Instance.Play(jumpSoundFx, false);
+        jumpAudio.PlayAll();
       }
 
       _character.Controller.CollisionsOnStairs(true);

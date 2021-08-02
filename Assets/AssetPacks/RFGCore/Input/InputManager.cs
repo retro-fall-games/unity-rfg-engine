@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace RFG
 {
@@ -57,10 +58,18 @@ namespace RFG
         _primaryMovement.y = UnityEngine.Input.GetAxis(axisVertical);
       }
 
+      bool pointerOverUi = EventSystem.current.IsPointerOverGameObject();
+
       // Check all button states
       foreach (KeyValuePair<string, Button> item in _buttons)
       {
         Button button = item.Value;
+
+        // If the buttons are mouse buttons and the pointer is over the ui, then dont change any states of the buttons
+        if (pointerOverUi && (button.buttonId.Equals("Fire1") || button.buttonId.Equals("Fire2")))
+        {
+          return;
+        }
         if (UnityEngine.Input.GetButton(button.buttonId))
         {
           button.State.ChangeState(ButtonStates.Pressed);

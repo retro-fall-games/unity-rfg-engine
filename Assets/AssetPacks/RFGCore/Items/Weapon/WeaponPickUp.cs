@@ -14,9 +14,12 @@ namespace Game
     public LayerMask layerMask;
     public float respawnTime = 0f;
 
-    [Header("FX")]
+    [Header("Visual FX")]
     public GameObject[] pickupFx;
     public string[] objectPoolPickupFx;
+
+    [Header("Audio FX")]
+    public AudioSource pickupAudio;
 
     [HideInInspector]
     private float _respawnTimeElapsed = 0f;
@@ -71,6 +74,10 @@ namespace Game
 
         }
 
+        if (pickupAudio != null)
+        {
+          pickupAudio.Play();
+        }
         Kill();
       }
     }

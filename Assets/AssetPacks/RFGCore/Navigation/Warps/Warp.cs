@@ -46,7 +46,7 @@ namespace RFG
           EventManager.TriggerEvent(new WarpEvent(index, warpToIndex));
           if (soundFx != null && soundFx.Length > 0)
           {
-            FXAudio.Instance.Play(soundFx, soundFxFade);
+            // FXAudio.Instance.Play(soundFx, soundFxFade);
           }
         }
       }
