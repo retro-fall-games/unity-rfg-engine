@@ -24,8 +24,8 @@ namespace Game
       MovementPath playerMovementPath = player.FindBehaviour<AIMovementPathBehaviour>().movementPath;
       MovementPath bossMovementPath = boss.FindBehaviour<AIMovementPathBehaviour>().movementPath;
       yield return new WaitUntil(() => Dialog.Instance != null);
-      yield return new WaitUntil(() => SoundTrackAudio.Instance != null);
-      yield return new WaitUntil(() => Transition.Instance != null);
+      // yield return new WaitUntil(() => SoundTrackAudio.Instance != null);
+      // yield return new WaitUntil(() => Transition.Instance != null);
       Dialog.Instance.ClearAllSpeakers();
       // SoundTrackAudio.Instance.Play("Intro");
 
@@ -62,28 +62,28 @@ namespace Game
       yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "And save the village", 1.5f);
 
       yield return new WaitForSeconds(2f);
-      Transition.Instance.Show("CrossFade", "Start");
+      // Transition.Instance.Show("CrossFade", "Start");
 
       // Stop everything and go play the game
-      AudioManager.Instance.StopAll(true);
+      // AudioManager.Instance.StopAll(true);
       yield return new WaitForSeconds(4f);
-      SceneManager.Instance.LoadScene("Level1", true);
+      // SceneManager.Instance.LoadScene("Level1", true);
     }
 
     protected override void OnSkipEnter()
     {
       Dialog.Instance.ClearAllSpeakers();
-      AudioManager.Instance.StopAll(true);
-      var clip = Transition.Instance.GetCurrentClip("CrossFade");
-      if (clip == null || clip == "End")
-      {
-        Transition.Instance.Show("CrossFade", "Start");
-      }
+      // AudioManager.Instance.StopAll(true);
+      // var clip = Transition.Instance.GetCurrentClip("CrossFade");
+      // if (clip == null || clip == "End")
+      // {
+      //   //Transition.Instance.Show("CrossFade", "Start");
+      // }
     }
 
     protected override void OnSkipExit()
     {
-      SceneManager.Instance.LoadScene("Level1", true);
+      // SceneManager.Instance.LoadScene("Level1", true);
     }
 
   }

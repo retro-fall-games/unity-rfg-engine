@@ -2080,7 +2080,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7456764814719854302, guid: 57d583022cfe96447b21ce359cfac331, type: 3}
       propertyPath: playOnStart
-      value: SineBleeps
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7456764814719854302, guid: 57d583022cfe96447b21ce359cfac331, type: 3}
       propertyPath: fadeInOnStart

@@ -48,6 +48,11 @@ namespace Game
       {
         _profile.data.level = SceneManager.Instance.GetCurrentScene();
         _profile.data.checkpoint = checkpointEvent.checkpointIndex;
+
+        PlatformerCharacter character = PlatformerLevelManager.Instance.PlayerCharacter;
+        WeaponBehaviour weaponBehaviour = character.FindBehaviour<WeaponBehaviour>();
+        // _profile.data.weapons = weaponBehaviour.Inventory.ToArray()
+
         LogExt.Log<ProfileManager>($"Hit Checkpoint and saving profile. Level: {_profile.data.level}, Checkpoint: {_profile.data.checkpoint}");
         _profile.Save();
       }

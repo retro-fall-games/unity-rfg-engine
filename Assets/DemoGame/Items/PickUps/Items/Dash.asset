@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9314b09a2465b274faad20f2dddb84c5, type: 3}
   m_Name: Dash
   m_EditorClassIdentifier: 
+  id: 1
   pickupSprite: {fileID: -4530994168764554855, guid: 697109247756ff54ebd1fad284bca7c2, type: 3}
   type: 3
   healthAmount: 0

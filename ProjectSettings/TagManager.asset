@@ -4,6 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - SoundAmbience
+  - SoundTrack
+  - SoundFx
+  - Music
   - PickUp
   - AI Character
   - Trigger

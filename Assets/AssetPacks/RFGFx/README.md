@@ -1,5 +1,0 @@
-# Retro FX
-
-```
-using RetroFX;
-```

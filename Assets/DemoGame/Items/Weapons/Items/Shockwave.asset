@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdf9d8f01be9124438fbbd7261eca71e, type: 3}
   m_Name: Shockwave
   m_EditorClassIdentifier: 
+  id: 1
   weaponType: 0
   weaponState: 0
   weaponFiringState: 0

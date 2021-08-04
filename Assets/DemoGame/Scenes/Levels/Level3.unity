@@ -215,6 +215,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Heart
       objectReference: {fileID: 0}
+    - target: {fileID: 3208882281617750071, guid: b228d920557cb574494f05ba46d410ed, type: 3}
+      propertyPath: id
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b228d920557cb574494f05ba46d410ed, type: 3}
 --- !u!4 &6006063 stripped
@@ -9644,6 +9648,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1051851823}
     m_Modifications:
+    - target: {fileID: 3155309024023954854, guid: 208e4e79ad480114bb348842a442d5b2, type: 3}
+      propertyPath: id
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3155309024023954858, guid: 208e4e79ad480114bb348842a442d5b2, type: 3}
       propertyPath: m_Name
       value: DoubleJumpPickUp
