@@ -1,35 +1,59 @@
 
 using UnityEngine;
-using UnityEngine.Audio;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace RFG
 {
-  public class SoundBase<T> : Singleton<T> where T : Component
+  public class SoundBase : MonoBehaviour
   {
-    [Header("Settings")]
-    public AudioMixer AudioMixer;
-    public float FadeTime = 1f;
-    public float Volume { get; set; }
+    [Header("Sound Base")]
+    public SoundBaseSettings Settings;
+
+    [Header("Play On Awake")]
+    public Sound[] soundtrack;
+    public bool loopSoundtrack = true;
+    public float soundtrackWaitForSeconds = 1f;
 
     [HideInInspector]
     protected Dictionary<string, AudioSource> audioSources = new Dictionary<string, AudioSource>();
-    protected string VolumeName { get; set; }
+    private Sound _currentPlayingSoundtrack;
+    private int _currentPlayingSoundtrackIndex = 0;
 
-    protected override void Awake()
+    private void Awake()
     {
-      base.Awake();
-
       // Get all the audio source and make a dictionary to be able to reference by name
       AudioSource[] audioSourceComponents = GetComponentsInChildren<AudioSource>();
       foreach (AudioSource audioSource in audioSourceComponents)
       {
         audioSources.Add(audioSource.clip.name, audioSource);
       }
+    }
 
-      // Set the volume
-      float volume = PlayerPrefs.GetFloat(VolumeName, 1);
-      SetVolume(volume);
+    private void Start()
+    {
+      if (soundtrack.Length > 0)
+      {
+        StartCoroutine(PlaySoundTrack());
+      }
+    }
+
+    private IEnumerator PlaySoundTrack()
+    {
+      AudioSource audio = soundtrack[_currentPlayingSoundtrackIndex].GetComponent<AudioSource>();
+      while (true)
+      {
+        if (!audio.isPlaying)
+        {
+          audio = soundtrack[_currentPlayingSoundtrackIndex].GetComponent<AudioSource>();
+          audio.Play();
+          if (++_currentPlayingSoundtrackIndex == soundtrack.Length)
+          {
+            _currentPlayingSoundtrackIndex = 0;
+          }
+        }
+        yield return null;
+      }
     }
 
     public void Play(string name)
@@ -47,7 +71,7 @@ namespace RFG
         AudioSource audio = audioSources[name];
         if (fade)
         {
-          StartCoroutine(audio.FadeIn(FadeTime));
+          StartCoroutine(audio.FadeIn(Settings.FadeTime));
         }
         else
         {
@@ -71,7 +95,7 @@ namespace RFG
         AudioSource audio = audioSources[name];
         if (fade)
         {
-          StartCoroutine(audio.FadeOut(FadeTime));
+          StartCoroutine(audio.FadeOut(Settings.FadeTime));
         }
         else
         {
@@ -96,23 +120,6 @@ namespace RFG
       }
     }
 
-    public void SetVolume(float volume)
-    {
-      if (volume < 0.001f)
-      {
-        volume = 0.001f;
-      }
-
-      // Keep a copy in the class
-      Volume = volume;
-
-      // Store the value in player prefs
-      PlayerPrefs.SetFloat(VolumeName, volume);
-
-      // Set the volume on the mixer
-      AudioMixer.SetFloat("Volume", Mathf.Log(volume) * 20);
-    }
-
     public bool IsPlaying(string name)
     {
       if (audioSources.ContainsKey(name))
@@ -120,6 +127,15 @@ namespace RFG
         return audioSources[name].isPlaying;
       }
       return false;
+    }
+
+    public void ConfigureAudioSources()
+    {
+      Sound[] sounds = GetComponentsInChildren<Sound>();
+      foreach (Sound sound in sounds)
+      {
+        sound.GenerateAudioData();
+      }
     }
 
   }

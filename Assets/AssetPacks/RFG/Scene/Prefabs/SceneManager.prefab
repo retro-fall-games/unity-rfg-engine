@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3703359143927607007}
   - component: {fileID: 7456764814719854302}
+  - component: {fileID: 7584214907907906332}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -45,4 +46,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnStart: {fileID: 0}
   WaitForSeconds: 1
-  OnSceneChange: {fileID: 11400000, guid: 812298bc8d87b7c41b8d714fc833bcc0, type: 2}
+  OnSceneChanged: {fileID: 11400000, guid: 8d8f7bf73e2a6ba4cbead5293dee726a, type: 2}
+--- !u!114 &7584214907907906332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8990963342134747057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef8860600a88173459a07b11112dcedd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 30f9cddb80bfcc848812a132de7ca784, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7456764814719854302}
+        m_TargetAssemblyTypeName: RFG.SceneManager, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

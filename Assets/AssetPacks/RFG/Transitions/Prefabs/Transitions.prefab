@@ -98,6 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4090499528833244552}
   - component: {fileID: 4090499528833244599}
+  - component: {fileID: 3707192686835838246}
   m_Layer: 0
   m_Name: Transitions
   m_TagString: Untagged
@@ -132,11 +133,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8baef554b5b981848899153a23885cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowOnStart: 1
   Speed: 1
   transitions:
   - {fileID: 4090499529782186524}
+  ShowOnStart: 1
   StartingTransition: CrossFade
+  WaitForSeconds: 1
+--- !u!114 &3707192686835838246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4090499528833244553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef8860600a88173459a07b11112dcedd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 30f9cddb80bfcc848812a132de7ca784, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4090499528833244599}
+        m_TargetAssemblyTypeName: RFG.Transitions, Assembly-CSharp
+        m_MethodName: Start
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CrossFade
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4090499529782186524
 GameObject:
   m_ObjectHideFlags: 0

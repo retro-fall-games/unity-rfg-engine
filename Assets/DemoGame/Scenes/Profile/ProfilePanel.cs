@@ -7,10 +7,16 @@ namespace Game
 {
   public class ProfilePanel : MonoBehaviour
   {
+    [Header("Settings")]
     public int id;
     public TMP_Text headerText;
     public TMP_Text startText;
     public GameObject deleteButton;
+
+    [Header("Scene Unity Events")]
+    public SceneUnityEvent OnSceneChange;
+
+    [HideInInspector]
     private Profile<Game.ProfileData> _profile;
 
     private void Awake()
@@ -26,7 +32,6 @@ namespace Game
     private IEnumerator StartCo()
     {
       yield return new WaitUntil(() => Game.ProfileManager.Instance != null);
-      yield return new WaitUntil(() => SceneManager.Instance != null);
       LoadPanel();
     }
 
@@ -61,7 +66,7 @@ namespace Game
         Game.ProfileManager.Instance.SetProfile(_profile);
         PlayerPrefs.SetInt("startingCheckpoint", 0);
       }
-      // SceneManager.Instance.LoadScene(_profile.data.level, true);
+      OnSceneChange?.Raise(_profile.data.level);
     }
 
     public void DeleteProfile()

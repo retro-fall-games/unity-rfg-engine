@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+using MyBox;
 namespace RFG
 {
   [CreateAssetMenu(fileName = "New Game Event", menuName = "RFG/Game/Game Unity Event")]
@@ -25,5 +25,13 @@ namespace RFG
     {
       listeners.Remove(listenter);
     }
+
+#if UNITY_EDITOR
+    [ButtonMethod]
+    private void RaiseEvent()
+    {
+      Raise();
+    }
+#endif
   }
 }

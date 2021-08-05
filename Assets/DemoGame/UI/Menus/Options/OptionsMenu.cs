@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using RFG;
@@ -7,57 +6,22 @@ namespace Game
 {
   public class OptionsMenu : MonoBehaviour
   {
+    [Header("Sound Base Settings")]
+    public SoundBaseSettings SoundTrack;
+    public SoundBaseSettings SoundAmbience;
+    public SoundBaseSettings SoundFx;
 
+    [Header("UI")]
     public Slider soundTrackVolumeSlider;
     public Slider fxVolumeSlider;
     public Slider ambienceVolumeSlider;
-    // private void Start()
-    // {
-    //   StartCoroutine(StartCo());
-    // }
 
-    // private IEnumerator StartCo()
-    // {
-    //   // yield return new WaitUntil(() => SoundTrackAudio.Instance != null);
-    //   // // yield return new WaitUntil(() => FXAudio.Instance != null);
-    //   // yield return new WaitUntil(() => AmbienceAudio.Instance != null);
-    //   // if (soundTrackVolumeSlider != null)
-    //   // {
-    //   //   soundTrackVolumeSlider.value = SoundTrackAudio.Instance.Volume;
-    //   // }
-    //   // // if (fxVolumeSlider != null)
-    //   // // {
-    //   // //   fxVolumeSlider.value = FXAudio.Instance.Volume;
-    //   // // }
-    //   // if (ambienceVolumeSlider != null)
-    //   // {
-    //   //   ambienceVolumeSlider.value = AmbienceAudio.Instance.Volume;
-    //   // }
-    // }
-
-    public void SetSoundtrackVolume(float volume)
+    private void Start()
     {
-      // if (SoundTrackAudio.Instance != null)
-      // {
-      //   SoundTrackAudio.Instance.SetVolume(volume);
-      // }
+      soundTrackVolumeSlider.value = SoundTrack.Volume;
+      fxVolumeSlider.value = SoundFx.Volume;
+      ambienceVolumeSlider.value = SoundAmbience.Volume;
     }
-
-    public void SetFXVolume(float volume)
-    {
-      // if (FXAudio.Instance != null)
-      // {
-      //   FXAudio.Instance.SetVolume(volume);
-      // }
-    }
-
-    // public void SetAmbienceVolume(float volume)
-    // {
-    //   if (AmbienceAudio.Instance != null)
-    //   {
-    //     AmbienceAudio.Instance.SetVolume(volume);
-    //   }
-    // }
 
   }
 }

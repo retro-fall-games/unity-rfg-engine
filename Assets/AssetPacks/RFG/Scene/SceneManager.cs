@@ -11,8 +11,9 @@ namespace RFG
 
     [Header("Change Scene")]
     public float WaitForSeconds = 1f;
-    [Header("Events")]
-    public GameUnityEvent OnSceneChange;
+
+    [Header("Unity Events")]
+    public SceneUnityEvent OnSceneChanged;
 
     [HideInInspector]
     private string _lastScene;
@@ -27,19 +28,14 @@ namespace RFG
 
     public void LoadScene(string name)
     {
-      OnSceneChange?.Raise();
       StartCoroutine(LoadSceneCo(name));
     }
 
     private IEnumerator LoadSceneCo(string name)
     {
-      // if (fadeSoundtrack)
-      // {
-      //   // SoundTrackAudio.Instance.StopAll(fadeSoundtrack);
-      // }
-      // Transition.Instance.Show("CrossFade", "Start");
       yield return new WaitForSecondsRealtime(WaitForSeconds);
       PlayerPrefs.SetString("lastScene", GetCurrentScene());
+      OnSceneChanged?.Raise(name);
       UnityEngine.SceneManagement.SceneManager.LoadScene(name);
     }
 

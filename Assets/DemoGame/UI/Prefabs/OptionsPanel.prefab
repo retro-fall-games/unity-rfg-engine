@@ -411,6 +411,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980e1d1f3d602a648abcc5b3eee19296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundTrack: {fileID: 11400000, guid: d706644c062e41e4785f5bbb783a4302, type: 2}
+  SoundAmbience: {fileID: 11400000, guid: 8056512ac6ebb9b48b3b66a795ef297b, type: 2}
+  SoundFx: {fileID: 11400000, guid: 3a64ecde94b53ef4fb32202f29e1c077, type: 2}
   soundTrackVolumeSlider: {fileID: 6311067624959165169}
   fxVolumeSlider: {fileID: 6311067624396166131}
   ambienceVolumeSlider: {fileID: 6311067625857089952}
@@ -504,9 +507,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6311067624202754124}
-        m_TargetAssemblyTypeName: Game.OptionsMenu, Assembly-CSharp
-        m_MethodName: SetFXVolume
+      - m_Target: {fileID: 11400000, guid: 3a64ecde94b53ef4fb32202f29e1c077, type: 2}
+        m_TargetAssemblyTypeName: RFG.SoundBaseSettings, Assembly-CSharp
+        m_MethodName: SetVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -817,9 +820,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6311067624202754124}
-        m_TargetAssemblyTypeName: Game.OptionsMenu, Assembly-CSharp
-        m_MethodName: SetSoundtrackVolume
+      - m_Target: {fileID: 11400000, guid: d706644c062e41e4785f5bbb783a4302, type: 2}
+        m_TargetAssemblyTypeName: RFG.SoundBaseSettings, Assembly-CSharp
+        m_MethodName: SetVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1646,9 +1649,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6311067624202754124}
-        m_TargetAssemblyTypeName: Game.OptionsMenu, Assembly-CSharp
-        m_MethodName: SetAmbienceVolume
+      - m_Target: {fileID: 11400000, guid: 8056512ac6ebb9b48b3b66a795ef297b, type: 2}
+        m_TargetAssemblyTypeName: RFG.SoundBaseSettings, Assembly-CSharp
+        m_MethodName: SetVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

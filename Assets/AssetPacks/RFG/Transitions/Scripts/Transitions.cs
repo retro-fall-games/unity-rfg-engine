@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,6 @@ namespace RFG
   public class Transitions : Singleton<Transitions>
   {
     [Header("Settings")]
-    public bool ShowOnStart = false;
     [Range(0, 1)]
     public float Speed = 1f;
 
@@ -14,7 +14,9 @@ namespace RFG
     public GameObject[] transitions;
 
     [Header("Starting Transition")]
+    public bool ShowOnStart = false;
     public string StartingTransition;
+    public float WaitForSeconds = 1f;
 
     [HideInInspector]
     private Dictionary<string, Animator> _transitions = new Dictionary<string, Animator>();
@@ -41,8 +43,14 @@ namespace RFG
     {
       if (ShowOnStart)
       {
-        End(StartingTransition);
+        StartCoroutine(StartCo());
       }
+    }
+
+    private IEnumerator StartCo()
+    {
+      yield return new WaitForSecondsRealtime(WaitForSeconds);
+      End(StartingTransition);
     }
 
     public void Start(string name)
