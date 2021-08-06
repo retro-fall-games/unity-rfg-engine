@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Slow Game Settings
   m_EditorClassIdentifier: 
   TargetFrameRate: 30
-  WaitForSecondsToQuit: 10
+  WaitForSecondsToQuit: 5
   DrawRaycasts: 0

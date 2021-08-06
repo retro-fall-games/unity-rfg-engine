@@ -168,6 +168,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Settings: {fileID: 11400000, guid: d706644c062e41e4785f5bbb783a4302, type: 2}
+  soundtrack:
+  - {fileID: 388597666}
+  loopSoundtrack: 1
+  soundtrackWaitForSeconds: 1
 --- !u!1 &223505704
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,8 +337,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 351171642}
-        m_TargetAssemblyTypeName: RFG.SoundBase, Assembly-CSharp
+      - m_Target: {fileID: 11400000, guid: 3a64ecde94b53ef4fb32202f29e1c077, type: 2}
+        m_TargetAssemblyTypeName: RFG.SoundBaseSettings, Assembly-CSharp
         m_MethodName: SetVolume
         m_Mode: 0
         m_Arguments:
@@ -435,8 +439,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 85091597}
-        m_TargetAssemblyTypeName: RFG.SoundBase, Assembly-CSharp
+      - m_Target: {fileID: 11400000, guid: d706644c062e41e4785f5bbb783a4302, type: 2}
+        m_TargetAssemblyTypeName: RFG.SoundBaseSettings, Assembly-CSharp
         m_MethodName: SetVolume
         m_Mode: 0
         m_Arguments:
@@ -528,6 +532,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Settings: {fileID: 11400000, guid: 3a64ecde94b53ef4fb32202f29e1c077, type: 2}
+  soundtrack: []
+  loopSoundtrack: 1
+  soundtrackWaitForSeconds: 1
 --- !u!1 &388597663
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,10 +578,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 55d524a150b9d0f4596e305d2dee5e04, type: 2}
   m_audioClip: {fileID: 8300000, guid: 0b09b39cd8997894cb092d7b0d41ab7d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1163,7 +1170,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1423,8 +1430,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1249982531}
-        m_TargetAssemblyTypeName: RFG.SoundBase, Assembly-CSharp
+      - m_Target: {fileID: 11400000, guid: 8056512ac6ebb9b48b3b66a795ef297b, type: 2}
+        m_TargetAssemblyTypeName: RFG.SoundBaseSettings, Assembly-CSharp
         m_MethodName: SetVolume
         m_Mode: 0
         m_Arguments:
@@ -1480,6 +1487,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Settings: {fileID: 11400000, guid: 8056512ac6ebb9b48b3b66a795ef297b, type: 2}
+  soundtrack:
+  - {fileID: 1021336180}
+  loopSoundtrack: 1
+  soundtrackWaitForSeconds: 1
 --- !u!1 &1255567072
 GameObject:
   m_ObjectHideFlags: 0

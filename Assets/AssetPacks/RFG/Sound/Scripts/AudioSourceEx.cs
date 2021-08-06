@@ -18,7 +18,6 @@ namespace RFG
       float currentTime = 0;
       float start = 0;
       float volume = audioSource.volume;
-      audioSource.volume = 0;
       audioSource.Play();
       while (currentTime < duration)
       {
@@ -41,6 +40,7 @@ namespace RFG
         yield return null;
       }
       audioSource.Stop();
+      audioSource.volume = volume;
       yield break;
     }
 

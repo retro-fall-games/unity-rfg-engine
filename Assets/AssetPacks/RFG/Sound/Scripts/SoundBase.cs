@@ -1,6 +1,5 @@
 
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace RFG
@@ -10,15 +9,8 @@ namespace RFG
     [Header("Sound Base")]
     public SoundBaseSettings Settings;
 
-    [Header("Play On Awake")]
-    public Sound[] soundtrack;
-    public bool loopSoundtrack = true;
-    public float soundtrackWaitForSeconds = 1f;
-
     [HideInInspector]
-    protected Dictionary<string, AudioSource> audioSources = new Dictionary<string, AudioSource>();
-    private Sound _currentPlayingSoundtrack;
-    private int _currentPlayingSoundtrackIndex = 0;
+    protected Dictionary<string, AudioSource> _audioSources = new Dictionary<string, AudioSource>();
 
     private void Awake()
     {
@@ -26,49 +18,37 @@ namespace RFG
       AudioSource[] audioSourceComponents = GetComponentsInChildren<AudioSource>();
       foreach (AudioSource audioSource in audioSourceComponents)
       {
-        audioSources.Add(audioSource.clip.name, audioSource);
+        _audioSources.Add(audioSource.clip.name, audioSource);
       }
     }
 
     private void Start()
     {
-      if (soundtrack.Length > 0)
-      {
-        StartCoroutine(PlaySoundTrack());
-      }
+      Settings.SetVolume(Settings.GetPlayerPrefsVolume());
     }
 
-    private IEnumerator PlaySoundTrack()
+    public AudioSource GetAudioSource(string name)
     {
-      AudioSource audio = soundtrack[_currentPlayingSoundtrackIndex].GetComponent<AudioSource>();
-      while (true)
+      if (_audioSources.ContainsKey(name))
       {
-        if (!audio.isPlaying)
-        {
-          audio = soundtrack[_currentPlayingSoundtrackIndex].GetComponent<AudioSource>();
-          audio.Play();
-          if (++_currentPlayingSoundtrackIndex == soundtrack.Length)
-          {
-            _currentPlayingSoundtrackIndex = 0;
-          }
-        }
-        yield return null;
+        return _audioSources[name];
       }
+      return null;
     }
 
     public void Play(string name)
     {
-      if (audioSources.ContainsKey(name))
+      if (_audioSources.ContainsKey(name))
       {
-        audioSources[name].Play();
+        _audioSources[name].Play();
       }
     }
 
     public void Play(string name, bool fade = false)
     {
-      if (audioSources.ContainsKey(name))
+      if (_audioSources.ContainsKey(name))
       {
-        AudioSource audio = audioSources[name];
+        AudioSource audio = _audioSources[name];
         if (fade)
         {
           StartCoroutine(audio.FadeIn(Settings.FadeTime));
@@ -90,9 +70,9 @@ namespace RFG
 
     public void Stop(string name, bool fade = false)
     {
-      if (audioSources.ContainsKey(name))
+      if (_audioSources.ContainsKey(name))
       {
-        AudioSource audio = audioSources[name];
+        AudioSource audio = _audioSources[name];
         if (fade)
         {
           StartCoroutine(audio.FadeOut(Settings.FadeTime));
@@ -114,7 +94,7 @@ namespace RFG
 
     public void StopAll(bool fade = false)
     {
-      foreach (string key in audioSources.Keys)
+      foreach (string key in _audioSources.Keys)
       {
         Stop(key, fade);
       }
@@ -122,9 +102,9 @@ namespace RFG
 
     public bool IsPlaying(string name)
     {
-      if (audioSources.ContainsKey(name))
+      if (_audioSources.ContainsKey(name))
       {
-        return audioSources[name].isPlaying;
+        return _audioSources[name].isPlaying;
       }
       return false;
     }

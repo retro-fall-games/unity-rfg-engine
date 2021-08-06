@@ -23,7 +23,7 @@ namespace RFG
       switch (state)
       {
         case ButtonStates.Down:
-          EventManager.TriggerEvent(new GameEvent(GameEvent.GameEventType.Pause));
+          // EventManager.TriggerEvent(new GameEvent(GameEvent.GameEventType.Pause));
           break;
         case ButtonStates.Up:
 

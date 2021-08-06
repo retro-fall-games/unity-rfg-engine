@@ -12,34 +12,5 @@ namespace RFG
     [Header("Debug Settings")]
     public bool DrawRaycasts = true;
 
-    [HideInInspector]
-    public bool IsPaused { get; set; }
-
-    public void Pause()
-    {
-      IsPaused = true;
-      Time.timeScale = 0f;
-      EventManager.TriggerEvent<GameEvent>(new GameEvent(GameEvent.GameEventType.Paused));
-    }
-
-    public void UnPause()
-    {
-      IsPaused = false;
-      Time.timeScale = 1f;
-      EventManager.TriggerEvent<GameEvent>(new GameEvent(GameEvent.GameEventType.UnPaused));
-    }
-
-    public void TogglePause()
-    {
-      if (IsPaused)
-      {
-        UnPause();
-      }
-      else
-      {
-        Pause();
-      }
-    }
-
   }
 }

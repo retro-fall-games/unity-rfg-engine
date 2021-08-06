@@ -9,13 +9,36 @@ namespace RFG
     [Header("Game Settings")]
     public GameSettings Settings;
 
-    [Header("Game System Events")]
-    public GameSystemEvent OnPauseEvent;
-    public GameSystemEvent OnQuitEvent;
+    [HideInInspector]
+    public bool IsPaused { get; set; }
 
     private void Start()
     {
       Application.targetFrameRate = Settings.TargetFrameRate;
+    }
+
+    public void Pause()
+    {
+      IsPaused = true;
+      Time.timeScale = 0f;
+    }
+
+    public void UnPause()
+    {
+      IsPaused = false;
+      Time.timeScale = 1f;
+    }
+
+    public void TogglePause()
+    {
+      if (IsPaused)
+      {
+        UnPause();
+      }
+      else
+      {
+        Pause();
+      }
     }
 
     public void Quit()
@@ -30,45 +53,6 @@ namespace RFG
 #if UNITY_EDITOR
       UnityEditor.EditorApplication.isPlaying = false;
 #endif
-    }
-
-    public void Pause()
-    {
-      Settings.Pause();
-    }
-
-    public void UnPause()
-    {
-      Settings.UnPause();
-    }
-
-    public void TogglePause()
-    {
-      Settings.TogglePause();
-    }
-
-    private void OnEnable()
-    {
-      if (OnPauseEvent != null)
-      {
-        OnPauseEvent.OnRaise += TogglePause;
-      }
-      if (OnQuitEvent != null)
-      {
-        OnQuitEvent.OnRaise += Quit;
-      }
-    }
-
-    private void OnDisable()
-    {
-      if (OnPauseEvent != null)
-      {
-        OnPauseEvent.OnRaise -= TogglePause;
-      }
-      if (OnQuitEvent != null)
-      {
-        OnQuitEvent.OnRaise -= Quit;
-      }
     }
 
 #if UNITY_EDITOR

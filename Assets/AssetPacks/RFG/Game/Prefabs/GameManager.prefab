@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1320861063666889480}
   - component: {fileID: 1320861063666889481}
-  - component: {fileID: 2689129035721759166}
-  - component: {fileID: 2498994260213434275}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -46,61 +44,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Settings: {fileID: 11400000, guid: f7f96a5df0e9b7c4695b3dc99b9ddfd9, type: 2}
-  OnPauseEvent: {fileID: 11400000, guid: d4686483664ca524d99fc430c6928a6c, type: 2}
-  OnQuitEvent: {fileID: 11400000, guid: bb540644265544e459ff151cf79e891e, type: 2}
---- !u!114 &2689129035721759166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1320861063666889478}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaf8f0cf6cb6eb44f9e36e1b7a6ec230, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 4b73c5e6df2e5f545ac02fc0b851c216, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1320861063666889481}
-        m_TargetAssemblyTypeName: RFG.GameManager, Assembly-CSharp
-        m_MethodName: TogglePause
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &2498994260213434275
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1320861063666889478}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaf8f0cf6cb6eb44f9e36e1b7a6ec230, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: dff9712bba108c149a0fbd14b04a03fa, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1320861063666889481}
-        m_TargetAssemblyTypeName: RFG.GameManager, Assembly-CSharp
-        m_MethodName: Quit
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2

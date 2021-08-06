@@ -12,11 +12,19 @@ namespace RFG
     [Header("Change Scene")]
     public float WaitForSeconds = 1f;
 
-    [Header("Unity Events")]
-    public SceneUnityEvent OnSceneChanged;
+    [Header("Transition")]
+    public string TransitionName;
 
     [HideInInspector]
+    public Transition Transition => _transition;
     private string _lastScene;
+    private Transition _transition;
+
+    protected override void Awake()
+    {
+      base.Awake();
+      _transition = GetComponent<Transition>();
+    }
 
     private void Start()
     {
@@ -28,6 +36,10 @@ namespace RFG
 
     public void LoadScene(string name)
     {
+      if (Transition != null && !TransitionName.Equals(""))
+      {
+        Transition.Start(TransitionName);
+      }
       StartCoroutine(LoadSceneCo(name));
     }
 
@@ -35,7 +47,6 @@ namespace RFG
     {
       yield return new WaitForSecondsRealtime(WaitForSeconds);
       PlayerPrefs.SetString("lastScene", GetCurrentScene());
-      OnSceneChanged?.Raise(name);
       UnityEngine.SceneManagement.SceneManager.LoadScene(name);
     }
 

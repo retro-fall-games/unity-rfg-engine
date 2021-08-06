@@ -5,9 +5,14 @@ namespace RFG
 {
   public class Cutscene : MonoBehaviour
   {
+    [Header("Settings")]
     public UnityEngine.UI.Button skipButton;
     public bool isRunning = false;
     public bool isSkipable = false;
+    public float WaitForSecondsToStart = 0f;
+
+
+    [HideInInspector]
     private bool skip = false;
     private IEnumerator _coroutine;
 
@@ -23,7 +28,8 @@ namespace RFG
     {
       if (skipButton != null && isRunning && isSkipable && !skip)
       {
-        if (Input.GetMouseButtonDown(0))
+        bool anyInput = InputEx.AnyInput();
+        if (anyInput)
         {
           skipButton.gameObject.SetActive(true);
         }
@@ -46,6 +52,7 @@ namespace RFG
     public IEnumerator RunCo()
     {
       isRunning = true;
+      yield return new WaitForSeconds(WaitForSecondsToStart);
       yield return StartCoroutine(_coroutine);
       isRunning = false;
     }

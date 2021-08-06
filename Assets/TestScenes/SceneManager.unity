@@ -340,9 +340,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11400000, guid: 30f9cddb80bfcc848812a132de7ca784, type: 2}
-        m_TargetAssemblyTypeName: RFG.SceneUnityEvent, Assembly-CSharp
-        m_MethodName: Raise
+      - m_Target: {fileID: 271398649}
+        m_TargetAssemblyTypeName: RFG.SceneManager, Assembly-CSharp
+        m_MethodName: LoadScene
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -441,10 +441,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7456764814719854302, guid: 57d583022cfe96447b21ce359cfac331, type: 3}
-      propertyPath: WaitForSeconds
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 8990963342134747057, guid: 57d583022cfe96447b21ce359cfac331, type: 3}
       propertyPath: m_Name
       value: SceneManager
@@ -456,7 +452,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7456764814719854302, guid: 57d583022cfe96447b21ce359cfac331, type: 3}
   m_PrefabInstance: {fileID: 271398648}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1189443293}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be88fa2628b0fa14995538abbd08f2ec, type: 3}
@@ -638,7 +634,7 @@ RectTransform:
   m_Children:
   - {fileID: 173866255}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -717,143 +713,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1116622047
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4090499528833244552, guid: ead3907568e5986419878baa4639d1e4, type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4090499528833244552, guid: ead3907568e5986419878baa4639d1e4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4090499528833244552, guid: ead3907568e5986419878baa4639d1e4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4090499528833244552, guid: ead3907568e5986419878baa4639d1e4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4090499528833244552, guid: ead3907568e5986419878baa4639d1e4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4090499528833244552, guid: ead3907568e5986419878baa4639d1e4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4090499528833244552, guid: ead3907568e5986419878baa4639d1e4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4090499528833244552, guid: ead3907568e5986419878baa4639d1e4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4090499528833244552, guid: ead3907568e5986419878baa4639d1e4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4090499528833244552, guid: ead3907568e5986419878baa4639d1e4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4090499528833244552, guid: ead3907568e5986419878baa4639d1e4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4090499528833244553, guid: ead3907568e5986419878baa4639d1e4, type: 3}
-      propertyPath: m_Name
-      value: Transitions
-      objectReference: {fileID: 0}
-    - target: {fileID: 4090499529782186520, guid: ead3907568e5986419878baa4639d1e4, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ead3907568e5986419878baa4639d1e4, type: 3}
---- !u!1 &1116622048 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4090499528833244553, guid: ead3907568e5986419878baa4639d1e4, type: 3}
-  m_PrefabInstance: {fileID: 1116622047}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1116622049 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4090499528833244599, guid: ead3907568e5986419878baa4639d1e4, type: 3}
-  m_PrefabInstance: {fileID: 1116622047}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1116622048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8baef554b5b981848899153a23885cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1116622050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1116622048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef8860600a88173459a07b11112dcedd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 30f9cddb80bfcc848812a132de7ca784, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1116622049}
-        m_TargetAssemblyTypeName: RFG.Transitions, Assembly-CSharp
-        m_MethodName: Start
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: CrossFade
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!1 &1189443293 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8990963342134747057, guid: 57d583022cfe96447b21ce359cfac331, type: 3}
-  m_PrefabInstance: {fileID: 271398648}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1189443294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1189443293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef8860600a88173459a07b11112dcedd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 30f9cddb80bfcc848812a132de7ca784, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 271398649}
-        m_TargetAssemblyTypeName: RFG.SceneManager, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2

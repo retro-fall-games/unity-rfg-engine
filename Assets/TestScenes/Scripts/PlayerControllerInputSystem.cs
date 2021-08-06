@@ -7,8 +7,6 @@ public class PlayerControllerInputSystem : MonoBehaviour
   public float movementSpeed = 3f;
   public float movementSmoothingSpeed = 1f;
 
-  public GameSystemEvent OnPauseEvent;
-
   private PlayerInputActions inputActions;
   private InputAction movement;
 
@@ -51,7 +49,7 @@ public class PlayerControllerInputSystem : MonoBehaviour
 
   public void OnPause(InputAction.CallbackContext ctx)
   {
-    OnPauseEvent.Raise();
+    GameManager.Instance.TogglePause();
   }
 
   private void OnEnable()
