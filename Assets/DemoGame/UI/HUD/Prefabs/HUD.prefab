@@ -475,6 +475,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 313c80fc5e6491c4e82451537c51b72d, type: 2}
+        m_TargetAssemblyTypeName: RFG.GameEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &721426576635894913
 GameObject:
   m_ObjectHideFlags: 0
@@ -2598,7 +2610,6 @@ GameObject:
   - component: {fileID: 721426577617078263}
   - component: {fileID: 721426577617078262}
   - component: {fileID: 721426577617078257}
-  - component: {fileID: 721426577617078260}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -2708,9 +2719,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 721426577617078260}
-        m_TargetAssemblyTypeName: RFG.SceneQuit, Assembly-CSharp
-        m_MethodName: GoBackTitle
+      - m_Target: {fileID: 6743699775329015449}
+        m_TargetAssemblyTypeName: Game.OptionsMenu, Assembly-CSharp
+        m_MethodName: QuitToTitle
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2720,18 +2731,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &721426577617078260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 721426577617078259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4ffc58d09ff4544a853e39d8da18de8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &721426577628308421
 GameObject:
   m_ObjectHideFlags: 0
@@ -4902,6 +4901,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 313c80fc5e6491c4e82451537c51b72d, type: 2}
+        m_TargetAssemblyTypeName: RFG.GameEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6743699775011288591
 GameObject:
   m_ObjectHideFlags: 0
@@ -5102,6 +5113,7 @@ GameObject:
   - component: {fileID: 6743699775329015451}
   - component: {fileID: 6743699775329015450}
   - component: {fileID: 6743699775329015449}
+  - component: {fileID: 4831385849542479545}
   m_Layer: 5
   m_Name: OptionsPanel
   m_TagString: Untagged
@@ -5219,9 +5231,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 980e1d1f3d602a648abcc5b3eee19296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoundTrack: {fileID: 11400000, guid: d706644c062e41e4785f5bbb783a4302, type: 2}
+  SoundAmbience: {fileID: 11400000, guid: 8056512ac6ebb9b48b3b66a795ef297b, type: 2}
+  SoundFx: {fileID: 11400000, guid: 3a64ecde94b53ef4fb32202f29e1c077, type: 2}
   soundTrackVolumeSlider: {fileID: 6743699774473767972}
   fxVolumeSlider: {fileID: 6743699776125459750}
   ambienceVolumeSlider: {fileID: 6743699774633070453}
+--- !u!114 &4831385849542479545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6743699775329015455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9d151ab8084e4943ae75138996bd208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 313c80fc5e6491c4e82451537c51b72d, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6743699775329015450}
+        m_TargetAssemblyTypeName: Game.MainMenu, Assembly-CSharp
+        m_MethodName: ToggleOptions
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6743699775552920687
 GameObject:
   m_ObjectHideFlags: 0

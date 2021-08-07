@@ -47,6 +47,18 @@ public class PlayerControllerInputSystem : MonoBehaviour
     Debug.Log("Attack!");
   }
 
+  public void OnAttackCanceled(InputAction.CallbackContext ctx)
+  {
+    // if (ctx.started)
+    Debug.Log("Attack Canceled!");
+  }
+
+  public void OnAttackStarted(InputAction.CallbackContext ctx)
+  {
+    // if (ctx.started)
+    Debug.Log("Attack Started!");
+  }
+
   public void OnPause(InputAction.CallbackContext ctx)
   {
     GameManager.Instance.TogglePause();
@@ -54,20 +66,23 @@ public class PlayerControllerInputSystem : MonoBehaviour
 
   private void OnEnable()
   {
+    //inputActions.PlayerControls
     movement = inputActions.PlayerControls.Movement;
     movement.Enable();
 
-    inputActions.PlayerControls.Attack.performed += OnAttack;
+    inputActions.PlayerControls.PrimaryAttack.performed += OnAttack;
+    inputActions.PlayerControls.PrimaryAttack.started += OnAttackStarted;
+    inputActions.PlayerControls.PrimaryAttack.canceled += OnAttackCanceled;
     inputActions.PlayerControls.Pause.performed += OnPause;
 
-    inputActions.PlayerControls.Attack.Enable();
+    inputActions.PlayerControls.PrimaryAttack.Enable();
     inputActions.PlayerControls.Pause.Enable();
   }
 
   private void OnDisable()
   {
     movement.Disable();
-    inputActions.PlayerControls.Attack.Disable();
+    inputActions.PlayerControls.PrimaryAttack.Disable();
     inputActions.PlayerControls.Pause.Disable();
   }
 

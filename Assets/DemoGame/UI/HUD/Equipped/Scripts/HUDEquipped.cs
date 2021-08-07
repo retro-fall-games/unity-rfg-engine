@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using RFG;
+using RFG.Platformer;
 
 namespace Game
 {
@@ -27,10 +27,10 @@ namespace Game
       yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Player") != null);
       _player = GameObject.FindGameObjectWithTag("Player");
       _weaponBehaviour = _player.GetComponent<WeaponBehaviour>();
-      _weaponBehaviour.OnPrimaryEquip += OnPrimaryEquip;
-      _weaponBehaviour.OnSecondaryEquip += OnSecondaryEquip;
-      _weaponBehaviour.OnPrimaryFired += OnPrimaryFired;
-      _weaponBehaviour.OnSecondaryFired += OnSecondaryFired;
+      // _weaponBehaviour.OnPrimaryEquip += OnPrimaryEquip;
+      // _weaponBehaviour.OnSecondaryEquip += OnSecondaryEquip;
+      // _weaponBehaviour.OnPrimaryFired += OnPrimaryFired;
+      // _weaponBehaviour.OnSecondaryFired += OnSecondaryFired;
     }
 
     private void OnPrimaryEquip()

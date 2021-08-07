@@ -47,6 +47,7 @@ namespace RFG
     {
       yield return new WaitForSecondsRealtime(WaitForSeconds);
       PlayerPrefs.SetString("lastScene", GetCurrentScene());
+      GameManager.Instance.UnPause();
       UnityEngine.SceneManagement.SceneManager.LoadScene(name);
     }
 

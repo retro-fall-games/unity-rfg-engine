@@ -21,9 +21,17 @@ namespace RFG
             ""id"": ""de3936c2-0e56-4719-8779-34a71c490a7f"",
             ""actions"": [
                 {
-                    ""name"": ""Attack"",
+                    ""name"": ""PrimaryAttack"",
                     ""type"": ""Button"",
                     ""id"": ""1ddd5fe3-197d-47db-833e-73e98d7a2858"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SecondaryAttack"",
+                    ""type"": ""Button"",
+                    ""id"": ""ab86883e-3cca-44a1-936c-8c3b6a9bf0ae"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -43,20 +51,17 @@ namespace RFG
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""6459d2b5-338a-409f-9aea-ed4187e38f3a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""6e460770-2364-41a4-ae8c-9c21b2b81a00"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""045528e0-3dc9-4484-92ed-1dffcb23ab22"",
@@ -64,7 +69,7 @@ namespace RFG
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""Attack"",
+                    ""action"": ""PrimaryAttack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -125,34 +130,34 @@ namespace RFG
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3722afd8-94d9-482a-b94e-7d860e9db715"",
-                    ""path"": ""<Gamepad>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""50407ab9-102f-4590-b097-9d8c940f5713"",
-                    ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""c3a98f55-43be-483d-9381-a8c22dad14fe"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5b96df50-0d9f-407b-b1ba-7c17a0202d76"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""SecondaryAttack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c96a6e2c-9bcd-4756-abae-cd9d1083a290"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -191,9 +196,11 @@ namespace RFG
 }");
             // PlayerControls
             m_PlayerControls = asset.FindActionMap("PlayerControls", throwIfNotFound: true);
-            m_PlayerControls_Attack = m_PlayerControls.FindAction("Attack", throwIfNotFound: true);
+            m_PlayerControls_PrimaryAttack = m_PlayerControls.FindAction("PrimaryAttack", throwIfNotFound: true);
+            m_PlayerControls_SecondaryAttack = m_PlayerControls.FindAction("SecondaryAttack", throwIfNotFound: true);
             m_PlayerControls_Movement = m_PlayerControls.FindAction("Movement", throwIfNotFound: true);
             m_PlayerControls_Pause = m_PlayerControls.FindAction("Pause", throwIfNotFound: true);
+            m_PlayerControls_Jump = m_PlayerControls.FindAction("Jump", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -243,16 +250,20 @@ namespace RFG
         // PlayerControls
         private readonly InputActionMap m_PlayerControls;
         private IPlayerControlsActions m_PlayerControlsActionsCallbackInterface;
-        private readonly InputAction m_PlayerControls_Attack;
+        private readonly InputAction m_PlayerControls_PrimaryAttack;
+        private readonly InputAction m_PlayerControls_SecondaryAttack;
         private readonly InputAction m_PlayerControls_Movement;
         private readonly InputAction m_PlayerControls_Pause;
+        private readonly InputAction m_PlayerControls_Jump;
         public struct PlayerControlsActions
         {
             private @PlayerInputActions m_Wrapper;
             public PlayerControlsActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Attack => m_Wrapper.m_PlayerControls_Attack;
+            public InputAction @PrimaryAttack => m_Wrapper.m_PlayerControls_PrimaryAttack;
+            public InputAction @SecondaryAttack => m_Wrapper.m_PlayerControls_SecondaryAttack;
             public InputAction @Movement => m_Wrapper.m_PlayerControls_Movement;
             public InputAction @Pause => m_Wrapper.m_PlayerControls_Pause;
+            public InputAction @Jump => m_Wrapper.m_PlayerControls_Jump;
             public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -262,28 +273,40 @@ namespace RFG
             {
                 if (m_Wrapper.m_PlayerControlsActionsCallbackInterface != null)
                 {
-                    @Attack.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnAttack;
-                    @Attack.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnAttack;
-                    @Attack.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnAttack;
+                    @PrimaryAttack.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryAttack;
+                    @PrimaryAttack.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryAttack;
+                    @PrimaryAttack.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryAttack;
+                    @SecondaryAttack.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSecondaryAttack;
+                    @SecondaryAttack.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSecondaryAttack;
+                    @SecondaryAttack.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSecondaryAttack;
                     @Movement.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMovement;
                     @Movement.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMovement;
                     @Movement.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMovement;
                     @Pause.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
                     @Pause.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
                     @Pause.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
+                    @Jump.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
+                    @Jump.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
+                    @Jump.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
                 }
                 m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
                 if (instance != null)
                 {
-                    @Attack.started += instance.OnAttack;
-                    @Attack.performed += instance.OnAttack;
-                    @Attack.canceled += instance.OnAttack;
+                    @PrimaryAttack.started += instance.OnPrimaryAttack;
+                    @PrimaryAttack.performed += instance.OnPrimaryAttack;
+                    @PrimaryAttack.canceled += instance.OnPrimaryAttack;
+                    @SecondaryAttack.started += instance.OnSecondaryAttack;
+                    @SecondaryAttack.performed += instance.OnSecondaryAttack;
+                    @SecondaryAttack.canceled += instance.OnSecondaryAttack;
                     @Movement.started += instance.OnMovement;
                     @Movement.performed += instance.OnMovement;
                     @Movement.canceled += instance.OnMovement;
                     @Pause.started += instance.OnPause;
                     @Pause.performed += instance.OnPause;
                     @Pause.canceled += instance.OnPause;
+                    @Jump.started += instance.OnJump;
+                    @Jump.performed += instance.OnJump;
+                    @Jump.canceled += instance.OnJump;
                 }
             }
         }
@@ -308,9 +331,11 @@ namespace RFG
         }
         public interface IPlayerControlsActions
         {
-            void OnAttack(InputAction.CallbackContext context);
+            void OnPrimaryAttack(InputAction.CallbackContext context);
+            void OnSecondaryAttack(InputAction.CallbackContext context);
             void OnMovement(InputAction.CallbackContext context);
             void OnPause(InputAction.CallbackContext context);
+            void OnJump(InputAction.CallbackContext context);
         }
     }
 }

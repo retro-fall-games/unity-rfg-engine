@@ -4,6 +4,7 @@ using TMPro;
 
 namespace Game
 {
+  [AddComponentMenu("Game/Profile/Profile Panel")]
   public class ProfilePanel : MonoBehaviour
   {
     [Header("Settings")]

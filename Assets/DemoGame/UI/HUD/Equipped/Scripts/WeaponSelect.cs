@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 using RFG;
+using RFG.Platformer;
 
 namespace Game
 {
-  public class WeaponSelect : MonoBehaviour, EventListener<WeaponPickupEvent>
+  public class WeaponSelect : MonoBehaviour
   {
     public Animator animator;
     public Image[] weaponImages;
@@ -48,37 +49,29 @@ namespace Game
 
     public void EquipWeapon(int index)
     {
-      PlatformerCharacter character = PlatformerLevelManager.Instance.PlayerCharacter;
-      WeaponBehaviour weaponBehavior = character.FindBehaviour<WeaponBehaviour>();
-      if (EquipPrimary)
-      {
-        weaponBehavior.EquipPrimary(index);
-      }
-      else if (EquipSecondary)
-      {
-        weaponBehavior.EquipSecondary(index);
-      }
+      Character character = null; // PlatformerLevelManager.Instance.PlayerCharacter;
+      // WeaponBehaviour weaponBehavior = character.FindBehaviour<WeaponBehaviour>();
+      // if (EquipPrimary)
+      // {
+      //   weaponBehavior.EquipPrimary(index);
+      // }
+      // else if (EquipSecondary)
+      // {
+      //   weaponBehavior.EquipSecondary(index);
+      // }
       CloseDialog();
     }
 
-    public void OnEvent(WeaponPickupEvent weaponPickupEvent)
-    {
-      for (int i = 0; i < weaponPickupEvent.weapons.Count; i++)
-      {
-        weaponImages[i].sprite = weaponPickupEvent.weapons[i].pickupSprite;
-        weaponImages[i].color = Color.white;
-        weaponImages[i].transform.parent.gameObject.SetActive(true);
-      }
-    }
+    // public void OnEvent(WeaponPickupEvent weaponPickupEvent)
+    // {
+    //   for (int i = 0; i < weaponPickupEvent.weapons.Count; i++)
+    //   {
+    //     weaponImages[i].sprite = weaponPickupEvent.weapons[i].pickupSprite;
+    //     weaponImages[i].color = Color.white;
+    //     weaponImages[i].transform.parent.gameObject.SetActive(true);
+    //   }
+    // }
 
-    private void OnEnable()
-    {
-      this.AddListener<WeaponPickupEvent>();
-    }
 
-    private void OnDisable()
-    {
-      this.RemoveListener<WeaponPickupEvent>();
-    }
   }
 }

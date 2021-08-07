@@ -29,7 +29,7 @@ namespace RFG
       OnStateChange?.Invoke(CurrentState);
       if (_triggerEvents)
       {
-        EventManager.TriggerEvent(new StateChangeEvent<T>(this));
+        // EventManager.TriggerEvent(new StateChangeEvent<T>(this));
       }
     }
 

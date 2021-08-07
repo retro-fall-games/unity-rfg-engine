@@ -32,12 +32,10 @@ namespace Game
         if (!GameManager.Instance.IsPaused)
         {
           optionsAnimator.Play("SlideLeft");
-          GameManager.Instance.Pause();
         }
         else
         {
           optionsAnimator.Play("SlideRight");
-          GameManager.Instance.UnPause();
         }
       }
     }

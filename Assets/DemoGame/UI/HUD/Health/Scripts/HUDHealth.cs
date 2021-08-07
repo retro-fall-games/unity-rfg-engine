@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RFG;
+using RFG.Platformer;
 
 namespace Game
 {
@@ -35,9 +36,9 @@ namespace Game
     {
       yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Player") != null);
       GameObject player = GameObject.FindGameObjectWithTag("Player");
-      HealthBehaviour health = player.gameObject.GetComponent<HealthBehaviour>();
-      health.OnHealthChange += OnHealthChange;
-      CalculateMaxHearts(health.maxHealth);
+      // HealthBehaviour health = player.gameObject.GetComponent<HealthBehaviour>();
+      // health.OnHealthChange += OnHealthChange;
+      // CalculateMaxHearts(health.maxHealth);
     }
 
     private void CalculateMaxHearts(float maxHealth)

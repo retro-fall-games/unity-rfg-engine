@@ -6,6 +6,7 @@ namespace RFG
   [AddComponentMenu("RFG/Sound/Sound Manager")]
   public class SoundManager : PersistentSingleton<SoundManager>
   {
+    public Dictionary<string, SoundBase> SoundBases => _soundBases;
     private Dictionary<string, SoundBase> _soundBases = new Dictionary<string, SoundBase>();
     private Coroutine _playlistCoroutine;
 
@@ -16,6 +17,14 @@ namespace RFG
       {
         SoundBase soundBase = child.GetComponent<SoundBase>();
         _soundBases.Add(child.name, soundBase);
+      }
+    }
+
+    public void Play(SoundData[] sounds, bool fade = false)
+    {
+      foreach (SoundData sound in sounds)
+      {
+        _soundBases[sound.type.ToString()].Play(sound.clip.name, fade);
       }
     }
 

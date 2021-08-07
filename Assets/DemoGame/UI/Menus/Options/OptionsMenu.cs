@@ -23,5 +23,10 @@ namespace Game
       ambienceVolumeSlider.value = SoundAmbience.Volume;
     }
 
+    public void QuitToTitle()
+    {
+      SceneManager.Instance.LoadScene("Title");
+    }
+
   }
 }

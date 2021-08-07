@@ -591,9 +591,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 986613706}
-        m_TargetAssemblyTypeName: RFG.GameManager, Assembly-CSharp
-        m_MethodName: TogglePause
+      - m_Target: {fileID: 11400000, guid: 313c80fc5e6491c4e82451537c51b72d, type: 2}
+        m_TargetAssemblyTypeName: RFG.GameEvent, Assembly-CSharp
+        m_MethodName: Raise
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

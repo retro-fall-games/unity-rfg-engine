@@ -2,22 +2,25 @@ using UnityEngine;
 
 namespace RFG
 {
-  [AddComponentMenu("RFG Platformer/Character/Behaviour/AI Rotate On Collision Behaviour")]
-  public class AIRotateOnCollisionBehaviour : PlatformerCharacterBehaviour
+  namespace Platformer
   {
-    public override void ProcessBehaviour()
+    [AddComponentMenu("RFG Platformer/Character/Behaviour/AI Rotate On Collision Behaviour")]
+    public class AIRotateOnCollisionBehaviour : CharacterBehaviour
     {
-      if (_character.AIState.CurrentState != AIStates.Wandering)
+      public override void ProcessBehaviour()
       {
-        return;
-      }
-      if (_character.Controller.State.IsCollidingRight)
-      {
-        _character.AIMovementState.ChangeState(AIMovementStates.WalkingLeft);
-      }
-      else if (_character.Controller.State.IsCollidingLeft)
-      {
-        _character.AIMovementState.ChangeState(AIMovementStates.WalkingRight);
+        // if (_character.AIState.CurrentState != AIStates.Wandering)
+        // {
+        //   return;
+        // }
+        // if (_character.Controller.State.IsCollidingRight)
+        // {
+        //   _character.AIMovementState.ChangeState(AIMovementStates.WalkingLeft);
+        // }
+        // else if (_character.Controller.State.IsCollidingLeft)
+        // {
+        //   _character.AIMovementState.ChangeState(AIMovementStates.WalkingRight);
+        // }
       }
     }
   }
