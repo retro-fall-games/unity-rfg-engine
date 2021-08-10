@@ -350,7 +350,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221960913}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.19035196, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 516613198}
@@ -4508,7 +4508,7 @@ MonoBehaviour:
   m_ShowCameraFrustum: 1
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
+  m_UpdateMethod: 1
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
@@ -4577,7 +4577,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.747164, y: 0.5, z: -10}
+  m_LocalPosition: {x: 7.36646, y: 0.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7307,8 +7307,10 @@ GameObject:
   - component: {fileID: 8722432135314193956}
   - component: {fileID: 8722432135314193962}
   - component: {fileID: 8722432135314193961}
+  - component: {fileID: 8722432135314193966}
   - component: {fileID: 8722432135314193960}
   - component: {fileID: 8722432135314193959}
+  - component: {fileID: 8722432135314193965}
   - component: {fileID: 8722432135314193964}
   - component: {fileID: 8722432135314193963}
   m_Layer: 8
@@ -7333,7 +7335,6 @@ MonoBehaviour:
   CharacterType: 0
   ObjectPool: 0
   SpawnAt: {fileID: 0}
-  MovementState: 0
 --- !u!212 &8722432135314193957
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7413,11 +7414,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   States:
-  - {fileID: 11400000, guid: 795a28e1a4f0db245b3066b82d911cd9, type: 2}
-  - {fileID: 11400000, guid: bb19f537416e9d04a82ae3a09f00c053, type: 2}
-  - {fileID: 11400000, guid: e8aa11700e5eb9d46b7c88aa55997198, type: 2}
-  DefaultState: {fileID: 11400000, guid: e8aa11700e5eb9d46b7c88aa55997198, type: 2}
-  CurrentState: {fileID: 0}
+  - {fileID: 11400000, guid: d1eb9d22097076a4eb7e1de54e726809, type: 2}
+  - {fileID: 11400000, guid: f4abd6d072ba5b3459730258fa415209, type: 2}
+  - {fileID: 11400000, guid: 96547412bbf1a0d48a3f81a4291c3f7d, type: 2}
+  DefaultState: {fileID: 11400000, guid: 96547412bbf1a0d48a3f81a4291c3f7d, type: 2}
+  CurrentState: {fileID: 11400000, guid: 96547412bbf1a0d48a3f81a4291c3f7d, type: 2}
 --- !u!114 &8722432135314193960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7553,6 +7554,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 555e07f6daeae5041a3d24b8dec77957, type: 2}
   - {fileID: 11400000, guid: 1fafaa2515042b94192ddd8a88f2995a, type: 2}
   - {fileID: 11400000, guid: 47559bd6209166945b07f70317591e9b, type: 2}
+  - {fileID: 11400000, guid: 3962164e105ca6346aaa488568e02548, type: 2}
+  - {fileID: 11400000, guid: 0f81b5eb77f546b43a1d4e96604149f8, type: 2}
+  - {fileID: 11400000, guid: 9237801ec6ff1c442b883a68b6662a3d, type: 2}
 --- !u!114 &8722432135314193964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7565,3 +7569,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb6091a4ddf5536419863a38c68e7dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8722432135314193965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8722432135314193955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1041942ef07218c459245893df53fa2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  States:
+  - {fileID: 11400000, guid: 9fffa22beb94c6947924f95754c5b60f, type: 2}
+  - {fileID: 11400000, guid: 8ccab13e2aae41945978d9c358782680, type: 2}
+  - {fileID: 11400000, guid: 2068bb4996ca1d640ae494033c56d54e, type: 2}
+  - {fileID: 11400000, guid: 0db52b9c68eb09549b3fee69d821662d, type: 2}
+  - {fileID: 11400000, guid: c134b3e102d906549950a5bfcfb7812c, type: 2}
+  - {fileID: 11400000, guid: 6518e3ac4be1a104fa55d42c535bf423, type: 2}
+  - {fileID: 11400000, guid: 09a2f6ba6b9f3e249a6eb73d31a0c675, type: 2}
+  - {fileID: 11400000, guid: f305a45bc88b233429daa301604d195d, type: 2}
+  DefaultState: {fileID: 11400000, guid: 9fffa22beb94c6947924f95754c5b60f, type: 2}
+  CurrentState: {fileID: 11400000, guid: 9fffa22beb94c6947924f95754c5b60f, type: 2}
+--- !u!95 &8722432135314193966
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8722432135314193955}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1d0f10d0ac6097b49a4f88c57bf004d4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

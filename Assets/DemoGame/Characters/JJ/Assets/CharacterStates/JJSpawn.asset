@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e58b7cd8b9d4ba4cb00483eb1468a08, type: 3}
   m_Name: JJSpawn
   m_EditorClassIdentifier: 
-  Transitions:
-  - {fileID: 11400000, guid: 795a28e1a4f0db245b3066b82d911cd9, type: 2}
-  EnterFx:
-  - {fileID: 11400000, guid: f40078830b3b99a41904d5364875c362, type: 2}
+  Layer: Base Layer
+  EnterClip: 
+  ExitClip: 
+  EnterFx: []
   ExitFx: []

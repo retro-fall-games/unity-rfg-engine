@@ -19,11 +19,11 @@ namespace RFG
           // character.ResetVelocity();
           character.SetOverrideParameters(parameters);
         }
-        JumpBehaviour jumpBehaviour = other.gameObject.GetComponent<JumpBehaviour>();
-        if (jumpBehaviour != null)
-        {
-          jumpBehaviour.jumpRestrictions = JumpBehaviour.JumpRestrictions.CanJumpAnywhere;
-        }
+        // JumpBehaviour jumpBehaviour = other.gameObject.GetComponent<JumpBehaviour>();
+        // if (jumpBehaviour != null)
+        // {
+        //   jumpBehaviour.jumpRestrictions = JumpBehaviour.JumpRestrictions.CanJumpAnywhere;
+        // }
       }
 
       private void OnTriggerExit2D(Collider2D other)
@@ -34,11 +34,11 @@ namespace RFG
           // character.ResetVelocity();
           character.SetOverrideParameters(null);
         }
-        JumpBehaviour jumpBehaviour = other.gameObject.GetComponent<JumpBehaviour>();
-        if (jumpBehaviour != null)
-        {
-          jumpBehaviour.jumpRestrictions = JumpBehaviour.JumpRestrictions.CanJumpOnGround;
-        }
+        // JumpBehaviour jumpBehaviour = other.gameObject.GetComponent<JumpBehaviour>();
+        // if (jumpBehaviour != null)
+        // {
+        //   jumpBehaviour.jumpRestrictions = JumpBehaviour.JumpRestrictions.CanJumpOnGround;
+        // }
       }
     }
   }

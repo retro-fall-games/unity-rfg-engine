@@ -31,6 +31,7 @@ namespace RFG
         InputActions.PlayerControls.SecondaryAttack.Enable();
         InputActions.PlayerControls.Jump.Enable();
         InputActions.PlayerControls.Pause.Enable();
+        InputActions.PlayerControls.Dash.Enable();
       }
 
       private void OnDisable()
@@ -40,6 +41,7 @@ namespace RFG
         InputActions.PlayerControls.SecondaryAttack.Disable();
         InputActions.PlayerControls.Jump.Disable();
         InputActions.PlayerControls.Pause.Disable();
+        InputActions.PlayerControls.Dash.Disable();
       }
 
     }

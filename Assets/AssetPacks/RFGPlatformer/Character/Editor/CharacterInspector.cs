@@ -75,6 +75,11 @@ namespace RFG
         BoxCollider2D _collider = (character.GetComponent<BoxCollider2D>() == null) ? character.gameObject.AddComponent<BoxCollider2D>() : character.GetComponent<BoxCollider2D>();
         _collider.isTrigger = true;
 
+        if (character.GetComponent<Animator>() == null)
+        {
+          character.gameObject.AddComponent<Animator>();
+        }
+
         CharacterController2D _controller = (character.GetComponent<CharacterController2D>() == null) ? character.gameObject.AddComponent<CharacterController2D>() : character.GetComponent<CharacterController2D>();
         _controller.platformMask = LayerMask.GetMask("Platforms");
         _controller.oneWayPlatformMask = LayerMask.GetMask("OneWayPlatforms");
@@ -85,6 +90,10 @@ namespace RFG
         if (character.GetComponent<CharacterStateController>() == null)
         {
           character.gameObject.AddComponent<CharacterStateController>();
+        }
+        if (character.GetComponent<CharacterMovementStateController>() == null)
+        {
+          character.gameObject.AddComponent<CharacterMovementStateController>();
         }
         if (character.GetComponent<CharacterInputController>() == null)
         {

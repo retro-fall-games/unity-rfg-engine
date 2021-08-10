@@ -9,7 +9,6 @@ namespace RFG
     {
       public enum InputMethod { Movement, Jump, PrimaryAttack, SecondaryAttack, Pause, Dash }
       public InputMethod Input;
-
       public abstract void Init(Character character);
       public abstract void EarlyProcess();
       public abstract void Process();

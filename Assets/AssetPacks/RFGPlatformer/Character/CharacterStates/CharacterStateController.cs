@@ -6,11 +6,14 @@ namespace RFG
 {
   namespace Platformer
   {
+    [AddComponentMenu("RFG/Platformer/Character/State/Character State Controller")]
     public class CharacterStateController : MonoBehaviour
     {
       public CharacterState[] States;
       public CharacterState DefaultState;
       public CharacterState CurrentState;
+      public Type PreviousStateType { get; private set; }
+      public Type CurrentStateType { get; private set; }
 
       [HideInInspector]
       private Character _character;
@@ -22,6 +25,7 @@ namespace RFG
         _states = new Dictionary<Type, CharacterState>();
         foreach (CharacterState state in States)
         {
+          state.Init(_character);
           _states.Add(state.GetType(), state);
         }
       }
@@ -33,7 +37,7 @@ namespace RFG
 
       private void Update()
       {
-        Type newStateType = CurrentState.Execute(_character);
+        Type newStateType = CurrentState.Execute();
         if (newStateType != null)
         {
           ChangeState(newStateType);
@@ -42,12 +46,18 @@ namespace RFG
 
       public void ChangeState(Type newStateType)
       {
+        if (_states[newStateType].Equals(CurrentState))
+        {
+          return;
+        }
         if (CurrentState != null)
         {
-          CurrentState.Exit(_character);
+          PreviousStateType = CurrentState.GetType();
+          CurrentState.Exit();
         }
         CurrentState = _states[newStateType];
-        CurrentState.Enter(_character);
+        CurrentStateType = newStateType;
+        CurrentState.Enter();
       }
 
       public void Reset()
@@ -57,6 +67,11 @@ namespace RFG
         {
           ChangeState(DefaultState.GetType());
         }
+      }
+
+      public void RestorePreviousState()
+      {
+        ChangeState(PreviousStateType);
       }
     }
   }

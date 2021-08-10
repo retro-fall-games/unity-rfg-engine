@@ -4,22 +4,43 @@ TextureImporter:
   internalIDToNameTable:
   - first:
       213: -7735762769092836449
-    second: JJ-Sheet_Idle_1
+    second: JJ-Sheet_0
   - first:
       213: -5885431468722590563
-    second: JJ-Sheet_Idle_2
+    second: JJ-Sheet_1
   - first:
       213: -5852437962182552783
-    second: JJ-Sheet_Walk_1
+    second: JJ-Sheet_2
   - first:
       213: 3559261666923439702
-    second: JJ-Sheet_Walk_2
+    second: JJ-Sheet_3
   - first:
       213: 3034269834478978647
-    second: JJ-Sheet_Walk_3
+    second: JJ-Sheet_4
   - first:
       213: 2687429416952200541
-    second: JJ-Sheet_Walk_4
+    second: JJ-Sheet_5
+  - first:
+      213: 826410676904946410
+    second: JJ-Sheet_6
+  - first:
+      213: -7492916851137346984
+    second: JJ-Sheet_7
+  - first:
+      213: -2215918958216955356
+    second: JJ-Sheet_8
+  - first:
+      213: -6475474313375043389
+    second: JJ-Sheet_9
+  - first:
+      213: 1863777647447152582
+    second: JJ-Sheet_10
+  - first:
+      213: -4293725177175560554
+    second: JJ-Sheet_11
+  - first:
+      213: 3989886835904582534
+    second: JJ-Sheet_12
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -121,7 +142,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: JJ-Sheet_Idle_1
+      name: JJ-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -129,7 +150,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -142,7 +163,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JJ-Sheet_Idle_2
+      name: JJ-Sheet_1
       rect:
         serializedVersion: 2
         x: 16
@@ -150,7 +171,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -163,7 +184,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JJ-Sheet_Walk_1
+      name: JJ-Sheet_2
       rect:
         serializedVersion: 2
         x: 32
@@ -171,7 +192,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -184,7 +205,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JJ-Sheet_Walk_2
+      name: JJ-Sheet_3
       rect:
         serializedVersion: 2
         x: 48
@@ -192,7 +213,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -205,7 +226,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JJ-Sheet_Walk_3
+      name: JJ-Sheet_4
       rect:
         serializedVersion: 2
         x: 64
@@ -213,7 +234,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -226,7 +247,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: JJ-Sheet_Walk_4
+      name: JJ-Sheet_5
       rect:
         serializedVersion: 2
         x: 80
@@ -234,7 +255,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -242,6 +263,153 @@ TextureImporter:
       bones: []
       spriteID: d5dfe5ce0daab4520800000000000000
       internalID: 2687429416952200541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JJ-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aea6283d120087b00800000000000000
+      internalID: 826410676904946410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JJ-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8528b64b2dfc30890800000000000000
+      internalID: -7492916851137346984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JJ-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42abc6ca2797f31e0800000000000000
+      internalID: -2215918958216955356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JJ-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c03d17ab6e7226a0800000000000000
+      internalID: -6475474313375043389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JJ-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c7966845e77dd910800000000000000
+      internalID: 1863777647447152582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JJ-Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69eac4353bf9964c0800000000000000
+      internalID: -4293725177175560554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: JJ-Sheet_12
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 683991c10fcee5730800000000000000
+      internalID: 3989886835904582534
       vertices: []
       indices: 
       edges: []

@@ -88,6 +88,11 @@ namespace RFG
               _input.InputActions.PlayerControls.Pause.canceled += ability.OnButtonCanceled;
               _input.InputActions.PlayerControls.Pause.performed += ability.OnButtonPerformed;
               break;
+            case CharacterAbility.InputMethod.Dash:
+              _input.InputActions.PlayerControls.Dash.started += ability.OnButtonStarted;
+              _input.InputActions.PlayerControls.Dash.canceled += ability.OnButtonCanceled;
+              _input.InputActions.PlayerControls.Dash.performed += ability.OnButtonPerformed;
+              break;
           }
         }
       }
@@ -109,6 +114,11 @@ namespace RFG
               _input.InputActions.PlayerControls.Pause.started -= ability.OnButtonStarted;
               _input.InputActions.PlayerControls.Pause.canceled -= ability.OnButtonCanceled;
               _input.InputActions.PlayerControls.Pause.performed -= ability.OnButtonPerformed;
+              break;
+            case CharacterAbility.InputMethod.Dash:
+              _input.InputActions.PlayerControls.Dash.started -= ability.OnButtonStarted;
+              _input.InputActions.PlayerControls.Dash.canceled -= ability.OnButtonCanceled;
+              _input.InputActions.PlayerControls.Dash.performed -= ability.OnButtonPerformed;
               break;
           }
         }

@@ -59,6 +59,14 @@ namespace RFG
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""a842d16c-43e2-4db9-b6f4-4c34e7d3f4cf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -160,6 +168,17 @@ namespace RFG
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7105f90b-605c-4789-8c51-2e1959c02588"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -201,6 +220,7 @@ namespace RFG
             m_PlayerControls_Movement = m_PlayerControls.FindAction("Movement", throwIfNotFound: true);
             m_PlayerControls_Pause = m_PlayerControls.FindAction("Pause", throwIfNotFound: true);
             m_PlayerControls_Jump = m_PlayerControls.FindAction("Jump", throwIfNotFound: true);
+            m_PlayerControls_Dash = m_PlayerControls.FindAction("Dash", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -255,6 +275,7 @@ namespace RFG
         private readonly InputAction m_PlayerControls_Movement;
         private readonly InputAction m_PlayerControls_Pause;
         private readonly InputAction m_PlayerControls_Jump;
+        private readonly InputAction m_PlayerControls_Dash;
         public struct PlayerControlsActions
         {
             private @PlayerInputActions m_Wrapper;
@@ -264,6 +285,7 @@ namespace RFG
             public InputAction @Movement => m_Wrapper.m_PlayerControls_Movement;
             public InputAction @Pause => m_Wrapper.m_PlayerControls_Pause;
             public InputAction @Jump => m_Wrapper.m_PlayerControls_Jump;
+            public InputAction @Dash => m_Wrapper.m_PlayerControls_Dash;
             public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -288,6 +310,9 @@ namespace RFG
                     @Jump.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
                     @Jump.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
                     @Jump.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
+                    @Dash.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDash;
+                    @Dash.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDash;
+                    @Dash.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDash;
                 }
                 m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
                 if (instance != null)
@@ -307,6 +332,9 @@ namespace RFG
                     @Jump.started += instance.OnJump;
                     @Jump.performed += instance.OnJump;
                     @Jump.canceled += instance.OnJump;
+                    @Dash.started += instance.OnDash;
+                    @Dash.performed += instance.OnDash;
+                    @Dash.canceled += instance.OnDash;
                 }
             }
         }
@@ -336,6 +364,7 @@ namespace RFG
             void OnMovement(InputAction.CallbackContext context);
             void OnPause(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
+            void OnDash(InputAction.CallbackContext context);
         }
     }
 }

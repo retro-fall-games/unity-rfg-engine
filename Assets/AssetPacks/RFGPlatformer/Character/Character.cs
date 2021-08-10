@@ -50,13 +50,17 @@ namespace RFG
       public Transform SpawnAt;
 
       [HideInInspector]
-      public CharacterStateController CharacterState => _characterStateMachine;
-      public MovementState MovementState = MovementState.Idle;
+      public CharacterStateController CharacterState => _characterState;
+      public CharacterMovementStateController CharacterMovementState => _movementState;
+      public MovementState MovementState => _oldMovementState;
       public CharacterController2D Controller => _controller;
       public CharacterAbilityController Abilities => _abilities;
       public CharacterInputController Input => _input;
 
-      private CharacterStateController _characterStateMachine;
+      private MovementState _oldMovementState;
+
+      private CharacterStateController _characterState;
+      private CharacterMovementStateController _movementState;
       private CharacterController2D _controller;
       private CharacterAbilityController _abilities;
       private CharacterInputController _input;
@@ -64,7 +68,8 @@ namespace RFG
 
       private void Awake()
       {
-        _characterStateMachine = GetComponent<CharacterStateController>();
+        _characterState = GetComponent<CharacterStateController>();
+        _movementState = GetComponent<CharacterMovementStateController>();
         _controller = GetComponent<CharacterController2D>();
         _abilities = GetComponent<CharacterAbilityController>();
         _input = GetComponent<CharacterInputController>();
@@ -82,7 +87,8 @@ namespace RFG
 
       public void OnObjectSpawn()
       {
-        _characterStateMachine.Reset();
+        _characterState.Reset();
+        _movementState.Reset();
       }
 
       public void CalculatePlayerSpawnAt()

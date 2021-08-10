@@ -58,10 +58,13 @@ namespace RFG
       {
         if (_controller.State.JustGotGrounded)
         {
+          _controller.State.IsFalling = false;
+          _controller.State.IsJumping = false;
           if (LandFx.Length > 0)
           {
             SoundManager.Instance.Play(LandFx);
           }
+          _character.CharacterMovementState.ChangeState(typeof(LandedState));
           _numberOfJumpsLeft = NumberOfJumps;
         }
       }
@@ -104,7 +107,8 @@ namespace RFG
         {
           _lastJumpTime = Time.time;
           _controller.State.IsFalling = true;
-          _character.MovementState = MovementState.Falling;
+          _controller.State.IsJumping = false;
+          _character.CharacterMovementState.ChangeState(typeof(FallingState));
           _controller.IgnoreOneWayPlatformsThisFrame = true;
           _controller.SetVerticalForce(OneWayPlatformFallVelocity);
           _controller.IgnoreStairsForTime(0.1f);
@@ -114,7 +118,7 @@ namespace RFG
           _lastJumpTime = Time.time;
           _controller.State.IsFalling = false;
           _controller.State.IsJumping = true;
-          _character.MovementState = MovementState.Jumping;
+          _character.CharacterMovementState.ChangeState(typeof(JumpingState));
           _numberOfJumpsLeft--;
           _controller.AddVerticalForce(Mathf.Sqrt(2f * JumpHeight * Mathf.Abs(_controller.Parameters.Gravity)));
         }
@@ -141,7 +145,8 @@ namespace RFG
           }
         }
         _controller.State.IsFalling = true;
-        _character.MovementState = MovementState.Falling;
+        _controller.State.IsJumping = false;
+        _character.CharacterMovementState.ChangeState(typeof(FallingState));
       }
 
       private bool CanJump()
@@ -156,7 +161,7 @@ namespace RFG
           return false;
         }
 
-        if (_character.MovementState == MovementState.WallClinging)
+        if (_character.CharacterMovementState.CurrentStateType == typeof(WallClingingState))
         {
           return false;
         }

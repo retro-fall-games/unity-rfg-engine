@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace RFG
 {
@@ -65,7 +66,7 @@ namespace RFG
           _currentAim = PrimaryMovement;
           break;
         case AimControls.Mouse:
-          _mousePosition = UnityEngine.Input.mousePosition;
+          _mousePosition = Mouse.current.position.ReadValue();
           _mousePosition.z = 10;
           _direction = _mainCamera.ScreenToWorldPoint(_mousePosition);
           _direction.z = CurrentPosition.z;

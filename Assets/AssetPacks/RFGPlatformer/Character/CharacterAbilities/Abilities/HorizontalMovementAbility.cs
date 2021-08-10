@@ -18,6 +18,7 @@ namespace RFG
       private CharacterController2D _controller;
       private InputAction _movement;
       private Vector2 _movementVector;
+      private float _horizontalSpeed;
 
       public override void Init(Character character)
       {
@@ -34,17 +35,17 @@ namespace RFG
       public override void Process()
       {
 
-        float horizontalSpeed = _movementVector.x;
+        _horizontalSpeed = _movementVector.x;
         // float _verticalInput = inputMovement.y;
 
-        if (horizontalSpeed > 0f)
+        if (_horizontalSpeed > 0f)
         {
           if (!_controller.State.IsFacingRight && !_controller.rotateOnMouseCursor)
           {
             _controller.Flip();
           }
         }
-        else if (horizontalSpeed < 0f)
+        else if (_horizontalSpeed < 0f)
         {
           if (_controller.State.IsFacingRight && !_controller.rotateOnMouseCursor)
           {
@@ -59,7 +60,7 @@ namespace RFG
         }
 
         // Call the Use method to call any SoundFx
-        if (horizontalSpeed != 0f)
+        if (_horizontalSpeed != 0f)
         {
           if (MovementFx.Length > 0)
           {
@@ -72,10 +73,13 @@ namespace RFG
         //   _controller.CollisionsOnStairs(true);
         // }
 
-        _character.MovementState = horizontalSpeed == 0 ? MovementState.Idle : MovementState.Walking;
+        if ((!_controller.State.IsJumping && !_controller.State.IsFalling && _controller.State.IsGrounded) || _controller.State.JustGotGrounded)
+        {
+          _character.CharacterMovementState.ChangeState(_horizontalSpeed == 0 ? typeof(IdleState) : typeof(WalkingState));
+        }
 
         float movementFactor = _controller.State.IsGrounded ? _controller.Parameters.GroundSpeedFactor : _controller.Parameters.AirSpeedFactor;
-        float movementSpeed = horizontalSpeed * Speed * _controller.Parameters.SpeedFactor;
+        float movementSpeed = _horizontalSpeed * Speed * _controller.Parameters.SpeedFactor;
         float horizontalMovementForce = Mathf.Lerp(_controller.Velocity.x, movementSpeed, Time.deltaTime * movementFactor);
 
         _controller.SetHorizontalForce(horizontalMovementForce);
