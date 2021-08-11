@@ -59,3 +59,6 @@ MonoBehaviour:
   - tag: FloatingText
     prefab: {fileID: 790362872829130080, guid: 8fd8ff908bd55364b9d369ff0bf98bc4, type: 3}
     size: 3
+  - tag: PickUpEffect
+    prefab: {fileID: 4232458824518202378, guid: 8fee073eee3c1254a868288c45edc978, type: 3}
+    size: 1

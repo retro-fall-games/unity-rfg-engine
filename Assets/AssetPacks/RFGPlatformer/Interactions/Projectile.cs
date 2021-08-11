@@ -38,7 +38,7 @@ namespace RFG
       public bool destroyOnCollision = false;
       public Knockback knockback;
 
-      public void OnObjectSpawn()
+      public void OnObjectSpawn(params object[] objects)
       {
         if (animator != null)
         {

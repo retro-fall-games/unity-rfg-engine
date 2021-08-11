@@ -34,12 +34,12 @@ namespace RFG
       public string pickupAmmoText;
 
 
-      public void Equip()
+      public void Equip(Inventory i)
       {
         weaponState = WeaponState.Equiped;
       }
 
-      public void Unequip()
+      public void Unequip(Inventory i)
       {
         weaponFiringState = WeaponFiringState.Off;
         weaponState = WeaponState.Unequiped;

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c986314392b5cf48a34b65c9e00f702, type: 3}
+  m_Name: LowHealthItem
+  m_EditorClassIdentifier: 
+  Id: lowHealthItem
+  Description: This gives the character a low health boost
+  PickUpSprite: {fileID: -1131316417390522931, guid: 697109247756ff54ebd1fad284bca7c2, type: 3}
+  PickUpText: +5 Health
+  PickUpFx:
+  - PickUpEffect
+  ConsumeOnPickUp: 1
+  HealthToAdd: 5

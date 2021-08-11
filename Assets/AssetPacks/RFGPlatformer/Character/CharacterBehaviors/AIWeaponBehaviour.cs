@@ -76,13 +76,13 @@ namespace RFG
 
         if (PrimaryWeapon != null)
         {
-          PrimaryWeapon.Unequip();
+          PrimaryWeapon.Unequip(null);
         }
         _equippedPrimaryWeaponIndex = index;
         PrimaryWeapon = weapons[_equippedPrimaryWeaponIndex];
         if (PrimaryWeapon != null)
         {
-          PrimaryWeapon.Equip();
+          PrimaryWeapon.Equip(null);
         }
       }
 
@@ -95,13 +95,13 @@ namespace RFG
         }
         if (SecondaryWeapon != null)
         {
-          SecondaryWeapon.Unequip();
+          SecondaryWeapon.Unequip(null);
         }
         _equippedSecondaryWeaponIndex = index;
         SecondaryWeapon = weapons[_equippedSecondaryWeaponIndex];
         if (SecondaryWeapon != null)
         {
-          SecondaryWeapon.Equip();
+          SecondaryWeapon.Equip(null);
         }
       }
 
@@ -109,7 +109,7 @@ namespace RFG
       {
         if (PrimaryWeapon != null)
         {
-          PrimaryWeapon.Unequip();
+          PrimaryWeapon.Unequip(null);
         }
       }
 
@@ -117,7 +117,7 @@ namespace RFG
       {
         if (SecondaryWeapon != null)
         {
-          SecondaryWeapon.Unequip();
+          SecondaryWeapon.Unequip(null);
         }
       }
 

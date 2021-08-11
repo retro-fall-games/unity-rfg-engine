@@ -103,6 +103,10 @@ namespace RFG
         {
           character.gameObject.AddComponent<CharacterAbilityController>();
         }
+        if (character.GetComponent<Inventory>() == null)
+        {
+          character.gameObject.AddComponent<Inventory>();
+        }
 
         // Add Behaviours
         // if (character.GetComponent<HorizontalMovementBehaviour>() == null)

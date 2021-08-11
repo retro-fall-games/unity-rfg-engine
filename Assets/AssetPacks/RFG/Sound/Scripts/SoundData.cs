@@ -27,4 +27,27 @@ namespace RFG
     public float MaxDistance = 100f;
     public AudioRolloffMode RolloffMode;
   }
+
+  public static class SoundDataEx
+  {
+    public static void GenerateAudioSource(this SoundData soundData, GameObject gameObject)
+    {
+      AudioSource source = gameObject.GetComponent<AudioSource>();
+      if (source == null)
+      {
+        source = gameObject.AddComponent<AudioSource>();
+      }
+      source.tag = soundData.type.ToString();
+      source.clip = soundData.clip;
+      source.outputAudioMixerGroup = soundData.output;
+      source.playOnAwake = soundData.PlayOnAwake;
+      source.loop = soundData.Loop;
+      source.volume = soundData.Volume;
+      source.spatialBlend = soundData.SpacialBlend;
+      source.pitch = soundData.Pitch;
+      source.minDistance = soundData.MinDistance;
+      source.maxDistance = soundData.MaxDistance;
+      source.rolloffMode = soundData.RolloffMode;
+    }
+  }
 }

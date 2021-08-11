@@ -1,3 +1,5 @@
+
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,6 +28,33 @@ namespace RFG
       private void Start()
       {
         InitAbilities();
+      }
+
+      public void AddAbility(CharacterAbility ability)
+      {
+        EnableInputEvents(ability);
+        ability.Init(_character);
+        Abilities.Add(ability);
+      }
+
+      public void RemoveAbility(CharacterAbility ability)
+      {
+        DisableInputEvents(ability);
+        Abilities.Remove(ability);
+      }
+
+      public T FindAbility<T>() where T : CharacterAbility
+      {
+        Type AbilityType = typeof(T);
+
+        foreach (CharacterAbility ability in Abilities)
+        {
+          if (ability is T characterAbility)
+          {
+            return characterAbility;
+          }
+        }
+        return null;
       }
 
       public void Process()
@@ -70,30 +99,59 @@ namespace RFG
         }
       }
 
+      private void EnableInputEvents(CharacterAbility ability)
+      {
+        switch (ability.Input)
+        {
+          case CharacterAbility.InputMethod.Movement:
+            break;
+          case CharacterAbility.InputMethod.Jump:
+            _input.InputActions.PlayerControls.Jump.started += ability.OnButtonStarted;
+            _input.InputActions.PlayerControls.Jump.canceled += ability.OnButtonCanceled;
+            _input.InputActions.PlayerControls.Jump.performed += ability.OnButtonPerformed;
+            break;
+          case CharacterAbility.InputMethod.Pause:
+            _input.InputActions.PlayerControls.Pause.started += ability.OnButtonStarted;
+            _input.InputActions.PlayerControls.Pause.canceled += ability.OnButtonCanceled;
+            _input.InputActions.PlayerControls.Pause.performed += ability.OnButtonPerformed;
+            break;
+          case CharacterAbility.InputMethod.Dash:
+            _input.InputActions.PlayerControls.Dash.started += ability.OnButtonStarted;
+            _input.InputActions.PlayerControls.Dash.canceled += ability.OnButtonCanceled;
+            _input.InputActions.PlayerControls.Dash.performed += ability.OnButtonPerformed;
+            break;
+        }
+      }
+
+      private void DisableInputEvents(CharacterAbility ability)
+      {
+        switch (ability.Input)
+        {
+          case CharacterAbility.InputMethod.Movement:
+            break;
+          case CharacterAbility.InputMethod.Jump:
+            _input.InputActions.PlayerControls.Jump.started -= ability.OnButtonStarted;
+            _input.InputActions.PlayerControls.Jump.canceled -= ability.OnButtonCanceled;
+            _input.InputActions.PlayerControls.Jump.performed -= ability.OnButtonPerformed;
+            break;
+          case CharacterAbility.InputMethod.Pause:
+            _input.InputActions.PlayerControls.Pause.started -= ability.OnButtonStarted;
+            _input.InputActions.PlayerControls.Pause.canceled -= ability.OnButtonCanceled;
+            _input.InputActions.PlayerControls.Pause.performed -= ability.OnButtonPerformed;
+            break;
+          case CharacterAbility.InputMethod.Dash:
+            _input.InputActions.PlayerControls.Dash.started -= ability.OnButtonStarted;
+            _input.InputActions.PlayerControls.Dash.canceled -= ability.OnButtonCanceled;
+            _input.InputActions.PlayerControls.Dash.performed -= ability.OnButtonPerformed;
+            break;
+        }
+      }
+
       private void OnEnable()
       {
         foreach (CharacterAbility ability in Abilities)
         {
-          switch (ability.Input)
-          {
-            case CharacterAbility.InputMethod.Movement:
-              break;
-            case CharacterAbility.InputMethod.Jump:
-              _input.InputActions.PlayerControls.Jump.started += ability.OnButtonStarted;
-              _input.InputActions.PlayerControls.Jump.canceled += ability.OnButtonCanceled;
-              _input.InputActions.PlayerControls.Jump.performed += ability.OnButtonPerformed;
-              break;
-            case CharacterAbility.InputMethod.Pause:
-              _input.InputActions.PlayerControls.Pause.started += ability.OnButtonStarted;
-              _input.InputActions.PlayerControls.Pause.canceled += ability.OnButtonCanceled;
-              _input.InputActions.PlayerControls.Pause.performed += ability.OnButtonPerformed;
-              break;
-            case CharacterAbility.InputMethod.Dash:
-              _input.InputActions.PlayerControls.Dash.started += ability.OnButtonStarted;
-              _input.InputActions.PlayerControls.Dash.canceled += ability.OnButtonCanceled;
-              _input.InputActions.PlayerControls.Dash.performed += ability.OnButtonPerformed;
-              break;
-          }
+          EnableInputEvents(ability);
         }
       }
 
@@ -101,26 +159,7 @@ namespace RFG
       {
         foreach (CharacterAbility ability in Abilities)
         {
-          switch (ability.Input)
-          {
-            case CharacterAbility.InputMethod.Movement:
-              break;
-            case CharacterAbility.InputMethod.Jump:
-              _input.InputActions.PlayerControls.Jump.started -= ability.OnButtonStarted;
-              _input.InputActions.PlayerControls.Jump.canceled -= ability.OnButtonCanceled;
-              _input.InputActions.PlayerControls.Jump.performed -= ability.OnButtonPerformed;
-              break;
-            case CharacterAbility.InputMethod.Pause:
-              _input.InputActions.PlayerControls.Pause.started -= ability.OnButtonStarted;
-              _input.InputActions.PlayerControls.Pause.canceled -= ability.OnButtonCanceled;
-              _input.InputActions.PlayerControls.Pause.performed -= ability.OnButtonPerformed;
-              break;
-            case CharacterAbility.InputMethod.Dash:
-              _input.InputActions.PlayerControls.Dash.started -= ability.OnButtonStarted;
-              _input.InputActions.PlayerControls.Dash.canceled -= ability.OnButtonCanceled;
-              _input.InputActions.PlayerControls.Dash.performed -= ability.OnButtonPerformed;
-              break;
-          }
+          DisableInputEvents(ability);
         }
       }
 

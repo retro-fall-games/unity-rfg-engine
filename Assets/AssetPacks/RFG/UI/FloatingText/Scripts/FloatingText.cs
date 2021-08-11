@@ -19,8 +19,12 @@ namespace RFG
     [HideInInspector]
     private float _timeElapsed = 0f;
 
-    public void OnObjectSpawn()
+    public void OnObjectSpawn(params object[] objects)
     {
+      if (objects.Length > 0)
+      {
+        text.SetText((string)objects[0]);
+      }
       _timeElapsed = 0f;
       TextFade.SetAlpha(text, 1);
       if (targetIsPlayer)

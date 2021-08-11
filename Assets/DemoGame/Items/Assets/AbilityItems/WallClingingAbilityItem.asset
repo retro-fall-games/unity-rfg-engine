@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31fefc4f953f09442bfb7f2726c04cc4, type: 3}
+  m_Name: WallClingingAbilityItem
+  m_EditorClassIdentifier: 
+  Id: wallClingingAbilityItem
+  Description: Grants the character the ability to wall cling
+  PickUpSprite: {fileID: -4530364378644165909, guid: 697109247756ff54ebd1fad284bca7c2, type: 3}
+  PickUpText: Wall Clinging Ability
+  PickUpFx:
+  - PickUpEffect
+  ConsumeOnPickUp: 1
+  AbilitiesToAdd:
+  - {fileID: 11400000, guid: 0f81b5eb77f546b43a1d4e96604149f8, type: 2}
+  - {fileID: 11400000, guid: 3962164e105ca6346aaa488568e02548, type: 2}

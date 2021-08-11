@@ -85,7 +85,7 @@ namespace RFG
         OnObjectSpawn();
       }
 
-      public void OnObjectSpawn()
+      public void OnObjectSpawn(params object[] objects)
       {
         _characterState.Reset();
         _movementState.Reset();
