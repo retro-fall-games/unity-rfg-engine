@@ -2,6 +2,6 @@ namespace RFG
 {
   public interface IConsumable
   {
-    void Use(Inventory inventory);
+    void Consume(Inventory inventory);
   }
 }

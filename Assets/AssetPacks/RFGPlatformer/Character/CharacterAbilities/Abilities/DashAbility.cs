@@ -22,9 +22,10 @@ namespace RFG
       [Header("Cooldown")]
       public float Cooldown = 1f;
 
-      [Header("Sound FX")]
-      public SoundData[] DashFx;
+      [Header("Effects")]
+      public string[] DashEffects;
 
+      [HideInInspector]
       private Vector2 _dashDirection;
       private float _distanceTraveled = 0f;
       private bool _shouldKeepDashing = true;
@@ -32,105 +33,82 @@ namespace RFG
       private float _cooldownTimestamp;
       private IEnumerator _dashCoroutine;
       private float _lastDashAt = 0f;
-      private Transform _transform;
-      private Character _character;
-      private CharacterController2D _controller;
-      private InputAction _movement;
-      private Vector2 _movementVector;
 
-      public override void Init(Character character)
+      public override void Init(CharacterAbilityController.AbilityContext ctx)
       {
-        _character = character;
-        _transform = character.transform;
-        _controller = character.Controller;
-        _movement = character.Input.Movement;
         _cooldownTimestamp = 0;
         NumberOfDashesLeft = TotalDashes;
         aim.Init();
       }
 
-      public override void EarlyProcess()
+      public override void Process(CharacterAbilityController.AbilityContext ctx)
       {
-        _movementVector = _movement.ReadValue<Vector2>();
-      }
-
-      public override void Process()
-      {
-        if (_character.CharacterMovementState.CurrentStateType == typeof(DashingState))
+        if (ctx.character.CharacterMovementState.CurrentStateType == typeof(DashingState))
         {
-          _character.Controller.GravityActive(false);
+          ctx.character.Controller.GravityActive(false);
         }
-        HandleAmountOfDashesLeft();
+        HandleAmountOfDashesLeft(ctx);
       }
 
-      public override void LateProcess()
+      public override void LateProcess(CharacterAbilityController.AbilityContext ctx)
       {
       }
 
-      public override void OnButtonStarted(InputAction.CallbackContext ctx)
+      public override void OnButtonStarted(InputAction.CallbackContext inputCtx, CharacterAbilityController.AbilityContext ctx)
       {
-        StartDash();
+        StartDash(ctx);
       }
 
-      public override void OnButtonCanceled(InputAction.CallbackContext ctx)
-      {
-      }
-
-      public override void OnButtonPerformed(InputAction.CallbackContext ctx)
+      public override void OnButtonCanceled(InputAction.CallbackContext inputCtx, CharacterAbilityController.AbilityContext ctx)
       {
       }
 
-      private void StartDash()
+      public override void OnButtonPerformed(InputAction.CallbackContext inputCtx, CharacterAbilityController.AbilityContext ctx)
       {
-        Debug.Log("Got here 1");
-        Debug.Log("_cooldownTimestamp: " + _cooldownTimestamp);
-        Debug.Log("Time.time: " + Time.time);
+      }
+
+      private void StartDash(CharacterAbilityController.AbilityContext ctx)
+      {
         if (_cooldownTimestamp > Time.time)
         {
           return;
         }
 
-        Debug.Log("Got here 2");
         if (NumberOfDashesLeft <= 0)
         {
           return;
         }
 
-        if (DashFx.Length > 0)
-        {
-          SoundManager.Instance.Play(DashFx);
-        }
+        ctx.character.transform.SpawnFromPool("Effects", DashEffects);
 
-        Debug.Log("Got here 3");
-
-        _character.Controller.CollisionsOnStairs(true);
-        _character.CharacterMovementState.ChangeState(typeof(DashingState));
+        ctx.character.Controller.CollisionsOnStairs(true);
+        ctx.character.CharacterMovementState.ChangeState(typeof(DashingState));
         _cooldownTimestamp = Time.time + Cooldown;
         _distanceTraveled = 0f;
         _shouldKeepDashing = true;
-        _initialPosition = _transform.position;
+        _initialPosition = ctx.transform.position;
         _lastDashAt = Time.time;
 
         NumberOfDashesLeft--;
 
-        ComputerDashDirection();
-        CheckFlipCharacter();
+        ComputerDashDirection(ctx);
+        CheckFlipCharacter(ctx);
 
-        _dashCoroutine = Dash();
-        GameManager.Instance.StartCoroutine(_dashCoroutine);
+        _dashCoroutine = Dash(ctx);
+        ctx.character.StartCoroutine(_dashCoroutine);
       }
 
-      private void ComputerDashDirection()
+      private void ComputerDashDirection(CharacterAbilityController.AbilityContext ctx)
       {
-        aim.PrimaryMovement = _movementVector;
-        aim.CurrentPosition = _transform.position;
+        aim.PrimaryMovement = ctx.input.Movement.ReadValue<Vector2>();
+        aim.CurrentPosition = ctx.transform.position;
         _dashDirection = aim.GetCurrentAim();
 
-        CheckAutoCorrectTrajectory();
+        CheckAutoCorrectTrajectory(ctx);
 
         if (_dashDirection.magnitude < MinInputThreshold)
         {
-          _dashDirection = _character.Controller.State.IsFacingRight ? Vector2.right : Vector2.left;
+          _dashDirection = ctx.character.Controller.State.IsFacingRight ? Vector2.right : Vector2.left;
         }
         else
         {
@@ -138,69 +116,67 @@ namespace RFG
         }
       }
 
-      private void CheckAutoCorrectTrajectory()
+      private void CheckAutoCorrectTrajectory(CharacterAbilityController.AbilityContext ctx)
       {
-        if (_character.Controller.State.IsCollidingBelow && _dashDirection.y < 0f)
+        if (ctx.character.Controller.State.IsCollidingBelow && _dashDirection.y < 0f)
         {
           _dashDirection.y = 0f;
         }
       }
 
-      private void CheckFlipCharacter()
+      private void CheckFlipCharacter(CharacterAbilityController.AbilityContext ctx)
       {
         if (Mathf.Abs(_dashDirection.x) > 0.05f)
         {
-          if (_character.Controller.State.IsFacingRight != _dashDirection.x > 0f)
+          if (ctx.character.Controller.State.IsFacingRight != _dashDirection.x > 0f)
           {
-            _character.Controller.Flip();
+            ctx.character.Controller.Flip();
           }
         }
       }
 
-      private IEnumerator Dash()
+      private IEnumerator Dash(CharacterAbilityController.AbilityContext ctx)
       {
-        Debug.Log("Dash");
-        while (_distanceTraveled < DashDistance && _shouldKeepDashing && _character.CharacterMovementState.CurrentStateType == typeof(DashingState))
+        while (_distanceTraveled < DashDistance && _shouldKeepDashing && ctx.character.CharacterMovementState.CurrentStateType == typeof(DashingState))
         {
-          _distanceTraveled = Vector3.Distance(_initialPosition, _transform.position);
+          _distanceTraveled = Vector3.Distance(_initialPosition, ctx.transform.position);
 
-          if ((_character.Controller.State.IsCollidingLeft && _dashDirection.x < 0f)
-            || (_character.Controller.State.IsCollidingRight && _dashDirection.x > 0f)
-            || (_character.Controller.State.IsCollidingAbove && _dashDirection.y > 0f)
-            || (_character.Controller.State.IsCollidingBelow && _dashDirection.y < 0f))
+          if ((ctx.character.Controller.State.IsCollidingLeft && _dashDirection.x < 0f)
+            || (ctx.character.Controller.State.IsCollidingRight && _dashDirection.x > 0f)
+            || (ctx.character.Controller.State.IsCollidingAbove && _dashDirection.y > 0f)
+            || (ctx.character.Controller.State.IsCollidingBelow && _dashDirection.y < 0f))
           {
             _shouldKeepDashing = false;
-            _character.Controller.SetForce(Vector2.zero);
+            ctx.character.Controller.SetForce(Vector2.zero);
           }
           else
           {
-            _character.Controller.GravityActive(false);
-            _character.Controller.SetForce(_dashDirection * DashForce);
+            ctx.character.Controller.GravityActive(false);
+            ctx.character.Controller.SetForce(_dashDirection * DashForce);
           }
           yield return null;
         }
-        StopDash();
+        StopDash(ctx);
       }
 
-      private void StopDash()
+      private void StopDash(CharacterAbilityController.AbilityContext ctx)
       {
         if (_dashCoroutine != null)
         {
           GameManager.Instance.StopCoroutine(_dashCoroutine);
         }
-        _character.Controller.GravityActive(true);
+        ctx.character.Controller.GravityActive(true);
+        ctx.character.Controller.SetForce(Vector2.zero);
 
-        _character.Controller.SetForce(Vector2.zero);
-
-        if (_character.CharacterMovementState.CurrentStateType == typeof(DashingState))
+        if (ctx.character.CharacterMovementState.CurrentStateType == typeof(DashingState))
         {
-          if (_character.Controller.State.IsGrounded)
+          if (ctx.character.Controller.State.IsGrounded)
           {
-            _character.CharacterMovementState.ChangeState(typeof(IdleState));
+            ctx.character.CharacterMovementState.ChangeState(typeof(IdleState));
           }
           else
           {
-            _character.CharacterMovementState.RestorePreviousState();
+            ctx.character.CharacterMovementState.RestorePreviousState();
           }
         }
 
@@ -211,14 +187,14 @@ namespace RFG
         NumberOfDashesLeft = numberLeft;
       }
 
-      private void HandleAmountOfDashesLeft()
+      private void HandleAmountOfDashesLeft(CharacterAbilityController.AbilityContext ctx)
       {
         if (Time.time - _lastDashAt < Cooldown)
         {
           return;
         }
 
-        if (_character.Controller.State.IsGrounded)
+        if (ctx.character.Controller.State.IsGrounded)
         {
           SetNumberOfDashesLeft(TotalDashes);
         }

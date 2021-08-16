@@ -103,44 +103,18 @@ namespace RFG
         {
           character.gameObject.AddComponent<CharacterAbilityController>();
         }
+        if (character.GetComponent<CharacterBehaviourController>() == null)
+        {
+          character.gameObject.AddComponent<CharacterBehaviourController>();
+        }
         if (character.GetComponent<Inventory>() == null)
         {
           character.gameObject.AddComponent<Inventory>();
         }
-
-        // Add Behaviours
-        // if (character.GetComponent<HorizontalMovementBehaviour>() == null)
-        // {
-        //   character.gameObject.AddComponent<HorizontalMovementBehaviour>();
-        // }
-        // if (character.GetComponent<JumpBehaviour>() == null)
-        // {
-        //   character.gameObject.AddComponent<JumpBehaviour>();
-        // }
-        // if (character.GetComponent<WallClingingBehaviour>() == null)
-        // {
-        //   character.gameObject.AddComponent<WallClingingBehaviour>();
-        // }
-        // if (character.GetComponent<WallJumpBehaviour>() == null)
-        // {
-        //   character.gameObject.AddComponent<WallJumpBehaviour>();
-        // }
-        // if (character.GetComponent<DashBehaviour>() == null)
-        // {
-        //   character.gameObject.AddComponent<DashBehaviour>();
-        // }
-        // if (character.GetComponent<AnimationBehaviour>() == null)
-        // {
-        //   character.gameObject.AddComponent<AnimationBehaviour>();
-        // }
-        // if (character.GetComponent<HealthBehaviour>() == null)
-        // {
-        //   character.gameObject.AddComponent<HealthBehaviour>();
-        // }
-        // if (character.GetComponent<WeaponBehaviour>() == null)
-        // {
-        //   character.gameObject.AddComponent<WeaponBehaviour>();
-        // }
+        if (character.GetComponent<EquipmentSet>() == null)
+        {
+          character.gameObject.AddComponent<EquipmentSet>();
+        }
       }
 
       private void GenerateAICharacter()
@@ -171,6 +145,27 @@ namespace RFG
         _controller.movingPlatformMask = LayerMask.GetMask("MovingPlatforms");
         _controller.oneWayMovingPlatformMask = LayerMask.GetMask("OneWayMovingPlatforms");
         _controller.stairsMask = LayerMask.GetMask("Stairs");
+
+        if (character.GetComponent<CharacterStateController>() == null)
+        {
+          character.gameObject.AddComponent<CharacterStateController>();
+        }
+        if (character.GetComponent<CharacterMovementStateController>() == null)
+        {
+          character.gameObject.AddComponent<CharacterMovementStateController>();
+        }
+        if (character.GetComponent<CharacterBehaviourController>() == null)
+        {
+          character.gameObject.AddComponent<CharacterBehaviourController>();
+        }
+        if (character.GetComponent<CharacterAIStateController>() == null)
+        {
+          character.gameObject.AddComponent<CharacterAIStateController>();
+        }
+        if (character.GetComponent<CharacterAIMovementStateController>() == null)
+        {
+          character.gameObject.AddComponent<CharacterAIMovementStateController>();
+        }
 
         // Add Behaviours
         // if (character.GetComponent<AnimationBehaviour>() == null)
@@ -205,10 +200,18 @@ namespace RFG
         // {
         //   character.gameObject.AddComponent<AIWeaponBehaviour>();
         // }
-        // if (character.GetComponent<Aggro>() == null)
-        // {
-        //   character.gameObject.AddComponent<Aggro>();
-        // }
+
+        Aggro _aggro = (character.GetComponent<Aggro>() == null) ? character.gameObject.AddComponent<Aggro>() : character.GetComponent<Aggro>();
+
+        _aggro.target1 = character.transform;
+        _aggro.target2IsPlayer = true;
+        _aggro.layerMask = LayerMask.GetMask("Player");
+
+
+        if (character.GetComponent<Knockback>() == null)
+        {
+          character.gameObject.AddComponent<Knockback>();
+        }
 
       }
 

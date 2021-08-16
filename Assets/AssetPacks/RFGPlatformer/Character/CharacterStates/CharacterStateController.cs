@@ -9,6 +9,14 @@ namespace RFG
     [AddComponentMenu("RFG/Platformer/Character/State/Character State Controller")]
     public class CharacterStateController : MonoBehaviour
     {
+      public class CharacterStateContext
+      {
+        public CharacterStateController controller;
+        public Transform transform;
+        public Character character;
+        public Animator animator;
+      }
+
       public CharacterState[] States;
       public CharacterState DefaultState;
       public CharacterState CurrentState;
@@ -16,16 +24,18 @@ namespace RFG
       public Type CurrentStateType { get; private set; }
 
       [HideInInspector]
-      private Character _character;
+      private CharacterStateContext _stateContext;
       private Dictionary<Type, CharacterState> _states;
 
       private void Awake()
       {
-        _character = GetComponent<Character>();
+        _stateContext = new CharacterStateContext();
+        _stateContext.transform = transform;
+        _stateContext.character = GetComponent<Character>();
+        _stateContext.animator = GetComponent<Animator>();
         _states = new Dictionary<Type, CharacterState>();
         foreach (CharacterState state in States)
         {
-          state.Init(_character);
           _states.Add(state.GetType(), state);
         }
       }
@@ -37,7 +47,7 @@ namespace RFG
 
       private void Update()
       {
-        Type newStateType = CurrentState.Execute();
+        Type newStateType = CurrentState.Execute(_stateContext);
         if (newStateType != null)
         {
           ChangeState(newStateType);
@@ -53,11 +63,11 @@ namespace RFG
         if (CurrentState != null)
         {
           PreviousStateType = CurrentState.GetType();
-          CurrentState.Exit();
+          CurrentState.Exit(_stateContext);
         }
         CurrentState = _states[newStateType];
         CurrentStateType = newStateType;
-        CurrentState.Enter();
+        CurrentState.Enter(_stateContext);
       }
 
       public void Reset()

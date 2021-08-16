@@ -7,6 +7,7 @@ namespace RFG
   public class AggroSpawner : MonoBehaviour
   {
     [Header("Object Pool")]
+    public string Category = "";
     public string Tag = "";
 
     [Header("Controls")]
@@ -58,7 +59,7 @@ namespace RFG
     {
       if (!Tag.Equals(""))
       {
-        _currentInstance = ObjectPool.Instance.SpawnFromPool(Tag, transform.position, Quaternion.identity);
+        _currentInstance = ObjectPoolManager.Instance.SpawnFromPool(Category, Tag, transform.position, Quaternion.identity);
       }
       _spawnCount++;
     }

@@ -10,23 +10,31 @@ namespace RFG
 
     [HideInInspector]
     private AudioSource[] _audioSources;
+    private Animator _animator;
     private float _timeElapsed = 0f;
 
     private void Awake()
     {
       _audioSources = GetComponents<AudioSource>();
+      _animator = GetComponent<Animator>();
     }
 
     public void OnObjectSpawn(params object[] objects)
     {
       _timeElapsed = 0;
-      _audioSources.PlayAll();
-      if (EffectData.ObjectsToSpawn.Length > 0)
+      if (_audioSources != null)
       {
-        foreach (string fx in EffectData.ObjectsToSpawn)
-        {
-          ObjectPool.Instance.SpawnFromPool(fx, transform.position, Quaternion.identity, null, false, objects);
-        }
+        _audioSources.PlayAll();
+      }
+      if (_animator != null && EffectData.AnimationClip != null)
+      {
+        _animator.Play(EffectData.AnimationClip);
+      }
+      transform.SpawnFromPool("Effects", EffectData.SpawnEffects, objects);
+
+      if (EffectData.CameraShakeIntensity > 0)
+      {
+        CinemachineShake.Instance.ShakeCamera(EffectData.CameraShakeIntensity, EffectData.CameraShakeTime, EffectData.CameraShakeFade);
       }
     }
 
@@ -43,10 +51,11 @@ namespace RFG
     [ButtonMethod]
     private void GenerateEffect()
     {
-      foreach (SoundData sound in EffectData.SoundFx)
+      foreach (SoundData sound in EffectData.SoundEffects)
       {
         sound.GenerateAudioSource(gameObject);
       }
+      gameObject.tag = "Effect";
     }
 #endif
 

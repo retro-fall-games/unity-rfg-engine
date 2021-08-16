@@ -15,9 +15,9 @@ namespace RFG
         CantJump
       }
 
-      [Header("Sound FX")]
-      public SoundData[] JumpFx;
-      public SoundData[] LandFx;
+      [Header("Effects")]
+      public string[] JumpEffects;
+      public string[] LandEffects;
 
       [Header("Jump Parameters")]
       public float JumpHeight = 12f;
@@ -37,119 +37,94 @@ namespace RFG
       [HideInInspector]
       private int _numberOfJumpsLeft = 0;
       private float _lastJumpTime = 0f;
-      private Character _character;
-      private CharacterController2D _controller;
-      private InputAction _movement;
-      private Vector2 _movementVector;
 
-      public override void Init(Character character)
+      public override void Process(CharacterAbilityController.AbilityContext ctx)
       {
-        _character = character;
-        _controller = character.Controller;
-        _movement = character.Input.Movement;
-      }
-
-      public override void EarlyProcess()
-      {
-        _movementVector = _movement.ReadValue<Vector2>();
-      }
-
-      public override void Process()
-      {
-        if (_controller.State.JustGotGrounded)
+        if (ctx.character.Controller.State.JustGotGrounded)
         {
-          _controller.State.IsFalling = false;
-          _controller.State.IsJumping = false;
-          if (LandFx.Length > 0)
-          {
-            SoundManager.Instance.Play(LandFx);
-          }
-          _character.CharacterMovementState.ChangeState(typeof(LandedState));
+          ctx.character.Controller.State.IsFalling = false;
+          ctx.character.Controller.State.IsJumping = false;
+          ctx.transform.SpawnFromPool("Effects", LandEffects);
+          ctx.character.CharacterMovementState.ChangeState(typeof(LandedState));
           _numberOfJumpsLeft = NumberOfJumps;
         }
       }
 
-      public override void LateProcess()
+      public override void OnButtonStarted(InputAction.CallbackContext inputCtx, CharacterAbilityController.AbilityContext ctx)
+      {
+        JumpStart(ctx);
+      }
+
+      public override void OnButtonCanceled(InputAction.CallbackContext inputCtx, CharacterAbilityController.AbilityContext ctx)
+      {
+        JumpStop(ctx);
+      }
+
+      public override void OnButtonPerformed(InputAction.CallbackContext inputCtx, CharacterAbilityController.AbilityContext ctx)
       {
       }
 
-      public override void OnButtonStarted(InputAction.CallbackContext ctx)
+      public void JumpStart(CharacterAbilityController.AbilityContext ctx)
       {
-        JumpStart();
-      }
-
-      public override void OnButtonCanceled(InputAction.CallbackContext ctx)
-      {
-        JumpStop();
-      }
-
-      public override void OnButtonPerformed(InputAction.CallbackContext ctx)
-      {
-      }
-
-      public void JumpStart()
-      {
-        if (!CanJump())
+        if (!CanJump(ctx))
         {
           return;
         }
 
-        if (JumpFx.Length > 0)
-        {
-          SoundManager.Instance.Play(JumpFx);
-        }
+        ctx.transform.SpawnFromPool("Effects", JumpEffects);
 
-        _controller.CollisionsOnStairs(true);
+        ctx.character.Controller.CollisionsOnStairs(true);
 
-        float _verticalInput = _movementVector.y;
+        Vector2 movementVector = ctx.input.Movement.ReadValue<Vector2>();
+        float _verticalInput = movementVector.y;
 
         if (_verticalInput < 0f)
         {
           _lastJumpTime = Time.time;
-          _controller.State.IsFalling = true;
-          _controller.State.IsJumping = false;
-          _character.CharacterMovementState.ChangeState(typeof(FallingState));
-          _controller.IgnoreOneWayPlatformsThisFrame = true;
-          _controller.SetVerticalForce(OneWayPlatformFallVelocity);
-          _controller.IgnoreStairsForTime(0.1f);
+          ctx.character.Controller.State.IsFalling = true;
+          ctx.character.Controller.State.IsJumping = false;
+          ctx.character.CharacterMovementState.ChangeState(typeof(FallingState));
+          ctx.character.Controller.IgnoreOneWayPlatformsThisFrame = true;
+          ctx.character.Controller.SetVerticalForce(OneWayPlatformFallVelocity);
+          ctx.character.Controller.IgnoreStairsForTime(0.1f);
         }
         else
         {
           _lastJumpTime = Time.time;
-          _controller.State.IsFalling = false;
-          _controller.State.IsJumping = true;
-          _character.CharacterMovementState.ChangeState(typeof(JumpingState));
+          ctx.character.Controller.State.IsFalling = false;
+          ctx.character.Controller.State.IsJumping = true;
+          ctx.character.CharacterMovementState.ChangeState(typeof(JumpingState));
           _numberOfJumpsLeft--;
-          _controller.AddVerticalForce(Mathf.Sqrt(2f * JumpHeight * Mathf.Abs(_controller.Parameters.Gravity)));
+          ctx.character.Controller.AddVerticalForce(Mathf.Sqrt(2f * JumpHeight * Mathf.Abs(ctx.character.Controller.Parameters.Gravity)));
         }
 
       }
 
-      private void JumpStop()
+      private void JumpStop(CharacterAbilityController.AbilityContext ctx)
       {
         if (JumpIsProportionalToThePressTime)
         {
           bool hasMinAirTime = Time.time - _lastJumpTime >= JumpMinAirTime;
-          bool speedGreaterThanGravity = _controller.Velocity.y > Mathf.Sqrt(Mathf.Abs(_controller.Parameters.Gravity));
+          bool speedGreaterThanGravity = ctx.character.Controller.Velocity.y > Mathf.Sqrt(Mathf.Abs(ctx.character.Controller.Parameters.Gravity));
           if (hasMinAirTime && speedGreaterThanGravity)
           {
             _lastJumpTime = 0f;
             if (JumpReleaseForceFactor == 0f)
             {
-              _controller.SetVerticalForce(0f);
+              ctx.character.Controller.SetVerticalForce(0f);
             }
             else
             {
-              _controller.AddVerticalForce(-_controller.Velocity.y / JumpReleaseForceFactor);
+              ctx.character.Controller.AddVerticalForce(-ctx.character.Controller.Velocity.y / JumpReleaseForceFactor);
             }
           }
         }
-        _controller.State.IsFalling = true;
-        _controller.State.IsJumping = false;
-        _character.CharacterMovementState.ChangeState(typeof(FallingState));
+        ctx.character.Controller.State.IsFalling = true;
+        ctx.character.Controller.State.IsJumping = false;
+        ctx.character.CharacterMovementState.ChangeState(typeof(FallingState));
       }
 
-      private bool CanJump()
+      private bool CanJump(CharacterAbilityController.AbilityContext ctx)
       {
         if (Restrictions == JumpRestrictions.CanJumpAnywhere)
         {
@@ -161,7 +136,7 @@ namespace RFG
           return false;
         }
 
-        if (_character.CharacterMovementState.CurrentStateType == typeof(WallClingingState))
+        if (ctx.character.CharacterMovementState.CurrentStateType == typeof(WallClingingState))
         {
           return false;
         }

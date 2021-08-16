@@ -16,16 +16,21 @@ namespace RFG
       public Type CurrentStateType { get; private set; }
 
       [HideInInspector]
+      private CharacterStateController.CharacterStateContext _stateContext;
+      private Transform _transform;
       private Character _character;
+      private Animator _animator;
       private Dictionary<Type, CharacterState> _states;
 
       private void Awake()
       {
-        _character = GetComponent<Character>();
+        _stateContext = new CharacterStateController.CharacterStateContext();
+        _stateContext.transform = transform;
+        _stateContext.character = GetComponent<Character>();
+        _stateContext.animator = GetComponent<Animator>();
         _states = new Dictionary<Type, CharacterState>();
         foreach (CharacterState state in States)
         {
-          state.Init(_character);
           _states.Add(state.GetType(), state);
         }
       }
@@ -44,11 +49,11 @@ namespace RFG
         if (CurrentState != null)
         {
           PreviousStateType = CurrentState.GetType();
-          CurrentState.Exit();
+          CurrentState.Exit(_stateContext);
         }
         CurrentState = _states[newStateType];
         CurrentStateType = newStateType;
-        CurrentState.Enter();
+        CurrentState.Enter(_stateContext);
       }
 
       public void Reset()

@@ -5,12 +5,12 @@ namespace RFG
 {
   namespace Platformer
   {
-    [CreateAssetMenu(fileName = "New Alive State", menuName = "RFG/Platformer/Character/Character State/Alive")]
+    [CreateAssetMenu(fileName = "New Character Alive State", menuName = "RFG/Platformer/Character/Character State/Alive")]
     public class AliveState : CharacterState
     {
-      public override Type Execute()
+      public override Type Execute(CharacterStateController.CharacterStateContext ctx)
       {
-        _character.Abilities.Process();
+        ctx.character.Abilities?.Process();
         return null;
       }
     }

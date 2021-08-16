@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using RFG;
@@ -11,6 +12,10 @@ namespace Game
     public Image[] weaponImages;
     public bool EquipPrimary { get; set; }
     public bool EquipSecondary { get; set; }
+    public Inventory Inventory;
+    public EquipmentSet EquipmentSet;
+
+    private List<NewWeaponItem> _weapons;
 
     private void Awake()
     {
@@ -19,7 +24,8 @@ namespace Game
         weaponImage.sprite = null;
         weaponImage.transform.parent.gameObject.SetActive(false);
       }
-      EquipPrimary = true;
+      EquipPrimary = false;
+      EquipSecondary = false;
       animator.Play("WeaponSelectHidden");
     }
 
@@ -39,6 +45,14 @@ namespace Game
 
     private void OpenDialog()
     {
+      _weapons = Inventory.FindAll<NewWeaponItem>();
+      // TODO - Need to filter out equipped items
+      for (int i = 0; i < _weapons.Count; i++)
+      {
+        weaponImages[i].sprite = _weapons[i].EquipSprite;
+        weaponImages[i].color = Color.white;
+        weaponImages[i].transform.parent.gameObject.SetActive(true);
+      }
       animator.Play("WeaponSelectOpen");
     }
 
@@ -49,29 +63,16 @@ namespace Game
 
     public void EquipWeapon(int index)
     {
-      Character character = null; // PlatformerLevelManager.Instance.PlayerCharacter;
-      // WeaponBehaviour weaponBehavior = character.FindBehaviour<WeaponBehaviour>();
-      // if (EquipPrimary)
-      // {
-      //   weaponBehavior.EquipPrimary(index);
-      // }
-      // else if (EquipSecondary)
-      // {
-      //   weaponBehavior.EquipSecondary(index);
-      // }
+      if (EquipPrimary)
+      {
+        EquipmentSet.EquipPrimaryWeapon(_weapons[index]);
+      }
+      else if (EquipSecondary)
+      {
+        EquipmentSet.EquipSecondaryWeapon(_weapons[index]);
+      }
       CloseDialog();
     }
-
-    // public void OnEvent(WeaponPickupEvent weaponPickupEvent)
-    // {
-    //   for (int i = 0; i < weaponPickupEvent.weapons.Count; i++)
-    //   {
-    //     weaponImages[i].sprite = weaponPickupEvent.weapons[i].pickupSprite;
-    //     weaponImages[i].color = Color.white;
-    //     weaponImages[i].transform.parent.gameObject.SetActive(true);
-    //   }
-    // }
-
 
   }
 }

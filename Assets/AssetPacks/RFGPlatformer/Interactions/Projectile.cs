@@ -22,20 +22,12 @@ namespace RFG
 
       [Header("Effects")]
       public Animator animator;
-      public GameObject collisionEffect;
-      public string collisionEffectPoolTag;
-      public float cameraShakeIntensity = 0f;
-      public float cameraShakeTime = 0f;
-      public bool cameraShakeFade = false;
-
-      [Header("Audio")]
-      public string[] spawnSoundFx;
-      public string[] deathSoundFx;
+      public string[] SpawnEffects;
+      public string[] KillEffects;
 
       [Header("Physics")]
       public Rigidbody2D rb;
       public BoxCollider2D boxCollider;
-      public bool destroyOnCollision = false;
       public Knockback knockback;
 
       public void OnObjectSpawn(params object[] objects)
@@ -56,10 +48,7 @@ namespace RFG
         {
           CalculateVelocity(transform.right);
         }
-        if (spawnSoundFx != null && spawnSoundFx.Length > 0)
-        {
-          // FXAudio.Instance.Play(spawnSoundFx, false);
-        }
+        transform.SpawnFromPool("Effects", SpawnEffects, Quaternion.identity);
       }
 
       private IEnumerator WaitForPlayer()
@@ -83,43 +72,18 @@ namespace RFG
         if (layerMask.Contains(col.gameObject.layer))
         {
 
-          HealthBehaviour health = col.gameObject.GetComponent<HealthBehaviour>();
-          if (health != null)
+          CharacterBehaviourController controller = col.gameObject.GetComponent<CharacterBehaviourController>();
+          if (controller != null)
           {
-            health.TakeDamage(damage);
+            NewHealthBehaviour health = controller.FindBehavior<NewHealthBehaviour>();
+            if (health != null)
+            {
+              health.TakeDamage(damage);
+            }
           }
 
-          // Play Audio
-          if (deathSoundFx != null && deathSoundFx.Length > 0)
-          {
-            // FXAudio.Instance.Play(deathSoundFx, false);
-          }
-
-          // Shake the camera
-          if (cameraShakeIntensity > 0)
-          {
-            CinemachineShake.Instance.ShakeCamera(cameraShakeIntensity, cameraShakeTime, cameraShakeFade);
-          }
-
-          // Effects
-          if (collisionEffect != null)
-          {
-            Instantiate(collisionEffect, transform.position, Quaternion.identity);
-          }
-          else if (!collisionEffectPoolTag.Equals(""))
-          {
-            ObjectPool.Instance.SpawnFromPool(collisionEffectPoolTag, transform.position, Quaternion.identity);
-          }
-
-          // Destroy
-          if (destroyOnCollision)
-          {
-            Destroy(gameObject);
-          }
-          else
-          {
-            gameObject.SetActive(false);
-          }
+          transform.SpawnFromPool("Effects", KillEffects, Quaternion.identity);
+          gameObject.SetActive(false);
         }
       }
 

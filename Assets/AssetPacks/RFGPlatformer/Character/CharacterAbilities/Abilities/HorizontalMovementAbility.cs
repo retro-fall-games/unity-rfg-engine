@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace RFG
 {
@@ -11,94 +10,57 @@ namespace RFG
       [Header("Settings")]
       public float Speed = 5f;
 
-      [Header("Sound FX")]
-      public SoundData[] MovementFx;
+      [Header("Sound Effect")]
+      public string[] MovementEffects;
 
-      private Character _character;
-      private CharacterController2D _controller;
-      private InputAction _movement;
-      private Vector2 _movementVector;
-      private float _horizontalSpeed;
-
-      public override void Init(Character character)
+      public override void Process(CharacterAbilityController.AbilityContext ctx)
       {
-        _character = character;
-        _controller = character.Controller;
-        _movement = character.Input.Movement;
-      }
-
-      public override void EarlyProcess()
-      {
-        _movementVector = _movement.ReadValue<Vector2>();
-      }
-
-      public override void Process()
-      {
-
-        _horizontalSpeed = _movementVector.x;
+        Vector2 movementVector = ctx.input.Movement.ReadValue<Vector2>();
+        float horizontalSpeed = movementVector.x;
         // float _verticalInput = inputMovement.y;
 
-        if (_horizontalSpeed > 0f)
+        if (horizontalSpeed > 0f)
         {
-          if (!_controller.State.IsFacingRight && !_controller.rotateOnMouseCursor)
+          if (!ctx.character.Controller.State.IsFacingRight && !ctx.character.Controller.rotateOnMouseCursor)
           {
-            _controller.Flip();
+            ctx.character.Controller.Flip();
           }
         }
-        else if (_horizontalSpeed < 0f)
+        else if (horizontalSpeed < 0f)
         {
-          if (_controller.State.IsFacingRight && !_controller.rotateOnMouseCursor)
+          if (ctx.character.Controller.State.IsFacingRight && !ctx.character.Controller.rotateOnMouseCursor)
           {
-            _controller.Flip();
+            ctx.character.Controller.Flip();
           }
         }
 
         // If the movement state is dashing return so it wont get set back to idle
-        if (_character.MovementState == MovementState.Dashing)
+        if (ctx.character.MovementState == MovementState.Dashing)
         {
           return;
         }
 
         // Call the Use method to call any SoundFx
-        if (_horizontalSpeed != 0f)
+        if (horizontalSpeed != 0f)
         {
-          if (MovementFx.Length > 0)
-          {
-            SoundManager.Instance.Play(MovementFx);
-          }
+          ctx.transform.SpawnFromPool("Effects", MovementEffects);
         }
 
         // if (_verticalInput >= 1 || _verticalInput <= -1)
         // {
-        //   _controller.CollisionsOnStairs(true);
+        //   ctx.character.Controller.CollisionsOnStairs(true);
         // }
 
-        if ((!_controller.State.IsJumping && !_controller.State.IsFalling && _controller.State.IsGrounded) || _controller.State.JustGotGrounded)
+        if ((!ctx.character.Controller.State.IsJumping && !ctx.character.Controller.State.IsFalling && ctx.character.Controller.State.IsGrounded) || ctx.character.Controller.State.JustGotGrounded)
         {
-          _character.CharacterMovementState.ChangeState(_horizontalSpeed == 0 ? typeof(IdleState) : typeof(WalkingState));
+          ctx.character.CharacterMovementState.ChangeState(horizontalSpeed == 0 ? typeof(IdleState) : typeof(WalkingState));
         }
 
-        float movementFactor = _controller.State.IsGrounded ? _controller.Parameters.GroundSpeedFactor : _controller.Parameters.AirSpeedFactor;
-        float movementSpeed = _horizontalSpeed * Speed * _controller.Parameters.SpeedFactor;
-        float horizontalMovementForce = Mathf.Lerp(_controller.Velocity.x, movementSpeed, Time.deltaTime * movementFactor);
+        float movementFactor = ctx.character.Controller.State.IsGrounded ? ctx.character.Controller.Parameters.GroundSpeedFactor : ctx.character.Controller.Parameters.AirSpeedFactor;
+        float movementSpeed = horizontalSpeed * Speed * ctx.character.Controller.Parameters.SpeedFactor;
+        float horizontalMovementForce = Mathf.Lerp(ctx.character.Controller.Velocity.x, movementSpeed, Time.deltaTime * movementFactor);
 
-        _controller.SetHorizontalForce(horizontalMovementForce);
-      }
-
-      public override void LateProcess()
-      {
-      }
-
-      public override void OnButtonStarted(InputAction.CallbackContext ctx)
-      {
-      }
-
-      public override void OnButtonCanceled(InputAction.CallbackContext ctx)
-      {
-      }
-
-      public override void OnButtonPerformed(InputAction.CallbackContext ctx)
-      {
+        ctx.character.Controller.SetHorizontalForce(horizontalMovementForce);
       }
 
     }

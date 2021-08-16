@@ -9,25 +9,28 @@ namespace RFG
     {
       public enum InputMethod { Movement, Jump, PrimaryAttack, SecondaryAttack, Pause, Dash }
       public InputMethod Input;
-      public virtual void Init(Character character)
+      public virtual void Init(CharacterAbilityController.AbilityContext ctx)
       {
       }
-      public virtual void EarlyProcess()
+      public virtual void Remove(CharacterAbilityController.AbilityContext ctx)
       {
       }
-      public virtual void Process()
+      public virtual void EarlyProcess(CharacterAbilityController.AbilityContext ctx)
       {
       }
-      public virtual void LateProcess()
+      public virtual void Process(CharacterAbilityController.AbilityContext ctx)
       {
       }
-      public virtual void OnButtonStarted(InputAction.CallbackContext ctx)
+      public virtual void LateProcess(CharacterAbilityController.AbilityContext ctx)
       {
       }
-      public virtual void OnButtonCanceled(InputAction.CallbackContext ctx)
+      public virtual void OnButtonStarted(InputAction.CallbackContext inputCtx, CharacterAbilityController.AbilityContext ctx)
       {
       }
-      public virtual void OnButtonPerformed(InputAction.CallbackContext ctx)
+      public virtual void OnButtonCanceled(InputAction.CallbackContext inputCtx, CharacterAbilityController.AbilityContext ctx)
+      {
+      }
+      public virtual void OnButtonPerformed(InputAction.CallbackContext inputCtx, CharacterAbilityController.AbilityContext ctx)
       {
       }
     }

@@ -11,50 +11,19 @@ namespace RFG
       [Header("Game Events")]
       public GameEvent PauseEvent;
 
-      [Header("Sound FX")]
-      public SoundData[] PauseFx;
-      public SoundData[] UnPauseFx;
+      [Header("Effects")]
+      public string[] PauseEffects;
+      public string[] UnPauseEffects;
 
-      public override void Init(Character character)
+      public override void OnButtonPerformed(InputAction.CallbackContext inputCtx, CharacterAbilityController.AbilityContext ctx)
       {
-      }
-
-      public override void EarlyProcess()
-      {
-      }
-
-      public override void Process()
-      {
-      }
-
-      public override void LateProcess()
-      {
-      }
-
-      public override void OnButtonStarted(InputAction.CallbackContext ctx)
-      {
-      }
-
-      public override void OnButtonCanceled(InputAction.CallbackContext ctx)
-      {
-      }
-
-      public override void OnButtonPerformed(InputAction.CallbackContext ctx)
-      {
-
         if (GameManager.Instance.IsPaused)
         {
-          if (UnPauseFx.Length > 0)
-          {
-            SoundManager.Instance.Play(UnPauseFx);
-          }
+          ctx.transform.SpawnFromPool("Effects", PauseEffects);
         }
         else
         {
-          if (PauseFx.Length > 0)
-          {
-            SoundManager.Instance.Play(PauseFx);
-          }
+          ctx.transform.SpawnFromPool("Effects", UnPauseEffects);
         }
         PauseEvent?.Raise();
       }

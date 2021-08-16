@@ -5,39 +5,25 @@ namespace RFG
 {
   namespace Platformer
   {
-    [CreateAssetMenu(fileName = "New Death State", menuName = "RFG/Platformer/Character/Character State/Death")]
+    [CreateAssetMenu(fileName = "New Character Death State", menuName = "RFG/Platformer/Character/Character State/Death")]
     public class DeathState : CharacterState
     {
-      public override Type Execute()
+      public override Type Execute(CharacterStateController.CharacterStateContext ctx)
       {
-        // If the character type is player we want to execute the death state and 
-        // then respawn
-        if (_character.CharacterType == CharacterType.Player)
-        {
-          return typeof(SpawnState);
-        }
-        return null;
+        return typeof(DeadState);
       }
 
-      public override void Exit()
+      public override void Exit(CharacterStateController.CharacterStateContext ctx)
       {
-        base.Exit();
-        _character.Controller.enabled = false;
-
-        // If the character type is not a player then we want to remove that character
-        // when the death state exits
-        if (_character.CharacterType != CharacterType.Player)
+        base.Exit(ctx);
+        if (ctx.character.CharacterType == CharacterType.Player)
         {
-          if (_character.ObjectPool)
-          {
-            _character.gameObject.SetActive(false);
-          }
-          else
-          {
-            Destroy(_character.gameObject);
-          }
+          GameManager.Instance.StartCoroutine(ctx.character.Respawn());
         }
+        ctx.character.Controller.enabled = false;
+        ctx.character.gameObject.SetActive(false);
       }
+
     }
   }
 }

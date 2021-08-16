@@ -105,18 +105,12 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 16896
-  collisionEffect: {fileID: 0}
-  collisionEffectPoolTag: SlingshotHit
-  cameraShakeIntensity: 0
-  cameraShakeTime: 0
-  cameraShakeFade: 0
-  spawnSoundFx:
-  - Slingshot
-  deathSoundFx:
-  - Hit
+  animator: {fileID: 0}
+  SpawnEffects: []
+  KillEffects:
+  - SlingshotHit
   rb: {fileID: 3866315227574023375}
   boxCollider: {fileID: 3866315227574023374}
-  destroyOnCollision: 0
   knockback: {fileID: 3866315227574023373}
 --- !u!50 &3866315227574023375
 Rigidbody2D:
@@ -177,9 +171,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8af7f6b393d7e4aa05157fd914015a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  velocity: {x: 10, y: 10}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 16384
-  soundFx: []
+  KnockbackData: {fileID: 11400000, guid: 857b977ad78290f4cb3fc1a38f32ea53, type: 2}

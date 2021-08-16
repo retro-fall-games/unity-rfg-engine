@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace RFG
 {
-  [AddComponentMenu("RFG Platformer/Actions/Aggro")]
+  [AddComponentMenu("RFG/Interactions/Aggro")]
   public class Aggro : MonoBehaviour
   {
     [Header("Transform Targets")]
@@ -18,7 +18,6 @@ namespace RFG
 
     [Header("Line Of Sight")]
     public LayerMask layerMask;
-    public string[] tags;
 
     private void Start()
     {
@@ -72,23 +71,7 @@ namespace RFG
       Vector2 direction = (target2.position - target1.position).normalized;
       float distance = Vector2.Distance(target2.position, target1.position);
       RaycastHit2D hit = RFG.Physics2D.Raycast(start, direction, distance, layerMask, Color.red);
-      if (hit)
-      {
-        return CheckTags(hit.transform.gameObject);
-      }
-      return false;
-    }
-
-    private bool CheckTags(GameObject obj)
-    {
-      for (int i = 0; i < tags.Length; i++)
-      {
-        if (obj.CompareTag(tags[i]))
-        {
-          return true;
-        }
-      }
-      return false;
+      return hit;
     }
 
   }

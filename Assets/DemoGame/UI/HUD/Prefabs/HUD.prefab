@@ -901,6 +901,8 @@ MonoBehaviour:
   - {fileID: 721426576635894919}
   - {fileID: 721426577897169953}
   - {fileID: 721426576964887339}
+  Inventory: {fileID: 0}
+  EquipmentSet: {fileID: 0}
 --- !u!114 &721426576906566308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1197,8 +1199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8ae1bbd43d3d48419e62ae7ec72b39a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartDivisionPercent: 0.033
-  heartSteps: 5
+  HealthBehaviour: {fileID: 11400000, guid: 72f39e1e178803b4ebeef720fe4fbe13, type: 2}
+  HeartSteps: 5
   hearts:
   - {fileID: 5405821259711367094}
   - {fileID: 721426577129494009}
@@ -2915,10 +2917,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8514b6a91553bd4498f0e17c2c2e35ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  primaryEquipped: {fileID: 721426577695821559}
-  secondaryEquipped: {fileID: 721426576813709155}
-  primaryAmmo: {fileID: 721426577002237217}
-  secondaryAmmo: {fileID: 721426577628308443}
+  PrimaryEquipped: {fileID: 721426577695821559}
+  SecondaryEquipped: {fileID: 721426576813709155}
+  PrimaryAmmo: {fileID: 721426577002237217}
+  SecondaryAmmo: {fileID: 721426577628308443}
+  EquipmentSet: {fileID: 0}
 --- !u!1 &721426577695821553
 GameObject:
   m_ObjectHideFlags: 0

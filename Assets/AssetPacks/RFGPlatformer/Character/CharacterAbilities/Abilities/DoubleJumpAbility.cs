@@ -8,11 +8,16 @@ namespace RFG
     [CreateAssetMenu(fileName = "New Double Jump Character Ability", menuName = "RFG/Platformer/Character/Character Ability/Double Jump")]
     public class DoubleJumpAbility : CharacterAbility
     {
-      public override void Init(Character character)
+      public override void Init(CharacterAbilityController.AbilityContext ctx)
       {
-        CharacterAbilityController controller = character.GetComponent<CharacterAbilityController>();
-        JumpAbility ability = controller.FindAbility<JumpAbility>();
+        JumpAbility ability = ctx.controller.FindAbility<JumpAbility>();
         ability.NumberOfJumps = 2;
+      }
+
+      public override void Remove(CharacterAbilityController.AbilityContext ctx)
+      {
+        JumpAbility ability = ctx.controller.FindAbility<JumpAbility>();
+        ability.NumberOfJumps = 1;
       }
     }
   }

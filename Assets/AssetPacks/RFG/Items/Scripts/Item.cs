@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace RFG
@@ -11,17 +12,14 @@ namespace RFG
     [Header("Pick Up")]
     public Sprite PickUpSprite;
     public string PickUpText;
-    public string[] PickUpFx;
+    public string[] PickUpEffects;
 
-    public virtual bool OnPickUp(Inventory inventory)
+    public Action<Inventory> OnPickUp;
+
+    public virtual bool PickUp(Inventory inventory)
     {
-      if (PickUpFx.Length > 0)
-      {
-        foreach (string fx in PickUpFx)
-        {
-          ObjectPool.Instance.SpawnFromPool(fx, inventory.transform.position, Quaternion.identity, null, false, new object[] { PickUpText });
-        }
-      }
+      inventory.transform.SpawnFromPool("Effects", PickUpEffects, Quaternion.identity, new object[] { PickUpText });
+      OnPickUp?.Invoke(inventory);
       return true;
     }
   }

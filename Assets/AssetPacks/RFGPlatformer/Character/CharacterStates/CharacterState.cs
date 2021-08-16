@@ -7,55 +7,45 @@ namespace RFG
   {
     public abstract class CharacterState : ScriptableObject
     {
-      [Header("Animation")]
+      [Header("Animations")]
       public string Layer = "Base Layer";
       public string EnterClip;
       public string ExitClip;
 
-      [Header("Sound FX")]
-      public SoundData[] EnterFx;
-      public SoundData[] ExitFx;
+      [Header("Effects")]
+      public string[] EnterEffects;
+      public string[] ExitEffects;
 
-      protected Character _character;
-      protected Animator _animator;
-      private int _layerIndex;
-
-      public virtual void Init(Character character)
+      public virtual void Enter(CharacterStateController.CharacterStateContext ctx)
       {
-        _character = character;
-        _animator = character.GetComponent<Animator>();
-        _layerIndex = _animator.GetLayerIndex(Layer);
+        PlayEffects(ctx.transform, EnterEffects);
+        PlayAnimations(ctx.animator, EnterClip);
       }
 
-      public virtual void Enter()
-      {
-        if (EnterFx.Length > 0)
-        {
-          SoundManager.Instance.Play(EnterFx);
-        }
-        int hash = Animator.StringToHash(EnterClip);
-        if (_animator.HasState(_layerIndex, hash))
-        {
-          _animator.Play(EnterClip);
-        }
-      }
-
-      public virtual Type Execute()
+      public virtual Type Execute(CharacterStateController.CharacterStateContext ctx)
       {
         return null;
       }
 
-      public virtual void Exit()
+      public virtual void Exit(CharacterStateController.CharacterStateContext ctx)
       {
-        if (ExitFx.Length > 0)
+        PlayEffects(ctx.transform, ExitEffects);
+        PlayAnimations(ctx.animator, ExitClip);
+      }
+
+      private void PlayAnimations(Animator animator, string Clip)
+      {
+        int hash = Animator.StringToHash(Clip);
+        int layerIndex = animator.GetLayerIndex(Layer);
+        if (animator.HasState(layerIndex, hash))
         {
-          SoundManager.Instance.Play(ExitFx);
+          animator.Play(Clip);
         }
-        int hash = Animator.StringToHash(ExitClip);
-        if (_animator.HasState(_layerIndex, hash))
-        {
-          _animator.Play(EnterClip);
-        }
+      }
+
+      private void PlayEffects(Transform transform, string[] Effects)
+      {
+        transform.SpawnFromPool("Effects", Effects);
       }
     }
   }

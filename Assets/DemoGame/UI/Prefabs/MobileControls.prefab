@@ -364,7 +364,6 @@ GameObject:
   - component: {fileID: 3159123941150739750}
   - component: {fileID: 3159123941150739749}
   - component: {fileID: 3159123941150739748}
-  - component: {fileID: 3159123941150739751}
   m_Layer: 5
   m_Name: DashButton
   m_TagString: Untagged
@@ -429,20 +428,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3159123941150739751
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3159123941150739753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8ddc89d3b0f03c4c93c2a8445a45d8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 3159123941150739750}
-  buttonId: Dash
 --- !u!1 &3159123941502939013
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,7 +439,6 @@ GameObject:
   - component: {fileID: 3159123941502939010}
   - component: {fileID: 3159123941502939009}
   - component: {fileID: 3159123941502939008}
-  - component: {fileID: 3159123941502939011}
   m_Layer: 5
   m_Name: PrimaryFireButton
   m_TagString: Untagged
@@ -519,20 +503,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3159123941502939011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3159123941502939013}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8ddc89d3b0f03c4c93c2a8445a45d8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 3159123941502939010}
-  buttonId: Fire1
 --- !u!1 &3159123942542569553
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,7 +514,6 @@ GameObject:
   - component: {fileID: 3159123942542569550}
   - component: {fileID: 3159123942542569549}
   - component: {fileID: 3159123942542569548}
-  - component: {fileID: 3159123942542569551}
   m_Layer: 5
   m_Name: SecondaryFireButton
   m_TagString: Untagged
@@ -609,20 +578,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3159123942542569551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3159123942542569553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8ddc89d3b0f03c4c93c2a8445a45d8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 3159123942542569550}
-  buttonId: Fire2
 --- !u!1 &3159123942785995037
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,7 +589,6 @@ GameObject:
   - component: {fileID: 3159123942785995034}
   - component: {fileID: 3159123942785995033}
   - component: {fileID: 3159123942785995032}
-  - component: {fileID: 3159123942785995035}
   m_Layer: 5
   m_Name: JumpButton
   m_TagString: Untagged
@@ -699,17 +653,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3159123942785995035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3159123942785995037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8ddc89d3b0f03c4c93c2a8445a45d8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rectTransform: {fileID: 3159123942785995034}
-  buttonId: Jump

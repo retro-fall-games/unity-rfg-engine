@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace RFG
@@ -6,20 +7,31 @@ namespace RFG
   {
     [Header("Consumable Settings")]
     public bool ConsumeOnPickUp = false;
+    public string ConsumeText;
+    public string[] ConsumeEffects;
+    public Action<Inventory> OnConsume;
 
-    public override bool OnPickUp(Inventory inventory)
+    public override bool PickUp(Inventory inventory)
     {
-      bool didPickup = base.OnPickUp(inventory);
+      bool didPickup = base.PickUp(inventory);
       if (ConsumeOnPickUp)
       {
-        Use(inventory);
+        Consume(inventory);
         return false;
       }
       return didPickup;
     }
 
-    public virtual void Use(Inventory inventory)
+    public virtual void Consume(Inventory inventory)
     {
+      if (ConsumeEffects.Length > 0)
+      {
+        foreach (string effect in ConsumeEffects)
+        {
+          ObjectPoolManager.Instance.SpawnFromPool("Effects", effect, inventory.transform.position, Quaternion.identity, null, false, new object[] { ConsumeText });
+        }
+      }
+      OnConsume?.Invoke(inventory);
     }
 
   }

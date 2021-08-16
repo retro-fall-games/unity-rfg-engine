@@ -126,18 +126,11 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16896
   animator: {fileID: 1365983511011801079}
-  collisionEffect: {fileID: 3959827734333515761, guid: e753f1f9fb68e6649a3aa306fd8be1bc, type: 3}
-  collisionEffectPoolTag: 
-  cameraShakeIntensity: 1
-  cameraShakeTime: 0.3
-  cameraShakeFade: 0
-  spawnSoundFx:
-  - Hit Laser
-  deathSoundFx:
-  - Hit 3
+  SpawnEffects: []
+  KillEffects:
+  - SlingshotHit
   rb: {fileID: 26071844252189597}
   boxCollider: {fileID: 4095533716030735900}
-  destroyOnCollision: 0
   knockback: {fileID: -3665444438838682569}
 --- !u!114 &-3665444438838682569
 MonoBehaviour:
@@ -151,12 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8af7f6b393d7e4aa05157fd914015a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  velocity: {x: 10, y: 10}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 16384
-  soundFx: []
+  KnockbackData: {fileID: 11400000, guid: 857b977ad78290f4cb3fc1a38f32ea53, type: 2}
 --- !u!50 &26071844252189597
 Rigidbody2D:
   serializedVersion: 4

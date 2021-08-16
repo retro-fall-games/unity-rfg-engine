@@ -4,35 +4,24 @@ namespace RFG
 {
   namespace Platformer
   {
-    public class CharacterBehaviour : MonoBehaviour
+    public class CharacterBehaviour : ScriptableObject
     {
-      public bool authorized = true;
-      protected Transform _transform;
-      protected Character _character;
-
-      private void Awake()
-      {
-        _transform = transform;
-        _character = GetComponent<Character>();
-      }
-
-      public virtual void InitBehaviour()
+      public virtual void Init(CharacterBehaviourController.BehaviourContext ctx)
       {
       }
-
-      public virtual void EarlyProcessBehaviour()
+      public virtual void InitValues(CharacterBehaviour behaviour)
       {
       }
-
-      public virtual void ProcessBehaviour()
+      public virtual void Remove(CharacterBehaviourController.BehaviourContext ctx)
       {
       }
-
-      public virtual void LateProcessBehaviour()
+      public virtual void EarlyProcess(CharacterBehaviourController.BehaviourContext ctx)
       {
       }
-
-      protected virtual void HandleInput()
+      public virtual void Process(CharacterBehaviourController.BehaviourContext ctx)
+      {
+      }
+      public virtual void LateProcess(CharacterBehaviourController.BehaviourContext ctx)
       {
       }
     }

@@ -9,62 +9,60 @@ namespace Game
   public class HUDEquipped : MonoBehaviour
   {
     [Header("HUD")]
-    public Image primaryEquipped;
-    public Image secondaryEquipped;
-    public TMP_Text primaryAmmo;
-    public TMP_Text secondaryAmmo;
+    public Image PrimaryEquipped;
+    public Image SecondaryEquipped;
+    public TMP_Text PrimaryAmmo;
+    public TMP_Text SecondaryAmmo;
+    public EquipmentSet EquipmentSet;
 
-    private GameObject _player;
-    private WeaponBehaviour _weaponBehaviour;
-
-    private void Start()
+    private void OnEquipPrimaryWeapon(Weapon weapon)
     {
-      StartCoroutine(StartCo());
+      PrimaryEquipped.sprite = weapon.WeaponItem.EquipSprite;
+      OnPrimaryAmmoChange(weapon.Ammo);
+      weapon.OnAmmoChange += OnPrimaryAmmoChange;
     }
 
-    private IEnumerator StartCo()
+    private void OnEquipSecondaryWeapon(Weapon weapon)
     {
-      yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Player") != null);
-      _player = GameObject.FindGameObjectWithTag("Player");
-      _weaponBehaviour = _player.GetComponent<WeaponBehaviour>();
-      // _weaponBehaviour.OnPrimaryEquip += OnPrimaryEquip;
-      // _weaponBehaviour.OnSecondaryEquip += OnSecondaryEquip;
-      // _weaponBehaviour.OnPrimaryFired += OnPrimaryFired;
-      // _weaponBehaviour.OnSecondaryFired += OnSecondaryFired;
+      SecondaryEquipped.sprite = weapon.WeaponItem.EquipSprite;
+      OnSecondaryAmmoChange(weapon.Ammo);
+      weapon.OnAmmoChange += OnSecondaryAmmoChange;
     }
 
-    private void OnPrimaryEquip()
+    private void OnUnequipPrimaryWeapon(Weapon weapon)
     {
-      if (primaryEquipped != null)
-      {
-        primaryEquipped.sprite = _weaponBehaviour.PrimaryWeapon.pickupSprite;
-        primaryAmmo.SetText(_weaponBehaviour.GetPrimaryAmmoCount().ToString());
-      }
+      weapon.OnAmmoChange -= OnPrimaryAmmoChange;
     }
 
-    private void OnSecondaryEquip()
+    private void OnUnequipSecondaryWeapon(Weapon weapon)
     {
-      if (secondaryEquipped != null)
-      {
-        secondaryEquipped.sprite = _weaponBehaviour.SecondaryWeapon.pickupSprite;
-        secondaryAmmo.SetText(_weaponBehaviour.GetSecondaryAmmoCount().ToString());
-      }
+      weapon.OnAmmoChange -= OnSecondaryAmmoChange;
     }
 
-    private void OnPrimaryFired()
+    private void OnPrimaryAmmoChange(int ammo)
     {
-      if (_weaponBehaviour.PrimaryWeapon != null)
-      {
-        primaryAmmo.SetText(_weaponBehaviour.GetPrimaryAmmoCount().ToString());
-      }
+      PrimaryAmmo.SetText(ammo.ToString());
     }
 
-    private void OnSecondaryFired()
+    private void OnSecondaryAmmoChange(int ammo)
     {
-      if (_weaponBehaviour.SecondaryWeapon != null)
-      {
-        secondaryAmmo.SetText(_weaponBehaviour.GetSecondaryAmmoCount().ToString());
-      }
+      SecondaryAmmo.SetText(ammo.ToString());
+    }
+
+    private void OnEnable()
+    {
+      EquipmentSet.OnEquipPrimaryWeapon += OnEquipPrimaryWeapon;
+      EquipmentSet.OnEquipSecondaryWeapon += OnEquipSecondaryWeapon;
+      EquipmentSet.OnUnequipPrimaryWeapon += OnUnequipPrimaryWeapon;
+      EquipmentSet.OnUnequipSecondaryWeapon += OnUnequipSecondaryWeapon;
+    }
+
+    private void OnDisable()
+    {
+      EquipmentSet.OnEquipPrimaryWeapon -= OnEquipPrimaryWeapon;
+      EquipmentSet.OnEquipSecondaryWeapon -= OnEquipSecondaryWeapon;
+      EquipmentSet.OnUnequipPrimaryWeapon -= OnUnequipPrimaryWeapon;
+      EquipmentSet.OnUnequipSecondaryWeapon -= OnUnequipSecondaryWeapon;
     }
 
   }

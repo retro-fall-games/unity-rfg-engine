@@ -41,7 +41,7 @@ namespace RFG
 
     private void PlatformerSetup()
     {
-      RFG.Setup.CheckTags(new string[] { "Player", "Checkpoint", "Warp", "Level Portal", "Trigger", "AI Character", "PickUp" });
+      RFG.Setup.CheckTags(new string[] { "Player", "Checkpoint", "Warp", "Level Portal", "Trigger", "AI Character", "PickUp", "Effect" });
       RFG.Setup.CheckLayers(new string[] { "Player", "Platforms", "OneWayPlatforms", "MovingPlatforms", "OneWayMovingPlatforms", "Stairs", "AI Character", "AI Edge Colliders" });
       RFG.Setup.CheckSortLayers(new string[] { "Background", "Foreground", "UI" });
     }

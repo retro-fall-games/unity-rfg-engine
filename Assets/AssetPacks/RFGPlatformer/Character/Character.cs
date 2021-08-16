@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -46,7 +47,6 @@ namespace RFG
     {
       [Header("Settings")]
       public CharacterType CharacterType = CharacterType.Player;
-      public bool ObjectPool = false;
       public Transform SpawnAt;
 
       [HideInInspector]
@@ -119,6 +119,18 @@ namespace RFG
         }
 
         SpawnAt.position = spawnAt;
+      }
+
+      public void Kill()
+      {
+        _characterState.ChangeState(typeof(DeathState));
+      }
+
+      public IEnumerator Respawn()
+      {
+        yield return new WaitForSecondsRealtime(1f);
+        _characterState.ChangeState(typeof(SpawnState));
+        gameObject.SetActive(true);
       }
 
     }
