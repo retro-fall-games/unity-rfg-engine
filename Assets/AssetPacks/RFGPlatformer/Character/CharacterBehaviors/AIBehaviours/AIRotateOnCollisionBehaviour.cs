@@ -4,23 +4,23 @@ namespace RFG
 {
   namespace Platformer
   {
-    [AddComponentMenu("RFG Platformer/Character/Behaviour/AI Rotate On Collision Behaviour")]
+    [CreateAssetMenu(fileName = "New AI Rotate On Collision Character Behaviour", menuName = "RFG/Platformer/Character/Character AI Behaviour/Rotate On Collision")]
     public class AIRotateOnCollisionBehaviour : CharacterBehaviour
     {
       public override void Process(CharacterBehaviourController.BehaviourContext ctx)
       {
-        // if (_character.AIState.CurrentState != AIStates.Wandering)
-        // {
-        //   return;
-        // }
-        // if (_character.Controller.State.IsCollidingRight)
-        // {
-        //   _character.AIMovementState.ChangeState(AIMovementStates.WalkingLeft);
-        // }
-        // else if (_character.Controller.State.IsCollidingLeft)
-        // {
-        //   _character.AIMovementState.ChangeState(AIMovementStates.WalkingRight);
-        // }
+        if (ctx.character.AIState.CurrentStateType != typeof(AIWanderingState))
+        {
+          return;
+        }
+        if (ctx.character.Controller.State.IsCollidingRight)
+        {
+          ctx.character.AIMovementState.ChangeState(typeof(AIWalkingLeftState));
+        }
+        else if (ctx.character.Controller.State.IsCollidingLeft)
+        {
+          ctx.character.AIMovementState.ChangeState(typeof(AIWalkingRightState));
+        }
       }
     }
   }

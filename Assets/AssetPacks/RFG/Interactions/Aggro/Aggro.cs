@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace RFG
     [Header("Controls")]
     public float minDistance = 5f;
     public bool HasAggro { get; private set; }
-    public event System.Action<bool> OnAggroChange;
+    public event Action<bool> OnAggroChange;
 
     [Header("Line Of Sight")]
     public LayerMask layerMask;

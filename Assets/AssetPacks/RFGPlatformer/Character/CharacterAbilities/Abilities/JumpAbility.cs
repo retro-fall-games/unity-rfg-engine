@@ -75,7 +75,7 @@ namespace RFG
 
         ctx.character.Controller.CollisionsOnStairs(true);
 
-        Vector2 movementVector = ctx.input.Movement.ReadValue<Vector2>();
+        Vector2 movementVector = ctx.input.PrimaryMovement;
         float _verticalInput = movementVector.y;
 
         if (_verticalInput < 0f)

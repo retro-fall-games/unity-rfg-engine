@@ -25,6 +25,7 @@ namespace RFG
         _stateContext.transform = transform;
         _stateContext.character = GetComponent<Character>();
         _stateContext.animator = GetComponent<Animator>();
+        _stateContext.aggro = GetComponent<Aggro>();
         _states = new Dictionary<Type, CharacterState>();
         foreach (CharacterState state in States)
         {

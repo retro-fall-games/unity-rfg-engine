@@ -15,6 +15,9 @@ namespace RFG
         public CharacterBehaviourController controller;
         public Transform transform;
         public Character character;
+        public Aggro aggro;
+        public MovementPath movementPath;
+        public EquipmentSet equipmentSet;
       }
 
       public List<CharacterBehaviour> Behaviours;
@@ -29,6 +32,9 @@ namespace RFG
         _behaviourContext.controller = this;
         _behaviourContext.transform = transform;
         _behaviourContext.character = GetComponent<Character>();
+        _behaviourContext.aggro = GetComponent<Aggro>();
+        _behaviourContext.movementPath = GetComponent<MovementPath>();
+        _behaviourContext.equipmentSet = GetComponent<EquipmentSet>();
         if (Behaviours == null)
         {
           Behaviours = new List<CharacterBehaviour>();

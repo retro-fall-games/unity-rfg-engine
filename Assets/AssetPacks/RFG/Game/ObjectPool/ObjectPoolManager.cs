@@ -48,7 +48,7 @@ namespace RFG
   {
     public static List<GameObject> SpawnFromPool(this Transform transform, string category, string[] tags, params object[] objects)
     {
-      if (tags.Length > 0)
+      if (tags != null && tags.Length > 0)
       {
         List<GameObject> spawnedObjects = new List<GameObject>();
         foreach (string tag in tags)
@@ -62,7 +62,7 @@ namespace RFG
 
     public static List<GameObject> SpawnFromPool(this Transform transform, string category, string[] tags, Quaternion rotation, params object[] objects)
     {
-      if (tags.Length > 0)
+      if (tags != null && tags.Length > 0)
       {
         List<GameObject> spawnedObjects = new List<GameObject>();
         foreach (string tag in tags)

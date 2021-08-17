@@ -75,7 +75,7 @@ namespace RFG
           CharacterBehaviourController controller = col.gameObject.GetComponent<CharacterBehaviourController>();
           if (controller != null)
           {
-            NewHealthBehaviour health = controller.FindBehavior<NewHealthBehaviour>();
+            HealthBehaviour health = controller.FindBehavior<HealthBehaviour>();
             if (health != null)
             {
               health.TakeDamage(damage);

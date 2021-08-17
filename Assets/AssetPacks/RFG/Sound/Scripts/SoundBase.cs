@@ -109,6 +109,7 @@ namespace RFG
       return false;
     }
 
+#if UNITY_EDITOR
     public void ConfigureAudioSources()
     {
       Sound[] sounds = GetComponentsInChildren<Sound>();
@@ -117,6 +118,7 @@ namespace RFG
         sound.GenerateAudioData();
       }
     }
+#endif
 
   }
 }

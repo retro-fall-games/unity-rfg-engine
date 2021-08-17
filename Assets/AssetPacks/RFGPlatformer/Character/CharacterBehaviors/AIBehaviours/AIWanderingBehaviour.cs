@@ -4,49 +4,55 @@ namespace RFG
 {
   namespace Platformer
   {
-    [AddComponentMenu("RFG Platformer/Character/Behaviour/AI Wandering Behaviour")]
+    [CreateAssetMenu(fileName = "New AI Wandering Character Behaviour", menuName = "RFG/Platformer/Character/Character AI Behaviour/Wandering")]
     public class AIWanderingBehaviour : CharacterBehaviour
     {
       [Header("Settings")]
-      public float walkSpeed = 5f;
+      public float WalkSpeed = 5f;
+
+      public override void InitValues(CharacterBehaviour behaviour)
+      {
+        AIWanderingBehaviour b = (AIWanderingBehaviour)behaviour;
+        WalkSpeed = b.WalkSpeed;
+      }
 
       public override void Process(CharacterBehaviourController.BehaviourContext ctx)
       {
-        // if (_character.AIState.CurrentState != AIStates.Wandering)
-        // {
-        //   return;
-        // }
+        if (ctx.character.AIState.CurrentStateType != typeof(AIWanderingState))
+        {
+          return;
+        }
 
-        // float _normalizedHorizontalSpeed = 0f;
+        float _normalizedHorizontalSpeed = 0f;
 
-        // if (_character.AIMovementState.CurrentState == AIMovementStates.WalkingRight)
-        // {
-        //   _normalizedHorizontalSpeed = 1f;
-        //   if (!_character.Controller.State.IsFacingRight)
-        //   {
-        //     _character.Controller.Flip();
-        //   }
-        // }
-        // else if (_character.AIMovementState.CurrentState == AIMovementStates.WalkingLeft)
-        // {
-        //   _normalizedHorizontalSpeed = -1f;
-        //   if (_character.Controller.State.IsFacingRight)
-        //   {
-        //     _character.Controller.Flip();
-        //   }
-        // }
-        // else if (_character.AIMovementState.CurrentState == AIMovementStates.Idle)
-        // {
-        //   _normalizedHorizontalSpeed = 0f;
-        // }
+        if (ctx.character.AIMovementState.CurrentStateType == typeof(AIWalkingRightState))
+        {
+          _normalizedHorizontalSpeed = 1f;
+          if (!ctx.character.Controller.State.IsFacingRight)
+          {
+            ctx.character.Controller.Flip();
+          }
+        }
+        else if (ctx.character.AIMovementState.CurrentStateType == typeof(AIWalkingLeftState))
+        {
+          _normalizedHorizontalSpeed = -1f;
+          if (ctx.character.Controller.State.IsFacingRight)
+          {
+            ctx.character.Controller.Flip();
+          }
+        }
+        else if (ctx.character.AIMovementState.CurrentStateType == typeof(AIIdleState))
+        {
+          _normalizedHorizontalSpeed = 0f;
+        }
 
-        // _character.MovementState.ChangeState(_normalizedHorizontalSpeed == 0 ? MovementStates.Idle : MovementStates.Walking);
+        ctx.character.CharacterMovementState.ChangeState(_normalizedHorizontalSpeed == 0 ? typeof(IdleState) : typeof(WalkingState));
 
-        // float movementFactor = _character.Controller.State.IsGrounded ? _character.Controller.Parameters.GroundSpeedFactor : _character.Controller.Parameters.AirSpeedFactor;
-        // float movementSpeed = _normalizedHorizontalSpeed * walkSpeed * _character.Controller.Parameters.SpeedFactor;
-        // float horizontalMovementForce = Mathf.Lerp(_character.Controller.Velocity.x, movementSpeed, Time.deltaTime * movementFactor);
+        float movementFactor = ctx.character.Controller.State.IsGrounded ? ctx.character.Controller.Parameters.GroundSpeedFactor : ctx.character.Controller.Parameters.AirSpeedFactor;
+        float movementSpeed = _normalizedHorizontalSpeed * WalkSpeed * ctx.character.Controller.Parameters.SpeedFactor;
+        float horizontalMovementForce = Mathf.Lerp(ctx.character.Controller.Velocity.x, movementSpeed, Time.deltaTime * movementFactor);
 
-        // _character.Controller.SetHorizontalForce(horizontalMovementForce);
+        ctx.character.Controller.SetHorizontalForce(horizontalMovementForce);
 
       }
 

@@ -167,40 +167,6 @@ namespace RFG
           character.gameObject.AddComponent<CharacterAIMovementStateController>();
         }
 
-        // Add Behaviours
-        // if (character.GetComponent<AnimationBehaviour>() == null)
-        // {
-        //   character.gameObject.AddComponent<AnimationBehaviour>();
-        // }
-        // if (character.GetComponent<HealthBehaviour>() == null)
-        // {
-        //   character.gameObject.AddComponent<HealthBehaviour>();
-        // }
-        // if (character.GetComponent<AIBrainBehaviour>() == null)
-        // {
-        //   character.gameObject.AddComponent<AIBrainBehaviour>();
-        // }
-        // if (character.GetComponent<AIWanderingBehaviour>() == null)
-        // {
-        //   character.gameObject.AddComponent<AIWanderingBehaviour>();
-        // }
-        // if (character.GetComponent<AIRotateOnCollisionBehaviour>() == null)
-        // {
-        //   character.gameObject.AddComponent<AIRotateOnCollisionBehaviour>();
-        // }
-        // if (character.GetComponent<AIAggroBehaviour>() == null)
-        // {
-        //   character.gameObject.AddComponent<AIAggroBehaviour>();
-        // }
-        // if (character.GetComponent<AIJumpBehaviour>() == null)
-        // {
-        //   character.gameObject.AddComponent<AIJumpBehaviour>();
-        // }
-        // if (character.GetComponent<AIWeaponBehaviour>() == null)
-        // {
-        //   character.gameObject.AddComponent<AIWeaponBehaviour>();
-        // }
-
         Aggro _aggro = (character.GetComponent<Aggro>() == null) ? character.gameObject.AddComponent<Aggro>() : character.GetComponent<Aggro>();
 
         _aggro.target1 = character.transform;
@@ -211,6 +177,11 @@ namespace RFG
         if (character.GetComponent<Knockback>() == null)
         {
           character.gameObject.AddComponent<Knockback>();
+        }
+
+        if (character.GetComponent<EquipmentSet>() == null)
+        {
+          character.gameObject.AddComponent<EquipmentSet>();
         }
 
       }

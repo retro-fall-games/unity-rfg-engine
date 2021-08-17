@@ -11,6 +11,10 @@ namespace Game
     public Character player;
     public Character boss;
 
+    [Header("Movement Paths")]
+    public MovementPath playerMovementPath;
+    public MovementPath bossMovementPath;
+
     public SpriteRenderer sword;
     public Sprite emptySword;
 
@@ -23,48 +27,43 @@ namespace Game
     private IEnumerator Cutscene()
     {
       // Loading
-      // MovementPath playerMovementPath = player.FindBehaviour<AIMovementPathBehaviour>().movementPath;
-      // MovementPath bossMovementPath = boss.FindBehaviour<AIMovementPathBehaviour>().movementPath;
-      // yield return new WaitUntil(() => Dialog.Instance != null);
-      // Dialog.Instance.ClearAllSpeakers();
+      yield return new WaitUntil(() => Dialog.Instance != null);
+      Dialog.Instance.ClearAllSpeakers();
 
       // // Player starts the movement path
-      // player.AIState.ChangeState(AIStates.MovementPath);
-      // yield return new WaitUntil(() => playerMovementPath.ReachedEnd);
-      // player.AIState.ChangeState(AIStates.Idle);
+      player.AIState.ChangeState(typeof(AIMovementPathState));
+      yield return new WaitUntil(() => playerMovementPath.ReachedEnd);
 
       // // Player Talks
-      // yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "Finally, I found the sword of light", 1.5f);
-      // yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "Now I can save the village from the darkness", 1.5f);
+      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "Finally, I found the sword of light", 1.5f);
+      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "Now I can save the village from the darkness", 1.5f);
 
       // // Boss starts the movement path
-      // boss.AIState.ChangeState(AIStates.MovementPath);
-      // yield return new WaitUntil(() => bossMovementPath.ReachedEnd);
-      // boss.AIState.ChangeState(AIStates.Idle);
+      boss.AIState.ChangeState(typeof(AIMovementPathState));
+      yield return new WaitUntil(() => bossMovementPath.ReachedEnd);
 
       // // Boss Talks
-      // yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker2, "Ha ha ha ha ha ....", 1.5f);
-      // yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker2, "Thanks for finding this sword for me", 1.5f);
-      // sword.sprite = emptySword;
-      // yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker2, "You should probably get back to your village", 1.5f);
-      // yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker2, "Now there is no more meaning", 1.5f);
-      // bossMovementPath.Reverse();
-      // bossMovementPath.Reset();
-      // boss.AIState.ChangeState(AIStates.MovementPath);
-      // yield return new WaitUntil(() => bossMovementPath.ReachedEnd);
-      // boss.AIState.ChangeState(AIStates.Idle);
+      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker2, "Ha ha ha ha ha ....", 1.5f);
+      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker2, "Thanks for finding this sword for me", 1.5f);
+      sword.sprite = emptySword;
+      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker2, "You should probably get back to your village", 1.5f);
+      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker2, "Now there is no more meaning", 1.5f);
+      bossMovementPath.Reverse();
+      bossMovementPath.Reset();
+      boss.AIState.ChangeState(typeof(AIMovementPathState));
+      yield return new WaitUntil(() => bossMovementPath.ReachedEnd);
 
       // // Player Talks
-      // yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "I have come too far to fail", 1.5f);
-      // yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "I will fight the evil", 1.5f);
-      // yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "Retrieve the sword of light", 1.5f);
-      // yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "And save the village", 1.5f);
+      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "I have come too far to fail", 1.5f);
+      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "I will fight the evil", 1.5f);
+      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "Retrieve the sword of light", 1.5f);
+      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "And save the village", 1.5f);
 
-      // yield return new WaitForSeconds(2f);
+      yield return new WaitForSeconds(2f);
 
       // // Stop everything and go play the game
       // SoundManager.Instance.StopAll(true);
-      yield return new WaitForSeconds(4f);
+      yield return new WaitForSeconds(3f);
       SceneManager.Instance.LoadScene("Level1");
     }
 

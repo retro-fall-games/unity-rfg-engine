@@ -50,10 +50,6 @@ namespace RFG
         HandleAmountOfDashesLeft(ctx);
       }
 
-      public override void LateProcess(CharacterAbilityController.AbilityContext ctx)
-      {
-      }
-
       public override void OnButtonStarted(InputAction.CallbackContext inputCtx, CharacterAbilityController.AbilityContext ctx)
       {
         StartDash(ctx);
@@ -100,7 +96,7 @@ namespace RFG
 
       private void ComputerDashDirection(CharacterAbilityController.AbilityContext ctx)
       {
-        aim.PrimaryMovement = ctx.input.Movement.ReadValue<Vector2>();
+        aim.PrimaryMovement = ctx.input.PrimaryMovement;
         aim.CurrentPosition = ctx.transform.position;
         _dashDirection = aim.GetCurrentAim();
 

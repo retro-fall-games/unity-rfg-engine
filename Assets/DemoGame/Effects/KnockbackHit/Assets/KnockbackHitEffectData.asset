@@ -17,6 +17,6 @@ MonoBehaviour:
   SoundEffects:
   - {fileID: 11400000, guid: d0dc0102f6a6fb848bd530137d9fbb3d, type: 2}
   SpawnEffects: []
-  CameraShakeIntensity: 1
-  CameraShakeTime: 1
+  CameraShakeIntensity: 0.1
+  CameraShakeTime: 0.1
   CameraShakeFade: 1

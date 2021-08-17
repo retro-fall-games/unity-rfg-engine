@@ -11,6 +11,7 @@ namespace RFG
       public override Type Execute(CharacterStateController.CharacterStateContext ctx)
       {
         ctx.character.Abilities?.Process();
+        ctx.character.Behaviours?.Process();
         return null;
       }
     }

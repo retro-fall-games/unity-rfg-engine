@@ -14,6 +14,7 @@ namespace RFG
     public float SpawnSpeed = 0f;
     public int SpawnLimit = 10;
     public bool Separately = false;
+    public bool SpawnFirstOnAggro = false;
 
     [HideInInspector]
     private Aggro _aggro;
@@ -34,22 +35,25 @@ namespace RFG
         return;
       }
 
-      if (!_canSpawn)
+      if (_aggro.HasAggro && (Separately && _currentInstance == null || !_currentInstance.gameObject.activeSelf))
       {
-        _spawnTimeElapsed += Time.deltaTime;
-        if (_spawnTimeElapsed >= SpawnSpeed)
+        if (!_canSpawn)
         {
-          _spawnTimeElapsed = 0;
-          _canSpawn = true;
-
+          _spawnTimeElapsed += Time.deltaTime;
+          if (_spawnTimeElapsed >= SpawnSpeed)
+          {
+            _spawnTimeElapsed = 0;
+            _canSpawn = true;
+          }
+          else if (SpawnFirstOnAggro)
+          {
+            _canSpawn = true;
+            SpawnFirstOnAggro = false;
+          }
         }
-      }
-      else
-      {
-        if (_aggro.HasAggro && (Separately && (_currentInstance == null || !_currentInstance.gameObject.activeSelf)))
+        else
         {
           _canSpawn = false;
-          _spawnTimeElapsed = 0;
           Spawn();
         }
       }

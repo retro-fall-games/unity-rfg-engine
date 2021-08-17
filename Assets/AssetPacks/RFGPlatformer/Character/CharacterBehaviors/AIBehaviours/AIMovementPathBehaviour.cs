@@ -1,49 +1,46 @@
 using UnityEngine;
-using MyBox;
 
 namespace RFG
 {
   namespace Platformer
   {
-    [AddComponentMenu("RFG Platformer/Character/Behaviour/AI Movement Path Behaviour")]
+    [CreateAssetMenu(fileName = "New AI Movement Path Character Behaviour", menuName = "RFG/Platformer/Character/Character AI Behaviour/Movement Path")]
     public class AIMovementPathBehaviour : CharacterBehaviour
     {
       [Header("Settings")]
-      public float walkSpeed = 5f;
+      public float WalkSpeed = 5f;
 
-      public MovementPath movementPath;
-
-#if UNITY_EDITOR
-      [ButtonMethod]
-      private void AddMovementPath()
+      public override void InitValues(CharacterBehaviour behaviour)
       {
-        // this.movementPath = gameObject.AddComponent<MovementPath>();
+        AIMovementPathBehaviour b = (AIMovementPathBehaviour)behaviour;
+        WalkSpeed = b.WalkSpeed;
       }
-#endif
 
       public override void Process(CharacterBehaviourController.BehaviourContext ctx)
       {
-        // if (_character.AIState.CurrentState != AIStates.MovementPath || movementPath == null)
-        // {
-        //   _character.MovementState.ChangeState(MovementStates.Idle);
-        //   return;
-        // }
+        if (ctx.character.AIState.CurrentStateType != typeof(AIMovementPathState) || ctx.movementPath == null)
+        {
+          ctx.character.AIState.ChangeState(typeof(AIIdleState));
+          ctx.character.CharacterMovementState.ChangeState(typeof(IdleState));
+          return;
+        }
 
-        // _character.Controller.RotateTowards(movementPath.NextPath);
-        // if (!movementPath.autoMove)
-        // {
-        //   movementPath.Move();
-        //   movementPath.CheckPath();
-        // }
+        ctx.character.Controller.RotateTowards(ctx.movementPath.NextPath);
+        if (!ctx.movementPath.autoMove)
+        {
+          ctx.movementPath.Move();
+          ctx.movementPath.CheckPath();
+        }
 
-        // if (movementPath.state == MovementPath.State.OneWay && movementPath.ReachedEnd)
-        // {
-        //   _character.MovementState.ChangeState(MovementStates.Idle);
-        // }
-        // else
-        // {
-        //   _character.MovementState.ChangeState(MovementStates.Walking);
-        // }
+        if (ctx.movementPath.state == MovementPath.State.OneWay && ctx.movementPath.ReachedEnd)
+        {
+          ctx.character.AIState.ChangeState(typeof(AIIdleState));
+          ctx.character.CharacterMovementState.ChangeState(typeof(IdleState));
+        }
+        else
+        {
+          ctx.character.CharacterMovementState.ChangeState(typeof(WalkingState));
+        }
 
       }
 

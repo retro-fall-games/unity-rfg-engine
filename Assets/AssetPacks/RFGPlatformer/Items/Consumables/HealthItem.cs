@@ -12,10 +12,15 @@ namespace RFG
 
       public override void Consume(Inventory inventory)
       {
-        Character character = inventory.GetComponent<Character>();
-        Debug.Log("You used health: " + HealthToAdd);
-        // Find Health
-        // Add Health
+        CharacterBehaviourController behaviour = inventory.GetComponent<CharacterBehaviourController>();
+        if (behaviour != null)
+        {
+          HealthBehaviour health = behaviour.FindBehavior<HealthBehaviour>();
+          if (health != null)
+          {
+            health.AddHealth(HealthToAdd);
+          }
+        }
       }
     }
   }

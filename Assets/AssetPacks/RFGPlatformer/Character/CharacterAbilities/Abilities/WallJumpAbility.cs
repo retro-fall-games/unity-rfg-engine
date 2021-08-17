@@ -29,7 +29,7 @@ namespace RFG
         ctx.character.CharacterMovementState.ChangeState(typeof(WallJumpingState));
         ctx.character.Controller.SlowFall(0f);
 
-        Vector2 _movementVector = ctx.input.Movement.ReadValue<Vector2>();
+        Vector2 _movementVector = ctx.input.PrimaryMovement;
         float _horizontalInput = _movementVector.x;
         bool isClingingLeft = ctx.character.Controller.State.IsCollidingLeft && _horizontalInput <= -Threshold;
         bool isClingingRight = ctx.character.Controller.State.IsCollidingRight && _horizontalInput >= Threshold;

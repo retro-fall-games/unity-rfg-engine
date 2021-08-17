@@ -25,7 +25,7 @@ namespace RFG
           return;
         }
 
-        Vector2 _movementVector = ctx.input.Movement.ReadValue<Vector2>();
+        Vector2 _movementVector = ctx.input.PrimaryMovement;
 
         float _horizontalInput = _movementVector.x;
         float _verticalInput = _movementVector.y;

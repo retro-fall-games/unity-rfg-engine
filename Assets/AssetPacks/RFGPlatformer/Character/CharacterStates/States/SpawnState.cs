@@ -15,7 +15,7 @@ namespace RFG
         CharacterBehaviourController controller = ctx.character.gameObject.GetComponent<CharacterBehaviourController>();
         if (controller != null)
         {
-          NewHealthBehaviour health = controller.FindBehavior<NewHealthBehaviour>();
+          HealthBehaviour health = controller.FindBehavior<HealthBehaviour>();
           if (health != null)
           {
             health.Reset();

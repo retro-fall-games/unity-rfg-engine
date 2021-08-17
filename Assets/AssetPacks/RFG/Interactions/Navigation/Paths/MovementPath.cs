@@ -18,7 +18,23 @@ namespace RFG
     public Transform[] paths;
     public bool ReachedEnd { get; private set; }
     public bool ReachedStart { get; private set; }
-    public Transform NextPath { get { return paths[_nextIndex]; } }
+    public Transform NextPath
+    {
+      get
+      {
+        Transform nextPath = paths[_nextIndex];
+        Vector2 nextPostion = nextPath.position;
+        if (LockY)
+        {
+          nextPostion.y = _transform.position.y;
+        }
+        nextPath.position = nextPostion;
+        return nextPath;
+      }
+    }
+
+    [Header("Constraints")]
+    public bool LockY;
 
     [HideInInspector]
     private int _nextIndex = 0;

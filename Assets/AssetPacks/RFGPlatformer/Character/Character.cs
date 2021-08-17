@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,41 +6,7 @@ namespace RFG
 {
   namespace Platformer
   {
-
     public enum CharacterType { Player, AI }
-
-    public enum MovementState
-    {
-      Idle,
-      Walking,
-      Running,
-      Falling,
-      Jumping,
-      WallJumping,
-      WallClinging,
-      Dashing,
-      Knockback
-    }
-
-    public enum AIState
-    {
-      Idle,
-      Wandering,
-      MovementPath,
-      Attacking
-    }
-
-    public enum AIMovementState
-    {
-      Idle,
-      WalkingLeft,
-      WalkingRight,
-      RunningLeft,
-      RunningRight,
-      JumpingLeft,
-      JumpingRight,
-    }
-
     [AddComponentMenu("RFG/Platformer/Character/Character")]
     public class Character : MonoBehaviour, IPooledObject
     {
@@ -52,18 +17,21 @@ namespace RFG
       [HideInInspector]
       public CharacterStateController CharacterState => _characterState;
       public CharacterMovementStateController CharacterMovementState => _movementState;
-      public MovementState MovementState => _oldMovementState;
       public CharacterController2D Controller => _controller;
       public CharacterAbilityController Abilities => _abilities;
+      public CharacterBehaviourController Behaviours => _behaviours;
       public CharacterInputController Input => _input;
-
-      private MovementState _oldMovementState;
+      public CharacterAIStateController AIState => _aiState;
+      public CharacterAIMovementStateController AIMovementState => _aiMovementState;
 
       private CharacterStateController _characterState;
       private CharacterMovementStateController _movementState;
       private CharacterController2D _controller;
       private CharacterAbilityController _abilities;
+      private CharacterBehaviourController _behaviours;
       private CharacterInputController _input;
+      private CharacterAIStateController _aiState;
+      private CharacterAIMovementStateController _aiMovementState;
       private Dictionary<int, LevelPortal> _levelPortals;
 
       private void Awake()
@@ -72,11 +40,17 @@ namespace RFG
         _movementState = GetComponent<CharacterMovementStateController>();
         _controller = GetComponent<CharacterController2D>();
         _abilities = GetComponent<CharacterAbilityController>();
+        _behaviours = GetComponent<CharacterBehaviourController>();
         _input = GetComponent<CharacterInputController>();
 
         if (CharacterType == CharacterType.Player)
         {
           CalculatePlayerSpawnAt();
+        }
+        else
+        {
+          _aiState = GetComponent<CharacterAIStateController>();
+          _aiMovementState = GetComponent<CharacterAIMovementStateController>();
         }
       }
 

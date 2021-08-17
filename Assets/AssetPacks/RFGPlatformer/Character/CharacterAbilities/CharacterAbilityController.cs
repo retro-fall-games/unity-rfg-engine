@@ -24,6 +24,7 @@ namespace RFG
         public Transform transform;
         public Character character;
         public CharacterInputController input;
+        public EquipmentSet equipmentSet;
       }
 
       [Header("Settings")]
@@ -42,6 +43,7 @@ namespace RFG
         _abilityContext.transform = transform;
         _abilityContext.character = GetComponent<Character>();
         _abilityContext.input = GetComponent<CharacterInputController>();
+        _abilityContext.equipmentSet = GetComponent<EquipmentSet>();
         if (Abilities == null)
         {
           Abilities = new List<CharacterAbility>();

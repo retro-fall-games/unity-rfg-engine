@@ -8,7 +8,7 @@ namespace Game
   public class HUDHealth : MonoBehaviour
   {
     [Header("Settings")]
-    public NewHealthBehaviour HealthBehaviour;
+    public HealthBehaviour HealthBehaviour;
     public int HeartSteps = 5;
     public GameObject[] hearts;
 
@@ -50,29 +50,29 @@ namespace Game
     {
       CalculateMaxHearts(maxHealth);
 
-      float heartHealthStepPercent = (maxHealth / _maxHearts) / 100;
-      // 25 / 5 / 100 = .05;
-
-      float currentHealthPercent = currentHealth / maxHealth;
-      // 10 / 25 = .4
-
-      float heartHealth = 1;
-      for (int i = _maxHearts - 1; i >= 0; i--)
+      int startingIndex = 0;
+      for (int i = 0; i < _maxHearts; i++)
       {
         SpriteSwitcher heart = _spriteSwitchers[i];
         int heartIndex = 0;
-        for (int j = 0; j < HeartSteps; j++)
+        int endingIndex = startingIndex + HeartSteps + 1;
+        for (int j = startingIndex; j < endingIndex; j++)
         {
-          if (currentHealthPercent < heartHealth)
+          startingIndex++;
+          if (currentHealth > j)
           {
-            heartIndex = j;
-            heartHealth -= heartHealthStepPercent;
+            heartIndex++;
             continue;
           }
           else
           {
             break;
           }
+        }
+        startingIndex--;
+        if (heartIndex > HeartSteps)
+        {
+          heartIndex = HeartSteps;
         }
         heart.SetImageAtIndex(heartIndex);
       }

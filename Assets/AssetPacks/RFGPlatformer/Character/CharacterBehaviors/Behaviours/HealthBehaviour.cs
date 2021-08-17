@@ -6,7 +6,7 @@ namespace RFG
   namespace Platformer
   {
     [CreateAssetMenu(fileName = "New Health Character Behaviour", menuName = "RFG/Platformer/Character/Character Behaviour/Health")]
-    public class NewHealthBehaviour : CharacterBehaviour
+    public class HealthBehaviour : CharacterBehaviour
     {
       [Header("Settings")]
       public float Health = 100f;
@@ -21,7 +21,7 @@ namespace RFG
 
       public override void InitValues(CharacterBehaviour behaviour)
       {
-        NewHealthBehaviour health = (NewHealthBehaviour)behaviour;
+        HealthBehaviour health = (HealthBehaviour)behaviour;
         Health = health.Health;
         MaxHealth = health.MaxHealth;
       }

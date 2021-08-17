@@ -4,91 +4,109 @@ namespace RFG
 {
   namespace Platformer
   {
-    [AddComponentMenu("RFG Engine/Character/Behaviour/AI Brain Behaviour")]
+    [CreateAssetMenu(fileName = "New AI Brain Character Behaviour", menuName = "RFG/Platformer/Character/Character AI Behaviour/Brain")]
     public class AIBrainBehaviour : CharacterBehaviour
     {
       [Header("Settings")]
-      public float decisionSpeed = 3f;
-      public int decisionOffset = 10;
+      public float DecisionSpeed = 3f;
+      public int DecisionOffset = 10;
       private float _decisionTimeElapsed = 0f;
-      private AIWeaponBehaviour _weaponBehavior;
 
-      public override void Init(CharacterBehaviourController.BehaviourContext ctx)
+      public override void InitValues(CharacterBehaviour behaviour)
       {
-        // _weaponBehavior = _character.FindBehaviour<AIWeaponBehaviour>();
+        AIBrainBehaviour b = (AIBrainBehaviour)behaviour;
+        DecisionSpeed = b.DecisionSpeed;
+        DecisionOffset = b.DecisionOffset;
       }
 
       public override void Process(CharacterBehaviourController.BehaviourContext ctx)
       {
         _decisionTimeElapsed += Time.deltaTime;
-        if (_decisionTimeElapsed >= decisionSpeed)
+        if (_decisionTimeElapsed >= DecisionSpeed)
         {
           _decisionTimeElapsed = 0;
-          MakeDecision();
+          MakeDecision(ctx);
         }
       }
 
-      public void MakeDecision()
+      public void MakeDecision(CharacterBehaviourController.BehaviourContext ctx)
       {
-        // if (_character.AIState.CurrentState == AIStates.Wandering)
-        // {
-        //   int wanderingDecision = DecisionTree(1000, 500, 100 + decisionOffset);
-        //   switch (wanderingDecision)
-        //   {
-        //     case -1:
-        //       _character.AIMovementState.ChangeState(AIMovementStates.WalkingLeft);
-        //       break;
-        //     case 1:
-        //       _character.AIMovementState.ChangeState(AIMovementStates.WalkingRight);
-        //       break;
-        //     case 0:
-        //     default:
-        //       _character.AIMovementState.ChangeState(AIMovementStates.Idle);
-        //       break;
-        //   }
+        if (ctx.character.AIState.CurrentStateType == typeof(AIIdleState))
+        {
+          int idleDecision = DecisionTree(1000, 500, 100 + DecisionOffset);
+          switch (idleDecision)
+          {
+            case -1:
+              ctx.character.AIState.ChangeState(typeof(AIWanderingState));
+              break;
+            case 1:
+              ctx.character.AIState.ChangeState(typeof(AIIdleState));
+              break;
+            case 0:
+            default:
+              ctx.character.AIState.ChangeState(typeof(AIIdleState));
+              break;
+          }
+        }
+        else if (ctx.character.AIState.CurrentStateType == typeof(AIWanderingState))
+        {
+          int wanderingDecision = DecisionTree(1000, 500, 100 + DecisionOffset);
+          switch (wanderingDecision)
+          {
+            case -1:
+              ctx.character.AIMovementState.ChangeState(typeof(AIWalkingLeftState));
+              break;
+            case 1:
+              ctx.character.AIMovementState.ChangeState(typeof(AIWalkingRightState));
+              break;
+            case 0:
+            default:
+              ctx.character.AIMovementState.ChangeState(typeof(AIIdleState));
+              break;
+          }
 
-        //   int jumpDecision = DecisionTree(1000, 500, 100 + decisionOffset);
-        //   switch (jumpDecision)
-        //   {
-        //     case -1:
-        //       _character.AIMovementState.ChangeState(AIMovementStates.JumpingLeft);
-        //       break;
-        //     case 1:
-        //       _character.AIMovementState.ChangeState(AIMovementStates.JumpingRight);
-        //       break;
-        //     case 0:
-        //     default:
-        //       _character.AIMovementState.ChangeState(AIMovementStates.Idle);
-        //       break;
-        //   }
-        // }
-        // else if (_character.AIState.CurrentState == AIStates.Attacking)
-        // {
-        //   if (_weaponBehavior != null)
-        //   {
-        //     int weaponDecision = DecisionTree(1000, 500, 100 + decisionOffset);
-        //     WeaponItem weapon;
+          int jumpDecision = DecisionTree(1000, 500, 100 + DecisionOffset);
+          switch (jumpDecision)
+          {
+            case -1:
+              ctx.character.AIMovementState.ChangeState(typeof(AIJumpingLeftState));
+              break;
+            case 1:
+              ctx.character.AIMovementState.ChangeState(typeof(AIJumpingRightState));
+              break;
+            case 0:
+            default:
+              ctx.character.AIMovementState.ChangeState(typeof(AIIdleState));
+              break;
+          }
+        }
+        else if (ctx.character.AIState.CurrentStateType == typeof(AIAttackingState))
+        {
+          // if (_weaponBehavior != null)
+          // {
+          //   int weaponDecision = DecisionTree(1000, 500, 100 + decisionOffset);
+          //   WeaponItem weapon;
 
-        //     switch (weaponDecision)
-        //     {
-        //       case -1:
-        //         weapon = _weaponBehavior.PrimaryWeapon;
-        //         break;
-        //       case 1:
-        //         weapon = _weaponBehavior.SecondaryWeapon;
-        //         break;
-        //       case 0:
-        //       default:
-        //         weapon = _weaponBehavior.PrimaryWeapon;
-        //         break;
-        //     }
+          //   switch (weaponDecision)
+          //   {
+          //     case -1:
+          //       weapon = _weaponBehavior.PrimaryWeapon;
+          //       break;
+          //     case 1:
+          //       weapon = _weaponBehavior.SecondaryWeapon;
+          //       break;
+          //     case 0:
+          //     default:
+          //       weapon = _weaponBehavior.PrimaryWeapon;
+          //       break;
+          //   }
 
-        //     if (weapon != null && weapon.weaponFiringState == WeaponItem.WeaponFiringState.Off)
-        //     {
-        //       weapon.Fire();
-        //     }
-        //   }
-        // }
+          //   if (weapon != null && weapon.weaponFiringState == WeaponItem.WeaponFiringState.Off)
+          //   {
+          //     weapon.Fire();
+          //   }
+          // }
+        }
       }
 
       private int DecisionTree(int range, int weight, int offset = 0)

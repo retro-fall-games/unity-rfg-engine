@@ -4,7 +4,7 @@ namespace RFG
 {
   namespace Platformer
   {
-    [AddComponentMenu("RFG Engine/Character/Behaviour/AI Jump Behaviour")]
+    [CreateAssetMenu(fileName = "New AI Jump Character Behaviour", menuName = "RFG/Platformer/Character/Character AI Behaviour/Jump")]
     public class AIJumpBehaviour : CharacterBehaviour
     {
       public enum JumpRestrictions
@@ -15,29 +15,36 @@ namespace RFG
       }
 
       [Header("Jump Parameters")]
-      public float jumpHeight = 12f;
-      public float horizontalSpeed = 3f;
+      public float JumpHeight = 12f;
+      public float HorizontalSpeed = 3f;
 
       [Header("Jump Restrictions")]
-      public JumpRestrictions jumpRestrictions;
+      public JumpRestrictions Restrictions;
 
-      [Header("Audio FX")]
-      public AudioSource[] jumpAudio;
-      public AudioSource[] landAudio;
+      [Header("Effects")]
+      public string[] JumpEffects;
+      public string[] LandEffects;
+
+      public override void InitValues(CharacterBehaviour behaviour)
+      {
+        AIJumpBehaviour b = (AIJumpBehaviour)behaviour;
+        JumpHeight = b.JumpHeight;
+        HorizontalSpeed = b.HorizontalSpeed;
+        Restrictions = b.Restrictions;
+        JumpEffects = b.JumpEffects;
+        LandEffects = b.LandEffects;
+      }
 
       public override void Process(CharacterBehaviourController.BehaviourContext ctx)
       {
         if (ctx.character.Controller.State.JustGotGrounded)
         {
-          if (landAudio != null && landAudio.Length > 0)
-          {
-            landAudio.PlayAll();
-          }
+          ctx.transform.SpawnFromPool("Effects", LandEffects);
         }
-        // if (_character.AIMovementState.CurrentState == AIMovementStates.JumpingLeft || _character.AIMovementState.CurrentState == AIMovementStates.JumpingRight)
-        // {
-        //   JumpStart();
-        // }
+        if (ctx.character.AIMovementState.CurrentStateType == typeof(AIJumpingLeftState) || ctx.character.AIMovementState.CurrentStateType == typeof(AIJumpingRightState))
+        {
+          JumpStart(ctx);
+        }
       }
 
       public void JumpStart(CharacterBehaviourController.BehaviourContext ctx)
@@ -47,61 +54,58 @@ namespace RFG
           return;
         }
 
-        if (jumpAudio != null && jumpAudio.Length > 0)
+        ctx.transform.SpawnFromPool("Effects", JumpEffects);
+
+        if (ctx.character.AIMovementState.CurrentStateType == typeof(AIJumpingLeftState) && ctx.character.Controller.State.IsFacingRight)
         {
-          jumpAudio.PlayAll();
+          ctx.character.Controller.Flip();
+        }
+        else if (ctx.character.AIMovementState.CurrentStateType == typeof(AIJumpingRightState) && !ctx.character.Controller.State.IsFacingRight)
+        {
+          ctx.character.Controller.Flip();
         }
 
-        // if (_character.AIMovementState.CurrentState == AIMovementStates.JumpingLeft && _character.Controller.State.IsFacingRight)
-        // {
-        //   _character.Controller.Flip();
-        // }
-        // else if (_character.AIMovementState.CurrentState == AIMovementStates.JumpingRight && !_character.Controller.State.IsFacingRight)
-        // {
-        //   _character.Controller.Flip();
-        // }
+        // Jump
+        ctx.character.Controller.CollisionsOnStairs(true);
+        ctx.character.Controller.State.IsFalling = false;
+        ctx.character.Controller.State.IsJumping = true;
+        ctx.character.CharacterMovementState.ChangeState(typeof(JumpingState));
+        ctx.character.Controller.AddVerticalForce(Mathf.Sqrt(2f * JumpHeight * Mathf.Abs(ctx.character.Controller.Parameters.Gravity)));
 
-        // // Jump
-        // _character.Controller.CollisionsOnStairs(true);
-        // _character.Controller.State.IsFalling = false;
-        // _character.Controller.State.IsJumping = true;
-        // _character.MovementState.ChangeState(MovementStates.Jumping);
-        // _character.Controller.AddVerticalForce(Mathf.Sqrt(2f * jumpHeight * Mathf.Abs(_character.Controller.Parameters.Gravity)));
+        // Move horizontally
+        float _normalizedHorizontalSpeed = 0f;
+        if (ctx.character.Controller.State.IsFacingRight)
+        {
+          _normalizedHorizontalSpeed = 1f;
+        }
+        else
+        {
+          _normalizedHorizontalSpeed = -1f;
+        }
 
-        // // Move horizontally
-        // float _normalizedHorizontalSpeed = 0f;
-        // if (_character.Controller.State.IsFacingRight)
-        // {
-        //   _normalizedHorizontalSpeed = 1f;
-        // }
-        // else
-        // {
-        //   _normalizedHorizontalSpeed = -1f;
-        // }
+        float movementFactor = ctx.character.Controller.Parameters.AirSpeedFactor;
+        float movementSpeed = _normalizedHorizontalSpeed * HorizontalSpeed * ctx.character.Controller.Parameters.SpeedFactor;
+        float horizontalMovementForce = Mathf.Lerp(ctx.character.Controller.Velocity.x, movementSpeed, Time.deltaTime * movementFactor);
 
-        // float movementFactor = _character.Controller.Parameters.AirSpeedFactor;
-        // float movementSpeed = _normalizedHorizontalSpeed * horizontalSpeed * _character.Controller.Parameters.SpeedFactor;
-        // float horizontalMovementForce = Mathf.Lerp(_character.Controller.Velocity.x, movementSpeed, Time.deltaTime * movementFactor);
+        ctx.character.Controller.SetHorizontalForce(horizontalMovementForce);
 
-        // _character.Controller.SetHorizontalForce(horizontalMovementForce);
-
-        // JumpStop();
+        JumpStop(ctx);
       }
 
-      private void JumpStop()
+      private void JumpStop(CharacterBehaviourController.BehaviourContext ctx)
       {
-        // _character.Controller.State.IsFalling = true;
-        // _character.MovementState.ChangeState(MovementStates.Falling);
-        // _character.AIMovementState.RestorePreviousState();
+        ctx.character.Controller.State.IsFalling = true;
+        ctx.character.CharacterMovementState.ChangeState(typeof(FallingState));
+        ctx.character.AIMovementState.RestorePreviousState();
       }
 
       private bool CanJump(CharacterBehaviourController.BehaviourContext ctx)
       {
-        if (jumpRestrictions == JumpRestrictions.CanJumpAnywhere)
+        if (Restrictions == JumpRestrictions.CanJumpAnywhere)
         {
           return true;
         }
-        if (jumpRestrictions == JumpRestrictions.CanJumpOnGround && ctx.character.Controller.State.IsGrounded)
+        if (Restrictions == JumpRestrictions.CanJumpOnGround && ctx.character.Controller.State.IsGrounded)
         {
           return true;
         }

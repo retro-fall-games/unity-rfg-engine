@@ -1200,7 +1200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HealthBehaviour: {fileID: 11400000, guid: 72f39e1e178803b4ebeef720fe4fbe13, type: 2}
-  HeartSteps: 5
+  HeartSteps: 4
   hearts:
   - {fileID: 5405821259711367094}
   - {fileID: 721426577129494009}
@@ -1432,11 +1432,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 7107508412977418053, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
-  - {fileID: 4409817262345531807, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
-  - {fileID: -6632522883082577772, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
-  - {fileID: 6926100132977683885, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
   - {fileID: 711063480509859802, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: 6926100132977683885, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: -6632522883082577772, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: 4409817262345531807, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: 7107508412977418053, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
   startingIndex: 0
 --- !u!1 &721426577197381948
 GameObject:
@@ -1527,11 +1527,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 7107508412977418053, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
-  - {fileID: 4409817262345531807, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
-  - {fileID: -6632522883082577772, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
-  - {fileID: 6926100132977683885, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
   - {fileID: 711063480509859802, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: 6926100132977683885, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: -6632522883082577772, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: 4409817262345531807, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: 7107508412977418053, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
   startingIndex: 0
 --- !u!1 &721426577300345409
 GameObject:
@@ -2193,11 +2193,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 7107508412977418053, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
-  - {fileID: 4409817262345531807, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
-  - {fileID: -6632522883082577772, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
-  - {fileID: 6926100132977683885, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
   - {fileID: 711063480509859802, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: 6926100132977683885, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: -6632522883082577772, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: 4409817262345531807, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: 7107508412977418053, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
   startingIndex: 0
 --- !u!1 &721426577472252613
 GameObject:
@@ -3502,11 +3502,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 7107508412977418053, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
-  - {fileID: 4409817262345531807, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
-  - {fileID: -6632522883082577772, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
-  - {fileID: 6926100132977683885, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
   - {fileID: 711063480509859802, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: 6926100132977683885, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: -6632522883082577772, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: 4409817262345531807, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: 7107508412977418053, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
   startingIndex: 0
 --- !u!1 &721426577850636950
 GameObject:
@@ -3774,11 +3774,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 7107508412977418053, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
-  - {fileID: 4409817262345531807, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
-  - {fileID: -6632522883082577772, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
-  - {fileID: 6926100132977683885, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
   - {fileID: 711063480509859802, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: 6926100132977683885, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: -6632522883082577772, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: 4409817262345531807, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
+  - {fileID: 7107508412977418053, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
   startingIndex: 0
 --- !u!1 &6743699774229885346
 GameObject:

@@ -15,7 +15,7 @@ namespace RFG
 
       public override void Process(CharacterAbilityController.AbilityContext ctx)
       {
-        Vector2 movementVector = ctx.input.Movement.ReadValue<Vector2>();
+        Vector2 movementVector = ctx.input.PrimaryMovement;
         float horizontalSpeed = movementVector.x;
         // float _verticalInput = inputMovement.y;
 
@@ -35,7 +35,7 @@ namespace RFG
         }
 
         // If the movement state is dashing return so it wont get set back to idle
-        if (ctx.character.MovementState == MovementState.Dashing)
+        if (ctx.character.CharacterMovementState.CurrentStateType == typeof(DashingState))
         {
           return;
         }
