@@ -43,20 +43,20 @@ namespace RFG
         _behaviours = GetComponent<CharacterBehaviourController>();
         _input = GetComponent<CharacterInputController>();
 
-        if (CharacterType == CharacterType.Player)
-        {
-          CalculatePlayerSpawnAt();
-        }
-        else
+        if (CharacterType != CharacterType.Player)
         {
           _aiState = GetComponent<CharacterAIStateController>();
           _aiMovementState = GetComponent<CharacterAIMovementStateController>();
         }
-      }
-
-      private void Start()
-      {
-        OnObjectSpawn();
+        else
+        {
+          _levelPortals = new Dictionary<int, LevelPortal>();
+          LevelPortal[] levelPortals = GameObject.FindObjectsOfType<LevelPortal>();
+          foreach (LevelPortal portal in levelPortals)
+          {
+            _levelPortals.Add(portal.Index, portal);
+          }
+        }
       }
 
       public void OnObjectSpawn(params object[] objects)
@@ -69,26 +69,17 @@ namespace RFG
       {
         SpawnAt = transform;
 
-        _levelPortals = new Dictionary<int, LevelPortal>();
-        LevelPortal _levelPortal = GameObject.FindObjectOfType<LevelPortal>();
-        if (_levelPortal)
-        {
-          int index = _levelPortal.index;
-          _levelPortals.Add(index, _levelPortal);
-        }
-
         Vector3 spawnAt = CheckpointManager.Instance.CurrentCheckpoint.position;
 
         // If coming from a level portal the warp the player to that portal
         int levelPortalTo = PlayerPrefs.GetInt("levelPortalTo", -1);
         if (levelPortalTo != -1)
         {
+          PlayerPrefs.SetInt("levelPortalTo", -1);
           if (levelPortalTo >= 0 && levelPortalTo <= _levelPortals.Count)
           {
             LevelPortal levelPortal = _levelPortals[levelPortalTo];
-            levelPortal.JustWarped = true;
-            spawnAt = levelPortal.transform.position + levelPortal.spawnOffset;
-            PlayerPrefs.SetInt("levelPortalTo", -1);
+            spawnAt = levelPortal.transform.position + levelPortal.SpawnOffset;
           }
         }
 

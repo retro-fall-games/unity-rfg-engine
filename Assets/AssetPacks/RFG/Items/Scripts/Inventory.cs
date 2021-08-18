@@ -4,6 +4,13 @@ using UnityEngine;
 
 namespace RFG
 {
+
+  [Serializable]
+  public class InventorySave
+  {
+    public ItemSave[] Items;
+  }
+
   public class Inventory : MonoBehaviour
   {
     [Header("Settings")]
@@ -86,6 +93,32 @@ namespace RFG
         }
       }
       return list;
+    }
+
+    public InventorySave GetSave()
+    {
+      InventorySave save = new InventorySave();
+      List<ItemSave> itemsSaves = new List<ItemSave>();
+      foreach (KeyValuePair<string, Item> keyValuePair in Items)
+      {
+        itemsSaves.Add(keyValuePair.Value.GetSave());
+      }
+      save.Items = itemsSaves.ToArray();
+      return save;
+    }
+
+    public void RestoreSave(InventorySave save)
+    {
+      List<string> guids = new List<string>();
+      foreach (ItemSave itemSave in save.Items)
+      {
+        guids.Add(itemSave.Guid);
+      }
+      List<Item> list = guids.ToArray().FindObjects<Item>();
+      foreach (Item item in list)
+      {
+        Items.Add(item.Id, item);
+      }
     }
 
   }

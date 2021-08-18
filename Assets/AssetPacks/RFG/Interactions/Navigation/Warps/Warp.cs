@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace RFG
 {
-  [AddComponentMenu("RFG Engine/Navigation/Warps/Warp")]
+  [AddComponentMenu("RFG/Navigation/Warps/Warp")]
   [RequireComponent(typeof(BoxCollider2D))]
   public class Warp : MonoBehaviour
   {

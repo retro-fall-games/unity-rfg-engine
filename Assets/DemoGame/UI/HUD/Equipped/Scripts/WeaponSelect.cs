@@ -15,7 +15,7 @@ namespace Game
     public Inventory Inventory;
     public EquipmentSet EquipmentSet;
 
-    private List<NewWeaponItem> _weapons;
+    private List<WeaponItem> _weapons;
 
     private void Awake()
     {
@@ -45,7 +45,7 @@ namespace Game
 
     private void OpenDialog()
     {
-      _weapons = Inventory.FindAll<NewWeaponItem>();
+      _weapons = Inventory.FindAll<WeaponItem>();
       // TODO - Need to filter out equipped items
       for (int i = 0; i < _weapons.Count; i++)
       {

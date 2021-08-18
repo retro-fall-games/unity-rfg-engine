@@ -6,7 +6,7 @@ namespace RFG
 {
   namespace Platformer
   {
-    [AddComponentMenu("RFG Engine/Projectiles/Projectile")]
+    [AddComponentMenu("RFG/Projectiles/Projectile")]
     public class Projectile : MonoBehaviour, IPooledObject
     {
       [Header("Settings")]
@@ -55,7 +55,7 @@ namespace RFG
       {
         yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Player") != null);
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player)
+        if (player != null)
         {
           target = player.transform;
         }

@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48756f01c0402244be63e6477a4e3d9, type: 3}
   m_Name: Profile0
   m_EditorClassIdentifier: 
-  id: 0
-  createdAt: 1
-  timePlayed: 0
-  level: Intro
+  Id: 1
+  CreatedAt: 0
+  StartedAt: 0
+  TimePlayed: 0
+  Level: Level1
+  CheckpointIndex: 0
+  Abilities: []

@@ -46,9 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Category: Characters
   Tag: Robot
-  SpawnSpeed: 0
+  SpawnSpeed: 5
   SpawnLimit: 10
   Separately: 1
+  SpawnFirstOnAggro: 1
 --- !u!114 &8098398653585821233
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,9 +10,12 @@ namespace RFG
 
     [Header("Checkpoint Config")]
     public int StartingCheckpoint = 0;
-    public int CurrentCheckpointIndex = 0;
+    public int CurrentCheckpointIndex { get; private set; }
     public bool OverrideStartingCheckpoint = false;
     public Transform CurrentCheckpoint => _currentCheckpoint;
+
+    [Header("Game Events")]
+    public GameEvent CheckpointEvent;
 
     [HideInInspector]
     private List<Transform> _checkpoints = new List<Transform>();
@@ -43,10 +46,11 @@ namespace RFG
 
     public void SetCurrentCheckpoint(int index)
     {
-      if (index < _checkpoints.Count)
+      if (index >= 0 && index < _checkpoints.Count)
       {
         CurrentCheckpointIndex = index;
         _currentCheckpoint = _checkpoints[CurrentCheckpointIndex];
+        CheckpointEvent?.Raise();
       }
     }
 

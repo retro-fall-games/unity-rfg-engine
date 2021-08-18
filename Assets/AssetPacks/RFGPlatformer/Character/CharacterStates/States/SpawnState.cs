@@ -21,7 +21,6 @@ namespace RFG
             health.Reset();
           }
         }
-
         ctx.character.CalculatePlayerSpawnAt();
         ctx.character.gameObject.SetActive(true);
         ctx.character.Controller.ResetVelocity();

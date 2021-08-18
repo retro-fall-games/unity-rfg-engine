@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
 namespace RFG
 {
-  [AddComponentMenu("RFG Engine/Utils/Cinemachine Shake")]
+  [AddComponentMenu("RFG/Utils/Cinemachine Shake")]
   public class CinemachineShake : Singleton<CinemachineShake>
   {
     private CinemachineVirtualCamera _camera;

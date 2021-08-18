@@ -3,6 +3,13 @@ using UnityEngine;
 
 namespace RFG
 {
+
+  [Serializable]
+  public class ItemSave
+  {
+    public string Guid;
+  }
+
   public abstract class Item : ScriptableObject, IItem
   {
     [Header("Item Settings")]
@@ -21,6 +28,13 @@ namespace RFG
       inventory.transform.SpawnFromPool("Effects", PickUpEffects, Quaternion.identity, new object[] { PickUpText });
       OnPickUp?.Invoke(inventory);
       return true;
+    }
+
+    public ItemSave GetSave()
+    {
+      ItemSave save = new ItemSave();
+      save.Guid = this.FindGuid();
+      return save;
     }
   }
 }

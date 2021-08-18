@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -15,26 +14,26 @@ namespace Game
     public TMP_Text SecondaryAmmo;
     public EquipmentSet EquipmentSet;
 
-    private void OnEquipPrimaryWeapon(Weapon weapon)
+    private void OnEquipPrimaryWeapon(WeaponItem weapon)
     {
-      PrimaryEquipped.sprite = weapon.WeaponItem.EquipSprite;
+      PrimaryEquipped.sprite = weapon.EquipSprite;
       OnPrimaryAmmoChange(weapon.Ammo);
       weapon.OnAmmoChange += OnPrimaryAmmoChange;
     }
 
-    private void OnEquipSecondaryWeapon(Weapon weapon)
+    private void OnEquipSecondaryWeapon(WeaponItem weapon)
     {
-      SecondaryEquipped.sprite = weapon.WeaponItem.EquipSprite;
+      SecondaryEquipped.sprite = weapon.EquipSprite;
       OnSecondaryAmmoChange(weapon.Ammo);
       weapon.OnAmmoChange += OnSecondaryAmmoChange;
     }
 
-    private void OnUnequipPrimaryWeapon(Weapon weapon)
+    private void OnUnequipPrimaryWeapon(WeaponItem weapon)
     {
       weapon.OnAmmoChange -= OnPrimaryAmmoChange;
     }
 
-    private void OnUnequipSecondaryWeapon(Weapon weapon)
+    private void OnUnequipSecondaryWeapon(WeaponItem weapon)
     {
       weapon.OnAmmoChange -= OnSecondaryAmmoChange;
     }

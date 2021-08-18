@@ -10,13 +10,9 @@ namespace RFG
     public class Weapon : MonoBehaviour
     {
       [Header("Settings")]
-      public NewWeaponItem WeaponItem;
+      public WeaponItem WeaponItem;
       public Transform FirePoint;
       public EquipmentSet EquipmentSet;
-      public int Ammo;
-      public bool IsEquipped;
-      public bool IsInCooldown;
-      public Action<int> OnAmmoChange;
 
       [Header("States")]
       public WeaponState[] States;
@@ -25,11 +21,8 @@ namespace RFG
       public Type PreviousStateType { get; private set; }
       public Type CurrentStateType { get; private set; }
 
-      public bool CanFire { get { return (_canUse || !IsInCooldown) && Ammo > 0; } }
-      public bool IsFiring { get; private set; }
-
       [HideInInspector]
-      private bool _canUse;
+
       private float _fireRateElapsed;
       private float _cooldownElapsed;
       private float _gainAmmoOverTimeElapsed;
@@ -37,7 +30,7 @@ namespace RFG
 
       private void Awake()
       {
-        Ammo = WeaponItem.StartingAmmo;
+        WeaponItem.Ammo = WeaponItem.StartingAmmo;
         _states = new Dictionary<Type, WeaponState>();
         foreach (WeaponState state in States)
         {
@@ -52,7 +45,7 @@ namespace RFG
 
       private void Update()
       {
-        if (!IsEquipped)
+        if (!WeaponItem.IsEquipped)
         {
           return;
         }
@@ -95,7 +88,7 @@ namespace RFG
 
       private void LateUpdate()
       {
-        if (!IsEquipped)
+        if (!WeaponItem.IsEquipped)
         {
           return;
         }
@@ -103,91 +96,35 @@ namespace RFG
         if (_fireRateElapsed >= WeaponItem.FireRate)
         {
           _fireRateElapsed = 0;
-          _canUse = true;
+          WeaponItem.CanUse = true;
         }
 
-        if (Ammo <= 0)
+        if (WeaponItem.Ammo <= 0)
         {
           _cooldownElapsed += Time.deltaTime;
           if (_cooldownElapsed >= WeaponItem.Cooldown)
           {
             _cooldownElapsed = 0;
-            IsInCooldown = false;
+            WeaponItem.IsInCooldown = false;
           }
         }
 
-        if (CurrentStateType == typeof(WeaponIdleState) && !IsInCooldown)
+        if (CurrentStateType == typeof(WeaponIdleState) && !WeaponItem.IsInCooldown)
         {
           _gainAmmoOverTimeElapsed += Time.deltaTime;
           if (_gainAmmoOverTimeElapsed >= WeaponItem.GainAmmoOverTime)
           {
             _gainAmmoOverTimeElapsed = 0;
-            AddAmmo(WeaponItem.AmmoGain);
+            WeaponItem.AddAmmo(WeaponItem.AmmoGain);
           }
         }
-      }
-
-      public void Started()
-      {
-        if (!IsEquipped || !CanFire)
-        {
-          return;
-        }
-        if (WeaponItem.weaponType == NewWeaponItem.WeaponType.Chargable)
-        {
-          ChangeState(typeof(WeaponChargingState));
-          IsFiring = true;
-        }
-      }
-
-      public void Cancel()
-      {
-        if (!IsEquipped || !IsFiring)
-        {
-          return;
-        }
-        if (WeaponItem.weaponType == NewWeaponItem.WeaponType.Chargable)
-        {
-          ChangeState(typeof(WeaponIdleState));
-        }
-      }
-
-      public void Perform()
-      {
-        if (!IsEquipped || !CanFire || (WeaponItem.weaponType == NewWeaponItem.WeaponType.Chargable && !IsFiring))
-        {
-          return;
-        }
-        ChangeState(typeof(WeaponFiringState));
-        AddAmmo(-1);
-        _canUse = false;
-      }
-
-      private void AddAmmo(int amount)
-      {
-        Ammo += amount;
-        if (Ammo <= 0)
-        {
-          Ammo = 0;
-          IsInCooldown = true;
-        }
-        else if (Ammo >= WeaponItem.MaxAmmo)
-        {
-          Ammo = WeaponItem.MaxAmmo;
-        }
-        OnAmmoChange?.Invoke(Ammo);
-      }
-
-      private void RefillAmmo()
-      {
-        AddAmmo(WeaponItem.RefillAmmo);
       }
 
       private void OnPickUp(Inventory inventory)
       {
         if (inventory.InInventory(WeaponItem.Id))
         {
-          AddAmmo(WeaponItem.RefillAmmo);
+          WeaponItem.Refill();
         }
       }
 
@@ -196,18 +133,23 @@ namespace RFG
         if (EquipmentSet.PrimaryWeapon == null)
         {
           EquipmentSet.EquipPrimaryWeapon(WeaponItem);
-          IsEquipped = true;
+          WeaponItem.IsEquipped = true;
         }
-        else if (!EquipmentSet.PrimaryWeapon.WeaponItem.Equals(WeaponItem) && EquipmentSet.SecondaryWeapon == null)
+        else if (!EquipmentSet.PrimaryWeapon.Equals(WeaponItem) && EquipmentSet.SecondaryWeapon == null)
         {
           EquipmentSet.EquipSecondaryWeapon(WeaponItem);
-          IsEquipped = true;
+          WeaponItem.IsEquipped = true;
         }
       }
 
       private void OnUnequip(Inventory inventory)
       {
-        IsEquipped = false;
+        WeaponItem.IsEquipped = false;
+      }
+
+      private void OnStateChange(Type state)
+      {
+        ChangeState(state);
       }
 
       private void OnEnable()
@@ -215,6 +157,7 @@ namespace RFG
         WeaponItem.OnPickUp += OnPickUp;
         WeaponItem.OnEquip += OnEquip;
         WeaponItem.OnUnequip += OnUnequip;
+        WeaponItem.OnStateChange += OnStateChange;
       }
 
       private void OnDisable()
@@ -222,23 +165,9 @@ namespace RFG
         WeaponItem.OnPickUp -= OnPickUp;
         WeaponItem.OnEquip -= OnEquip;
         WeaponItem.OnUnequip -= OnUnequip;
+        WeaponItem.OnStateChange -= OnStateChange;
       }
 
-    }
-
-    public static class WeaponEx
-    {
-      public static Weapon FindByItem(this List<Weapon> weapons, NewWeaponItem item)
-      {
-        foreach (Weapon weapon in weapons)
-        {
-          if (weapon.WeaponItem.Equals(item))
-          {
-            return weapon;
-          }
-        }
-        return null;
-      }
     }
   }
 }

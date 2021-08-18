@@ -3,9 +3,9 @@ using UnityEngine;
 namespace RFG
 {
   [AddComponentMenu("RFG/Navigation/Checkpoints/Checkpoint")]
-  [RequireComponent(typeof(BoxCollider2D))]
   public class Checkpoint : MonoBehaviour
   {
+    [Header("Settings")]
     public int Index = 0;
 
     public void OnTriggerEnter2D(Collider2D col)

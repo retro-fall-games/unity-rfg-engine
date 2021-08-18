@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace RFG
 {
-  [AddComponentMenu("RFG Engine/Utils/Animation/Animation Curve Transform")]
+  [AddComponentMenu("RFG/Utils/Animation/Animation Curve Transform")]
   public class AnimationCurveTransform : MonoBehaviour
   {
 

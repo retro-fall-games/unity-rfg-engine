@@ -41,7 +41,7 @@ namespace RFG
     {
       yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Player") != null);
       GameObject player = GameObject.FindGameObjectWithTag("Player");
-      if (player)
+      if (player != null)
       {
         target = player.transform;
         transform.position = target.position;

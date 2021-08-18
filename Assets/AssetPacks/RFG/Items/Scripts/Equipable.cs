@@ -6,6 +6,7 @@ namespace RFG
   public abstract class Equipable : Consumable, IEquipable, IStorable
   {
     [Header("Equipable Settings")]
+    public bool IsEquipped = false;
     public bool EquipOnPickUp = false;
     public Sprite EquipSprite;
     public string EquipText;
@@ -28,25 +29,15 @@ namespace RFG
 
     public virtual void Equip(Inventory inventory)
     {
-      if (EquipEffects.Length > 0)
-      {
-        foreach (string effect in EquipEffects)
-        {
-          ObjectPoolManager.Instance.SpawnFromPool("Effects", effect, inventory.transform.position, Quaternion.identity, null, false, new object[] { EquipText });
-        }
-      }
+      IsEquipped = true;
+      inventory.transform.SpawnFromPool("Effects", EquipEffects, Quaternion.identity, new object[] { EquipText });
       OnEquip?.Invoke(inventory);
     }
 
     public virtual void Unequip(Inventory inventory)
     {
-      if (UnequipEffects.Length > 0)
-      {
-        foreach (string effect in UnequipEffects)
-        {
-          ObjectPoolManager.Instance.SpawnFromPool("Effects", effect, inventory.transform.position, Quaternion.identity, null, false, new object[] { UnequipText });
-        }
-      }
+      IsEquipped = false;
+      inventory.transform.SpawnFromPool("Effects", UnequipEffects, Quaternion.identity, new object[] { UnequipText });
       OnUnequip?.Invoke(inventory);
     }
 

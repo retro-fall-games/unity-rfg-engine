@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerKnockbackData
   m_EditorClassIdentifier: 
   Damage: 1
-  Velocity: {x: 10, y: 10}
+  Velocity: {x: 20, y: 10}
   LayerMask:
     serializedVersion: 2
     m_Bits: 256

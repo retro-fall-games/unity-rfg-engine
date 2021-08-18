@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace RFG
 {
-  [AddComponentMenu("RFG Engine/Navigation/Paths/Movement Path")]
+  [AddComponentMenu("RFG/Navigation/Paths/Movement Path")]
   public class MovementPath : MonoBehaviour
   {
     public enum State { Loop, PingPong, OneWay };

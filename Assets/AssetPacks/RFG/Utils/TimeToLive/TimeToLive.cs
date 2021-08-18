@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RFG
 {
-  [AddComponentMenu("RFG Engine/Utils/Time To Live")]
+  [AddComponentMenu("RFG/Utils/Time To Live")]
   public class TimeToLive : MonoBehaviour
   {
     [Header("Settings")]

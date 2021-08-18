@@ -12,6 +12,14 @@ namespace RFG
       public Vector2 GetKnockbackVelocity(Vector2 target1, Vector2 target2)
       {
         Vector2 dir = (target1 - target2).normalized;
+        if (dir.x > -KnockbackData.Threshold && dir.x < KnockbackData.Threshold)
+        {
+          dir.x = KnockbackData.Threshold;
+        }
+        if (dir.y > -KnockbackData.Threshold && dir.y < KnockbackData.Threshold)
+        {
+          dir.y = KnockbackData.Threshold;
+        }
         return dir * KnockbackData.Velocity;
       }
 

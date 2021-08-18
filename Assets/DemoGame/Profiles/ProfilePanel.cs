@@ -15,7 +15,7 @@ namespace Game
 
     private void Start()
     {
-      if (profile.createdAt > 0)
+      if (profile.CreatedAt > 0)
       {
         profile.Load();
       }
@@ -24,8 +24,8 @@ namespace Game
 
     private void SetUI()
     {
-      headerText.SetText($"Profile {profile.id + 1}");
-      if (profile.timePlayed > 0)
+      headerText.SetText($"Profile {profile.Id + 1}");
+      if (profile.TimePlayed > 0)
       {
         deleteButton.SetActive(true);
         startText.SetText("Continue");
@@ -39,13 +39,14 @@ namespace Game
 
     public void StartGame()
     {
-      if (profile.createdAt == 0)
+      if (profile.CreatedAt == 0)
       {
         profile.Create();
       }
-      ProfileManager.Instance.Profile = profile;
+      // TODO - instead have a cutscene end, where you can fade out music or keep it playing
       SoundManager.Instance.StopAll(true);
-      SceneManager.Instance.LoadScene(profile.level);
+      ProfileManager.Instance.SelectProfile(profile);
+      SceneManager.Instance.LoadScene(profile.Level);
     }
 
     public void DeleteProfile()
