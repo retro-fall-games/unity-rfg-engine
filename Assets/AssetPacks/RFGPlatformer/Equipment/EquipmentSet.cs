@@ -65,22 +65,28 @@ namespace RFG
 
       public void RestoreSave(EquipmentSetSave save)
       {
-        WeaponItem primary = (WeaponItem)save.PrimaryWeapon.Guid.FindObject();
-        WeaponItem secondary = (WeaponItem)save.SecondaryWeapon.Guid.FindObject();
-        if (primary != null)
+        if (save.PrimaryWeapon != null && save.PrimaryWeapon.Guid != null && !save.PrimaryWeapon.Guid.Equals(""))
         {
-          primary.Ammo = save.PrimaryWeapon.Ammo;
-          if (primary.IsEquipped)
+          WeaponItem primary = (WeaponItem)save.PrimaryWeapon.Guid.FindObject();
+          if (primary != null)
           {
-            EquipPrimaryWeapon(primary);
+            primary.Ammo = save.PrimaryWeapon.Ammo;
+            if (primary.IsEquipped)
+            {
+              EquipPrimaryWeapon(primary);
+            }
           }
         }
-        if (secondary != null)
+        if (save.SecondaryWeapon != null && save.SecondaryWeapon.Guid != null && !save.SecondaryWeapon.Guid.Equals(""))
         {
-          secondary.Ammo = save.SecondaryWeapon.Ammo;
-          if (secondary.IsEquipped)
+          WeaponItem secondary = (WeaponItem)save.SecondaryWeapon.Guid.FindObject();
+          if (secondary != null)
           {
-            EquipSecondaryWeapon(secondary);
+            secondary.Ammo = save.SecondaryWeapon.Ammo;
+            if (secondary.IsEquipped)
+            {
+              EquipSecondaryWeapon(secondary);
+            }
           }
         }
       }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 namespace RFG
 {
-
   [Serializable]
   public class InventorySave
   {
@@ -24,16 +23,16 @@ namespace RFG
       Items = new Dictionary<string, Item>();
     }
 
-    public void Add(Item item)
+    public void Add(Item item, bool showEffects = true)
     {
-      bool didPickup = item.PickUp(this);
+      bool didPickup = item.PickUp(this, showEffects);
       if (didPickup)
       {
         // TODO - this needs to work with stackables 
         // TODO - this needs to alert that the inventory is maxed out
-        if (!Items.ContainsKey(item.Id) && Items.Count < MaxItems)
+        if (!Items.ContainsKey(item.Guid) && Items.Count < MaxItems)
         {
-          Items.Add(item.Id, item);
+          Items.Add(item.Guid, item);
           OnAdd?.Invoke(item);
         }
       }
@@ -41,41 +40,41 @@ namespace RFG
 
     public void Remove(Item item)
     {
-      if (Items.ContainsKey(item.Id))
+      if (Items.ContainsKey(item.Guid))
       {
-        Items.Remove(item.Id);
+        Items.Remove(item.Guid);
         OnRemove?.Invoke(item);
       }
     }
 
-    public bool InInventory(string id)
+    public bool InInventory(string guid)
     {
-      return Items.ContainsKey(id);
+      return Items.ContainsKey(guid);
     }
 
-    public void Consume(string id)
+    public void Consume(string guid)
     {
-      if (Items.ContainsKey(id))
+      if (Items.ContainsKey(guid))
       {
-        Consumable item = (Consumable)Items[id];
+        Consumable item = (Consumable)Items[guid];
         item.Consume(this);
       }
     }
 
-    public void Equip(string id)
+    public void Equip(string guid)
     {
-      if (Items.ContainsKey(id))
+      if (Items.ContainsKey(guid))
       {
-        Equipable item = (Equipable)Items[id];
+        Equipable item = (Equipable)Items[guid];
         item.Equip(this);
       }
     }
 
-    public void Unequip(string id)
+    public void Unequip(string guid)
     {
-      if (Items.ContainsKey(id))
+      if (Items.ContainsKey(guid))
       {
-        Equipable item = (Equipable)Items[id];
+        Equipable item = (Equipable)Items[guid];
         item.Unequip(this);
       }
     }
@@ -117,7 +116,7 @@ namespace RFG
       List<Item> list = guids.ToArray().FindObjects<Item>();
       foreach (Item item in list)
       {
-        Items.Add(item.Id, item);
+        Add(item, false);
       }
     }
 

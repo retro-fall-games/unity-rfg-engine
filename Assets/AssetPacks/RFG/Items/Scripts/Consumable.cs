@@ -7,29 +7,27 @@ namespace RFG
   {
     [Header("Consumable Settings")]
     public bool ConsumeOnPickUp = false;
+    public bool AddToInventory = false;
     public string ConsumeText;
     public string[] ConsumeEffects;
     public Action<Inventory> OnConsume;
 
-    public override bool PickUp(Inventory inventory)
+    public override bool PickUp(Inventory inventory, bool showEffects = true)
     {
-      bool didPickup = base.PickUp(inventory);
+      bool didPickup = base.PickUp(inventory, showEffects);
       if (ConsumeOnPickUp)
       {
-        Consume(inventory);
-        return false;
+        Consume(inventory, showEffects);
+        return AddToInventory;
       }
       return didPickup;
     }
 
-    public virtual void Consume(Inventory inventory)
+    public virtual void Consume(Inventory inventory, bool showEffects = true)
     {
-      if (ConsumeEffects.Length > 0)
+      if (showEffects)
       {
-        foreach (string effect in ConsumeEffects)
-        {
-          ObjectPoolManager.Instance.SpawnFromPool("Effects", effect, inventory.transform.position, Quaternion.identity, null, false, new object[] { ConsumeText });
-        }
+        inventory.transform.SpawnFromPool("Effects", ConsumeEffects, Quaternion.identity, new object[] { ConsumeText });
       }
       OnConsume?.Invoke(inventory);
     }

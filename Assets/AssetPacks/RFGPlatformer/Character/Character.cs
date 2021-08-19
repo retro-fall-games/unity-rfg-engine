@@ -63,6 +63,12 @@ namespace RFG
       {
         _characterState.Reset();
         _movementState.Reset();
+        if (CharacterType == CharacterType.AI)
+        {
+          Controller.ResetVelocity();
+          Controller.enabled = true;
+          _characterState.ChangeState(typeof(AliveState));
+        }
       }
 
       public void CalculatePlayerSpawnAt()

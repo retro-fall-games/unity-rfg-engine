@@ -11,11 +11,13 @@ namespace RFG
       [Header("Settings")]
       public float Health = 100f;
       public float MaxHealth = 100f;
+      public float DefaultMaxHealth = 100f;
       public event Action<float, float> OnHealthChange;
       public event Action OnHealthZero;
 
       public override void Init(CharacterBehaviourController.BehaviourContext ctx)
       {
+        MaxHealth = DefaultMaxHealth;
         OnHealthZero += ctx.character.Kill;
       }
 
@@ -60,9 +62,10 @@ namespace RFG
         SetHealth(MaxHealth);
       }
 
-      public void SetMaxHealth(float amount)
+      public void AddMaxHealth(float amount)
       {
-        MaxHealth = amount;
+        MaxHealth += amount;
+        Reset();
       }
     }
   }

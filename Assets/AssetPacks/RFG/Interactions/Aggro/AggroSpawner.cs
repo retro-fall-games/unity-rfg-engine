@@ -35,7 +35,7 @@ namespace RFG
         return;
       }
 
-      if (_aggro.HasAggro && (Separately && _currentInstance == null || !_currentInstance.gameObject.activeSelf))
+      if (_aggro.HasAggro && ((Separately && (_currentInstance == null || _currentInstance.gameObject == null || !_currentInstance.gameObject.activeSelf)) || !Separately))
       {
         if (!_canSpawn)
         {

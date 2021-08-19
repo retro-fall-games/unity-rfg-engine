@@ -17,14 +17,14 @@ namespace RFG
     public Action<Inventory> OnEquip;
     public Action<Inventory> OnUnequip;
 
-    public override bool PickUp(Inventory inventory)
+    public override bool PickUp(Inventory inventory, bool showEffects = true)
     {
-      base.PickUp(inventory);
+      bool didPickup = base.PickUp(inventory, showEffects);
       if (EquipOnPickUp)
       {
         Equip(inventory);
       }
-      return true;
+      return didPickup;
     }
 
     public virtual void Equip(Inventory inventory)

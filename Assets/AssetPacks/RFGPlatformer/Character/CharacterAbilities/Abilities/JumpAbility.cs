@@ -38,6 +38,11 @@ namespace RFG
       private int _numberOfJumpsLeft = 0;
       private float _lastJumpTime = 0f;
 
+      public override void Init(CharacterAbilityController.AbilityContext ctx)
+      {
+        NumberOfJumps = 1;
+      }
+
       public override void Process(CharacterAbilityController.AbilityContext ctx)
       {
         if (ctx.character.Controller.State.JustGotGrounded)

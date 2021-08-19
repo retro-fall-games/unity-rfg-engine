@@ -10,8 +10,9 @@ namespace RFG
       [Header("Ability Settings")]
       public CharacterAbility[] AbilitiesToAdd;
 
-      public override void Consume(Inventory inventory)
+      public override void Consume(Inventory inventory, bool showEffects = true)
       {
+        base.Consume(inventory, showEffects);
         CharacterAbilityController controller = inventory.GetComponent<CharacterAbilityController>();
         foreach (CharacterAbility ability in AbilitiesToAdd)
         {

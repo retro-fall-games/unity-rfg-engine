@@ -8,12 +8,14 @@ namespace RFG
   {
     [Header("Sound Base")]
     public SoundBaseSettings Settings;
+    public bool Loaded { get; private set; }
 
     [HideInInspector]
     protected Dictionary<string, AudioSource> _audioSources = new Dictionary<string, AudioSource>();
 
     private void Awake()
     {
+      Loaded = false;
       // Get all the audio source and make a dictionary to be able to reference by name
       AudioSource[] audioSourceComponents = GetComponentsInChildren<AudioSource>();
       foreach (AudioSource audioSource in audioSourceComponents)
@@ -25,6 +27,7 @@ namespace RFG
     private void Start()
     {
       Settings.SetVolume(Settings.GetPlayerPrefsVolume());
+      Loaded = true;
     }
 
     public AudioSource GetAudioSource(string name)

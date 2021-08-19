@@ -79,7 +79,10 @@ namespace RFG
         if (Ammo <= 0)
         {
           Ammo = 0;
-          IsInCooldown = true;
+          if (Cooldown > 0)
+          {
+            IsInCooldown = true;
+          }
         }
         else if (Ammo >= MaxAmmo)
         {
@@ -96,7 +99,7 @@ namespace RFG
       public WeaponItemSave GetWeaponSave()
       {
         WeaponItemSave save = new WeaponItemSave();
-        save.Guid = this.FindGuid();
+        save.Guid = Guid;
         save.Ammo = Ammo;
         save.IsEquipped = IsEquipped;
         return save;

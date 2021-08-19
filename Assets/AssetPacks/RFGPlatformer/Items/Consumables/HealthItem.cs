@@ -10,8 +10,9 @@ namespace RFG
       [Header("Health Item Settings")]
       public int HealthToAdd = 5;
 
-      public override void Consume(Inventory inventory)
+      public override void Consume(Inventory inventory, bool showEffects = true)
       {
+        base.Consume(inventory, showEffects);
         CharacterBehaviourController behaviour = inventory.GetComponent<CharacterBehaviourController>();
         if (behaviour != null)
         {

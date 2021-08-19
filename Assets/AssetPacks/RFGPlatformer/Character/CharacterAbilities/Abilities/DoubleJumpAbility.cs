@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace RFG
 {
@@ -12,12 +11,14 @@ namespace RFG
       {
         JumpAbility ability = ctx.controller.FindAbility<JumpAbility>();
         ability.NumberOfJumps = 2;
+        ability.SetNumberOfJumpsLeft(ability.NumberOfJumps);
       }
 
       public override void Remove(CharacterAbilityController.AbilityContext ctx)
       {
         JumpAbility ability = ctx.controller.FindAbility<JumpAbility>();
         ability.NumberOfJumps = 1;
+        ability.SetNumberOfJumpsLeft(ability.NumberOfJumps);
       }
     }
   }

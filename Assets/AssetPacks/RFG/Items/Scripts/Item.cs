@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using MyBox;
 
 namespace RFG
 {
@@ -12,8 +13,8 @@ namespace RFG
 
   public abstract class Item : ScriptableObject, IItem
   {
-    [Header("Item Settings")]
-    public string Id;
+    [Header("Settings")]
+    [ReadOnly] public string Guid;
     public string Description;
 
     [Header("Pick Up")]
@@ -23,9 +24,12 @@ namespace RFG
 
     public Action<Inventory> OnPickUp;
 
-    public virtual bool PickUp(Inventory inventory)
+    public virtual bool PickUp(Inventory inventory, bool showEffects = true)
     {
-      inventory.transform.SpawnFromPool("Effects", PickUpEffects, Quaternion.identity, new object[] { PickUpText });
+      if (showEffects)
+      {
+        inventory.transform.SpawnFromPool("Effects", PickUpEffects, Quaternion.identity, new object[] { PickUpText });
+      }
       OnPickUp?.Invoke(inventory);
       return true;
     }
@@ -33,8 +37,19 @@ namespace RFG
     public ItemSave GetSave()
     {
       ItemSave save = new ItemSave();
-      save.Guid = this.FindGuid();
+      save.Guid = Guid;
       return save;
     }
+
+#if UNITY_EDITOR
+    [ButtonMethod]
+    protected void GenerateGuid()
+    {
+      if (Guid == null || Guid.Equals(""))
+      {
+        Guid = System.Guid.NewGuid().ToString();
+      }
+    }
+#endif
   }
 }

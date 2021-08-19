@@ -21,20 +21,6 @@ namespace Game
 
     private void Start()
     {
-      StartCoroutine(StartCo());
-    }
-
-    private IEnumerator StartCo()
-    {
-      yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Player") != null);
-      GameObject player = GameObject.FindGameObjectWithTag("Player");
-      if (player != null)
-      {
-        character = player.GetComponent<Character>();
-        abilityController = player.GetComponent<CharacterAbilityController>();
-        inventory = player.GetComponent<Inventory>();
-        equipmentSet = player.GetComponent<EquipmentSet>();
-      }
       if (OverrideProfile)
       {
         if (Profile.CreatedAt == 0)
@@ -52,23 +38,23 @@ namespace Game
     private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
     {
       Profile.StartedAt = Epoch.Current();
+      StartCoroutine(RestoreData());
     }
 
     public void SelectProfile(Profile profile)
     {
       Profile = profile;
-      PlayerPrefs.SetInt("startingCheckpoint", Profile.CheckpointIndex);
-      RestoreData();
+      CheckpointManager.Instance.SetStartingCheckpoint(Profile.CheckpointIndex);
     }
 
     public void SaveProfile()
     {
       Profile.Level = SceneManager.Instance.GetCurrentScene();
       Profile.CheckpointIndex = CheckpointManager.Instance.CurrentCheckpointIndex;
-      // if (abilityController != null)
-      // {
-      //   Profile.Abilities = abilityController.Abilities.FindGuids();
-      // }
+      if (abilityController != null)
+      {
+        Profile.Abilities = abilityController.GetSave();
+      }
       if (inventory != null)
       {
         Profile.Inventory = inventory.GetSave();
@@ -80,8 +66,21 @@ namespace Game
       Profile.Save();
     }
 
-    public void RestoreData()
+    public IEnumerator RestoreData()
     {
+      yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Player") != null);
+      GameObject player = GameObject.FindGameObjectWithTag("Player");
+      if (player != null)
+      {
+        character = player.GetComponent<Character>();
+        abilityController = player.GetComponent<CharacterAbilityController>();
+        inventory = player.GetComponent<Inventory>();
+        equipmentSet = player.GetComponent<EquipmentSet>();
+      }
+      if (abilityController != null)
+      {
+        abilityController.RestoreSave(Profile.Abilities);
+      }
       if (inventory != null)
       {
         inventory.RestoreSave(Profile.Inventory);
@@ -90,6 +89,33 @@ namespace Game
       {
         equipmentSet.RestoreSave(Profile.EquipmentSet);
       }
+
+      // Go through all the pickups and turn of the Ability Pickups if the player already has them
+      PickUp[] pickUps = GameObject.FindObjectsOfType<PickUp>();
+      foreach (PickUp pickUp in pickUps)
+      {
+        Item item = pickUp.item;
+
+        // If the item is an ability then check if they alreay have it, if they do, the turn it off
+        if (item is AbilityItem abilityItem)
+        {
+          foreach (CharacterAbility ability in abilityItem.AbilitiesToAdd)
+          {
+            if (abilityController.HasAbility(ability))
+            {
+              pickUp.gameObject.SetActive(false);
+            }
+          }
+        }
+        else if (item is MaxHealthItem maxHealthItem)
+        {
+          if (inventory.InInventory(maxHealthItem.Guid))
+          {
+            pickUp.gameObject.SetActive(false);
+          }
+        }
+      }
+      Debug.Log("Restored Data");
     }
 
     private void OnEnable()

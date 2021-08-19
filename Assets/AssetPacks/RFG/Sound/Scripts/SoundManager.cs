@@ -72,6 +72,7 @@ namespace RFG
       }
       SoundData soundData = playlist.Sounds[playlist.CurrentIndex];
       SoundBase soundBase = _soundBases[soundData.type.ToString()];
+      yield return new WaitUntil(() => soundBase.Loaded);
       while (true)
       {
         if (!_soundBases[soundData.type.ToString()].IsPlaying(soundData.name))

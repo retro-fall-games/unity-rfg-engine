@@ -99,7 +99,7 @@ namespace RFG
           WeaponItem.CanUse = true;
         }
 
-        if (WeaponItem.Ammo <= 0)
+        if (WeaponItem.IsInCooldown)
         {
           _cooldownElapsed += Time.deltaTime;
           if (_cooldownElapsed >= WeaponItem.Cooldown)
@@ -122,7 +122,7 @@ namespace RFG
 
       private void OnPickUp(Inventory inventory)
       {
-        if (inventory.InInventory(WeaponItem.Id))
+        if (inventory.InInventory(WeaponItem.Guid))
         {
           WeaponItem.Refill();
         }

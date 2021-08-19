@@ -2,6 +2,7 @@ using System;
 // using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine;
+using MyBox;
 using RFG;
 using RFG.Platformer;
 
@@ -17,19 +18,26 @@ namespace Game
     public long TimePlayed = 0;
     public string Level = "Intro";
     public int CheckpointIndex = 0;
-    public string[] Abilities;
+    public CharacterAbilityControllerSave Abilities;
     public InventorySave Inventory;
     public EquipmentSetSave EquipmentSet;
 
     public void Create()
     {
       var fileName = $"{Application.persistentDataPath}/profile{Id}.json";
+      Level = "Intro";
+      CheckpointIndex = 0;
       CreatedAt = Epoch.Current();
-      Abilities = new string[0];
+      Abilities = new CharacterAbilityControllerSave();
+      Abilities.Abilities = new CharacterAbilitySave[0];
       Inventory = new InventorySave();
+      Inventory.Items = new ItemSave[0];
       EquipmentSet = new EquipmentSetSave();
+      EquipmentSet.PrimaryWeapon = new WeaponItemSave();
+      EquipmentSet.SecondaryWeapon = new WeaponItemSave();
       var data = JsonUtility.ToJson(this);
       File.WriteAllText(fileName, data);
+      Debug.Log("Create profile");
     }
 
     public void Save()
@@ -38,6 +46,7 @@ namespace Game
       TimePlayed = TimePlayed + Epoch.Current() - StartedAt;
       var data = JsonUtility.ToJson(this);
       File.WriteAllText(fileName, data);
+      Debug.Log("Save profile");
     }
 
     public void Load()
@@ -47,6 +56,7 @@ namespace Game
       {
         var json = File.ReadAllText(fileName);
         JsonUtility.FromJsonOverwrite(json, this);
+        Debug.Log("Load profile");
       }
     }
 
@@ -63,6 +73,25 @@ namespace Game
         Level = "Intro";
       }
     }
+
+#if UNITY_EDITOR
+    [ButtonMethod]
+    private void ResetProfile()
+    {
+      Level = "Intro";
+      CheckpointIndex = 0;
+      CreatedAt = 0;
+      StartedAt = 0;
+      TimePlayed = 0;
+      Abilities = new CharacterAbilityControllerSave();
+      Abilities.Abilities = new CharacterAbilitySave[0];
+      Inventory = new InventorySave();
+      Inventory.Items = new ItemSave[0];
+      EquipmentSet = new EquipmentSetSave();
+      EquipmentSet.PrimaryWeapon = new WeaponItemSave();
+      EquipmentSet.SecondaryWeapon = new WeaponItemSave();
+    }
+#endif
 
   }
 

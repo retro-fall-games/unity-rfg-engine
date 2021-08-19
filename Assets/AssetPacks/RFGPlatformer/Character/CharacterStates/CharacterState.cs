@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using MyBox;
 
 namespace RFG
 {
@@ -7,6 +8,9 @@ namespace RFG
   {
     public abstract class CharacterState : ScriptableObject
     {
+      [Header("Settings")]
+      [ReadOnly] public string Guid;
+
       [Header("Animations")]
       public string Layer = "Base Layer";
       public string EnterClip;
@@ -47,6 +51,17 @@ namespace RFG
       {
         transform.SpawnFromPool("Effects", Effects);
       }
+
+#if UNITY_EDITOR
+      [ButtonMethod]
+      protected void GenerateGuid()
+      {
+        if (Guid == null || Guid.Equals(""))
+        {
+          Guid = System.Guid.NewGuid().ToString();
+        }
+      }
+#endif
     }
   }
 }

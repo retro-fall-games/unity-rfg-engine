@@ -16,6 +16,18 @@ MonoBehaviour:
   CreatedAt: 0
   StartedAt: 0
   TimePlayed: 0
-  Level: Level1
+  Level: Intro
   CheckpointIndex: 0
-  Abilities: []
+  Abilities:
+    Abilities: []
+  Inventory:
+    Items: []
+  EquipmentSet:
+    PrimaryWeapon:
+      Guid: 
+      Ammo: 0
+      IsEquipped: 0
+    SecondaryWeapon:
+      Guid: 
+      Ammo: 0
+      IsEquipped: 0

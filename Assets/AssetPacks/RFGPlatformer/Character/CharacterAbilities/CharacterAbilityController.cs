@@ -8,6 +8,13 @@ namespace RFG
 {
   namespace Platformer
   {
+
+    [Serializable]
+    public class CharacterAbilityControllerSave
+    {
+      public CharacterAbilitySave[] Abilities;
+    }
+
     [AddComponentMenu("RFG/Platformer/Character/Character Ability Contoller")]
     public class CharacterAbilityController : MonoBehaviour
     {
@@ -81,6 +88,18 @@ namespace RFG
           }
         }
         return null;
+      }
+
+      public bool HasAbility(CharacterAbility abiltyToCheck)
+      {
+        foreach (CharacterAbility ability in Abilities)
+        {
+          if (ability.Equals(abiltyToCheck))
+          {
+            return true;
+          }
+        }
+        return false;
       }
 
       public void Process()
@@ -226,6 +245,39 @@ namespace RFG
         foreach (CharacterAbility ability in Abilities)
         {
           DisableInputEvents(ability);
+        }
+      }
+
+      public CharacterAbilityControllerSave GetSave()
+      {
+        CharacterAbilityControllerSave save = new CharacterAbilityControllerSave();
+        List<CharacterAbilitySave> saves = new List<CharacterAbilitySave>();
+        foreach (CharacterAbility ability in Abilities)
+        {
+          CharacterAbilitySave abilitySave = ability.GetSave();
+          if (abilitySave != null)
+          {
+            saves.Add(abilitySave);
+          }
+        }
+        save.Abilities = saves.ToArray();
+        return save;
+      }
+
+      public void RestoreSave(CharacterAbilityControllerSave save)
+      {
+        List<string> guids = new List<string>();
+        foreach (CharacterAbilitySave abilitySave in save.Abilities)
+        {
+          guids.Add(abilitySave.Guid);
+        }
+        List<CharacterAbility> list = guids.ToArray().FindObjects<CharacterAbility>();
+        foreach (CharacterAbility ability in list)
+        {
+          if (!Abilities.Contains(ability))
+          {
+            AddAbility(ability);
+          }
         }
       }
 

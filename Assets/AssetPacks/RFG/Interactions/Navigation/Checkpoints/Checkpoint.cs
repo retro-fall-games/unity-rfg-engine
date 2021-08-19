@@ -12,10 +12,7 @@ namespace RFG
     {
       if (col.gameObject.CompareTag("Player"))
       {
-        if (Index != CheckpointManager.Instance.CurrentCheckpointIndex)
-        {
-          CheckpointManager.Instance.SetCurrentCheckpoint(Index);
-        }
+        CheckpointManager.Instance.HitNewCheckpoint(Index);
       }
     }
 

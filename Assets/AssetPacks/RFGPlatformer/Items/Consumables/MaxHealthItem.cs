@@ -10,12 +10,18 @@ namespace RFG
       [Header("Max Health Item Settings")]
       public int MaxHealthToAdd = 1;
 
-      public override void Consume(Inventory inventory)
+      public override void Consume(Inventory inventory, bool showEffects = true)
       {
-        Character character = inventory.GetComponent<Character>();
-        Debug.Log("You used max health: " + MaxHealthToAdd);
-        // Find Health
-        // Add Health
+        base.Consume(inventory, showEffects);
+        CharacterBehaviourController behaviour = inventory.GetComponent<CharacterBehaviourController>();
+        if (behaviour != null)
+        {
+          HealthBehaviour health = behaviour.FindBehavior<HealthBehaviour>();
+          if (health != null)
+          {
+            health.AddMaxHealth(MaxHealthToAdd);
+          }
+        }
       }
     }
   }
