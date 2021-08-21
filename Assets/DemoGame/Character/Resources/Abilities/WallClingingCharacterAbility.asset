@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d817d99c8b57e648845959087e70f57, type: 3}
   m_Name: WallClingingCharacterAbility
   m_EditorClassIdentifier: 
+  Guid: afa576be-fb03-435d-908a-aaf10719988c
   Input: 0
   WallClingingSlowFactor: 0.6
   RaycastVerticalOffset: 0
   WallClingingTolerance: 0.3
   Threshold: 0.1
-  ClingFx: []
+  ClingEffects: []

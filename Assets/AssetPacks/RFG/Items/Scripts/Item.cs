@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 using MyBox;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace RFG
 {
@@ -48,6 +51,7 @@ namespace RFG
       if (Guid == null || Guid.Equals(""))
       {
         Guid = System.Guid.NewGuid().ToString();
+        EditorUtility.SetDirty(this);
       }
     }
 #endif

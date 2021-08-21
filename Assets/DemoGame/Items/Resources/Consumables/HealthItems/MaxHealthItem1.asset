@@ -16,7 +16,8 @@ MonoBehaviour:
   Description: This gives the character an increase in max health
   PickUpSprite: {fileID: 7107508412977418053, guid: 3c26b9a40dc093e4d9a3f5eb741358ec, type: 3}
   PickUpText: +1 Heart
-  PickUpEffects: []
+  PickUpEffects:
+  - PickUpEffect
   ConsumeOnPickUp: 1
   AddToInventory: 1
   ConsumeText: 

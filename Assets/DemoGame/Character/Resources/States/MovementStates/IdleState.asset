@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed75a2d685980fb41bfa4f8575e82a8b, type: 3}
   m_Name: IdleState
   m_EditorClassIdentifier: 
+  Guid: b44d253d-df90-4d0b-a06b-dd5eac867fad
   Layer: Base Layer
   EnterClip: Idle
   ExitClip: 
-  EnterFx: []
-  ExitFx: []
+  EnterEffects: []
+  ExitEffects: []

@@ -87,6 +87,7 @@ namespace RFG
           soundBase.Settings = soundBaseSettings[i];
         }
       }
+      EditorUtility.SetDirty(target);
     }
 
     private void AddAllSounds()
@@ -104,6 +105,7 @@ namespace RFG
           AddAudioSource(subManagers[soundData.type.ToString()], soundData);
         }
       }
+      EditorUtility.SetDirty(target);
     }
 
     private void AddAudioSource(Transform parent, SoundData soundData)
@@ -126,6 +128,7 @@ namespace RFG
         SoundBase soundBase = child.GetComponentInChildren<SoundBase>();
         soundBase.ConfigureAudioSources();
       }
+      EditorUtility.SetDirty(target);
     }
   }
 

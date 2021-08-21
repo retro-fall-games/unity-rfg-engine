@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3255b2450749684399d5daa898476f3, type: 3}
   m_Name: PauseCharacterAbility
   m_EditorClassIdentifier: 
+  Guid: 1c4b7d02-0522-4613-a8d8-45d46ad5d999
   Input: 4
   PauseEvent: {fileID: 11400000, guid: 313c80fc5e6491c4e82451537c51b72d, type: 2}
-  PauseFx: []
-  UnPauseFx: []
+  PauseEffects: []
+  UnPauseEffects: []

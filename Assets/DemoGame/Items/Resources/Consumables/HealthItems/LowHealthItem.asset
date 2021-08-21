@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c986314392b5cf48a34b65c9e00f702, type: 3}
   m_Name: LowHealthItem
   m_EditorClassIdentifier: 
-  Id: lowHealthItem
+  Guid: ebd2a78d-3f0f-4bea-8ce3-214fdf0c9ce2
   Description: This gives the character a low health boost
   PickUpSprite: {fileID: -1131316417390522931, guid: 697109247756ff54ebd1fad284bca7c2, type: 3}
   PickUpText: +5 Health
-  PickUpFx:
+  PickUpEffects:
   - PickUpEffect
   ConsumeOnPickUp: 1
+  AddToInventory: 0
+  ConsumeText: 
+  ConsumeEffects: []
   HealthToAdd: 5

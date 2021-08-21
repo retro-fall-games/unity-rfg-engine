@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1613ba45188697d4798f94f2a7887541, type: 3}
   m_Name: HorizontalMovementAbility
   m_EditorClassIdentifier: 
-  InputType: 0
-  UseFx: []
+  Guid: 92e2bffc-a529-40aa-8949-9ed27aef766b
+  Input: 0
   Speed: 2
+  MovementEffects: []

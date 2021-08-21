@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c50eccc8e16919342af677637636157b, type: 3}
   m_Name: RobotHealthBehaviour
   m_EditorClassIdentifier: 
-  Health: 2
-  MaxHealth: 2
+  Health: 1
+  MaxHealth: 1
+  DefaultMaxHealth: 1

@@ -37,8 +37,11 @@ namespace Game
 
     private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
     {
-      Profile.StartedAt = Epoch.Current();
-      StartCoroutine(RestoreData());
+      if (Profile != null)
+      {
+        Profile.StartedAt = Epoch.Current();
+        StartCoroutine(RestoreData());
+      }
     }
 
     public void SelectProfile(Profile profile)
@@ -115,7 +118,6 @@ namespace Game
           }
         }
       }
-      Debug.Log("Restored Data");
     }
 
     private void OnEnable()

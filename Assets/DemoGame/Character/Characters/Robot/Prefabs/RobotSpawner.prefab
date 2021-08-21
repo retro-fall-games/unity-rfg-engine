@@ -69,3 +69,5 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 256
+  tags:
+  - Player

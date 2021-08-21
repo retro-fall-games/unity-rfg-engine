@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c357e47c55ded9547be38e906565a2be, type: 3}
   m_Name: DashCharacterAbility
   m_EditorClassIdentifier: 
+  Guid: 44fb0ae5-66cb-4bf1-a107-ba2b38a38c50
   Input: 5
   DashDistance: 3
   DashForce: 40
@@ -25,4 +26,4 @@ MonoBehaviour:
     currentAngle: 0
   MinInputThreshold: 0.1
   Cooldown: 1
-  DashFx: []
+  DashEffects: []

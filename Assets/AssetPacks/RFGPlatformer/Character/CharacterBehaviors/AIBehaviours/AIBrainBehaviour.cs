@@ -80,6 +80,23 @@ namespace RFG
               break;
           }
         }
+        else if (ctx.character.AIState.CurrentStateType == typeof(AIFlyingState))
+        {
+          int wanderingDecision = DecisionTree(1000, 500, 100 + DecisionOffset);
+          switch (wanderingDecision)
+          {
+            case -1:
+              ctx.character.AIMovementState.ChangeState(typeof(AIFlyingLeftState));
+              break;
+            case 1:
+              ctx.character.AIMovementState.ChangeState(typeof(AIFlyingRightState));
+              break;
+            case 0:
+            default:
+              ctx.character.AIMovementState.ChangeState(typeof(AIIdleState));
+              break;
+          }
+        }
         else if (ctx.character.AIState.CurrentStateType == typeof(AIAttackingState))
         {
           // if (_weaponBehavior != null)

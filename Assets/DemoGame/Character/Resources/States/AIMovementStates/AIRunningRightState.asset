@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdf65102dcb53c841b455e4b9b689410, type: 3}
   m_Name: AIRunningRightState
   m_EditorClassIdentifier: 
+  Guid: 6a2dabfb-cb16-407c-bfce-bc821460a031
   Layer: Base Layer
   EnterClip: 
   ExitClip: 

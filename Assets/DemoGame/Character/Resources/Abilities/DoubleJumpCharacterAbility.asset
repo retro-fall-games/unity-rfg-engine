@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a6c3c5ee0d4b347996cb147c143e34, type: 3}
   m_Name: DoubleJumpCharacterAbility
   m_EditorClassIdentifier: 
+  Guid: 84696790-19cb-459a-9a0f-9f379e659c2c
   Input: 0

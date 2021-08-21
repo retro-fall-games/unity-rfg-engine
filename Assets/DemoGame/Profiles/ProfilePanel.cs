@@ -24,7 +24,7 @@ namespace Game
 
     private void SetUI()
     {
-      headerText.SetText($"Profile {profile.Id + 1}");
+      headerText.SetText($"Profile {profile.Id}");
       if (profile.TimePlayed > 0)
       {
         deleteButton.SetActive(true);

@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 using MyBox;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace RFG
 {
@@ -37,19 +40,19 @@ namespace RFG
         PlayAnimations(ctx.animator, ExitClip);
       }
 
-      private void PlayAnimations(Animator animator, string Clip)
+      private void PlayAnimations(Animator animator, string clip)
       {
-        int hash = Animator.StringToHash(Clip);
+        int hash = Animator.StringToHash(clip);
         int layerIndex = animator.GetLayerIndex(Layer);
         if (animator.HasState(layerIndex, hash))
         {
-          animator.Play(Clip);
+          animator.Play(clip);
         }
       }
 
-      private void PlayEffects(Transform transform, string[] Effects)
+      private void PlayEffects(Transform transform, string[] effects)
       {
-        transform.SpawnFromPool("Effects", Effects);
+        transform.SpawnFromPool("Effects", effects);
       }
 
 #if UNITY_EDITOR
@@ -59,6 +62,7 @@ namespace RFG
         if (Guid == null || Guid.Equals(""))
         {
           Guid = System.Guid.NewGuid().ToString();
+          EditorUtility.SetDirty(this);
         }
       }
 #endif

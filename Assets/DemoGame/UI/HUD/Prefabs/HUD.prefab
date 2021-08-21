@@ -2733,6 +2733,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 11400000, guid: 8ecf6da6223e26f478fc668956aebce5, type: 2}
+        m_TargetAssemblyTypeName: RFG.GameEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &721426577628308421
 GameObject:
   m_ObjectHideFlags: 0
@@ -3981,9 +3993,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6743699775329015449}
-        m_TargetAssemblyTypeName: Game.OptionsMenu, Assembly-CSharp
-        m_MethodName: SetSoundtrackVolume
+      - m_Target: {fileID: 11400000, guid: d706644c062e41e4785f5bbb783a4302, type: 2}
+        m_TargetAssemblyTypeName: RFG.SoundBaseSettings, Assembly-CSharp
+        m_MethodName: SetVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4233,9 +4245,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6743699775329015449}
-        m_TargetAssemblyTypeName: Game.OptionsMenu, Assembly-CSharp
-        m_MethodName: SetAmbienceVolume
+      - m_Target: {fileID: 11400000, guid: 8056512ac6ebb9b48b3b66a795ef297b, type: 2}
+        m_TargetAssemblyTypeName: RFG.SoundBaseSettings, Assembly-CSharp
+        m_MethodName: SetVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5814,9 +5826,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6743699775329015449}
-        m_TargetAssemblyTypeName: Game.OptionsMenu, Assembly-CSharp
-        m_MethodName: SetFXVolume
+      - m_Target: {fileID: 11400000, guid: 3a64ecde94b53ef4fb32202f29e1c077, type: 2}
+        m_TargetAssemblyTypeName: RFG.SoundBaseSettings, Assembly-CSharp
+        m_MethodName: SetVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

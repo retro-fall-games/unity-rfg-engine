@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0acaf79ba389ad645bc9f4989525da6a, type: 3}
   m_Name: WallJumpingState
   m_EditorClassIdentifier: 
+  Guid: 3218d1c9-3e93-4c64-bf83-3d5ea9150b8b
   Layer: Base Layer
   EnterClip: Jumping
   ExitClip: 
-  EnterFx:
-  - {fileID: 11400000, guid: 8dce7342b3d279b45957759fa26aed5c, type: 2}
-  ExitFx: []
+  EnterEffects: []
+  ExitEffects: []

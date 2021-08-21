@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 722e1f9f8c249874ca6a204ea267eb33, type: 3}
   m_Name: DeadState
   m_EditorClassIdentifier: 
+  Guid: 5bc8ae5f-defa-4b37-8784-f38dbc988d5b
   Layer: Base Layer
   EnterClip: 
   ExitClip: 

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ea2dfc45b816a440abaa1bba063e026, type: 3}
+  m_Name: AIFlyingState
+  m_EditorClassIdentifier: 
+  Guid: 0b2d2834-373a-4105-8f9f-7a088354e300
+  Layer: Base Layer
+  EnterClip: 
+  ExitClip: 
+  EnterEffects: []
+  ExitEffects: []

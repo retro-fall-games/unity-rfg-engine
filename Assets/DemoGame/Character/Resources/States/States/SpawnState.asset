@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e58b7cd8b9d4ba4cb00483eb1468a08, type: 3}
   m_Name: SpawnState
   m_EditorClassIdentifier: 
+  Guid: 631035e5-d93c-41a5-8e90-8f9baebc45e4
   Layer: Base Layer
   EnterClip: 
   ExitClip: 
-  EnterFx: []
-  ExitFx: []
+  EnterEffects: []
+  ExitEffects: []

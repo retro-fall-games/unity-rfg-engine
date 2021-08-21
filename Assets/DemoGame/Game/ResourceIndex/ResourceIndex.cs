@@ -3,6 +3,9 @@ using UnityEngine;
 using MyBox;
 using RFG;
 using RFG.Platformer;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Game
 {
@@ -59,6 +62,7 @@ namespace Game
           }
         }
       }
+      EditorUtility.SetDirty(this);
     }
 #endif
 

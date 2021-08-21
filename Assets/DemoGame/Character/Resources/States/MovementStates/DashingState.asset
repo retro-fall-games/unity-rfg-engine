@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d3476ae1af2f64ead3168d3ce781f0, type: 3}
   m_Name: DashingState
   m_EditorClassIdentifier: 
+  Guid: 1e449a6b-1945-4c0b-8570-ff9f876ac135
   Layer: Base Layer
   EnterClip: Dashing
   ExitClip: 
-  EnterFx: []
-  ExitFx: []
+  EnterEffects: []
+  ExitEffects: []

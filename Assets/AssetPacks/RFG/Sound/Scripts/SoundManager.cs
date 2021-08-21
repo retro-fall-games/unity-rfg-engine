@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace RFG
 {
   [AddComponentMenu("RFG/Sound/Sound Manager")]
@@ -38,6 +39,8 @@ namespace RFG
       {
         StopCoroutine(_playlistCoroutine);
       }
+      PlaylistBase playlistBase = FindObjectOfType<PlaylistBase>();
+      StopPlaylist(playlistBase);
     }
 
     private void OnEnable()
@@ -75,7 +78,7 @@ namespace RFG
       yield return new WaitUntil(() => soundBase.Loaded);
       while (true)
       {
-        if (!_soundBases[soundData.type.ToString()].IsPlaying(soundData.name))
+        if (Application.isFocused && !_soundBases[soundData.type.ToString()].IsPlaying(soundData.name))
         {
           soundData = playlist.Sounds[playlist.CurrentIndex];
           soundBase = _soundBases[soundData.type.ToString()];
@@ -87,6 +90,24 @@ namespace RFG
           }
         }
         yield return null;
+      }
+    }
+
+    public void StopPlaylist(PlaylistBase playlistBase)
+    {
+      if (playlistBase != null)
+      {
+        Playlist playlist = playlistBase.Playlist;
+        if (playlist.Sounds.Length <= 0)
+        {
+          return;
+        }
+        SoundData[] sounds = playlist.Sounds;
+        foreach (SoundData soundData in sounds)
+        {
+          SoundBase soundBase = _soundBases[soundData.type.ToString()];
+          soundBase.GetAudioSource(soundData.name).FadeOut(playlist.FadeTime);
+        }
       }
     }
 

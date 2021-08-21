@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31fefc4f953f09442bfb7f2726c04cc4, type: 3}
   m_Name: DashAbilityItem
   m_EditorClassIdentifier: 
-  Id: dashAbilityItem
+  Guid: ef561162-7c21-4480-b40f-f150d297a809
   Description: Grants the character the ability to dash
   PickUpSprite: {fileID: -4530994168764554855, guid: 697109247756ff54ebd1fad284bca7c2, type: 3}
   PickUpText: Dash Ability
-  PickUpFx:
-  - PickUpEffect
+  PickUpEffects: []
   ConsumeOnPickUp: 1
+  AddToInventory: 0
+  ConsumeText: 
+  ConsumeEffects: []
   AbilitiesToAdd:
   - {fileID: 11400000, guid: 9237801ec6ff1c442b883a68b6662a3d, type: 2}

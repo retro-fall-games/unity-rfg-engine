@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6590a4f9b267ba441b602ddc222afa9c, type: 3}
   m_Name: AIWalkingRightState
   m_EditorClassIdentifier: 
+  Guid: d027eb0c-47c4-4c7e-96eb-a4e938e763ae
   Layer: Base Layer
   EnterClip: 
   ExitClip: 

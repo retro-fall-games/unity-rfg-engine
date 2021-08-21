@@ -5,8 +5,8 @@ namespace RFG
 {
   namespace Platformer
   {
-    [Serializable]
-    public class CharacterControllerParameters2D
+    [CreateAssetMenu(fileName = "New Character Controller Parameters 2D", menuName = "RFG/Platformer/Character/Character Controller Parameters 2D")]
+    public class CharacterControllerParameters2D : ScriptableObject
     {
       [Header("Gravity")]
       public float Gravity = -25f;

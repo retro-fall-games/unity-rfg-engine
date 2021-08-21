@@ -129,6 +129,22 @@ namespace RFG
         behaviour.name = type.GetType().ToString();
         return behaviour;
       }
+
+      private void OnEnable()
+      {
+        foreach (CharacterBehaviour behaviour in Behaviours)
+        {
+          behaviour.AddEvents(_behaviourContext);
+        }
+      }
+
+      private void OnDisable()
+      {
+        foreach (CharacterBehaviour behaviour in Behaviours)
+        {
+          behaviour.RemoveEvents(_behaviourContext);
+        }
+      }
     }
   }
 }

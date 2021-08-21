@@ -27,11 +27,8 @@ namespace RFG
       // public bool SlopeAngleOK { get; set; }
       // public bool OnAMovingPlatform { get; set; }
 
-      // public bool IsFalling { get; set; }
-      // public bool IsJumping { get; set; }
       // public bool WasGroundedLastFrame { get; set; }
       // public bool WasTouchingTheCeilingLastFrame { get; set; }
-      // public bool JustGotGrounded { get; set; }
       // public bool ColliderResized { get; set; }
       // public bool TouchingLevelBounds { get; set; }
 

@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 026faa7f4ac99b34fb4f32562ece2318, type: 3}
   m_Name: WallClingingState
   m_EditorClassIdentifier: 
+  Guid: f187d206-02a7-4df5-bc06-e0737656709b
   Layer: Base Layer
   EnterClip: Idle
   ExitClip: 
-  EnterFx: []
-  ExitFx: []
+  EnterEffects: []
+  ExitEffects: []

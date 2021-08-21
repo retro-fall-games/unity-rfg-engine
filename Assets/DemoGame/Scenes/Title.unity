@@ -1152,10 +1152,10 @@ MonoBehaviour:
           m_StringArgument: CrossFade
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1273406229}
-        m_TargetAssemblyTypeName: RFG.SoundManager, Assembly-CSharp
-        m_MethodName: StopAll
-        m_Mode: 6
+      - m_Target: {fileID: 11400000, guid: 8ecf6da6223e26f478fc668956aebce5, type: 2}
+        m_TargetAssemblyTypeName: RFG.GameEvent, Assembly-CSharp
+        m_MethodName: Raise
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1164,9 +1164,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1998102723}
-        m_TargetAssemblyTypeName: RFG.GameManager, Assembly-CSharp
-        m_MethodName: Quit
+      - m_Target: {fileID: 11400000, guid: cd74303ad99a35c4fb8d3911d7bbc628, type: 2}
+        m_TargetAssemblyTypeName: RFG.GameEvent, Assembly-CSharp
+        m_MethodName: Raise
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1422,17 +1422,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 979486867}
   m_CullTransparentMesh: 1
---- !u!114 &1273406229 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3258898633203581373, guid: 82a9ccebf80dedc4baafcd0e0f257972, type: 3}
-  m_PrefabInstance: {fileID: 603629945}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d10d24c3b68e4f4f82b5e10f74681be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1613993629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,17 +1555,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613993629}
   m_CullTransparentMesh: 1
---- !u!114 &1998102723 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1320861063666889481, guid: ad6be1691e6b04645be42596eb1c8e99, type: 3}
-  m_PrefabInstance: {fileID: 1320861064053326897}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b31c4295af779448b5ccb8ed1881c42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2106164821
 GameObject:
   m_ObjectHideFlags: 0

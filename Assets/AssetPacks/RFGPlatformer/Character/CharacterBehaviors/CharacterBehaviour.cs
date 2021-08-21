@@ -24,6 +24,12 @@ namespace RFG
       public virtual void LateProcess(CharacterBehaviourController.BehaviourContext ctx)
       {
       }
+      public virtual void AddEvents(CharacterBehaviourController.BehaviourContext ctx)
+      {
+      }
+      public virtual void RemoveEvents(CharacterBehaviourController.BehaviourContext ctx)
+      {
+      }
     }
   }
 }

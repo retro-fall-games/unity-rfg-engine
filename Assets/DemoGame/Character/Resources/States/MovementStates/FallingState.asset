@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87c1a3e7bca52f6419eb51decffd6d49, type: 3}
   m_Name: FallingState
   m_EditorClassIdentifier: 
+  Guid: 8b5d7475-3852-42a2-b6a9-3507cb614194
   Layer: Base Layer
   EnterClip: Falling
   ExitClip: 
-  EnterFx: []
-  ExitFx: []
+  EnterEffects: []
+  ExitEffects: []

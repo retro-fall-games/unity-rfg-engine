@@ -78,9 +78,6 @@ MonoBehaviour:
   WeaponItem: {fileID: 11400000, guid: 0bd6b992ebef3b94c9525dc7640de81a, type: 2}
   FirePoint: {fileID: 9182383044725625652}
   EquipmentSet: {fileID: 8630236380335962706}
-  Ammo: 0
-  IsEquipped: 0
-  IsInCooldown: 0
   States:
   - {fileID: 11400000, guid: 625517feda3699d46a74ceea13931c0f, type: 2}
   - {fileID: 11400000, guid: d264a53d8535a6a4c87a169b7a345c77, type: 2}
@@ -135,9 +132,6 @@ MonoBehaviour:
   WeaponItem: {fileID: 11400000, guid: 84be63f192fdb0844a77a01eb35a8553, type: 2}
   FirePoint: {fileID: 9182383044725625652}
   EquipmentSet: {fileID: 8630236380335962706}
-  Ammo: 0
-  IsEquipped: 0
-  IsInCooldown: 0
   States:
   - {fileID: 11400000, guid: c9bf3f6cd7bc2bd44b71e7ef3f19c748, type: 2}
   - {fileID: 11400000, guid: 20afe94b0d3c55f4eb3955282c417f2f, type: 2}
@@ -317,10 +311,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.005862236, y: -0.12310767}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -331,7 +325,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.624815, y: 0.75378466}
   m_EdgeRadius: 0
 --- !u!95 &8630236380335962700
 Animator:
@@ -364,14 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a645592bb15a474681c5e7514b90e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultParameters:
-    Gravity: -25
-    MaxVelocity: {x: 100, y: 100}
-    SpeedFactor: 3
-    GroundSpeedFactor: 10
-    AirSpeedFactor: 5
-    MaxSlopeAngle: 30
-    SkinWidth: 0.02
+  DefaultParameters: {fileID: 11400000, guid: 61764111fefd5e347bd969a5a84adbbf, type: 2}
   rotateOnMouseCursor: 0
   facingOnStart: Face Right
   platformMask:
@@ -538,6 +525,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04603684b48aae64486f1a40ef505fd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapons:
-  - {fileID: 1065259174428055308}
-  - {fileID: 1065259175155119836}

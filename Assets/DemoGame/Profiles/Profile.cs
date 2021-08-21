@@ -37,7 +37,6 @@ namespace Game
       EquipmentSet.SecondaryWeapon = new WeaponItemSave();
       var data = JsonUtility.ToJson(this);
       File.WriteAllText(fileName, data);
-      Debug.Log("Create profile");
     }
 
     public void Save()
@@ -46,7 +45,6 @@ namespace Game
       TimePlayed = TimePlayed + Epoch.Current() - StartedAt;
       var data = JsonUtility.ToJson(this);
       File.WriteAllText(fileName, data);
-      Debug.Log("Save profile");
     }
 
     public void Load()
@@ -56,7 +54,6 @@ namespace Game
       {
         var json = File.ReadAllText(fileName);
         JsonUtility.FromJsonOverwrite(json, this);
-        Debug.Log("Load profile");
       }
     }
 

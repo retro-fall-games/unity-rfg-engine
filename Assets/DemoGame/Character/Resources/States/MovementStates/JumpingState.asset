@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76adbd2c16c7ae44da518666a66189f0, type: 3}
   m_Name: JumpingState
   m_EditorClassIdentifier: 
+  Guid: 5eeb90a6-d83f-4129-99f8-6d9f0ca3da65
   Layer: Base Layer
   EnterClip: Jumping
   ExitClip: 
-  EnterFx:
-  - {fileID: 11400000, guid: 8dce7342b3d279b45957759fa26aed5c, type: 2}
-  ExitFx: []
+  EnterEffects: []
+  ExitEffects: []

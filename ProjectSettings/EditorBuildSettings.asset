@@ -21,15 +21,15 @@ EditorBuildSettings:
     path: Assets/DemoGame/Scenes/Levels/Level1.unity
     guid: 321d8f85168a3d54db35b6b9515caae9
   - enabled: 1
-    path: Assets/DemoGame/Scenes/Levels/Level2.unity
+    path: Assets/DemoGame/Scenes/Levels/Level4.unity
     guid: 963de6aef14063347a2d87e5258807bd
   - enabled: 1
     path: Assets/DemoGame/Scenes/Levels/Level3.unity
+    guid: 26317a0173e0e6f459765217be413c30
+  - enabled: 1
+    path: Assets/DemoGame/Scenes/Levels/Level2.unity
+    guid: 54b730fcdb8f86240bd1b80b95d57fa7
+  - enabled: 1
+    path: Assets/DemoGame/Scenes/Levels/Level5.unity
     guid: 28aefe82f32faf04180414d0984b0a55
-  - enabled: 1
-    path: Assets/TestScenes/SceneManager.unity
-    guid: 054bcd79281d3a04bb032e4987c3a8ac
-  - enabled: 1
-    path: Assets/TestScenes/SceneManager2.unity
-    guid: b303d57484aaf024cb2266600d639551
   m_configObjects: {}

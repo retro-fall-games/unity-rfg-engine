@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbd75798f78cfe449f53fcd6ddb08b1, type: 3}
   m_Name: WallJumpCharacterAbility
   m_EditorClassIdentifier: 
+  Guid: 529aed4e-0a24-4849-b7d9-d5563a082120
   Input: 1
   Threshold: 0.01
   WallJumpForce: {x: 10, y: 4}
-  JumpFx: []
+  JumpEffects: []

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6706435e459a55141b100a354f214094, type: 3}
   m_Name: LandedState
   m_EditorClassIdentifier: 
+  Guid: 12911fc6-cc15-452a-bc0d-b73af79b4118
   Layer: Base Layer
   EnterClip: Landed
   ExitClip: 
-  EnterFx:
-  - {fileID: 11400000, guid: 4f6a74af37fc140418ae32a27dc2b25d, type: 2}
-  ExitFx: []
+  EnterEffects: []
+  ExitEffects: []

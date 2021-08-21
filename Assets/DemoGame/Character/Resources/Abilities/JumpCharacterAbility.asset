@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662240caaed85154281c647957d75890, type: 3}
   m_Name: JumpCharacterAbility
   m_EditorClassIdentifier: 
+  Guid: 4be2242f-f064-4910-bbf1-79b04bd91f02
   Input: 1
   JumpEffects:
   - JumpEffect

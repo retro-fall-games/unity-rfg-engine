@@ -13,9 +13,10 @@ namespace RFG
     {
 
       [Header("Parameters")]
-      public CharacterControllerParameters2D defaultParameters;
+      public CharacterControllerParameters2D DefaultParameters;
+      public CharacterControllerParameters2D OverrideParameters;
       public CharacterControllerState2D State { get; private set; }
-      public CharacterControllerParameters2D Parameters => _overrideParameters ?? defaultParameters;
+      public CharacterControllerParameters2D Parameters => OverrideParameters ?? DefaultParameters;
 
       [Space(10)]
       [Header("Settings")]
@@ -53,7 +54,6 @@ namespace RFG
       private List<RaycastHit2D> _raycastHitsThisFrame = new List<RaycastHit2D>(2);
       private float _verticalDistanceBetweenRays;
       private float _horizontalDistanceBetweenRays;
-      private CharacterControllerParameters2D _overrideParameters;
       private Vector3 _raycastTopLeft;
       private Vector3 _raycastBottomRight;
       private Vector3 _raycastBottomLeft;
@@ -599,7 +599,7 @@ namespace RFG
 
       public void SetOverrideParameters(CharacterControllerParameters2D parameters)
       {
-        _overrideParameters = parameters;
+        OverrideParameters = parameters;
       }
 
       public void Flip()

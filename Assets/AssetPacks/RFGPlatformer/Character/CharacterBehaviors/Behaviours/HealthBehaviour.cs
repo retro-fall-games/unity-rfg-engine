@@ -18,7 +18,6 @@ namespace RFG
       public override void Init(CharacterBehaviourController.BehaviourContext ctx)
       {
         MaxHealth = DefaultMaxHealth;
-        OnHealthZero += ctx.character.Kill;
       }
 
       public override void InitValues(CharacterBehaviour behaviour)
@@ -30,7 +29,7 @@ namespace RFG
 
       public override void Remove(CharacterBehaviourController.BehaviourContext ctx)
       {
-        OnHealthZero -= ctx.character.Kill;
+        RemoveEvents(ctx);
       }
 
       public void SetHealth(float amount)
@@ -66,6 +65,16 @@ namespace RFG
       {
         MaxHealth += amount;
         Reset();
+      }
+
+      public override void AddEvents(CharacterBehaviourController.BehaviourContext ctx)
+      {
+        OnHealthZero += ctx.character.Kill;
+      }
+
+      public override void RemoveEvents(CharacterBehaviourController.BehaviourContext ctx)
+      {
+        OnHealthZero -= ctx.character.Kill;
       }
     }
   }

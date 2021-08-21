@@ -45,6 +45,7 @@ namespace RFG
           obj.gameObject.transform.SetParent(manager.gameObject.transform);
         }
       }
+      EditorUtility.SetDirty(target);
     }
 
     private void GenerateAllObjects()
@@ -56,6 +57,7 @@ namespace RFG
         ObjectPool pool = child.GetComponent<ObjectPool>();
         pool.GenerateObjects();
       }
+      EditorUtility.SetDirty(target);
     }
 
   }

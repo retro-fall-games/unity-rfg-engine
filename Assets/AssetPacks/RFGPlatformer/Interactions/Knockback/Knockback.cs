@@ -23,23 +23,23 @@ namespace RFG
         return dir * KnockbackData.Velocity;
       }
 
-      private void OnTriggerEnter2D(Collider2D col)
+      private void PerformKnockback(GameObject other)
       {
-        if (KnockbackData.LayerMask.Contains(col.gameObject.layer))
+        if (KnockbackData.LayerMask.Contains(other.layer))
         {
           transform.SpawnFromPool("Effects", KnockbackData.Effects);
           if (!KnockbackData.Velocity.Equals(Vector2.zero))
           {
-            IMoveable moveable = col.transform.gameObject.GetComponent(typeof(IMoveable)) as IMoveable;
+            IMoveable moveable = other.transform.gameObject.GetComponent(typeof(IMoveable)) as IMoveable;
             if (moveable != null)
             {
-              Vector2 velocity = GetKnockbackVelocity(col.transform.position, transform.position);
+              Vector2 velocity = GetKnockbackVelocity(other.transform.position, transform.position);
               moveable.SetForce(velocity);
             }
           }
           if (KnockbackData.Damage > 0f)
           {
-            CharacterBehaviourController controller = col.gameObject.GetComponent<CharacterBehaviourController>();
+            CharacterBehaviourController controller = other.GetComponent<CharacterBehaviourController>();
             if (controller != null)
             {
               HealthBehaviour health = controller.FindBehavior<HealthBehaviour>();
@@ -50,6 +50,16 @@ namespace RFG
             }
           }
         }
+      }
+
+      private void OnTriggerEnter2D(Collider2D col)
+      {
+        PerformKnockback(col.gameObject);
+      }
+
+      private void OnParticleCollision(GameObject other)
+      {
+        PerformKnockback(other);
       }
     }
   }

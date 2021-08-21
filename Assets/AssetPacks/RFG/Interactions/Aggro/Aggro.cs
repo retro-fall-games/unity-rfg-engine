@@ -19,6 +19,7 @@ namespace RFG
 
     [Header("Line Of Sight")]
     public LayerMask layerMask;
+    public string[] tags;
 
     private void Start()
     {
@@ -72,7 +73,24 @@ namespace RFG
       Vector2 direction = (target2.position - target1.position).normalized;
       float distance = Vector2.Distance(target2.position, target1.position);
       RaycastHit2D hit = RFG.Physics2D.Raycast(start, direction, distance, layerMask, Color.red);
+      if (hit)
+      {
+        // Debug.DrawRay(start, direction * distance, Color.red);
+        return CheckTags(hit.transform.gameObject);
+      }
       return hit;
+    }
+
+    private bool CheckTags(GameObject obj)
+    {
+      for (int i = 0; i < tags.Length; i++)
+      {
+        if (obj.CompareTag(tags[i]))
+        {
+          return true;
+        }
+      }
+      return false;
     }
 
   }

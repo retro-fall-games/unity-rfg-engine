@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e1dc4650dfa49b4ea2c18be3b84cb36, type: 3}
   m_Name: RunningState
   m_EditorClassIdentifier: 
+  Guid: f1ce00e0-3088-4138-b8e2-739b26a2f57c
   Layer: Base Layer
   EnterClip: 
   ExitClip: 

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef81631f096615e48a42a535666da8df, type: 3}
   m_Name: PrimaryWeaponCharacterAbility
   m_EditorClassIdentifier: 
+  Guid: 6b5fb763-2232-490e-8895-15f722366a68
   Input: 2
-  Weapon: {fileID: 0}
