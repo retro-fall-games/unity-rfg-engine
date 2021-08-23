@@ -72,14 +72,10 @@ namespace RFG
         if (layerMask.Contains(col.gameObject.layer))
         {
 
-          CharacterBehaviourController controller = col.gameObject.GetComponent<CharacterBehaviourController>();
-          if (controller != null)
+          HealthBehaviour health = col.gameObject.GetComponent<HealthBehaviour>();
+          if (health != null)
           {
-            HealthBehaviour health = controller.FindBehavior<HealthBehaviour>();
-            if (health != null)
-            {
-              health.TakeDamage(damage);
-            }
+            health.TakeDamage(damage);
           }
 
           transform.SpawnFromPool("Effects", KillEffects, Quaternion.identity);

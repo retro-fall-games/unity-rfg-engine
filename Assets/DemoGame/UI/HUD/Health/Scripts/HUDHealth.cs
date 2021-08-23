@@ -8,12 +8,14 @@ namespace Game
   public class HUDHealth : MonoBehaviour
   {
     [Header("Settings")]
-    public HealthBehaviour HealthBehaviour;
+    public FloatReference HealthReference;
+    public FloatReference MaxHealthReference;
     public int HeartSteps = 5;
     public GameObject[] hearts;
 
     [HideInInspector]
     private int _maxHearts;
+    private float _currentHealth;
     private List<SpriteSwitcher> _spriteSwitchers;
 
     private void Awake()
@@ -28,12 +30,21 @@ namespace Game
 
     private void Start()
     {
-      CalculateMaxHearts(HealthBehaviour.MaxHealth);
+      CalculateMaxHearts();
     }
 
-    private void CalculateMaxHearts(float maxHealth)
+    private void LateUpdate()
     {
-      _maxHearts = (int)(maxHealth / HeartSteps);
+      if (_currentHealth != HealthReference.Value)
+      {
+        _currentHealth = HealthReference.Value;
+        UpdateUI();
+      }
+    }
+
+    private void CalculateMaxHearts()
+    {
+      _maxHearts = (int)(MaxHealthReference.Value / HeartSteps);
       SetMaxHearts(_maxHearts);
     }
 
@@ -46,9 +57,9 @@ namespace Game
       }
     }
 
-    public void OnHealthChange(float maxHealth, float currentHealth)
+    public void UpdateUI()
     {
-      CalculateMaxHearts(maxHealth);
+      CalculateMaxHearts();
 
       int startingIndex = 0;
       for (int i = 0; i < _maxHearts; i++)
@@ -59,7 +70,7 @@ namespace Game
         for (int j = startingIndex; j < endingIndex; j++)
         {
           startingIndex++;
-          if (currentHealth > j)
+          if (_currentHealth > j)
           {
             heartIndex++;
             continue;
@@ -76,16 +87,6 @@ namespace Game
         }
         heart.SetImageAtIndex(heartIndex);
       }
-    }
-
-    private void OnEnable()
-    {
-      HealthBehaviour.OnHealthChange += OnHealthChange;
-    }
-
-    private void OnDisable()
-    {
-      HealthBehaviour.OnHealthChange -= OnHealthChange;
     }
 
   }

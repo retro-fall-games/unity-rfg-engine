@@ -31,7 +31,7 @@ namespace Game
       Dialog.Instance.ClearAllSpeakers();
 
       // // Player starts the movement path
-      player.AIState.ChangeState(typeof(AIMovementPathState));
+      player.ChangeState(typeof(AIMovementPathState));
       yield return new WaitUntil(() => playerMovementPath.ReachedEnd);
 
       // // Player Talks
@@ -39,7 +39,7 @@ namespace Game
       yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "Now I can save the village from the darkness", 1.5f);
 
       // // Boss starts the movement path
-      boss.AIState.ChangeState(typeof(AIMovementPathState));
+      boss.ChangeState(typeof(AIMovementPathState));
       yield return new WaitUntil(() => bossMovementPath.ReachedEnd);
 
       // // Boss Talks
@@ -50,7 +50,7 @@ namespace Game
       yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker2, "Now there is no more meaning", 1.5f);
       bossMovementPath.Reverse();
       bossMovementPath.Reset();
-      boss.AIState.ChangeState(typeof(AIMovementPathState));
+      boss.ChangeState(typeof(AIMovementPathState));
       yield return new WaitUntil(() => bossMovementPath.ReachedEnd);
 
       // // Player Talks

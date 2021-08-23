@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using RFG;
 using RFG.Platformer;
@@ -15,7 +14,6 @@ namespace Game
 
     [HideInInspector]
     private Character character;
-    private CharacterAbilityController abilityController;
     private Inventory inventory;
     private EquipmentSet equipmentSet;
 
@@ -40,7 +38,7 @@ namespace Game
       if (Profile != null)
       {
         Profile.StartedAt = Epoch.Current();
-        StartCoroutine(RestoreData());
+        StartCoroutine(LoadData());
       }
     }
 
@@ -54,10 +52,6 @@ namespace Game
     {
       Profile.Level = SceneManager.Instance.GetCurrentScene();
       Profile.CheckpointIndex = CheckpointManager.Instance.CurrentCheckpointIndex;
-      if (abilityController != null)
-      {
-        Profile.Abilities = abilityController.GetSave();
-      }
       if (inventory != null)
       {
         Profile.Inventory = inventory.GetSave();
@@ -69,20 +63,15 @@ namespace Game
       Profile.Save();
     }
 
-    public IEnumerator RestoreData()
+    public IEnumerator LoadData()
     {
       yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Player") != null);
       GameObject player = GameObject.FindGameObjectWithTag("Player");
       if (player != null)
       {
         character = player.GetComponent<Character>();
-        abilityController = player.GetComponent<CharacterAbilityController>();
         inventory = player.GetComponent<Inventory>();
         equipmentSet = player.GetComponent<EquipmentSet>();
-      }
-      if (abilityController != null)
-      {
-        abilityController.RestoreSave(Profile.Abilities);
       }
       if (inventory != null)
       {
@@ -100,17 +89,17 @@ namespace Game
         Item item = pickUp.item;
 
         // If the item is an ability then check if they alreay have it, if they do, the turn it off
-        if (item is AbilityItem abilityItem)
-        {
-          foreach (CharacterAbility ability in abilityItem.AbilitiesToAdd)
-          {
-            if (abilityController.HasAbility(ability))
-            {
-              pickUp.gameObject.SetActive(false);
-            }
-          }
-        }
-        else if (item is MaxHealthItem maxHealthItem)
+        // if (item is AbilityItem abilityItem)
+        // {
+        //   foreach (CharacterAbility ability in abilityItem.AbilitiesToAdd)
+        //   {
+        //     if (abilityController.HasAbility(ability))
+        //     {
+        //       pickUp.gameObject.SetActive(false);
+        //     }
+        //   }
+        // }
+        if (item is MaxHealthItem maxHealthItem)
         {
           if (inventory.InInventory(maxHealthItem.Guid))
           {

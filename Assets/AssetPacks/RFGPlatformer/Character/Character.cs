@@ -8,47 +8,22 @@ namespace RFG
   {
     public enum CharacterType { Player, AI }
     [AddComponentMenu("RFG/Platformer/Character/Character")]
-    public class Character : MonoBehaviour, IPooledObject
+    public class Character : StateMachineBehaviour, IPooledObject
     {
       [Header("Settings")]
       public CharacterType CharacterType = CharacterType.Player;
       public Transform SpawnAt;
 
       [HideInInspector]
-      public CharacterStateController CharacterState => _characterState;
-      public CharacterMovementStateController CharacterMovementState => _movementState;
       public CharacterController2D Controller => _controller;
-      public CharacterAbilityController Abilities => _abilities;
-      public CharacterBehaviourController Behaviours => _behaviours;
-      public CharacterInputController Input => _input;
-      public CharacterAIStateController AIState => _aiState;
-      public CharacterAIMovementStateController AIMovementState => _aiMovementState;
-
-      private CharacterStateController _characterState;
-      private CharacterMovementStateController _movementState;
       private CharacterController2D _controller;
-      private CharacterAbilityController _abilities;
-      private CharacterBehaviourController _behaviours;
-      private CharacterInputController _input;
-      private CharacterAIStateController _aiState;
-      private CharacterAIMovementStateController _aiMovementState;
       private Dictionary<int, LevelPortal> _levelPortals;
 
-      private void Awake()
+      protected override void Awake()
       {
-        _characterState = GetComponent<CharacterStateController>();
-        _movementState = GetComponent<CharacterMovementStateController>();
+        base.Awake();
         _controller = GetComponent<CharacterController2D>();
-        _abilities = GetComponent<CharacterAbilityController>();
-        _behaviours = GetComponent<CharacterBehaviourController>();
-        _input = GetComponent<CharacterInputController>();
-
-        if (CharacterType != CharacterType.Player)
-        {
-          _aiState = GetComponent<CharacterAIStateController>();
-          _aiMovementState = GetComponent<CharacterAIMovementStateController>();
-        }
-        else
+        if (CharacterType == CharacterType.Player)
         {
           _levelPortals = new Dictionary<int, LevelPortal>();
           LevelPortal[] levelPortals = GameObject.FindObjectsOfType<LevelPortal>();
@@ -61,14 +36,7 @@ namespace RFG
 
       public void OnObjectSpawn(params object[] objects)
       {
-        _characterState.Reset();
-        _movementState.Reset();
-        if (CharacterType == CharacterType.AI)
-        {
-          Controller.ResetVelocity();
-          Controller.enabled = true;
-          _characterState.ChangeState(typeof(AliveState));
-        }
+        ResetToDefaultState();
       }
 
       public void CalculatePlayerSpawnAt()
@@ -94,13 +62,13 @@ namespace RFG
 
       public void Kill()
       {
-        _characterState.ChangeState(typeof(DeathState));
+        ChangeState(typeof(DeathState));
       }
 
       public IEnumerator Respawn()
       {
         yield return new WaitForSecondsRealtime(1f);
-        _characterState.ChangeState(typeof(SpawnState));
+        ChangeState(typeof(SpawnState));
         gameObject.SetActive(true);
       }
 

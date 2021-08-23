@@ -1199,7 +1199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8ae1bbd43d3d48419e62ae7ec72b39a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HealthBehaviour: {fileID: 11400000, guid: 72f39e1e178803b4ebeef720fe4fbe13, type: 2}
+  HealthReference: {fileID: 11400000, guid: e03e0af8afeafdd418499471a748d8e4, type: 2}
+  MaxHealthReference: {fileID: 11400000, guid: 1437bef9f01ee62438aae97767129e8b, type: 2}
   HeartSteps: 4
   hearts:
   - {fileID: 5405821259711367094}

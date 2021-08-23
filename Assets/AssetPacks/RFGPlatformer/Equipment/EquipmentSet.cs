@@ -13,6 +13,7 @@ namespace RFG
       public WeaponItemSave SecondaryWeapon;
     }
 
+    [AddComponentMenu("RFG/Platformer/Equipment/Equipment Set")]
     public class EquipmentSet : MonoBehaviour
     {
       public WeaponItem PrimaryWeapon { get; private set; }

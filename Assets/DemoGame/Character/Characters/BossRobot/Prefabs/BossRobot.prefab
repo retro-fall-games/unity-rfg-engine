@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 1050720796950071127}
   - component: {fileID: 1050720796950071126}
   - component: {fileID: 1050720796950071125}
+  - component: {fileID: -683921638566704468}
   m_Layer: 14
   m_Name: BossRobot
   m_TagString: AI Character
@@ -128,6 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterType: 1
   SpawnAt: {fileID: 0}
+  OnHealthZero: {fileID: 0}
 --- !u!50 &1050720796950071087
 Rigidbody2D:
   serializedVersion: 4
@@ -297,7 +299,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 66a804ec541be594fbd88e216a435dd1, type: 2}
   - {fileID: 11400000, guid: 90c13b78071bc60439674214264fdd68, type: 2}
   - {fileID: 11400000, guid: 1e3f053289cf3cf49b8644f8c984fec9, type: 2}
-  - {fileID: 11400000, guid: 2f72eb92276c80a47ab0bbbea398412d, type: 2}
   CreateNewInstances: 1
 --- !u!114 &1050720796950071081
 MonoBehaviour:
@@ -385,3 +386,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04603684b48aae64486f1a40ef505fd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-683921638566704468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050720796950071124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c50eccc8e16919342af677637636157b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthSettings: {fileID: 11400000, guid: 75162300d6bc49e4c9784a907189b157, type: 2}
+  CreateNewInstance: 0

@@ -18,7 +18,7 @@ namespace Game
     public long TimePlayed = 0;
     public string Level = "Intro";
     public int CheckpointIndex = 0;
-    public CharacterAbilityControllerSave Abilities;
+    // public CharacterAbilityControllerSave Abilities;
     public InventorySave Inventory;
     public EquipmentSetSave EquipmentSet;
 
@@ -28,8 +28,8 @@ namespace Game
       Level = "Intro";
       CheckpointIndex = 0;
       CreatedAt = Epoch.Current();
-      Abilities = new CharacterAbilityControllerSave();
-      Abilities.Abilities = new CharacterAbilitySave[0];
+      // Abilities = new CharacterAbilityControllerSave();
+      // Abilities.Abilities = new CharacterAbilitySave[0];
       Inventory = new InventorySave();
       Inventory.Items = new ItemSave[0];
       EquipmentSet = new EquipmentSetSave();
@@ -80,8 +80,8 @@ namespace Game
       CreatedAt = 0;
       StartedAt = 0;
       TimePlayed = 0;
-      Abilities = new CharacterAbilityControllerSave();
-      Abilities.Abilities = new CharacterAbilitySave[0];
+      // Abilities = new CharacterAbilityControllerSave();
+      // Abilities.Abilities = new CharacterAbilitySave[0];
       Inventory = new InventorySave();
       Inventory.Items = new ItemSave[0];
       EquipmentSet = new EquipmentSetSave();

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using MyBox;
 
 namespace RFG
@@ -721,7 +722,7 @@ namespace RFG
 
       private void RotateOnMouseCursor()
       {
-        var mousePos = (Vector2)_mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        var mousePos = (Vector2)_mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
         if (State.IsFacingRight && mousePos.x < _transform.position.x)
         {
           Flip();

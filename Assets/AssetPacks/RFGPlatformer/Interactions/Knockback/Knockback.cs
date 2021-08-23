@@ -39,14 +39,10 @@ namespace RFG
           }
           if (KnockbackData.Damage > 0f)
           {
-            CharacterBehaviourController controller = other.GetComponent<CharacterBehaviourController>();
-            if (controller != null)
+            HealthBehaviour health = other.GetComponent<HealthBehaviour>();
+            if (health != null)
             {
-              HealthBehaviour health = controller.FindBehavior<HealthBehaviour>();
-              if (health != null)
-              {
-                health.TakeDamage(KnockbackData.Damage);
-              }
+              health.TakeDamage(KnockbackData.Damage);
             }
           }
         }

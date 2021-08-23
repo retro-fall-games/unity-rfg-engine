@@ -48,7 +48,16 @@ namespace RFG
       yield return new WaitForSecondsRealtime(WaitForSeconds);
       PlayerPrefs.SetString("lastScene", GetCurrentScene());
       GameManager.Instance.UnPause();
-      UnityEngine.SceneManagement.SceneManager.LoadScene(name);
+
+      // The Application loads the Scene in the background as the current Scene runs.
+      // This is particularly good for creating loading screens.
+      AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(name);
+
+      // Wait until the asynchronous scene fully loads
+      while (!asyncLoad.isDone)
+      {
+        yield return null;
+      }
     }
 
     public string GetCurrentScene()

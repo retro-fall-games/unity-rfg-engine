@@ -46,20 +46,20 @@ namespace Game
             asset.Asset = item;
             Assets.Add(asset);
           }
-          else if (o is CharacterAbility ability)
-          {
-            ResourceAsset asset = new ResourceAsset();
-            asset.Guid = ability.Guid;
-            asset.Asset = ability;
-            Assets.Add(asset);
-          }
-          else if (o is CharacterState state)
-          {
-            ResourceAsset asset = new ResourceAsset();
-            asset.Guid = state.Guid;
-            asset.Asset = state;
-            Assets.Add(asset);
-          }
+          // else if (o is CharacterAbility ability)
+          // {
+          //   ResourceAsset asset = new ResourceAsset();
+          //   asset.Guid = ability.Guid;
+          //   asset.Asset = ability;
+          //   Assets.Add(asset);
+          // }
+          // else if (o is CharacterState state)
+          // {
+          //   ResourceAsset asset = new ResourceAsset();
+          //   asset.Guid = state.Guid;
+          //   asset.Asset = state;
+          //   Assets.Add(asset);
+          // }
         }
       }
       EditorUtility.SetDirty(this);

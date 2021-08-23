@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BossRobotCharacterControllerParameters2D
   m_EditorClassIdentifier: 
   Gravity: -25
-  MaxVelocity: {x: 100, y: 100}
+  MaxVelocity: {x: 100, y: 3}
   SpeedFactor: 3
   GroundSpeedFactor: 10
   AirSpeedFactor: 5

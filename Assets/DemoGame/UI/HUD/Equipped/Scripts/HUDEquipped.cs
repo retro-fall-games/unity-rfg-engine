@@ -50,18 +50,24 @@ namespace Game
 
     private void OnEnable()
     {
-      EquipmentSet.OnEquipPrimaryWeapon += OnEquipPrimaryWeapon;
-      EquipmentSet.OnEquipSecondaryWeapon += OnEquipSecondaryWeapon;
-      EquipmentSet.OnUnequipPrimaryWeapon += OnUnequipPrimaryWeapon;
-      EquipmentSet.OnUnequipSecondaryWeapon += OnUnequipSecondaryWeapon;
+      if (EquipmentSet != null)
+      {
+        EquipmentSet.OnEquipPrimaryWeapon += OnEquipPrimaryWeapon;
+        EquipmentSet.OnEquipSecondaryWeapon += OnEquipSecondaryWeapon;
+        EquipmentSet.OnUnequipPrimaryWeapon += OnUnequipPrimaryWeapon;
+        EquipmentSet.OnUnequipSecondaryWeapon += OnUnequipSecondaryWeapon;
+      }
     }
 
     private void OnDisable()
     {
-      EquipmentSet.OnEquipPrimaryWeapon -= OnEquipPrimaryWeapon;
-      EquipmentSet.OnEquipSecondaryWeapon -= OnEquipSecondaryWeapon;
-      EquipmentSet.OnUnequipPrimaryWeapon -= OnUnequipPrimaryWeapon;
-      EquipmentSet.OnUnequipSecondaryWeapon -= OnUnequipSecondaryWeapon;
+      if (EquipmentSet != null)
+      {
+        EquipmentSet.OnEquipPrimaryWeapon -= OnEquipPrimaryWeapon;
+        EquipmentSet.OnEquipSecondaryWeapon -= OnEquipSecondaryWeapon;
+        EquipmentSet.OnUnequipPrimaryWeapon -= OnUnequipPrimaryWeapon;
+        EquipmentSet.OnUnequipSecondaryWeapon -= OnUnequipSecondaryWeapon;
+      }
     }
 
   }

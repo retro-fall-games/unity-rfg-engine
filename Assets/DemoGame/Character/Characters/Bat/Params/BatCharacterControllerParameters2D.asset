@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1275ee687b9e15749b9cf07357f04086, type: 3}
   m_Name: BatCharacterControllerParameters2D
   m_EditorClassIdentifier: 
-  Gravity: -25
+  Gravity: 0
   MaxVelocity: {x: 100, y: 100}
   SpeedFactor: 3
   GroundSpeedFactor: 10
