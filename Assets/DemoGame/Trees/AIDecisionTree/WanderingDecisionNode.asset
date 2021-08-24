@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c2a9fcfb81ae94e8d3136ad52478a6, type: 3}
+  m_Name: WanderingDecisionNode
+  m_EditorClassIdentifier: 
+  Decisions:
+  - {fileID: 11400000, guid: aa8590ff9692b7c4d986bdf15aa161ee, type: 2}
+  - {fileID: 11400000, guid: b6b422f5b6c01894489300d2f96714ef, type: 2}
+  - {fileID: 11400000, guid: 2c94022d85986c9499174896d8a9e3b1, type: 2}
+  - {fileID: 11400000, guid: 352f7833ef9547f4f8d410b33c8f2457, type: 2}
+  - {fileID: 11400000}

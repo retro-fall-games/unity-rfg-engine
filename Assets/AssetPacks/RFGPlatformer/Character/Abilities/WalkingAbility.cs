@@ -14,6 +14,10 @@ namespace RFG
       public InputActionReference XYAxis;
 
       [Header("Settings")]
+      /// <summary>Idle Settings for animations</summary>
+      [Tooltip("Idle Settings for animations")]
+      public IdleSettings IdleSettings;
+
       /// <summary>Walking Settings to know if there is any input and changing state</summary>
       [Tooltip("Walking Settings to know if there is any input and changing state")]
       public WalkingSettings WalkingSettings;
@@ -75,7 +79,7 @@ namespace RFG
           {
             _controller.State.IsIdle = true;
             _controller.State.IsWalking = false;
-            _animator.Play(WalkingSettings.IdleClip);
+            _animator.Play(IdleSettings.IdleClip);
           }
           else
           {
