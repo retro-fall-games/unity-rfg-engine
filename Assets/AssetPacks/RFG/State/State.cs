@@ -1,17 +1,10 @@
 using System;
 using UnityEngine;
-using MyBox;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace RFG
 {
   public class State : ScriptableObject
   {
-    [Header("Settings")]
-    [ReadOnly] public string Guid;
-
     [Header("Animations")]
     [Tooltip("Define what layer to play animations")]
     public string Layer = "Base Layer";
@@ -59,17 +52,5 @@ namespace RFG
     {
       transform.SpawnFromPool("Effects", effects);
     }
-
-#if UNITY_EDITOR
-    [ButtonMethod]
-    protected void GenerateGuid()
-    {
-      if (Guid == null || Guid.Equals(""))
-      {
-        Guid = System.Guid.NewGuid().ToString();
-        EditorUtility.SetDirty(this);
-      }
-    }
-#endif
   }
 }

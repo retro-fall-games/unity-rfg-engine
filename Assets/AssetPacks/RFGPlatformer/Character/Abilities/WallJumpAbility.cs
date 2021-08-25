@@ -21,6 +21,7 @@ namespace RFG
       /// <summary>Wall Jump Settings to know threshold and force</summary>
       [Tooltip("Wall Jump Settings to know threshold and force")]
       public WallJumpSettings WallJumpSettings;
+      public bool HasAbility;
 
       [HideInInspector]
       private Transform _transform;
@@ -36,7 +37,7 @@ namespace RFG
 
       private void OnJumpStarted(InputAction.CallbackContext ctx)
       {
-        if (_controller.State.IsWallClinging)
+        if (HasAbility && _controller.State.IsWallClinging)
         {
           WallJump();
         }

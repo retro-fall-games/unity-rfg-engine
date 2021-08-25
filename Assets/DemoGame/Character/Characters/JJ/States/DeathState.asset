@@ -16,5 +16,6 @@ MonoBehaviour:
   Layer: Base Layer
   EnterClip: 
   ExitClip: 
-  EnterEffects: []
+  EnterEffects:
+  - DeathHit
   ExitEffects: []

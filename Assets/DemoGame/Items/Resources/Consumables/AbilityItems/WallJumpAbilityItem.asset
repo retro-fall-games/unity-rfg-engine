@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31fefc4f953f09442bfb7f2726c04cc4, type: 3}
+  m_Name: WallJumpAbilityItem
+  m_EditorClassIdentifier: 
+  Guid: ffb0d0ab-b5b1-4f85-8f90-4ccf91f43c20
+  Description: Grants the character the ability to wall jump
+  PickUpSprite: {fileID: -4530364378644165909, guid: 697109247756ff54ebd1fad284bca7c2, type: 3}
+  PickUpText: Wall Jump Ability
+  PickUpEffects:
+  - PickUpEffect
+  ConsumeOnPickUp: 1
+  AddToInventory: 0
+  ConsumeText: 
+  ConsumeEffects: []
+  AbilityToAdd: 2

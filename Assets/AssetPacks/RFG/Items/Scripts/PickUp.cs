@@ -4,7 +4,7 @@ using MyBox;
 
 namespace RFG
 {
-  [AddComponentMenu("RFG/Items/PickUp")]
+  [AddComponentMenu("RFG/Items/Pick Up")]
   public class PickUp : MonoBehaviour
   {
     [Header("Settings")]

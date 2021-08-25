@@ -1521,10 +1521,6 @@ GameObject:
   - component: {fileID: 563112060}
   - component: {fileID: 563112059}
   - component: {fileID: 563112050}
-  - component: {fileID: 563112055}
-  - component: {fileID: 563112054}
-  - component: {fileID: 563112053}
-  - component: {fileID: 563112052}
   - component: {fileID: 563112051}
   m_Layer: 14
   m_Name: Boss
@@ -1611,7 +1607,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 563112046}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.56, y: -0.29, z: 0}
+  m_LocalPosition: {x: 9.56, y: -0.505, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2031174189}
@@ -1647,80 +1643,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 563112046}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1041942ef07218c459245893df53fa2e, type: 3}
+  m_Script: {fileID: 11500000, guid: a455fe9ae8330b2488a727c43ac3ee11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  States:
-  - {fileID: 11400000, guid: 9fffa22beb94c6947924f95754c5b60f, type: 2}
-  - {fileID: 11400000, guid: 8ccab13e2aae41945978d9c358782680, type: 2}
-  DefaultState: {fileID: 11400000, guid: 9fffa22beb94c6947924f95754c5b60f, type: 2}
-  CurrentState: {fileID: 0}
---- !u!114 &563112052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 563112046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2320f28fdaab26544a4e0a671da1d5ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Behaviours:
-  - {fileID: 11400000, guid: 4989b4a6d9a836644af4b6405c9e9521, type: 2}
-  CreateNewInstances: 0
---- !u!114 &563112053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 563112046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6803ee69304ccd944b63912e12dc960e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  States:
-  - {fileID: 11400000, guid: d1eb9d22097076a4eb7e1de54e726809, type: 2}
-  DefaultState: {fileID: 11400000, guid: d1eb9d22097076a4eb7e1de54e726809, type: 2}
-  CurrentState: {fileID: 0}
---- !u!114 &563112054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 563112046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27de7023d6c1748479f5f9369c199650, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  States:
-  - {fileID: 11400000, guid: dab308780b900894e9a58791ea1c6527, type: 2}
-  - {fileID: 11400000, guid: fdef563b15f146e47853647b0d3877ee, type: 2}
-  DefaultState: {fileID: 11400000, guid: dab308780b900894e9a58791ea1c6527, type: 2}
-  CurrentState: {fileID: 0}
---- !u!114 &563112055
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 563112046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c705b1d4e98f98d47873018b2b1d72c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  States:
-  - {fileID: 11400000, guid: d05f5bce5157aef4bbf2e08dda71fc1e, type: 2}
-  - {fileID: 11400000, guid: 5ffe876313d78aa4c8e75c0d8e258b6d, type: 2}
-  - {fileID: 11400000, guid: dab308780b900894e9a58791ea1c6527, type: 2}
-  DefaultState: {fileID: 11400000, guid: dab308780b900894e9a58791ea1c6527, type: 2}
-  CurrentState: {fileID: 0}
+  WalkingSettings: {fileID: 11400000, guid: 236ba19ef12adb74e887f04f879687ee, type: 2}
+  MovementPath: {fileID: 563112050}
 --- !u!114 &563112059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1733,14 +1660,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a645592bb15a474681c5e7514b90e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultParameters:
-    Gravity: -25
-    MaxVelocity: {x: 100, y: 100}
-    SpeedFactor: 3
-    GroundSpeedFactor: 10
-    AirSpeedFactor: 5
-    MaxSlopeAngle: 30
-    SkinWidth: 0.02
+  DefaultParameters: {fileID: 11400000, guid: 61764111fefd5e347bd969a5a84adbbf, type: 2}
+  OverrideParameters: {fileID: 0}
   rotateOnMouseCursor: 0
   facingOnStart: Face Right
   platformMask:
@@ -1852,6 +1773,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65be5b1e4f0c73f4b9658fa06623599d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  States:
+  - {fileID: 11400000, guid: dab308780b900894e9a58791ea1c6527, type: 2}
+  - {fileID: 11400000, guid: fdef563b15f146e47853647b0d3877ee, type: 2}
+  DefaultState: {fileID: 11400000, guid: dab308780b900894e9a58791ea1c6527, type: 2}
+  CurrentState: {fileID: 0}
   CharacterType: 1
   SpawnAt: {fileID: 0}
 --- !u!1 &566572031
@@ -3213,11 +3139,7 @@ GameObject:
   - component: {fileID: 6375946003085367006}
   - component: {fileID: 3853443855615831493}
   - component: {fileID: 6375946003085367003}
-  - component: {fileID: 6375946003085367011}
-  - component: {fileID: 6375946003085367010}
-  - component: {fileID: 6375946003085367009}
   - component: {fileID: 6375946003085367008}
-  - component: {fileID: 6375946003085367012}
   m_Layer: 14
   m_Name: Player
   m_TagString: AI Character
@@ -3309,6 +3231,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65be5b1e4f0c73f4b9658fa06623599d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  States:
+  - {fileID: 11400000, guid: dab308780b900894e9a58791ea1c6527, type: 2}
+  - {fileID: 11400000, guid: fdef563b15f146e47853647b0d3877ee, type: 2}
+  DefaultState: {fileID: 11400000, guid: dab308780b900894e9a58791ea1c6527, type: 2}
+  CurrentState: {fileID: 0}
   CharacterType: 1
   SpawnAt: {fileID: 0}
 --- !u!114 &6375946003085367006
@@ -3323,14 +3250,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a645592bb15a474681c5e7514b90e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultParameters:
-    Gravity: -25
-    MaxVelocity: {x: 100, y: 100}
-    SpeedFactor: 3
-    GroundSpeedFactor: 10
-    AirSpeedFactor: 5
-    MaxSlopeAngle: 30
-    SkinWidth: 0.02
+  DefaultParameters: {fileID: 11400000, guid: 61764111fefd5e347bd969a5a84adbbf, type: 2}
+  OverrideParameters: {fileID: 0}
   rotateOnMouseCursor: 0
   facingOnStart: Face Right
   platformMask:
@@ -3406,77 +3327,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6375946003085367002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2320f28fdaab26544a4e0a671da1d5ba, type: 3}
+  m_Script: {fileID: 11500000, guid: a455fe9ae8330b2488a727c43ac3ee11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Behaviours:
-  - {fileID: 11400000, guid: 4989b4a6d9a836644af4b6405c9e9521, type: 2}
-  CreateNewInstances: 0
---- !u!114 &6375946003085367009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6375946003085367002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6803ee69304ccd944b63912e12dc960e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  States:
-  - {fileID: 11400000, guid: d1eb9d22097076a4eb7e1de54e726809, type: 2}
-  DefaultState: {fileID: 11400000, guid: d1eb9d22097076a4eb7e1de54e726809, type: 2}
-  CurrentState: {fileID: 0}
---- !u!114 &6375946003085367010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6375946003085367002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27de7023d6c1748479f5f9369c199650, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  States:
-  - {fileID: 11400000, guid: dab308780b900894e9a58791ea1c6527, type: 2}
-  - {fileID: 11400000, guid: fdef563b15f146e47853647b0d3877ee, type: 2}
-  DefaultState: {fileID: 11400000, guid: dab308780b900894e9a58791ea1c6527, type: 2}
-  CurrentState: {fileID: 0}
---- !u!114 &6375946003085367011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6375946003085367002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c705b1d4e98f98d47873018b2b1d72c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  States:
-  - {fileID: 11400000, guid: d05f5bce5157aef4bbf2e08dda71fc1e, type: 2}
-  - {fileID: 11400000, guid: 5ffe876313d78aa4c8e75c0d8e258b6d, type: 2}
-  - {fileID: 11400000, guid: dab308780b900894e9a58791ea1c6527, type: 2}
-  DefaultState: {fileID: 11400000, guid: dab308780b900894e9a58791ea1c6527, type: 2}
-  CurrentState: {fileID: 0}
---- !u!114 &6375946003085367012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6375946003085367002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1041942ef07218c459245893df53fa2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  States:
-  - {fileID: 11400000, guid: 9fffa22beb94c6947924f95754c5b60f, type: 2}
-  - {fileID: 11400000, guid: 8ccab13e2aae41945978d9c358782680, type: 2}
-  DefaultState: {fileID: 11400000, guid: 9fffa22beb94c6947924f95754c5b60f, type: 2}
-  CurrentState: {fileID: 0}
+  WalkingSettings: {fileID: 11400000, guid: 236ba19ef12adb74e887f04f879687ee, type: 2}
+  MovementPath: {fileID: 6375946003085367003}

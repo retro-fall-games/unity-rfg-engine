@@ -34,6 +34,14 @@ namespace RFG
             if (moveable != null)
             {
               Vector2 velocity = GetKnockbackVelocity(other.transform.position, transform.position);
+
+              CharacterController2D otherController = other.GetComponent<CharacterController2D>();
+
+              if (otherController != null && otherController.Parameters.Weight > 0)
+              {
+                velocity /= otherController.Parameters.Weight;
+              }
+
               moveable.SetForce(velocity);
             }
           }

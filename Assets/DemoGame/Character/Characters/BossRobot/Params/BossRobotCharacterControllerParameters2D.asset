@@ -19,3 +19,4 @@ MonoBehaviour:
   AirSpeedFactor: 5
   MaxSlopeAngle: 30
   SkinWidth: 0.02
+  Weight: 3

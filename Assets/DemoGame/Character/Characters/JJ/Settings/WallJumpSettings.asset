@@ -16,4 +16,5 @@ MonoBehaviour:
   WallJumpForce: {x: 15, y: 4}
   Layer: Base Layer
   WallJumpClip: Jumping
-  JumpEffects: []
+  JumpEffects:
+  - JumpEffect

@@ -4,57 +4,81 @@ namespace RFG
 {
   namespace Platformer
   {
-    [AddComponentMenu("RFG/Platformer/Character/Behaviours/AI Wandering")]
+    [AddComponentMenu("RFG/Platformer/Character/AI Behaviours/AI Wandering")]
     public class AIWanderingBehaviour : MonoBehaviour
     {
       [Header("Settings")]
-      public float WalkSpeed = 5f;
+      /// <summary>Walking Settings to know speed and effects</summary>
+      [Tooltip("Walking Settings to know speed and effects")]
+      public WalkingSettings WalkingSettings;
+      public float ChangeDirectionSpeed = 5f;
+      private float _changeDirectionTimeElapsed = 0f;
 
-      // public override void InitValues(CharacterBehaviour behaviour)
-      // {
-      //   AIWanderingBehaviour b = (AIWanderingBehaviour)behaviour;
-      //   WalkSpeed = b.WalkSpeed;
-      // }
+      [HideInInspector]
+      private Transform _transform;
+      private Character _character;
+      private CharacterController2D _controller;
+      private Aggro _aggro;
+      private Animator _animator;
 
-      // public override void Process(CharacterBehaviourController.BehaviourContext ctx)
-      // {
-      //   if (ctx.character.CurrentStateType != typeof(AIWanderingState))
-      //   {
-      //     return;
-      //   }
+      private void Awake()
+      {
+        _transform = transform;
+        _character = GetComponent<Character>();
+        _controller = GetComponent<CharacterController2D>();
+        _aggro = GetComponent<Aggro>();
+        _animator = GetComponent<Animator>();
+      }
 
-      //   float _normalizedHorizontalSpeed = 0f;
+      private void Update()
+      {
+        if (_character.CurrentStateType == typeof(AIWanderingState))
+        {
+          Flip();
 
-      //   if (ctx.character.CurrentStateType == typeof(AIWalkingRightState))
-      //   {
-      //     _normalizedHorizontalSpeed = 1f;
-      //     if (!ctx.character.Controller.State.IsFacingRight)
-      //     {
-      //       ctx.character.Controller.Flip();
-      //     }
-      //   }
-      //   else if (ctx.character.CurrentStateType == typeof(AIWalkingLeftState))
-      //   {
-      //     _normalizedHorizontalSpeed = -1f;
-      //     if (ctx.character.Controller.State.IsFacingRight)
-      //     {
-      //       ctx.character.Controller.Flip();
-      //     }
-      //   }
-      //   else if (ctx.character.CurrentStateType == typeof(AIIdleState))
-      //   {
-      //     _normalizedHorizontalSpeed = 0f;
-      //   }
+          float _normalizedHorizontalSpeed = 0f;
 
-      //   ctx.character.ChangeState(_normalizedHorizontalSpeed == 0 ? typeof(IdleState) : typeof(WalkingState));
+          if (_controller.State.IsFacingRight)
+          {
+            _normalizedHorizontalSpeed = 1f;
+          }
+          else
+          {
+            _normalizedHorizontalSpeed = -1f;
+          }
 
-      //   float movementFactor = ctx.character.Controller.State.IsGrounded ? ctx.character.Controller.Parameters.GroundSpeedFactor : ctx.character.Controller.Parameters.AirSpeedFactor;
-      //   float movementSpeed = _normalizedHorizontalSpeed * WalkSpeed * ctx.character.Controller.Parameters.SpeedFactor;
-      //   float horizontalMovementForce = Mathf.Lerp(ctx.character.Controller.Velocity.x, movementSpeed, Time.deltaTime * movementFactor);
+          _transform.SpawnFromPool("Effects", WalkingSettings.WalkingEffects);
+          _animator.Play(WalkingSettings.WalkingClip);
 
-      //   ctx.character.Controller.SetHorizontalForce(horizontalMovementForce);
+          float movementFactor = _controller.Parameters.GroundSpeedFactor;
+          float movementSpeed = _normalizedHorizontalSpeed * WalkingSettings.WalkingSpeed * _controller.Parameters.SpeedFactor;
+          float horizontalMovementForce = Mathf.Lerp(_controller.Velocity.x, movementSpeed, Time.deltaTime * movementFactor);
 
-      // }
+          _controller.SetHorizontalForce(horizontalMovementForce);
+        }
+      }
+
+      private void Flip()
+      {
+        if (_controller.State.IsCollidingLeft || _controller.State.IsCollidingRight)
+        {
+          _controller.Flip();
+          _changeDirectionTimeElapsed = 0;
+        }
+        else
+        {
+          _changeDirectionTimeElapsed += Time.deltaTime;
+          if (_changeDirectionTimeElapsed >= ChangeDirectionSpeed)
+          {
+            _changeDirectionTimeElapsed = 0;
+            int decisionIndex = UnityEngine.Random.Range(0, 100);
+            if (decisionIndex >= 50)
+            {
+              _controller.Flip();
+            }
+          }
+        }
+      }
 
     }
   }

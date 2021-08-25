@@ -23,6 +23,7 @@ namespace RFG
 
       [Header("Parameters")]
       public float SkinWidth = 0.02f;
+      public float Weight = 1f;
 
     }
   }

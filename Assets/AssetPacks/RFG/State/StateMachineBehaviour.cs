@@ -72,5 +72,10 @@ namespace RFG
     {
       ChangeState(PreviousStateType);
     }
+
+    public bool HasState(Type type)
+    {
+      return _states.ContainsKey(type);
+    }
   }
 }

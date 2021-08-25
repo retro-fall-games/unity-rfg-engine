@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6c2a9fcfb81ae94e8d3136ad52478a6, type: 3}
   m_Name: WanderingDecisionNode
   m_EditorClassIdentifier: 
+  DecisionSpeed: 3
+  DecisionOffset: 10
+  State: {fileID: 11400000, guid: 1e86535c8daa6044a88fca6f1251412c, type: 2}
   Decisions:
-  - {fileID: 11400000, guid: aa8590ff9692b7c4d986bdf15aa161ee, type: 2}
-  - {fileID: 11400000, guid: b6b422f5b6c01894489300d2f96714ef, type: 2}
-  - {fileID: 11400000, guid: 2c94022d85986c9499174896d8a9e3b1, type: 2}
   - {fileID: 11400000, guid: 352f7833ef9547f4f8d410b33c8f2457, type: 2}
-  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 1b06b290f2055454bba72935dfa29f61, type: 2}

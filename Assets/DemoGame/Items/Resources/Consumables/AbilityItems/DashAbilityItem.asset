@@ -16,10 +16,10 @@ MonoBehaviour:
   Description: Grants the character the ability to dash
   PickUpSprite: {fileID: -4530994168764554855, guid: 697109247756ff54ebd1fad284bca7c2, type: 3}
   PickUpText: Dash Ability
-  PickUpEffects: []
+  PickUpEffects:
+  - PickUpEffect
   ConsumeOnPickUp: 1
   AddToInventory: 0
   ConsumeText: 
   ConsumeEffects: []
-  AbilitiesToAdd:
-  - {fileID: 11400000, guid: 9237801ec6ff1c442b883a68b6662a3d, type: 2}
+  AbilityToAdd: 1

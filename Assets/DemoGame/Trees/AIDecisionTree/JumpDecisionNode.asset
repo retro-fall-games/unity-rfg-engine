@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6c2a9fcfb81ae94e8d3136ad52478a6, type: 3}
   m_Name: JumpDecisionNode
   m_EditorClassIdentifier: 
+  DecisionSpeed: 3
+  DecisionOffset: 10
+  State: {fileID: 11400000, guid: e16259c6100b2df41b2c2253ce79a9ca, type: 2}
   Decisions: []

@@ -4,45 +4,53 @@ namespace RFG
 {
   namespace Platformer
   {
-    [AddComponentMenu("RFG/Platformer/Character/Behaviours/AI Movement Path")]
+    [AddComponentMenu("RFG/Platformer/Character/AI Behaviours/AI Movement Path")]
     public class AIMovementPathBehaviour : MonoBehaviour
     {
       [Header("Settings")]
-      public float WalkSpeed = 5f;
+      /// <summary>Walking Settings to know speed and effects</summary>
+      [Tooltip("Walking Settings to know speed and effects")]
+      public WalkingSettings WalkingSettings;
+      public MovementPath MovementPath;
 
-      // public override void InitValues(CharacterBehaviour behaviour)
-      // {
-      //   AIMovementPathBehaviour b = (AIMovementPathBehaviour)behaviour;
-      //   WalkSpeed = b.WalkSpeed;
-      // }
+      [HideInInspector]
+      private Transform _transform;
+      private Character _character;
+      private CharacterController2D _controller;
+      private Aggro _aggro;
+      private Animator _animator;
 
-      // public override void Process(CharacterBehaviourController.BehaviourContext ctx)
-      // {
-      //   if (ctx.character.CurrentStateType != typeof(AIMovementPathState) || ctx.movementPath == null)
-      //   {
-      //     ctx.character.ChangeState(typeof(AIIdleState));
-      //     ctx.character.ChangeState(typeof(IdleState));
-      //     return;
-      //   }
+      private void Awake()
+      {
+        _transform = transform;
+        _character = GetComponent<Character>();
+        _controller = GetComponent<CharacterController2D>();
+        _aggro = GetComponent<Aggro>();
+        _animator = GetComponent<Animator>();
+      }
 
-      //   ctx.character.Controller.RotateTowards(ctx.movementPath.NextPath);
-      //   if (!ctx.movementPath.autoMove)
-      //   {
-      //     ctx.movementPath.Move();
-      //     ctx.movementPath.CheckPath();
-      //   }
+      private void Update()
+      {
+        if (_character.CurrentStateType == typeof(AIMovementPathState))
+        {
+          _controller.RotateTowards(MovementPath.NextPath);
+          if (!MovementPath.autoMove)
+          {
+            MovementPath.Move();
+            MovementPath.CheckPath();
+          }
 
-      //   if (ctx.movementPath.state == MovementPath.State.OneWay && ctx.movementPath.ReachedEnd)
-      //   {
-      //     ctx.character.ChangeState(typeof(AIIdleState));
-      //     ctx.character.ChangeState(typeof(IdleState));
-      //   }
-      //   else
-      //   {
-      //     ctx.character.ChangeState(typeof(WalkingState));
-      //   }
+          if (MovementPath.state == MovementPath.State.OneWay && MovementPath.ReachedEnd)
+          {
+            _character.ChangeState(typeof(AIIdleState));
+          }
+          else
+          {
+            _character.ChangeState(typeof(AIMovementPathState));
+          }
+        }
 
-      // }
+      }
 
     }
   }

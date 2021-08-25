@@ -23,6 +23,7 @@ namespace RFG
       [Tooltip("Dash Settings to know dash distance and direction")]
       public DashSettings DashSettings;
       public Aim Aim;
+      public bool HasAbility;
 
       [HideInInspector]
       private Vector2 _dashDirection;
@@ -181,7 +182,10 @@ namespace RFG
 
       public void OnDashStarted(InputAction.CallbackContext ctx)
       {
-        StartDash();
+        if (HasAbility)
+        {
+          StartDash();
+        }
       }
 
       private void OnEnable()

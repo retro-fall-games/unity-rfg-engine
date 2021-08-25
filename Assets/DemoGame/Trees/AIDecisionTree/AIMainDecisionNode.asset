@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6c2a9fcfb81ae94e8d3136ad52478a6, type: 3}
   m_Name: AIMainDecisionNode
   m_EditorClassIdentifier: 
+  DecisionSpeed: 3
+  DecisionOffset: 10
+  State: {fileID: 11400000, guid: dab308780b900894e9a58791ea1c6527, type: 2}
   Decisions:
-  - {fileID: 11400000, guid: aa8590ff9692b7c4d986bdf15aa161ee, type: 2}
+  - {fileID: 11400000, guid: 3a47153362a09984c97a7c3836560eca, type: 2}

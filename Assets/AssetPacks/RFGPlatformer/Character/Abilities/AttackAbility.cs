@@ -26,7 +26,6 @@ namespace RFG
         _equipmentSet = GetComponent<EquipmentSet>();
       }
 
-
       public void OnPrimaryAttackStarted(InputAction.CallbackContext ctx)
       {
         bool pointerOverUi = EventSystem.current.IsPointerOverGameObject();
@@ -85,24 +84,26 @@ namespace RFG
       {
         PrimaryAttackInput.action.Enable();
         PrimaryAttackInput.action.started += OnPrimaryAttackStarted;
-        PrimaryAttackInput.action.canceled += OnPrimaryAttackStarted;
-        PrimaryAttackInput.action.performed += OnPrimaryAttackStarted;
+        PrimaryAttackInput.action.canceled += OnPrimaryAttackCanceled;
+        PrimaryAttackInput.action.performed += OnPrimaryAttackPerformed;
+
         SecondaryAttackInput.action.Enable();
         SecondaryAttackInput.action.started += OnSecondaryAttackStarted;
-        SecondaryAttackInput.action.canceled += OnSecondaryAttackStarted;
-        SecondaryAttackInput.action.performed += OnSecondaryAttackStarted;
+        SecondaryAttackInput.action.canceled += OnSecondaryAttackCanceled;
+        SecondaryAttackInput.action.performed += OnSecondaryAttackPerformed;
       }
 
       private void OnDisable()
       {
         PrimaryAttackInput.action.Enable();
         PrimaryAttackInput.action.started -= OnPrimaryAttackStarted;
-        PrimaryAttackInput.action.canceled -= OnPrimaryAttackStarted;
-        PrimaryAttackInput.action.performed -= OnPrimaryAttackStarted;
+        PrimaryAttackInput.action.canceled -= OnPrimaryAttackCanceled;
+        PrimaryAttackInput.action.performed -= OnPrimaryAttackPerformed;
+
         SecondaryAttackInput.action.Enable();
         SecondaryAttackInput.action.started -= OnSecondaryAttackStarted;
-        SecondaryAttackInput.action.canceled -= OnSecondaryAttackStarted;
-        SecondaryAttackInput.action.performed -= OnSecondaryAttackStarted;
+        SecondaryAttackInput.action.canceled -= OnSecondaryAttackCanceled;
+        SecondaryAttackInput.action.performed -= OnSecondaryAttackPerformed;
       }
 
     }

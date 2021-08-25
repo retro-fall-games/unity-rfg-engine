@@ -4,13 +4,17 @@ namespace RFG
 {
   namespace Platformer
   {
-    [AddComponentMenu("RFG/Platformer/Character/AI Behaviours/Attack")]
+    [AddComponentMenu("RFG/Platformer/Character/AI Behaviours/AI Attack")]
     public class AIAttackBehaviour : MonoBehaviour
     {
       [Header("Settings")]
       /// <summary>AI Attack Settings to know speed and effects</summary>
       [Tooltip("AI Attack Settings to know speed and effects")]
       public AIAttackSettings AIAttackSettings;
+
+      /// <summary>Running Settings to know how fast to move horizontally</summary>
+      [Tooltip("Running Settings to know how fast to move horizontally when aggro is true")]
+      public RunningSettings RunningSettings;
 
       [HideInInspector]
       private Transform _transform;
@@ -47,14 +51,24 @@ namespace RFG
             _normalizedHorizontalSpeed = -1f;
           }
 
-          _transform.SpawnFromPool("Effects", AIAttackSettings.RunningEffects);
-          _animator.Play(AIAttackSettings.RunningClip);
+          _transform.SpawnFromPool("Effects", RunningSettings.RunningEffects);
+          _animator.Play(RunningSettings.RunningClip);
 
-          float movementFactor = _controller.State.IsGrounded ? _controller.Parameters.GroundSpeedFactor : _controller.Parameters.AirSpeedFactor;
-          float movementSpeed = _normalizedHorizontalSpeed * AIAttackSettings.RunSpeed * _controller.Parameters.SpeedFactor;
+          float movementFactor = _controller.Parameters.GroundSpeedFactor;
+          float movementSpeed = _normalizedHorizontalSpeed * RunningSettings.RunningSpeed * _controller.Parameters.SpeedFactor;
           float horizontalMovementForce = Mathf.Lerp(_controller.Velocity.x, movementSpeed, Time.deltaTime * movementFactor);
 
           _controller.SetHorizontalForce(horizontalMovementForce);
+
+          //   if (ctx.character.CurrentStateType == typeof(AIAttackingState))
+          //   {
+          //     ctx.equipmentSet.PrimaryWeapon?.Perform();
+          //   }
+
+          //   if (ctx.character.CurrentStateType == typeof(AIAttackingState))
+          //   {
+          //     ctx.equipmentSet.SecondaryWeapon?.Perform();
+          //   }
         }
       }
     }

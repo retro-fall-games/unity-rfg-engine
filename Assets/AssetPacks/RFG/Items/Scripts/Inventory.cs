@@ -10,6 +10,7 @@ namespace RFG
     public ItemSave[] Items;
   }
 
+  [AddComponentMenu("RFG/Items/Inventory")]
   public class Inventory : MonoBehaviour
   {
     [Header("Settings")]

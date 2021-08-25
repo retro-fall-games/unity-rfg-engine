@@ -11,6 +11,7 @@ namespace RFG
       public FloatReference MaxHealthReference;
       public float Health = 100f;
       public float MaxHealth = 100f;
+      public float DefaultMaxHealth = 100f;
       private Character _character;
 
       private void Awake()
@@ -22,6 +23,7 @@ namespace RFG
         }
         if (MaxHealthReference != null)
         {
+          MaxHealthReference.Value = DefaultMaxHealth;
           MaxHealth = MaxHealthReference.Value;
         }
       }

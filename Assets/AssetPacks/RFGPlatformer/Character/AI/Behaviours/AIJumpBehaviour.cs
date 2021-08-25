@@ -4,7 +4,7 @@ namespace RFG
 {
   namespace Platformer
   {
-    [AddComponentMenu("RFG/Platformer/Character/Behaviours/AI Jump")]
+    [AddComponentMenu("RFG/Platformer/Character/AI Behaviours/AI Jump")]
     public class AIJumpBehaviour : MonoBehaviour
     {
       [Header("Settings")]
@@ -26,6 +26,10 @@ namespace RFG
       private CharacterController2D _controller;
       private Aggro _aggro;
       private Animator _animator;
+      private AIBrainBehaviour _brain;
+
+      public float JumpSpeed = 5f;
+      private float _jumpTimeElapsed = 0f;
 
       private void Awake()
       {
@@ -34,17 +38,28 @@ namespace RFG
         _controller = GetComponent<CharacterController2D>();
         _aggro = GetComponent<Aggro>();
         _animator = GetComponent<Animator>();
+        _brain = GetComponent<AIBrainBehaviour>();
       }
 
       private void LateUpdate()
       {
-        if (_controller.State.JustGotGrounded)
-        {
-          _transform.SpawnFromPool("Effects", JumpSettings.LandEffects);
-        }
         if (_character.CurrentStateType == typeof(AIJumpingState))
         {
-          JumpStart();
+          if (_controller.State.JustGotGrounded)
+          {
+            _controller.SetHorizontalForce(0);
+            _transform.SpawnFromPool("Effects", JumpSettings.LandEffects);
+            _brain.RestorePreviousDecision();
+          }
+          if (_controller.State.IsGrounded)
+          {
+            _jumpTimeElapsed += Time.deltaTime;
+            if (_jumpTimeElapsed >= JumpSpeed)
+            {
+              _jumpTimeElapsed = 0;
+              JumpStart();
+            }
+          }
         }
       }
 
@@ -57,15 +72,6 @@ namespace RFG
 
         _transform.SpawnFromPool("Effects", JumpSettings.JumpEffects);
         _animator.Play(JumpSettings.JumpingClip);
-
-        // if (ctx.character.CurrentStateType == typeof(AIJumpingLeftState) && _controller.State.IsFacingRight)
-        // {
-        //   _controller.Flip();
-        // }
-        // else if (ctx.character.CurrentStateType == typeof(AIJumpingRightState) && !_controller.State.IsFacingRight)
-        // {
-        //   _controller.Flip();
-        // }
 
         // Jump
         _controller.CollisionsOnStairs(true);
@@ -91,7 +97,7 @@ namespace RFG
         }
 
         float movementFactor = _controller.Parameters.AirSpeedFactor;
-        float movementSpeed = _normalizedHorizontalSpeed * WalkingSettings.WalkingSpeed * _controller.Parameters.SpeedFactor;
+        float movementSpeed = _normalizedHorizontalSpeed * speed * _controller.Parameters.SpeedFactor;
         float horizontalMovementForce = Mathf.Lerp(_controller.Velocity.x, movementSpeed, Time.deltaTime * movementFactor);
 
         _controller.SetHorizontalForce(horizontalMovementForce);
@@ -102,6 +108,7 @@ namespace RFG
       private void JumpStop()
       {
         _controller.State.IsFalling = true;
+        _controller.State.IsJumping = false;
         _character.RestorePreviousState();
       }
 

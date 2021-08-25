@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionSpeed: 3
   DecisionOffset: 10
-  State: {fileID: 0}
-  Decisions: []
+  State: {fileID: 11400000, guid: b88cce2ab0c214e4b8e1c92dbce5399c, type: 2}
+  Decisions:
+  - {fileID: 11400000, guid: 352f7833ef9547f4f8d410b33c8f2457, type: 2}

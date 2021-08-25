@@ -1,10 +1,12 @@
+
+using System;
 using UnityEngine;
 
 namespace RFG
 {
   namespace Platformer
   {
-    [AddComponentMenu("RFG/Platformer/Character/Behaviours/AI Brain")]
+    [AddComponentMenu("RFG/Platformer/Character/AI Behaviours/AI Brain")]
     public class AIBrainBehaviour : MonoBehaviour
     {
       [Header("Decision Trees")]
@@ -25,6 +27,7 @@ namespace RFG
       private float _decisionTimeElapsed = 0f;
       private Character _character;
       private Aggro _aggro;
+      private bool _hasAggro;
 
       private void Awake()
       {
@@ -49,28 +52,6 @@ namespace RFG
         }
       }
 
-      private void CheckAggro()
-      {
-        if (_aggro != null && _aggro.HasAggro)
-        {
-          PreviousDecision = null;
-          CurrentDecision = AggroRootDecision;
-          if (CurrentDecision.State != null)
-          {
-            _character.ChangeState(CurrentDecision.State.GetType());
-          }
-        }
-        else
-        {
-          PreviousDecision = null;
-          CurrentDecision = RootDecision;
-          if (CurrentDecision.State != null)
-          {
-            _character.ChangeState(CurrentDecision.State.GetType());
-          }
-        }
-      }
-
       private void MakeDecision()
       {
         if (CurrentDecision.Decisions.Count == 0)
@@ -87,13 +68,88 @@ namespace RFG
         }
         else
         {
-          int decisionIndex = UnityEngine.Random.Range(0, CurrentDecision.Decisions.Count - 1);
+          int decisionIndex = UnityEngine.Random.Range(0, CurrentDecision.Decisions.Count);
           PreviousDecision = CurrentDecision;
           CurrentDecision = CurrentDecision.Decisions[decisionIndex];
         }
         if (CurrentDecision.State != null)
         {
+          ChangeState(CurrentDecision.State.GetType());
+        }
+      }
+
+      public void RestorePreviousDecision()
+      {
+        if (PreviousDecision != null)
+        {
+          CurrentDecision = PreviousDecision;
+          ChangeState(CurrentDecision.State.GetType());
+        }
+        else
+        {
+          CurrentDecision = RootDecision;
+          ChangeState(CurrentDecision.State.GetType());
+        }
+      }
+
+      private void OnAggroChange(bool aggro)
+      {
+        _hasAggro = aggro;
+        if (AggroRootDecision != null)
+        {
+          if (_hasAggro)
+          {
+            PreviousDecision = null;
+            CurrentDecision = AggroRootDecision;
+            if (CurrentDecision.State != null)
+            {
+              ChangeState(CurrentDecision.State.GetType());
+            }
+          }
+          else if (!_hasAggro)
+          {
+            PreviousDecision = null;
+            CurrentDecision = RootDecision;
+            if (CurrentDecision.State != null)
+            {
+              ChangeState(CurrentDecision.State.GetType());
+            }
+          }
+        }
+      }
+
+      private void ChangeState(Type type)
+      {
+        if (_character.HasState(type))
+        {
           _character.ChangeState(CurrentDecision.State.GetType());
+        }
+        else
+        {
+          if (_hasAggro)
+          {
+            CurrentDecision = AggroRootDecision;
+          }
+          else
+          {
+            CurrentDecision = RootDecision;
+          }
+        }
+      }
+
+      private void OnEnable()
+      {
+        if (_aggro != null)
+        {
+          _aggro.OnAggroChange += OnAggroChange;
+        }
+      }
+
+      private void OnDisable()
+      {
+        if (_aggro != null)
+        {
+          _aggro.OnAggroChange -= OnAggroChange;
         }
       }
 

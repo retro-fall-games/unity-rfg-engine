@@ -19,6 +19,11 @@ GameObject:
   - component: {fileID: 4501051043929579588}
   - component: {fileID: 4501051043929579586}
   - component: {fileID: -2106617864864617881}
+  - component: {fileID: 606159811577918091}
+  - component: {fileID: 7813806703649650503}
+  - component: {fileID: 1040098052486152211}
+  - component: {fileID: 2418076634151397198}
+  - component: {fileID: 4251991851669798521}
   m_Layer: 14
   m_Name: Robot
   m_TagString: AI Character
@@ -125,8 +130,12 @@ MonoBehaviour:
   States:
   - {fileID: 11400000, guid: 076bea7e2d87173429c37e3a9f5733aa, type: 2}
   - {fileID: 11400000, guid: 32b2fb95d9bb3494aa374e930fd012cb, type: 2}
-  - {fileID: 11400000, guid: f4abd6d072ba5b3459730258fa415209, type: 2}
+  - {fileID: 11400000, guid: 64f9319746da07a489bf69f521fc1561, type: 2}
   - {fileID: 11400000, guid: 96547412bbf1a0d48a3f81a4291c3f7d, type: 2}
+  - {fileID: 11400000, guid: b88cce2ab0c214e4b8e1c92dbce5399c, type: 2}
+  - {fileID: 11400000, guid: dab308780b900894e9a58791ea1c6527, type: 2}
+  - {fileID: 11400000, guid: e16259c6100b2df41b2c2253ce79a9ca, type: 2}
+  - {fileID: 11400000, guid: 1e86535c8daa6044a88fca6f1251412c, type: 2}
   DefaultState: {fileID: 11400000, guid: 96547412bbf1a0d48a3f81a4291c3f7d, type: 2}
   CurrentState: {fileID: 0}
   CharacterType: 1
@@ -262,7 +271,7 @@ MonoBehaviour:
   minDistance: 5
   layerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   tags:
   - Player
 --- !u!114 &4501051043929579588
@@ -306,3 +315,76 @@ MonoBehaviour:
   MaxHealthReference: {fileID: 0}
   Health: 1
   MaxHealth: 1
+--- !u!114 &606159811577918091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4501051043929579633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8643958b01ee3e45a00a830c911aa87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RootDecision: {fileID: 11400000, guid: 1b06b290f2055454bba72935dfa29f61, type: 2}
+  AggroRootDecision: {fileID: 11400000, guid: 340aa792a8cc83849b9e3bca3816378b, type: 2}
+  CurrentDecision: {fileID: 0}
+  PreviousDecision: {fileID: 0}
+--- !u!114 &7813806703649650503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4501051043929579633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43d450c907a78dc4c9ae3ab3e2301ca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AIIdleSettings: {fileID: 11400000, guid: 4769b32e4db280a47a3da94b890046c4, type: 2}
+--- !u!114 &1040098052486152211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4501051043929579633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ff9f3b1fe240b4ea1bc31b9a3fe79f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AIAttackSettings: {fileID: 11400000, guid: df9d351f36e61144e9022a889070073b, type: 2}
+  RunningSettings: {fileID: 11400000, guid: c48f605c39f9e4c43ae36b016c0df16e, type: 2}
+--- !u!114 &2418076634151397198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4501051043929579633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b49e1071b34e494e8fc49d6d6a22182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WalkingSettings: {fileID: 11400000, guid: cff391ce3a274be4ead1aaeaf8eb4851, type: 2}
+  RunningSettings: {fileID: 11400000, guid: c48f605c39f9e4c43ae36b016c0df16e, type: 2}
+  JumpSettings: {fileID: 11400000, guid: 45e56a2642db8344299f211d9b581057, type: 2}
+  JumpSpeed: 1
+--- !u!114 &4251991851669798521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4501051043929579633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6391808d0461e524f9a2b8fa03b72864, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WalkingSettings: {fileID: 11400000, guid: cff391ce3a274be4ead1aaeaf8eb4851, type: 2}
+  ChangeDirectionSpeed: 5

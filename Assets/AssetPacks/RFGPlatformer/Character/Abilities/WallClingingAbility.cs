@@ -17,6 +17,7 @@ namespace RFG
       /// <summary>Wall Clinging Settings to know input thresholds</summary>
       [Tooltip("Wall Clinging Settings to know input thresholds")]
       public WallClingingSettings WallClingingSettings;
+      public bool HasAbility;
 
       [HideInInspector]
       private Transform _transform;
@@ -31,6 +32,14 @@ namespace RFG
       }
 
       private void Update()
+      {
+        if (HasAbility)
+        {
+          WallCling();
+        }
+      }
+
+      private void WallCling()
       {
         if (_controller.State.IsGrounded || _controller.Velocity.y >= 0)
         {
