@@ -10106,10 +10106,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3318429578943995400, guid: ce73f10372a3d914f863aac2540c3bb0, type: 3}
-      propertyPath: OverrideStartingCheckpoint
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3318429578943995400, guid: ce73f10372a3d914f863aac2540c3bb0, type: 3}
       propertyPath: overrideStartingCheckpoint
       value: 0
       objectReference: {fileID: 0}
@@ -10286,14 +10282,6 @@ PrefabInstance:
     - target: {fileID: 2214971739887165400, guid: f9c2ed0d5d9f61941a82f046b34dc1b1, type: 3}
       propertyPath: m_RootOrder
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2214971739887165401, guid: f9c2ed0d5d9f61941a82f046b34dc1b1, type: 3}
-      propertyPath: Profile
-      value: 
-      objectReference: {fileID: 11400000, guid: 261df50beff17f04bb01b5cd2c36e70a, type: 2}
-    - target: {fileID: 2214971739887165401, guid: f9c2ed0d5d9f61941a82f046b34dc1b1, type: 3}
-      propertyPath: OverrideProfile
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2881408802109048417, guid: f9c2ed0d5d9f61941a82f046b34dc1b1, type: 3}
       propertyPath: m_RootOrder

@@ -21,14 +21,14 @@ EditorBuildSettings:
     path: Assets/DemoGame/Scenes/Levels/Level1.unity
     guid: 321d8f85168a3d54db35b6b9515caae9
   - enabled: 1
-    path: Assets/DemoGame/Scenes/Levels/Level4.unity
-    guid: 963de6aef14063347a2d87e5258807bd
+    path: Assets/DemoGame/Scenes/Levels/Level2.unity
+    guid: 54b730fcdb8f86240bd1b80b95d57fa7
   - enabled: 1
     path: Assets/DemoGame/Scenes/Levels/Level3.unity
     guid: 26317a0173e0e6f459765217be413c30
   - enabled: 1
-    path: Assets/DemoGame/Scenes/Levels/Level2.unity
-    guid: 54b730fcdb8f86240bd1b80b95d57fa7
+    path: Assets/DemoGame/Scenes/Levels/Level4.unity
+    guid: e321b888a8bc11e4b8ac25ff9010ac58
   - enabled: 1
     path: Assets/DemoGame/Scenes/Levels/Level5.unity
     guid: 28aefe82f32faf04180414d0984b0a55

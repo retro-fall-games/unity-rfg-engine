@@ -7,9 +7,9 @@ namespace Game
 {
   public class IntroCutscene : Cutscene
   {
-    [Header("Characters")]
-    public Character player;
-    public Character boss;
+    [Header("AI Brains")]
+    public AIBrainBehaviour player;
+    public AIBrainBehaviour boss;
 
     [Header("Movement Paths")]
     public MovementPath playerMovementPath;

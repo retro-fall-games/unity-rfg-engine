@@ -7,6 +7,9 @@ namespace RFG
     [CreateAssetMenu(fileName = "New Idle Settings", menuName = "RFG/Platformer/Character/Settings/Idle")]
     public class IdleSettings : ScriptableObject
     {
+      [Header("Effects")]
+      public string[] IdleEffects;
+
       [Header("Animations")]
       [Tooltip("Define what layer to play animations")]
       public string Layer = "Base Layer";

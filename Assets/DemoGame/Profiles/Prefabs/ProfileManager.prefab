@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2214971739887165400}
   - component: {fileID: 2214971739887165401}
-  - component: {fileID: 1292821348429810398}
   m_Layer: 0
   m_Name: ProfileManager
   m_TagString: Untagged
@@ -44,32 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6cb4266e22c8d6479eec1841268e273, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Profile: {fileID: 0}
---- !u!114 &1292821348429810398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2214971739887165406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9d151ab8084e4943ae75138996bd208, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Event: {fileID: 11400000, guid: 9d64e2afd1dfa5743b58e5eccfc13c3e, type: 2}
-  Response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2214971739887165401}
-        m_TargetAssemblyTypeName: Game.ProfileManager, Assembly-CSharp
-        m_MethodName: SaveProfile
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  Profile: {fileID: 11400000, guid: 261df50beff17f04bb01b5cd2c36e70a, type: 2}
+  OverrideProfile: 0
+  SaveProfileObservers:
+  - {fileID: 11400000, guid: c678686b1de67c74db3d91fda913ec60, type: 2}
+  - {fileID: 11400000, guid: 5fd802545a433fb45b7684ce1dd2cf5a, type: 2}

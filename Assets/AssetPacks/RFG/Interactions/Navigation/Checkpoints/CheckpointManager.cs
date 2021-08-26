@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RFG
 {
@@ -15,8 +16,8 @@ namespace RFG
     public bool OverrideStartingCheckpoint = false;
     public Transform CurrentCheckpoint => _currentCheckpoint;
 
-    [Header("Game Events")]
-    public GameEvent CheckpointEvent;
+    [Header("Event Observer")]
+    public ObserverString CheckpointObserver;
 
     [HideInInspector]
     private List<Transform> _checkpoints = new List<Transform>();
@@ -26,16 +27,25 @@ namespace RFG
     {
       base.Awake();
       GameObject[] checkpointsGameObjects = GameObject.FindGameObjectsWithTag("Checkpoint");
+      List<Checkpoint> checkpoints = new List<Checkpoint>();
       foreach (GameObject checkpointGameObject in checkpointsGameObjects)
       {
-        Transform checkpointTransform = checkpointGameObject.transform;
         Checkpoint checkpoint = checkpointGameObject.GetComponent<Checkpoint>();
         if (checkpoint)
         {
-          int index = checkpoint.Index;
-          _checkpoints.Insert(index, checkpointTransform);
+          checkpoints.Add(checkpoint);
         }
       }
+
+      checkpoints = checkpoints.OrderBy(x => x.Index).ToList<Checkpoint>();
+      foreach (Checkpoint checkpoint in checkpoints)
+      {
+        if (checkpoint)
+        {
+          _checkpoints.Insert(checkpoint.Index, checkpoint.transform);
+        }
+      }
+
       SetCurrentCheckpoint(StartingCheckpoint);
       NewLevel = true;
     }
@@ -61,7 +71,7 @@ namespace RFG
     {
       NewLevel = false;
       SetCurrentCheckpoint(index);
-      CheckpointEvent?.Raise();
+      CheckpointObserver?.Raise("");
     }
 
   }

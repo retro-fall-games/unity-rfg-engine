@@ -18,11 +18,7 @@ GameObject:
   - component: {fileID: 8001024858075428170}
   - component: {fileID: 8001024858075428171}
   - component: {fileID: -3635296906443921923}
-  - component: {fileID: 376815757939960877}
   - component: {fileID: 2378934261524974490}
-  - component: {fileID: 209008348375984393}
-  - component: {fileID: 8418836732395838844}
-  - component: {fileID: 1078903365702167250}
   m_Layer: 14
   m_Name: Bat
   m_TagString: AI Character
@@ -131,9 +127,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 32b2fb95d9bb3494aa374e930fd012cb, type: 2}
   - {fileID: 11400000, guid: f4abd6d072ba5b3459730258fa415209, type: 2}
   - {fileID: 11400000, guid: 96547412bbf1a0d48a3f81a4291c3f7d, type: 2}
-  - {fileID: 11400000, guid: b88cce2ab0c214e4b8e1c92dbce5399c, type: 2}
-  - {fileID: 11400000, guid: dab308780b900894e9a58791ea1c6527, type: 2}
-  - {fileID: 11400000, guid: 1e86535c8daa6044a88fca6f1251412c, type: 2}
   DefaultState: {fileID: 11400000, guid: 96547412bbf1a0d48a3f81a4291c3f7d, type: 2}
   CurrentState: {fileID: 0}
   CharacterType: 1
@@ -301,18 +294,7 @@ MonoBehaviour:
   MaxHealthReference: {fileID: 0}
   Health: 1
   MaxHealth: 1
---- !u!114 &376815757939960877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8001024858075428277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04603684b48aae64486f1a40ef505fd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  DefaultMaxHealth: 1
 --- !u!114 &2378934261524974490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,48 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8643958b01ee3e45a00a830c911aa87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RootDecision: {fileID: 11400000, guid: 1b06b290f2055454bba72935dfa29f61, type: 2}
-  AggroRootDecision: {fileID: 11400000, guid: 340aa792a8cc83849b9e3bca3816378b, type: 2}
+  AIBrain: {fileID: 11400000, guid: 24a1bacec17d0f746954ef8ae9b6d6f2, type: 2}
+  CurrentState: {fileID: 0}
   CurrentDecision: {fileID: 0}
   PreviousDecision: {fileID: 0}
---- !u!114 &209008348375984393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8001024858075428277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78ff9f3b1fe240b4ea1bc31b9a3fe79f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AIAttackSettings: {fileID: 11400000, guid: 84f9523aa3d63ce47a8b6da3f8d7d3db, type: 2}
-  RunningSettings: {fileID: 11400000, guid: 1e36108d706c6a64d839d169e7a7804f, type: 2}
---- !u!114 &8418836732395838844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8001024858075428277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43d450c907a78dc4c9ae3ab3e2301ca3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AIIdleSettings: {fileID: 11400000, guid: d5d2cd49861be184d90f888426cbf218, type: 2}
---- !u!114 &1078903365702167250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8001024858075428277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6391808d0461e524f9a2b8fa03b72864, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WalkingSettings: {fileID: 11400000, guid: 9b9018512565f9d4d8e98aa08fe247d0, type: 2}
-  ChangeDirectionSpeed: 5

@@ -3,7 +3,6 @@ using UnityEngine;
 namespace RFG
 {
   [AddComponentMenu("RFG/Navigation/Level Portals/Level Portal")]
-  [RequireComponent(typeof(BoxCollider2D))]
   public class LevelPortal : MonoBehaviour
   {
     [Header("Settings")]
@@ -14,6 +13,9 @@ namespace RFG
     public int ToLevelPortalIndex = -1;
     public Vector3 SpawnOffset = Vector2.zero;
 
+    [Header("Event Observer")]
+    public ObserverString LevelPortalObserver;
+
     public void OnTriggerEnter2D(Collider2D col)
     {
       if (col.gameObject.CompareTag("Player"))
@@ -21,7 +23,8 @@ namespace RFG
         if (ToLevelPortalIndex != -1 && !ToScene.Equals(""))
         {
           PlayerPrefs.SetInt("levelPortalTo", ToLevelPortalIndex);
-          SceneManager.Instance.LoadScene(ToScene);
+          LevelPortalObserver.Raise(ToScene);
+          // SceneManager.Instance.LoadScene(ToScene);
         }
       }
     }

@@ -169,26 +169,9 @@ namespace RFG
         {
           character.gameObject.AddComponent<HealthBehaviour>();
         }
-
         if (character.GetComponent<AIBrainBehaviour>() == null)
         {
           character.gameObject.AddComponent<AIBrainBehaviour>();
-        }
-        if (character.GetComponent<AIAttackBehaviour>() == null)
-        {
-          character.gameObject.AddComponent<AIAttackBehaviour>();
-        }
-        if (character.GetComponent<AIIdleBehaviour>() == null)
-        {
-          character.gameObject.AddComponent<AIIdleBehaviour>();
-        }
-        if (character.GetComponent<AIWanderingBehaviour>() == null)
-        {
-          character.gameObject.AddComponent<AIWanderingBehaviour>();
-        }
-        if (character.GetComponent<AIJumpBehaviour>() == null)
-        {
-          character.gameObject.AddComponent<AIJumpBehaviour>();
         }
 
       }

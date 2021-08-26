@@ -12,6 +12,9 @@ namespace Game
     public Profile Profile;
     public bool OverrideProfile;
 
+    [Header("Event Observers")]
+    public ObserverString[] SaveProfileObservers;
+
     [HideInInspector]
     private Character character;
     private Inventory inventory;
@@ -20,7 +23,6 @@ namespace Game
     private DashAbility dashAbility;
     private WallClingingAbility wallClingingAbility;
     private WallJumpAbility wallJumpAbility;
-
 
     private void Start()
     {
@@ -51,6 +53,11 @@ namespace Game
     {
       Profile = profile;
       CheckpointManager.Instance.SetStartingCheckpoint(Profile.CheckpointIndex);
+    }
+
+    public void SaveProfile(string scene = null)
+    {
+      SaveProfile();
     }
 
     public void SaveProfile()
@@ -191,11 +198,19 @@ namespace Game
     private void OnEnable()
     {
       UnityEngine.SceneManagement.SceneManager.sceneLoaded += OnSceneLoaded;
+      foreach (ObserverString observer in SaveProfileObservers)
+      {
+        observer.OnRaise += SaveProfile;
+      }
     }
 
     private void OnDisable()
     {
       UnityEngine.SceneManagement.SceneManager.sceneLoaded -= OnSceneLoaded;
+      foreach (ObserverString observer in SaveProfileObservers)
+      {
+        observer.OnRaise -= SaveProfile;
+      }
     }
   }
 }

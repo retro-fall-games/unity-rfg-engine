@@ -104,12 +104,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df1e836b05ae4034bbc8bb47284be394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0
-  toScene: Level2
-  toLevelPortalIndex: 0
-  waitForSeconds: 0
-  spawnOffset: {x: 0, y: 0, z: 0}
-  fadeSoundtrack: 0
+  Index: 0
+  ToScene: Level2
+  ToLevelPortalIndex: 1
+  SpawnOffset: {x: 3, y: 0, z: 0}
+  LevelPortalObserver: {fileID: 11400000, guid: c678686b1de67c74db3d91fda913ec60, type: 2}
 --- !u!1 &3155403851524502345
 GameObject:
   m_ObjectHideFlags: 0

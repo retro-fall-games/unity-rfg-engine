@@ -45,15 +45,18 @@ namespace RFG
 
         Vector3 spawnAt = CheckpointManager.Instance.CurrentCheckpoint.position;
 
-        // If coming from a level portal the warp the player to that portal
-        int levelPortalTo = PlayerPrefs.GetInt("levelPortalTo", -1);
-        if (levelPortalTo != -1)
+        if (CharacterType == CharacterType.Player)
         {
-          PlayerPrefs.SetInt("levelPortalTo", -1);
-          if (levelPortalTo >= 0 && levelPortalTo <= _levelPortals.Count)
+          // If coming from a level portal the warp the player to that portal
+          int levelPortalTo = PlayerPrefs.GetInt("levelPortalTo", -1);
+          if (levelPortalTo != -1)
           {
-            LevelPortal levelPortal = _levelPortals[levelPortalTo];
-            spawnAt = levelPortal.transform.position + levelPortal.SpawnOffset;
+            PlayerPrefs.SetInt("levelPortalTo", -1);
+            if (levelPortalTo >= 0 && levelPortalTo <= _levelPortals.Count)
+            {
+              LevelPortal levelPortal = _levelPortals[levelPortalTo];
+              spawnAt = levelPortal.transform.position + levelPortal.SpawnOffset;
+            }
           }
         }
 

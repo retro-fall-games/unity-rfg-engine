@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fdc1038573b4154e905e7a27b81d591, type: 3}
   m_Name: AIAttackingState
   m_EditorClassIdentifier: 
-  Guid: 5701eee3-5081-480d-ac62-9d37e56b4020
   Layer: Base Layer
   EnterClip: 
   ExitClip: 

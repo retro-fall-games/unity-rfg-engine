@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5619857ec3c2b3c47b042a66cd3250b5, type: 3}
   m_Name: AIWanderingState
   m_EditorClassIdentifier: 
-  Guid: a8b36682-7a51-4a4b-a6dc-dfef39e127c9
   Layer: Base Layer
   EnterClip: 
   ExitClip: 

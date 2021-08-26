@@ -614,7 +614,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221960913}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.860901, y: 0, z: 0}
+  m_LocalPosition: {x: -10.860209, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 516613198}
@@ -4262,7 +4262,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.721802, y: 0.5000155, z: -10}
+  m_LocalPosition: {x: -21.720419, y: 0.5000155, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6716,20 +6716,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2319073962933754078, guid: bee9f98022f2daa46815d1641cf96ab2, type: 3}
-      propertyPath: ToScene
-      value: Level2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2319073962933754078, guid: bee9f98022f2daa46815d1641cf96ab2, type: 3}
       propertyPath: toScene
       value: Level2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2319073962933754078, guid: bee9f98022f2daa46815d1641cf96ab2, type: 3}
-      propertyPath: SpawnOffset.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2319073962933754078, guid: bee9f98022f2daa46815d1641cf96ab2, type: 3}
-      propertyPath: ToLevelPortalIndex
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2319073962933754078, guid: bee9f98022f2daa46815d1641cf96ab2, type: 3}
       propertyPath: toLevelPortalIndex
@@ -7346,28 +7334,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 1739748930}
     m_Modifications:
     - target: {fileID: 1275784586072620360, guid: 9586bd4db61487f4a9c10aa9690fe611, type: 3}
-      propertyPath: Index
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1275784586072620360, guid: 9586bd4db61487f4a9c10aa9690fe611, type: 3}
       propertyPath: index
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1275784586072620360, guid: 9586bd4db61487f4a9c10aa9690fe611, type: 3}
-      propertyPath: ToScene
-      value: Level4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1275784586072620360, guid: 9586bd4db61487f4a9c10aa9690fe611, type: 3}
       propertyPath: toScene
       value: Level3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1275784586072620360, guid: 9586bd4db61487f4a9c10aa9690fe611, type: 3}
-      propertyPath: SpawnOffset.x
-      value: -3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1275784586072620360, guid: 9586bd4db61487f4a9c10aa9690fe611, type: 3}
-      propertyPath: ToLevelPortalIndex
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1275784586444192478, guid: 9586bd4db61487f4a9c10aa9690fe611, type: 3}
       propertyPath: m_Name
@@ -7793,14 +7765,6 @@ PrefabInstance:
     - target: {fileID: 2214971739887165400, guid: f9c2ed0d5d9f61941a82f046b34dc1b1, type: 3}
       propertyPath: m_RootOrder
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2214971739887165401, guid: f9c2ed0d5d9f61941a82f046b34dc1b1, type: 3}
-      propertyPath: Profile
-      value: 
-      objectReference: {fileID: 11400000, guid: 261df50beff17f04bb01b5cd2c36e70a, type: 2}
-    - target: {fileID: 2214971739887165401, guid: f9c2ed0d5d9f61941a82f046b34dc1b1, type: 3}
-      propertyPath: OverrideProfile
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2881408802109048417, guid: f9c2ed0d5d9f61941a82f046b34dc1b1, type: 3}
       propertyPath: m_RootOrder

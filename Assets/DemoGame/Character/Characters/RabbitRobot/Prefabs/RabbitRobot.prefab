@@ -20,10 +20,6 @@ GameObject:
   - component: {fileID: 2278201137077972839}
   - component: {fileID: 682367867821734120}
   - component: {fileID: 4178682084421645794}
-  - component: {fileID: 5023654077246916554}
-  - component: {fileID: 1791987878351752999}
-  - component: {fileID: 6588361666261720119}
-  - component: {fileID: 773113722400235474}
   m_Layer: 14
   m_Name: RabbitRobot
   m_TagString: AI Character
@@ -132,10 +128,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f4abd6d072ba5b3459730258fa415209, type: 2}
   - {fileID: 11400000, guid: 32b2fb95d9bb3494aa374e930fd012cb, type: 2}
   - {fileID: 11400000, guid: 076bea7e2d87173429c37e3a9f5733aa, type: 2}
-  - {fileID: 11400000, guid: b88cce2ab0c214e4b8e1c92dbce5399c, type: 2}
-  - {fileID: 11400000, guid: dab308780b900894e9a58791ea1c6527, type: 2}
-  - {fileID: 11400000, guid: 1e86535c8daa6044a88fca6f1251412c, type: 2}
-  - {fileID: 11400000, guid: e16259c6100b2df41b2c2253ce79a9ca, type: 2}
   DefaultState: {fileID: 11400000, guid: 96547412bbf1a0d48a3f81a4291c3f7d, type: 2}
   CurrentState: {fileID: 0}
   CharacterType: 1
@@ -315,6 +307,7 @@ MonoBehaviour:
   MaxHealthReference: {fileID: 0}
   Health: 5
   MaxHealth: 5
+  DefaultMaxHealth: 5
 --- !u!114 &4178682084421645794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,64 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8643958b01ee3e45a00a830c911aa87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RootDecision: {fileID: 11400000, guid: 1b06b290f2055454bba72935dfa29f61, type: 2}
-  AggroRootDecision: {fileID: 11400000, guid: 340aa792a8cc83849b9e3bca3816378b, type: 2}
+  AIBrain: {fileID: 11400000, guid: 97a278b8efe882c4f9cbbda627df3d9b, type: 2}
+  CurrentState: {fileID: 0}
   CurrentDecision: {fileID: 0}
   PreviousDecision: {fileID: 0}
---- !u!114 &5023654077246916554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2278201137077972838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78ff9f3b1fe240b4ea1bc31b9a3fe79f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AIAttackSettings: {fileID: 11400000, guid: c1a0afeaefd0ea34b85c22f48bc16615, type: 2}
-  RunningSettings: {fileID: 11400000, guid: ab429acf525944a46b086a83181a4dde, type: 2}
---- !u!114 &1791987878351752999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2278201137077972838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43d450c907a78dc4c9ae3ab3e2301ca3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AIIdleSettings: {fileID: 11400000, guid: 23674297eb5d962439e92328bf673c9a, type: 2}
---- !u!114 &6588361666261720119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2278201137077972838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6391808d0461e524f9a2b8fa03b72864, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WalkingSettings: {fileID: 11400000, guid: 2302f289d9980e14aaf428418188b877, type: 2}
-  ChangeDirectionSpeed: 5
---- !u!114 &773113722400235474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2278201137077972838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b49e1071b34e494e8fc49d6d6a22182, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WalkingSettings: {fileID: 11400000, guid: 2302f289d9980e14aaf428418188b877, type: 2}
-  RunningSettings: {fileID: 11400000, guid: ab429acf525944a46b086a83181a4dde, type: 2}
-  JumpSettings: {fileID: 11400000, guid: f7e882509ea7c3b43b00537f9553cd25, type: 2}
-  JumpSpeed: 1

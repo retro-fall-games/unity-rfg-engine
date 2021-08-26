@@ -17,13 +17,9 @@ GameObject:
   - component: {fileID: 1050720796950071085}
   - component: {fileID: 1050720796950071127}
   - component: {fileID: 1050720796950071126}
-  - component: {fileID: 1050720796950071125}
   - component: {fileID: -683921638566704468}
   - component: {fileID: 7303288535273652425}
-  - component: {fileID: 725631266208749897}
-  - component: {fileID: 8239058803687239647}
-  - component: {fileID: 6372380280425804815}
-  - component: {fileID: 487563521125236896}
+  - component: {fileID: 6645292463913712492}
   m_Layer: 14
   m_Name: BossRobot
   m_TagString: AI Character
@@ -132,10 +128,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 32b2fb95d9bb3494aa374e930fd012cb, type: 2}
   - {fileID: 11400000, guid: f4abd6d072ba5b3459730258fa415209, type: 2}
   - {fileID: 11400000, guid: 96547412bbf1a0d48a3f81a4291c3f7d, type: 2}
-  - {fileID: 11400000, guid: b88cce2ab0c214e4b8e1c92dbce5399c, type: 2}
-  - {fileID: 11400000, guid: dab308780b900894e9a58791ea1c6527, type: 2}
-  - {fileID: 11400000, guid: e16259c6100b2df41b2c2253ce79a9ca, type: 2}
-  - {fileID: 11400000, guid: 1e86535c8daa6044a88fca6f1251412c, type: 2}
   DefaultState: {fileID: 11400000, guid: 96547412bbf1a0d48a3f81a4291c3f7d, type: 2}
   CurrentState: {fileID: 0}
   CharacterType: 1
@@ -287,18 +279,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KnockbackData: {fileID: 11400000, guid: ab32812cd5174034a907ca895f726aba, type: 2}
---- !u!114 &1050720796950071125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1050720796950071124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04603684b48aae64486f1a40ef505fd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-683921638566704468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -328,11 +308,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8643958b01ee3e45a00a830c911aa87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RootDecision: {fileID: 11400000, guid: 1b06b290f2055454bba72935dfa29f61, type: 2}
-  AggroRootDecision: {fileID: 11400000, guid: 340aa792a8cc83849b9e3bca3816378b, type: 2}
+  AIBrain: {fileID: 11400000, guid: 5067c8ca38e01b0499ef39f21260ad59, type: 2}
+  CurrentState: {fileID: 0}
   CurrentDecision: {fileID: 0}
   PreviousDecision: {fileID: 0}
---- !u!114 &725631266208749897
+--- !u!114 &6645292463913712492
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -341,51 +321,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1050720796950071124}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78ff9f3b1fe240b4ea1bc31b9a3fe79f, type: 3}
+  m_Script: {fileID: 11500000, guid: 9cfc0518640b8d5448f02887719e060d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AIAttackSettings: {fileID: 11400000, guid: 6c4bb3fc9b9d92d49b026f86738e14d2, type: 2}
-  RunningSettings: {fileID: 11400000, guid: 91d56e70b211de649ba92913095dd43a, type: 2}
---- !u!114 &8239058803687239647
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1050720796950071124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43d450c907a78dc4c9ae3ab3e2301ca3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AIIdleSettings: {fileID: 11400000, guid: 990a608681ec0284b9e785a290681eaa, type: 2}
---- !u!114 &6372380280425804815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1050720796950071124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6391808d0461e524f9a2b8fa03b72864, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WalkingSettings: {fileID: 11400000, guid: ae67e5d83de0d6840870a87fc52582d7, type: 2}
-  ChangeDirectionSpeed: 5
---- !u!114 &487563521125236896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1050720796950071124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b49e1071b34e494e8fc49d6d6a22182, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WalkingSettings: {fileID: 11400000, guid: ae67e5d83de0d6840870a87fc52582d7, type: 2}
-  RunningSettings: {fileID: 11400000, guid: 91d56e70b211de649ba92913095dd43a, type: 2}
-  JumpSettings: {fileID: 11400000, guid: bbb9af103db47904b8e706498141d40f, type: 2}
-  JumpSpeed: 5
+  target1: {fileID: 1050720796950071075}
+  target2: {fileID: 0}
+  target2IsPlayer: 1
+  minDistance: 100
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  tags:
+  - Player

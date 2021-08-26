@@ -15,6 +15,9 @@ namespace RFG
     [Header("Transition")]
     public string TransitionName;
 
+    [Header("Event Observer")]
+    public ObserverString SceneChangeEvent;
+
     [HideInInspector]
     public Transition Transition => _transition;
     private string _lastScene;
@@ -68,6 +71,16 @@ namespace RFG
     public string GetLastScene()
     {
       return PlayerPrefs.GetString("lastScene");
+    }
+
+    private void OnEnable()
+    {
+      SceneChangeEvent.OnRaise += LoadScene;
+    }
+
+    private void OnDisable()
+    {
+      SceneChangeEvent.OnRaise -= LoadScene;
     }
 
   }

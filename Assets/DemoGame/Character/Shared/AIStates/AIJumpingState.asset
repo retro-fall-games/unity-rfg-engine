@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abc71ac1ad25a5f458a1a42717d0f59b, type: 3}
   m_Name: AIJumpingState
   m_EditorClassIdentifier: 
-  Guid: 
   Layer: Base Layer
   EnterClip: 
   ExitClip: 

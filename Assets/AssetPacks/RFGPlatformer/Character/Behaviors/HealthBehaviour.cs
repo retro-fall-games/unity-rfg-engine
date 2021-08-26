@@ -7,11 +7,17 @@ namespace RFG
     [AddComponentMenu("RFG/Platformer/Character/Behaviours/Health")]
     public class HealthBehaviour : MonoBehaviour
     {
+      [Header("Settings")]
       public FloatReference HealthReference;
       public FloatReference MaxHealthReference;
       public float Health = 100f;
       public float MaxHealth = 100f;
       public float DefaultMaxHealth = 100f;
+
+      [Header("Game Events")]
+      public GameEvent KillEvent;
+
+      [HideInInspector]
       private Character _character;
 
       private void Awake()
@@ -42,6 +48,7 @@ namespace RFG
         if (Health <= 0)
         {
           _character.ChangeState(typeof(DeathState));
+          KillEvent?.Raise();
         }
       }
 

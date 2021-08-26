@@ -256,6 +256,7 @@ MonoBehaviour:
   OnStart: {fileID: 0}
   WaitForSeconds: 3
   TransitionName: CrossFade
+  SceneChangeEvent: {fileID: 11400000, guid: c678686b1de67c74db3d91fda913ec60, type: 2}
 --- !u!114 &7539986192635080117
 MonoBehaviour:
   m_ObjectHideFlags: 0

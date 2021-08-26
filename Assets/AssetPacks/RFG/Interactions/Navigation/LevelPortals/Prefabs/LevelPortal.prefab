@@ -70,7 +70,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df1e836b05ae4034bbc8bb47284be394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0
-  toScene: Scene2
-  toLevelPortalIndex: 0
-  waitForSeconds: 0
+  Index: 1
+  ToScene: Level4
+  ToLevelPortalIndex: 0
+  SpawnOffset: {x: -3, y: 0, z: 0}
+  LevelPortalObserver: {fileID: 11400000, guid: c678686b1de67c74db3d91fda913ec60, type: 2}

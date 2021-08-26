@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27ba67c83920e324eb4e4296750d3b5d, type: 3}
   m_Name: AIMovementPathState
   m_EditorClassIdentifier: 
-  Guid: 80d1e157-b83b-438b-9f5f-6c59ba4d5e47
   Layer: Base Layer
   EnterClip: 
   ExitClip: 

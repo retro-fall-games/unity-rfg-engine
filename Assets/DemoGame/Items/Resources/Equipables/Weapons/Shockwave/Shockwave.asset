@@ -22,7 +22,7 @@ MonoBehaviour:
   AddToInventory: 1
   ConsumeText: +10 Ammo
   ConsumeEffects: []
-  IsEquipped: 0
+  IsEquipped: 1
   EquipOnPickUp: 1
   EquipSprite: {fileID: -761887118410055393, guid: ab1028699cf091246a0ffaf259c28a4c, type: 3}
   EquipText: Shockwave
@@ -30,12 +30,12 @@ MonoBehaviour:
   EquipEffects: []
   UnequipEffects: []
   weaponType: 0
-  FireRate: 1
+  FireRate: 0.1
   Cooldown: 0
   IsInCooldown: 0
   IsFiring: 0
-  CanUse: 0
-  Ammo: 10
+  CanUse: 1
+  Ammo: 0
   MaxAmmo: 100
   StartingAmmo: 10
   RefillAmmo: 10

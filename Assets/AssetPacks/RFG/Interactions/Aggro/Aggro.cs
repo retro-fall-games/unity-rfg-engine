@@ -21,6 +21,10 @@ namespace RFG
     public LayerMask layerMask;
     public string[] tags;
 
+    [HideInInspector]
+    private float _warmupTime = 2f;
+    private float _warmupTimeElapsed = 0f;
+
     private void Start()
     {
       StartCoroutine(StartCo());
@@ -39,7 +43,17 @@ namespace RFG
       }
     }
 
-    private void Update()
+    private void LateUpdate()
+    {
+      _warmupTimeElapsed += Time.deltaTime;
+      if (_warmupTimeElapsed >= _warmupTime)
+      {
+        _warmupTimeElapsed = 0;
+        CheckAggro();
+      }
+    }
+
+    private void CheckAggro()
     {
       if (target1 != null && target2 != null)
       {
@@ -72,10 +86,9 @@ namespace RFG
       Vector2 start = target1.position;
       Vector2 direction = (target2.position - target1.position).normalized;
       float distance = Vector2.Distance(target2.position, target1.position);
-      RaycastHit2D hit = RFG.Physics2D.Raycast(start, direction, distance, layerMask, Color.red);
+      RaycastHit2D hit = RFG.Physics2D.Raycast(start, direction, distance, layerMask, Color.green);
       if (hit)
       {
-        // Debug.DrawRay(start, direction * distance, Color.red);
         return CheckTags(hit.transform.gameObject);
       }
       return hit;

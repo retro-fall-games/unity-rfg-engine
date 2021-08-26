@@ -43,5 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a29f923d000d8cb44af231dc829aaa38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingCheckpoint: 0
-  currentCheckpointIndex: 0
+  StartingCheckpoint: 0
+  OverrideStartingCheckpoint: 0
+  CheckpointObserver: {fileID: 11400000, guid: 5fd802545a433fb45b7684ce1dd2cf5a, type: 2}
