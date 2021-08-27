@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using RFG;
 using RFG.Platformer;
-using Cinemachine;
 
 namespace Game
 {
@@ -11,12 +10,13 @@ namespace Game
     [Header("AI Brains")]
     public Character player;
     public Character boss;
+    public AIBrainBehaviour bossAIBrain;
 
     [Header("Camera")]
     public Animator CameraAnimator;
 
-    [Header("Edge Colliders")]
-    public GameObject EdgeCollider;
+    [Header("PlaceTilesTimed")]
+    public PlaceTilesTimed PlaceTilesTimed;
 
     protected override void Awake()
     {
@@ -32,25 +32,27 @@ namespace Game
 
       // Disable both player and boss
       player.Controller.enabled = false;
-      boss.Controller.enabled = false;
 
       // Player Talks
       yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "What's that noise?", 1.5f);
 
+      PlaceTilesTimed.IsPlacing = true;
+
+      yield return new WaitUntil(() => PlaceTilesTimed.IsPlacing == false);
+
       // Play engine sound
       yield return new WaitForSeconds(2f);
 
-      // Follow the boss with the camera
       CameraAnimator.SetBool("Cutscene1", true);
 
       // Play engine animations clip
+      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker2, "Level 5 Boss", 1.5f);
       yield return new WaitForSeconds(3f);
 
-      // Enable the boss and add force to go towards player
-      EdgeCollider.SetActive(false);
       boss.Controller.enabled = true;
-      boss.Controller.SetHorizontalForce(-10f);
-      yield return new WaitForSeconds(2f);
+      boss.Controller.SetHorizontalForce(-20f);
+      bossAIBrain.enabled = true;
+      yield return new WaitForSeconds(3f);
 
       // Follow the player
       CameraAnimator.SetBool("Cutscene1", false);

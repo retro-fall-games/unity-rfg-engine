@@ -10,8 +10,34 @@ namespace RFG
     {
       public override Type Execute(AIBrainBehaviour.AIStateContext ctx)
       {
+        if (ctx.JustRotated)
+        {
+          if (Time.time - ctx.LastTimeRotated < ctx.RotateSpeed)
+          {
+            ctx.controller.SetHorizontalForce(0);
+            return null;
+          }
+        }
+
+        FollowTarget(ctx);
+        Attack(ctx);
+        return null;
+      }
+
+      private void FollowTarget(AIBrainBehaviour.AIStateContext ctx)
+      {
         // Rotate to always face the target
-        ctx.controller.RotateTowards(ctx.aggro.target2);
+        if (ctx.aggro.target2 != null)
+        {
+          bool didRotate = ctx.controller.RotateTowards(ctx.aggro.target2);
+          if (didRotate)
+          {
+            ctx.JustRotated = true;
+            ctx.LastTimeRotated = Time.time;
+            ctx.controller.SetHorizontalForce(0);
+            return;
+          }
+        }
 
         // Move towards that target
         float normalizedHorizontalSpeed = 0f;
@@ -25,15 +51,53 @@ namespace RFG
           normalizedHorizontalSpeed = -1f;
         }
 
-        ctx.transform.SpawnFromPool("Effects", ctx.aiBrain.RunningSettings.RunningEffects);
-        ctx.animator.Play(ctx.aiBrain.RunningSettings.RunningClip);
+
+
+        bool useRunning = !ctx.RunningCooldown;
+
+        float speed = useRunning ? ctx.aiBrain.RunningSettings.RunningSpeed : ctx.aiBrain.WalkingSettings.WalkingSpeed;
+
+        if (useRunning)
+        {
+
+          ctx.RunningPower -= ctx.aiBrain.RunningSettings.PowerGainPerFrame;
+          if (ctx.RunningPower <= 0)
+          {
+            ctx.RunningCooldown = true;
+            speed = ctx.aiBrain.WalkingSettings.WalkingSpeed;
+            ctx.LastTimeRunningCooldown = Time.time;
+          }
+          else
+          {
+            ctx.transform.SpawnFromPool("Effects", ctx.aiBrain.RunningSettings.RunningEffects);
+            ctx.animator.Play(ctx.aiBrain.RunningSettings.RunningClip);
+          }
+        }
+        else
+        {
+          ctx.transform.SpawnFromPool("Effects", ctx.aiBrain.WalkingSettings.WalkingEffects);
+          ctx.animator.Play(ctx.aiBrain.WalkingSettings.WalkingClip);
+          if (Time.time - ctx.LastTimeRunningCooldown > ctx.aiBrain.RunningSettings.CooldownTimer)
+          {
+            ctx.RunningPower += ctx.aiBrain.RunningSettings.PowerGainPerFrame;
+            if (ctx.RunningPower >= ctx.aiBrain.RunningSettings.RunningPower)
+            {
+              Debug.Log("Running Cooldown Over");
+              ctx.RunningPower = ctx.aiBrain.RunningSettings.RunningPower;
+              ctx.RunningCooldown = false;
+            }
+          }
+        }
 
         float movementFactor = ctx.controller.Parameters.GroundSpeedFactor;
-        float movementSpeed = normalizedHorizontalSpeed * ctx.aiBrain.RunningSettings.RunningSpeed * ctx.controller.Parameters.SpeedFactor;
+        float movementSpeed = normalizedHorizontalSpeed * speed * ctx.controller.Parameters.SpeedFactor;
         float horizontalMovementForce = Mathf.Lerp(ctx.controller.Velocity.x, movementSpeed, Time.deltaTime * movementFactor);
 
         ctx.controller.SetHorizontalForce(horizontalMovementForce);
+      }
 
+      private void Attack(AIBrainBehaviour.AIStateContext ctx)
+      {
         //   if (ctx.character.CurrentStateType == typeof(AIAttackingState))
         //   {
         //     ctx.equipmentSet.PrimaryWeapon?.Perform();
@@ -43,8 +107,6 @@ namespace RFG
         //   {
         //     ctx.equipmentSet.SecondaryWeapon?.Perform();
         //   }
-
-        return null;
       }
     }
   }

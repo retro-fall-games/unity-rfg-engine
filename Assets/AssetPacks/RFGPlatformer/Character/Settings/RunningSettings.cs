@@ -9,6 +9,9 @@ namespace RFG
     {
       [Header("Settings")]
       public float RunningSpeed = 5f;
+      public float RunningPower = 5f;
+      public float PowerGainPerFrame = .01f;
+      public float CooldownTimer = 5f;
 
       [Header("Effects")]
       public string[] RunningEffects;

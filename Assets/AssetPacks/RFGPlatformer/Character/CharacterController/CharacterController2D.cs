@@ -708,16 +708,19 @@ namespace RFG
         }
       }
 
-      public void RotateTowards(Transform target)
+      public bool RotateTowards(Transform target)
       {
         if (!State.IsFacingRight && target.position.x > _transform.position.x)
         {
           Flip();
+          return true;
         }
         else if (State.IsFacingRight && target.position.x < _transform.position.x)
         {
           Flip();
+          return true;
         }
+        return false;
       }
 
       private void RotateOnMouseCursor()

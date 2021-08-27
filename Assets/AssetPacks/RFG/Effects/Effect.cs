@@ -9,18 +9,28 @@ namespace RFG
     public EffectData EffectData;
 
     [HideInInspector]
+    private Transform _transform;
     private AudioSource[] _audioSources;
     private Animator _animator;
     private float _timeElapsed = 0f;
 
     private void Awake()
     {
+      _transform = transform;
       _audioSources = GetComponents<AudioSource>();
       _animator = GetComponent<Animator>();
     }
 
     public void OnObjectSpawn(params object[] objects)
     {
+      if (EffectData.Offset != null)
+      {
+        transform.position += EffectData.Offset;
+      }
+      if (EffectData.FlipY)
+      {
+        transform.Rotate(0f, 180f, 0f);
+      }
       _timeElapsed = 0;
       if (_audioSources != null)
       {
@@ -30,7 +40,7 @@ namespace RFG
       {
         _animator.Play(EffectData.AnimationClip);
       }
-      transform.SpawnFromPool("Effects", EffectData.SpawnEffects, objects);
+      _transform.SpawnFromPool("Effects", EffectData.SpawnEffects, objects);
 
       if (EffectData.CameraShakeIntensity > 0)
       {

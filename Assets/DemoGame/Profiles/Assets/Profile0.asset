@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: Profile0
   m_EditorClassIdentifier: 
   Id: 1
-  CreatedAt: 0
-  StartedAt: 0
+  CreatedAt: 1630030302
+  StartedAt: 1630030302
   TimePlayed: 0
-  Level: Intro
+  Level: Level5
   CheckpointIndex: 0
-  Abilities:
-    Abilities: []
+  HasDoubleJump: 1
+  HasDash: 0
+  HasWallJump: 0
   Inventory:
     Items: []
   EquipmentSet:

@@ -18,13 +18,11 @@ MonoBehaviour:
   OverrideDefaultSettings: 0
   States:
   - {fileID: 11400000, guid: fd54f737a6b08724896b57aa4214dfcc, type: 2}
+  - {fileID: 11400000, guid: 71f719909088dde4ea3a262d61101d81, type: 2}
   - {fileID: 11400000, guid: 00b1480583dde564c8aebad6e32e9309, type: 2}
-  - {fileID: 11400000, guid: 85bc6f0e7cf1696409be7827f5bb887e, type: 2}
-  - {fileID: 11400000, guid: 2f7f5f7872ac1714cbb717c82224da86, type: 2}
-  - {fileID: 11400000, guid: cc3ed8b23b5cd9a4cb54ad2aa12c216f, type: 2}
-  DefaultState: {fileID: 11400000, guid: 00b1480583dde564c8aebad6e32e9309, type: 2}
-  RootDecision: {fileID: 11400000, guid: f10dbfc315ff96147bea2f25c1b6a45c, type: 2}
-  AggroRootDecision: {fileID: 11400000, guid: 340aa792a8cc83849b9e3bca3816378b, type: 2}
+  DefaultState: {fileID: 11400000, guid: fd54f737a6b08724896b57aa4214dfcc, type: 2}
+  RootDecision: {fileID: 11400000, guid: 4b56ee818a296f0478406303cb7a01f7, type: 2}
+  AggroRootDecision: {fileID: 11400000, guid: 4b56ee818a296f0478406303cb7a01f7, type: 2}
   IdleSettings: {fileID: 0}
   AttackSettings: {fileID: 0}
   WalkingSettings: {fileID: 0}

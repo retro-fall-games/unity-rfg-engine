@@ -7,6 +7,9 @@ namespace RFG
   {
     [Header("Settings")]
     public float Lifetime = 3f;
+    public Vector3 Offset;
+    public bool FlipY = false;
+
     [Header("Animations")]
     public string AnimationClip;
     [Header("Sound Effects")]

@@ -15,7 +15,7 @@ MonoBehaviour:
   Assets:
   - Guid: ef561162-7c21-4480-b40f-f150d297a809
     Asset: {fileID: 11400000, guid: 5dbcc6bdc00ed23468f499ff192e7ee3, type: 2}
-  - Guid: 2dcafcf9-d79e-44d6-9677-f08dd0fd3402
+  - Guid: 677-f08dd0fd3402d6-9677-f08dd0fd3402
     Asset: {fileID: 11400000, guid: 3fd2a556dcb68ac42baf9a9d78992e2b, type: 2}
   - Guid: ffb0d0ab-b5b1-4f85-8f90-4ccf91f43c20
     Asset: {fileID: 11400000, guid: ba63ab594be28d94683d46e8207d2b1b, type: 2}

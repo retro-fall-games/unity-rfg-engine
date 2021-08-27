@@ -20,8 +20,13 @@ namespace RFG
         public MovementPath movementPath;
         public AIBrain aiBrain;
         public AIBrainBehaviour aiState;
+        public bool JustRotated = false;
+        public float LastTimeRotated = 0f;
+        public float RotateSpeed = 0f;
+        public bool RunningCooldown = false;
+        public float RunningPower = 0f;
+        public float LastTimeRunningCooldown = 0f;
       }
-
 
       [Header("AI Brain Settings")]
       public AIBrain AIBrain;
@@ -39,9 +44,16 @@ namespace RFG
       [Header("Settings")]
       public Aggro aggro;
 
+      [Tooltip("The speed / time it takes to rotate and make decisions")]
+      public float RotateSpeed;
+
+      [Tooltip("The stun cooldown time to start making decisions again")]
+      public float StunCooldownTime = 5f;
+
       [HideInInspector]
       private float _decisionTimeElapsed = 0f;
-      private bool _hasAggro;
+      private bool _hasAggro = false;
+      private float _lastStunTime = 0f;
 
       private AIBrain _aiBrain;
       private Dictionary<Type, AIState> _states;
@@ -106,6 +118,8 @@ namespace RFG
         _ctx.movementPath = _movementPath;
         _ctx.aiBrain = _aiBrain;
         _ctx.aiState = this;
+        _ctx.RotateSpeed = RotateSpeed;
+        _ctx.RunningPower = AIBrain.RunningSettings.RunningPower;
 
         _states = new Dictionary<Type, AIState>();
         foreach (AIState state in _aiBrain.States)
@@ -134,13 +148,21 @@ namespace RFG
 
       private void LateUpdate()
       {
-        if (CurrentDecision != null)
+        if (CurrentDecision != null && CurrentStateType != typeof(AIStunState))
         {
           _decisionTimeElapsed += Time.deltaTime;
           if (_decisionTimeElapsed >= CurrentDecision.DecisionSpeed)
           {
             _decisionTimeElapsed = 0;
             MakeDecision();
+          }
+        }
+
+        if (CurrentStateType == typeof(AIStunState))
+        {
+          if (Time.time - _lastStunTime > StunCooldownTime)
+          {
+            RestorePreviousState();
           }
         }
       }

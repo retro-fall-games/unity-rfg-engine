@@ -9,14 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f500820db5b77134a8fcfd7a2fb71e4a, type: 3}
-  m_Name: RunningSettings
+  m_Script: {fileID: 11500000, guid: 48d009bcd2dde51419d35edf2e01f80c, type: 3}
+  m_Name: AIBossAggroDecisionNode
   m_EditorClassIdentifier: 
-  RunningSpeed: 5
-  RunningPower: 17
-  PowerGainPerFrame: 0.01
-  CooldownTimer: 10
-  RunningEffects:
-  - FlameEngineEffect
-  Layer: Base Layer
-  RunningClip: Walking
+  DecisionSpeed: 3
+  DecisionOffset: 10
+  State: {fileID: 11400000, guid: fd54f737a6b08724896b57aa4214dfcc, type: 2}
+  AIDecisions: []
