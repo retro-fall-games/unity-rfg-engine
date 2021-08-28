@@ -42,6 +42,14 @@ namespace RFG
       }
       return null;
     }
+
+    public void DeactivateAllByTag(string category, string tag)
+    {
+      if (_objectPools.ContainsKey(category))
+      {
+        _objectPools[category].DeactivateAllByTag(tag);
+      }
+    }
   }
 
   public static class TransformEx
@@ -53,7 +61,8 @@ namespace RFG
         List<GameObject> spawnedObjects = new List<GameObject>();
         foreach (string tag in tags)
         {
-          ObjectPoolManager.Instance.SpawnFromPool(category, tag, transform.position, transform.rotation, objects);
+          GameObject spawned = ObjectPoolManager.Instance.SpawnFromPool(category, tag, transform.position, transform.rotation, objects);
+          spawnedObjects.Add(spawned);
         }
         return spawnedObjects;
       }
@@ -67,11 +76,23 @@ namespace RFG
         List<GameObject> spawnedObjects = new List<GameObject>();
         foreach (string tag in tags)
         {
-          ObjectPoolManager.Instance.SpawnFromPool(category, tag, transform.position, rotation, objects);
+          GameObject spawned = ObjectPoolManager.Instance.SpawnFromPool(category, tag, transform.position, rotation, objects);
+          spawnedObjects.Add(spawned);
         }
         return spawnedObjects;
       }
       return null;
+    }
+
+    public static void DeactivatePoolByTag(this Transform transform, string category, string[] tags)
+    {
+      if (tags != null && tags.Length > 0)
+      {
+        foreach (string tag in tags)
+        {
+          ObjectPoolManager.Instance.DeactivateAllByTag(category, tag);
+        }
+      }
     }
   }
 }

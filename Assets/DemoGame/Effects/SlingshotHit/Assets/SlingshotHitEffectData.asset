@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: SlingshotHitEffectData
   m_EditorClassIdentifier: 
   Lifetime: 0.19
+  PooledObject: 1
   AnimationClip: 
   SoundEffects:
   - {fileID: 11400000, guid: d67ce62554195d14586dd776fcd3d6f7, type: 2}
+  PitchMin: 0.878
+  PitchMax: 1
   SpawnEffects: []
   CameraShakeIntensity: 0
   CameraShakeTime: 0

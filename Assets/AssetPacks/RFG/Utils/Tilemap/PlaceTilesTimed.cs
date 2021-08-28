@@ -88,9 +88,8 @@ namespace RFG
       return (Tile)Resources.Load(name, typeof(Tile));
     }
 
-#if UNITY_EDITOR
     [ButtonMethod]
-    private void AddTiles()
+    public void AddTiles()
     {
       IsPlacing = true;
       while (IsPlacing)
@@ -100,7 +99,7 @@ namespace RFG
     }
 
     [ButtonMethod]
-    private void RemoveTiles()
+    public void RemoveTiles()
     {
       IsPlacing = true;
       while (IsPlacing)
@@ -108,7 +107,6 @@ namespace RFG
         RemoveTile();
       }
     }
-#endif
 
   }
 }

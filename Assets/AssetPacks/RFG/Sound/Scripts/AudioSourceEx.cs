@@ -5,11 +5,18 @@ namespace RFG
 {
   public static class AudioSourceEx
   {
-    public static void PlayAll(this AudioSource[] audioSources)
+    public static void PlayAll(this AudioSource[] audioSources, float pitchMin = 0, float pitchMax = 0)
     {
       foreach (AudioSource source in audioSources)
       {
-        source.Play();
+        if (!source.isPlaying)
+        {
+          if (pitchMin != 0 && pitchMax != 0)
+          {
+            source.pitch = UnityEngine.Random.Range(pitchMin, pitchMax);
+          }
+          source.Play();
+        }
       }
     }
 

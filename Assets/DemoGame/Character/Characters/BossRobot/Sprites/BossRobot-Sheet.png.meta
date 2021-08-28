@@ -14,6 +14,30 @@ TextureImporter:
   - first:
       213: -495534501909240865
     second: BossRobot-Sheet_3
+  - first:
+      213: -2129143719261438875
+    second: BossRobot-Sheet_4
+  - first:
+      213: -5485935799710007471
+    second: BossRobot-Sheet_5
+  - first:
+      213: -6786968222858152541
+    second: BossRobot-Sheet_6
+  - first:
+      213: -1341802277537823415
+    second: BossRobot-Sheet_7
+  - first:
+      213: 7050795539730979208
+    second: BossRobot-Sheet_8
+  - first:
+      213: 5063751325931905293
+    second: BossRobot-Sheet_9
+  - first:
+      213: -6612249262669922042
+    second: BossRobot-Sheet_10
+  - first:
+      213: 8988861121845910271
+    second: BossRobot-Sheet_11
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -120,10 +144,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
+        width: 80
         height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.6845921, y: 0.5135731}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -139,12 +163,12 @@ TextureImporter:
       name: BossRobot-Sheet_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 80
         y: 0
-        width: 64
+        width: 80
         height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.6845921, y: 0.5135731}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -160,12 +184,12 @@ TextureImporter:
       name: BossRobot-Sheet_2
       rect:
         serializedVersion: 2
-        x: 128
+        x: 160
         y: 0
-        width: 64
+        width: 80
         height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.6845921, y: 0.5135731}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -181,12 +205,12 @@ TextureImporter:
       name: BossRobot-Sheet_3
       rect:
         serializedVersion: 2
-        x: 192
+        x: 240
         y: 0
-        width: 64
+        width: 80
         height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.6845921, y: 0.5135731}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -194,6 +218,174 @@ TextureImporter:
       bones: []
       spriteID: fd3efb7fef18f19f0800000000000000
       internalID: -495534501909240865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossRobot-Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 80
+        height: 64
+      alignment: 9
+      pivot: {x: 0.6845921, y: 0.5135731}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56cfaa96113c372e0800000000000000
+      internalID: -2129143719261438875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossRobot-Sheet_5
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 0
+        width: 80
+        height: 64
+      alignment: 9
+      pivot: {x: 0.6845921, y: 0.5135731}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15fbfa5b47a0ed3b0800000000000000
+      internalID: -5485935799710007471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossRobot-Sheet_6
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 80
+        height: 64
+      alignment: 9
+      pivot: {x: 0.6845921, y: 0.5135731}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a5fca63c58dfc1a0800000000000000
+      internalID: -6786968222858152541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossRobot-Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 0
+        width: 80
+        height: 64
+      alignment: 9
+      pivot: {x: 0.6845921, y: 0.5135731}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9454c8010f5f06de0800000000000000
+      internalID: -1341802277537823415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossRobot-Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 80
+        height: 64
+      alignment: 9
+      pivot: {x: 0.6845921, y: 0.5135731}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 889d299cf2579d160800000000000000
+      internalID: 7050795539730979208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossRobot-Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 0
+        width: 80
+        height: 64
+      alignment: 9
+      pivot: {x: 0.6845921, y: 0.5135731}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d01a515800f064640800000000000000
+      internalID: 5063751325931905293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossRobot-Sheet_10
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 0
+        width: 80
+        height: 64
+      alignment: 9
+      pivot: {x: 0.6845921, y: 0.5135731}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 601883c24529c34a0800000000000000
+      internalID: -6612249262669922042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossRobot-Sheet_11
+      rect:
+        serializedVersion: 2
+        x: 880
+        y: 0
+        width: 80
+        height: 64
+      alignment: 9
+      pivot: {x: 0.6845921, y: 0.5135731}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffad1f6b099debc70800000000000000
+      internalID: 8988861121845910271
       vertices: []
       indices: 
       edges: []

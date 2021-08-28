@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: PopEffectData
   m_EditorClassIdentifier: 
   Lifetime: 3
+  PooledObject: 1
   AnimationClip: 
   SoundEffects:
   - {fileID: 11400000, guid: 0ad7d4f71812fc14792735c5a5a8f165, type: 2}
+  PitchMin: 0.525
+  PitchMax: 1
   SpawnEffects: []
   CameraShakeIntensity: 0
   CameraShakeTime: 0

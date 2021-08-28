@@ -16,6 +16,7 @@ MonoBehaviour:
   OverrideDefaultStates: 0
   OverrideDefaultDecisionTrees: 0
   OverrideDefaultSettings: 1
+  OverrideDefaultSettingsSetOverrides: 1
   States: []
   DefaultState: {fileID: 0}
   RootDecision: {fileID: 0}
@@ -25,3 +26,9 @@ MonoBehaviour:
   WalkingSettings: {fileID: 11400000, guid: ae67e5d83de0d6840870a87fc52582d7, type: 2}
   RunningSettings: {fileID: 11400000, guid: 91d56e70b211de649ba92913095dd43a, type: 2}
   JumpSettings: {fileID: 11400000, guid: bbb9af103db47904b8e706498141d40f, type: 2}
+  SettingsSetOverrides:
+  - IdleSettings: {fileID: 0}
+    AttackSettings: {fileID: 0}
+    WalkingSettings: {fileID: 11400000, guid: 9b2a59f01bc03144ebb8cac9460292ee, type: 2}
+    RunningSettings: {fileID: 11400000, guid: b6c7f24accc39f14ab13109398e7f5b6, type: 2}
+    JumpSettings: {fileID: 0}

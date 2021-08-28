@@ -23,18 +23,10 @@ namespace RFG
 
     public void OnObjectSpawn(params object[] objects)
     {
-      if (EffectData.Offset != null)
-      {
-        transform.position += EffectData.Offset;
-      }
-      if (EffectData.FlipY)
-      {
-        transform.Rotate(0f, 180f, 0f);
-      }
       _timeElapsed = 0;
       if (_audioSources != null)
       {
-        _audioSources.PlayAll();
+        _audioSources.PlayAll(EffectData.PitchMin, EffectData.PitchMax);
       }
       if (_animator != null && EffectData.AnimationClip != null)
       {
@@ -50,10 +42,21 @@ namespace RFG
 
     private void Update()
     {
-      _timeElapsed += Time.deltaTime;
-      if (_timeElapsed >= EffectData.Lifetime)
+      if (EffectData.Lifetime > 0)
       {
-        gameObject.SetActive(false);
+        _timeElapsed += Time.deltaTime;
+        if (_timeElapsed >= EffectData.Lifetime)
+        {
+          gameObject.SetActive(false);
+        }
+      }
+    }
+
+    private void OnEnable()
+    {
+      if (!EffectData.PooledObject)
+      {
+        OnObjectSpawn();
       }
     }
 

@@ -51,8 +51,6 @@ namespace RFG
           normalizedHorizontalSpeed = -1f;
         }
 
-
-
         bool useRunning = !ctx.RunningCooldown;
 
         float speed = useRunning ? ctx.aiBrain.RunningSettings.RunningSpeed : ctx.aiBrain.WalkingSettings.WalkingSpeed;
@@ -69,12 +67,14 @@ namespace RFG
           }
           else
           {
+            ctx.transform.DeactivatePoolByTag("Effects", ctx.aiBrain.WalkingSettings.WalkingEffects);
             ctx.transform.SpawnFromPool("Effects", ctx.aiBrain.RunningSettings.RunningEffects);
             ctx.animator.Play(ctx.aiBrain.RunningSettings.RunningClip);
           }
         }
         else
         {
+          ctx.transform.DeactivatePoolByTag("Effects", ctx.aiBrain.RunningSettings.RunningEffects);
           ctx.transform.SpawnFromPool("Effects", ctx.aiBrain.WalkingSettings.WalkingEffects);
           ctx.animator.Play(ctx.aiBrain.WalkingSettings.WalkingClip);
           if (Time.time - ctx.LastTimeRunningCooldown > ctx.aiBrain.RunningSettings.CooldownTimer)
@@ -82,7 +82,6 @@ namespace RFG
             ctx.RunningPower += ctx.aiBrain.RunningSettings.PowerGainPerFrame;
             if (ctx.RunningPower >= ctx.aiBrain.RunningSettings.RunningPower)
             {
-              Debug.Log("Running Cooldown Over");
               ctx.RunningPower = ctx.aiBrain.RunningSettings.RunningPower;
               ctx.RunningCooldown = false;
             }

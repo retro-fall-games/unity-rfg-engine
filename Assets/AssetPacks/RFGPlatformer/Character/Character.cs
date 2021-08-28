@@ -65,6 +65,12 @@ namespace RFG
 
       public void Kill()
       {
+        StartCoroutine(KillCo());
+      }
+
+      public IEnumerator KillCo()
+      {
+        yield return new WaitForSeconds(0.1f);
         ChangeState(typeof(DeathState));
       }
 

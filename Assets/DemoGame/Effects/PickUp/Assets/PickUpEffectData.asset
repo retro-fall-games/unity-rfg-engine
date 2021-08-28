@@ -13,7 +13,14 @@ MonoBehaviour:
   m_Name: PickUpEffectData
   m_EditorClassIdentifier: 
   Lifetime: 3
+  PooledObject: 1
+  AnimationClip: 
   SoundEffects:
   - {fileID: 11400000, guid: 5e3305b0dcb2fe74ca7ff1a6b69ee0b1, type: 2}
+  PitchMin: 0.754
+  PitchMax: 1
   SpawnEffects:
   - FloatingText
+  CameraShakeIntensity: 0
+  CameraShakeTime: 0
+  CameraShakeFade: 0

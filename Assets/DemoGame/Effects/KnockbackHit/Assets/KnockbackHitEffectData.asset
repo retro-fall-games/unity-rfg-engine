@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: KnockbackHitEffectData
   m_EditorClassIdentifier: 
   Lifetime: 3
+  PooledObject: 1
   AnimationClip: 
   SoundEffects:
   - {fileID: 11400000, guid: d0dc0102f6a6fb848bd530137d9fbb3d, type: 2}
+  PitchMin: 0.701
+  PitchMax: 1
   SpawnEffects: []
   CameraShakeIntensity: 0.1
   CameraShakeTime: 0.1

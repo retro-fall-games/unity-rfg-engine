@@ -20,8 +20,8 @@ namespace Game
     private IEnumerator Cutscene()
     {
       // Turn off the boss until the trigger
-      // boss.Controller.enabled = false;
-      // bossAIBrain.enabled = false;
+      boss.Controller.enabled = false;
+      bossAIBrain.enabled = false;
       yield return null;
     }
 

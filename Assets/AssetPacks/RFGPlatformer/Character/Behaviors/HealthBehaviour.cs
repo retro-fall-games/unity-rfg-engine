@@ -47,8 +47,8 @@ namespace RFG
         }
         if (Health <= 0)
         {
-          _character.ChangeState(typeof(DeathState));
           KillEvent?.Raise();
+          _character.Kill();
         }
       }
 

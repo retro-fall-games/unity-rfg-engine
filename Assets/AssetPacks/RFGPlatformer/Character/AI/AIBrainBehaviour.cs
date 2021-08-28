@@ -63,6 +63,8 @@ namespace RFG
       private Animator _animator;
       private MovementPath _movementPath;
       private AIStateContext _ctx;
+      private AIBrain.SettingsSetOverride _defaultSettings;
+      private AIBrain.SettingsSetOverride _previousSettings;
 
       private void Awake()
       {
@@ -71,6 +73,8 @@ namespace RFG
         _controller = GetComponent<CharacterController2D>();
         _animator = GetComponent<Animator>();
         _movementPath = GetComponent<MovementPath>();
+        _defaultSettings = new AIBrain.SettingsSetOverride();
+        _previousSettings = new AIBrain.SettingsSetOverride();
 
         if (AIBrain.DefaultBrain != null)
         {
@@ -103,11 +107,21 @@ namespace RFG
             _aiBrain.RunningSettings = AIBrain.RunningSettings;
             _aiBrain.JumpSettings = AIBrain.JumpSettings;
           }
+          if (AIBrain.OverrideDefaultSettingsSetOverrides)
+          {
+            _aiBrain.SettingsSetOverrides = AIBrain.SettingsSetOverrides;
+          }
         }
         else
         {
           _aiBrain = AIBrain;
         }
+
+        _defaultSettings.IdleSettings = _aiBrain.IdleSettings;
+        _defaultSettings.AttackSettings = _aiBrain.AttackSettings;
+        _defaultSettings.WalkingSettings = _aiBrain.WalkingSettings;
+        _defaultSettings.RunningSettings = _aiBrain.RunningSettings;
+        _defaultSettings.JumpSettings = _aiBrain.JumpSettings;
 
         _ctx = new AIStateContext();
         _ctx.transform = _transform;
@@ -239,6 +253,90 @@ namespace RFG
         {
           CurrentDecision = _aiBrain.RootDecision;
           ChangeAIState(CurrentDecision.State.GetType());
+        }
+      }
+
+      public void ChangeSettingsSetOverride(int index)
+      {
+        if (index >= 0 && index < _aiBrain.SettingsSetOverrides.Length)
+        {
+          AIBrain.SettingsSetOverride overrides = _aiBrain.SettingsSetOverrides[index];
+          if (overrides != null)
+          {
+            if (overrides.IdleSettings != null)
+            {
+              _previousSettings.IdleSettings = _aiBrain.IdleSettings;
+              _aiBrain.IdleSettings = overrides.IdleSettings;
+            }
+            if (overrides.AttackSettings != null)
+            {
+              _previousSettings.AttackSettings = _aiBrain.AttackSettings;
+              _aiBrain.AttackSettings = overrides.AttackSettings;
+            }
+            if (overrides.WalkingSettings != null)
+            {
+              _previousSettings.WalkingSettings = _aiBrain.WalkingSettings;
+              _aiBrain.WalkingSettings = overrides.WalkingSettings;
+            }
+            if (overrides.RunningSettings != null)
+            {
+              _previousSettings.RunningSettings = _aiBrain.RunningSettings;
+              _aiBrain.RunningSettings = overrides.RunningSettings;
+            }
+            if (overrides.JumpSettings != null)
+            {
+              _previousSettings.JumpSettings = _aiBrain.JumpSettings;
+              _aiBrain.JumpSettings = overrides.JumpSettings;
+            }
+          }
+        }
+      }
+
+      public void RestoreDefaultsSettingsSetOverride(int index)
+      {
+        if (_defaultSettings.IdleSettings != null)
+        {
+          _aiBrain.IdleSettings = _defaultSettings.IdleSettings;
+        }
+        if (_defaultSettings.AttackSettings != null)
+        {
+          _aiBrain.AttackSettings = _defaultSettings.AttackSettings;
+        }
+        if (_defaultSettings.WalkingSettings != null)
+        {
+          _aiBrain.WalkingSettings = _defaultSettings.WalkingSettings;
+        }
+        if (_defaultSettings.RunningSettings != null)
+        {
+          _aiBrain.RunningSettings = _defaultSettings.RunningSettings;
+        }
+        if (_defaultSettings.JumpSettings != null)
+        {
+          _aiBrain.JumpSettings = _defaultSettings.JumpSettings;
+        }
+      }
+
+      public void RestorePreviousSettingsSetOverride(int index)
+      {
+        if (_previousSettings.IdleSettings != null)
+        {
+          _aiBrain.IdleSettings = _previousSettings.IdleSettings;
+        }
+        if (_previousSettings.AttackSettings != null)
+        {
+          _aiBrain.AttackSettings = _previousSettings.AttackSettings;
+        }
+        if (_previousSettings.WalkingSettings != null)
+        {
+          _aiBrain.WalkingSettings = _previousSettings.WalkingSettings;
+        }
+        if (_previousSettings.RunningSettings != null)
+        {
+          _aiBrain.RunningSettings = _previousSettings.RunningSettings;
+        }
+        if (_previousSettings.JumpSettings != null)
+        {
+          _aiBrain.JumpSettings = _previousSettings.JumpSettings;
         }
       }
 

@@ -98,6 +98,20 @@ namespace RFG
       return objectToSpawn;
     }
 
+    public void DeactivateAllByTag(string tag)
+    {
+      if (!poolDictionary.ContainsKey(tag))
+      {
+        LogExt.Warn<ObjectPool>($"Pool with tag {tag} does not exist");
+        return;
+      }
+      foreach (QueueObject queueObject in poolDictionary[tag])
+      {
+        GameObject objectToSpawn = queueObject.gameObject;
+        objectToSpawn.SetActive(false);
+      }
+    }
+
 #if UNITY_EDITOR
     [ButtonMethod]
     public void GenerateObjects()

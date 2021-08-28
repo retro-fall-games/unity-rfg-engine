@@ -8,15 +8,16 @@ namespace Game
   public class Level5BossDefeatCutscene : Cutscene
   {
     [Header("AI Brains")]
-    public AIBrainBehaviour player;
-    public AIBrainBehaviour boss;
+    public Character player;
 
-    [Header("Movement Paths")]
-    public MovementPath playerMovementPath;
-    public MovementPath bossMovementPath;
+    [Header("Camera")]
+    public Animator CameraAnimator;
 
-    public SpriteRenderer sword;
-    public Sprite emptySword;
+    [Header("PlaceTilesTimed")]
+    public PlaceTilesTimed PlaceTilesTimed;
+
+    [Header("Level Portal")]
+    public GameObject levelPortal;
 
     protected override void Awake()
     {
@@ -30,52 +31,38 @@ namespace Game
       yield return new WaitUntil(() => Dialog.Instance != null);
       Dialog.Instance.ClearAllSpeakers();
 
-      // // Player starts the movement path
-      player.ChangeState(typeof(AIMovementPathState));
-      yield return new WaitUntil(() => playerMovementPath.ReachedEnd);
+      player.Controller.enabled = false;
 
-      // // Player Talks
-      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "Finally, I found the sword of light", 1.5f);
-      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "Now I can save the village from the darkness", 1.5f);
-
-      // // Boss starts the movement path
-      boss.ChangeState(typeof(AIMovementPathState));
-      yield return new WaitUntil(() => bossMovementPath.ReachedEnd);
-
-      // // Boss Talks
-      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker2, "Ha ha ha ha ha ....", 1.5f);
-      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker2, "Thanks for finding this sword for me", 1.5f);
-      sword.sprite = emptySword;
-      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker2, "You should probably get back to your village", 1.5f);
-      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker2, "Now there is no more meaning", 1.5f);
-      bossMovementPath.Reverse();
-      bossMovementPath.Reset();
-      boss.ChangeState(typeof(AIMovementPathState));
-      yield return new WaitUntil(() => bossMovementPath.ReachedEnd);
-
-      // // Player Talks
-      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "I have come too far to fail", 1.5f);
-      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "I will fight the evil", 1.5f);
-      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "Retrieve the sword of light", 1.5f);
-      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "And save the village", 1.5f);
+      yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "Boss Defeated", 1.5f);
 
       yield return new WaitForSeconds(2f);
 
-      // // Stop everything and go play the game
-      SoundManager.Instance.StopAll(true);
-      yield return new WaitForSeconds(3f);
-      SceneManager.Instance.LoadScene("Level1");
+      CameraAnimator.SetBool("Cutscene2", true);
+
+      PlaceTilesTimed.IsPlacing = true;
+
+      yield return new WaitUntil(() => PlaceTilesTimed.IsPlacing == false);
+
+      yield return new WaitForSeconds(2f);
+
+      levelPortal.SetActive(true);
+      PlaceTilesTimed.RemoveTiles();
+
+      yield return new WaitForSeconds(2f);
+
+      CameraAnimator.SetBool("Cutscene2", false);
+
+      yield return new WaitForSeconds(2f);
+
+      player.Controller.enabled = true;
     }
 
     protected override void OnSkipEnter()
     {
-      Dialog.Instance.ClearAllSpeakers();
-      SoundManager.Instance.StopAll(true);
     }
 
     protected override void OnSkipExit()
     {
-      SceneManager.Instance.LoadScene("Level1");
     }
 
   }

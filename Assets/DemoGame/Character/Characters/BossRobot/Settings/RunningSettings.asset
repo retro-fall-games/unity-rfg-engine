@@ -17,6 +17,6 @@ MonoBehaviour:
   PowerGainPerFrame: 0.01
   CooldownTimer: 10
   RunningEffects:
-  - FlameEngineEffect
+  - EngineEffect
   Layer: Base Layer
-  RunningClip: Walking
+  RunningClip: Running

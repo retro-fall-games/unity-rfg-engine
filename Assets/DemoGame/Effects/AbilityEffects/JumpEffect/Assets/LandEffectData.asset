@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: LandEffectData
   m_EditorClassIdentifier: 
   Lifetime: 0.2
+  PooledObject: 1
   AnimationClip: Land
   SoundEffects:
   - {fileID: 11400000, guid: 4f6a74af37fc140418ae32a27dc2b25d, type: 2}
+  PitchMin: 0.71
+  PitchMax: 1
   SpawnEffects: []
+  CameraShakeIntensity: 0
+  CameraShakeTime: 0
+  CameraShakeFade: 0

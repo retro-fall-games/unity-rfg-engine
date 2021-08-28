@@ -13,7 +13,13 @@ MonoBehaviour:
   m_Name: JumpEffectData
   m_EditorClassIdentifier: 
   Lifetime: 0.2
+  PooledObject: 1
   AnimationClip: Jump
   SoundEffects:
   - {fileID: 11400000, guid: 8dce7342b3d279b45957759fa26aed5c, type: 2}
+  PitchMin: 0.774
+  PitchMax: 1
   SpawnEffects: []
+  CameraShakeIntensity: 0
+  CameraShakeTime: 0
+  CameraShakeFade: 0

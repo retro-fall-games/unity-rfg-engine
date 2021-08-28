@@ -103,7 +103,7 @@ namespace RFG
 
       private void Start()
       {
-        State.IsFacingRight = transform.localScale.x > 0;
+        State.IsFacingRight = _transform.right.x > 0;
       }
 
 
