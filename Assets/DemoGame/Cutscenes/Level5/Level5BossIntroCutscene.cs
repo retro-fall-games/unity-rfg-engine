@@ -31,7 +31,9 @@ namespace Game
       Dialog.Instance.ClearAllSpeakers();
 
       // Disable both player and boss
+      player.Controller.ResetVelocity();
       player.Controller.enabled = false;
+      player.DisableAllAbilities();
 
       // Player Talks
       yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "What's that noise?", 1.5f);
@@ -57,6 +59,7 @@ namespace Game
       // Follow the player
       CameraAnimator.SetBool("Cutscene1", false);
       player.Controller.enabled = true;
+      player.EnableAllAbilities();
 
     }
 

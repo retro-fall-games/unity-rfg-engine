@@ -6,7 +6,7 @@ namespace RFG
   namespace Platformer
   {
     [AddComponentMenu("RFG/Platformer/Character/Ability/Pause")]
-    public class PauseAbility : MonoBehaviour
+    public class PauseAbility : MonoBehaviour, IAbility
     {
       [Header("Input")]
       /// <summary>Input Action to initiate the Pause Event</summary>

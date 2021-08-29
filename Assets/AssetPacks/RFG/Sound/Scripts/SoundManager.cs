@@ -10,6 +10,7 @@ namespace RFG
     public Dictionary<string, SoundBase> SoundBases => _soundBases;
     private Dictionary<string, SoundBase> _soundBases = new Dictionary<string, SoundBase>();
     private Coroutine _playlistCoroutine;
+    private bool _isPlaylistPlaying = false;
 
     protected override void Awake()
     {
@@ -55,6 +56,11 @@ namespace RFG
 
     private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, UnityEngine.SceneManagement.LoadSceneMode mode)
     {
+      if (_isPlaylistPlaying)
+      {
+        return;
+      }
+      _isPlaylistPlaying = true;
       PlaylistBase playlistBase = FindObjectOfType<PlaylistBase>();
       if (playlistBase != null)
       {
@@ -95,6 +101,7 @@ namespace RFG
 
     public void StopPlaylist(PlaylistBase playlistBase)
     {
+      _isPlaylistPlaying = false;
       if (playlistBase != null)
       {
         Playlist playlist = playlistBase.Playlist;

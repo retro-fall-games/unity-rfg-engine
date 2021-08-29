@@ -6,7 +6,7 @@ namespace RFG
   namespace Platformer
   {
     [AddComponentMenu("RFG/Platformer/Character/Ability/Wall Clinging")]
-    public class WallClingingAbility : MonoBehaviour
+    public class WallClingingAbility : MonoBehaviour, IAbility
     {
       [Header("Input")]
       /// <summary>Input Action to read the xy axis</summary>

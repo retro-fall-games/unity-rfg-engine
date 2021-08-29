@@ -9,11 +9,13 @@ namespace RFG
     public delegate void ParallaxCameraDelegate(float deltaMovement);
     public ParallaxCameraDelegate onCameraTranslate;
     private float oldPosition;
+
     private void Start()
     {
       oldPosition = transform.position.x;
     }
-    private void Update()
+
+    private void LateUpdate()
     {
       if (transform.position.x != oldPosition)
       {

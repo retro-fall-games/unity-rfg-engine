@@ -18,11 +18,19 @@ namespace RFG
       public CharacterController2D Controller => _controller;
       private CharacterController2D _controller;
       private Dictionary<int, LevelPortal> _levelPortals;
+      private List<Component> _abilities;
 
       protected override void Awake()
       {
         base.Awake();
         _controller = GetComponent<CharacterController2D>();
+
+        Component[] abilities = GetComponents(typeof(IAbility)) as Component[];
+        if (abilities.Length > 0)
+        {
+          _abilities = new List<Component>(abilities);
+        }
+
         if (CharacterType == CharacterType.Player)
         {
           _levelPortals = new Dictionary<int, LevelPortal>();
@@ -52,7 +60,7 @@ namespace RFG
           if (levelPortalTo != -1)
           {
             PlayerPrefs.SetInt("levelPortalTo", -1);
-            if (levelPortalTo >= 0 && levelPortalTo <= _levelPortals.Count)
+            if (_levelPortals.ContainsKey(levelPortalTo))
             {
               LevelPortal levelPortal = _levelPortals[levelPortalTo];
               spawnAt = levelPortal.transform.position + levelPortal.SpawnOffset;
@@ -79,6 +87,28 @@ namespace RFG
         yield return new WaitForSecondsRealtime(1f);
         ChangeState(typeof(SpawnState));
         gameObject.SetActive(true);
+      }
+
+      public void EnableAllAbilities()
+      {
+        if (_abilities != null)
+        {
+          foreach (Behaviour ability in _abilities)
+          {
+            ability.enabled = true;
+          }
+        }
+      }
+
+      public void DisableAllAbilities()
+      {
+        if (_abilities != null)
+        {
+          foreach (Behaviour ability in _abilities)
+          {
+            ability.enabled = false;
+          }
+        }
       }
 
     }

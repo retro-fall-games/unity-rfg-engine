@@ -295,6 +295,7 @@ MonoBehaviour:
   Health: 1
   MaxHealth: 1
   DefaultMaxHealth: 100
+  KillEvent: {fileID: 0}
 --- !u!114 &4440601284765390206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,3 +312,6 @@ MonoBehaviour:
   CurrentState: {fileID: 0}
   CurrentDecision: {fileID: 0}
   PreviousDecision: {fileID: 0}
+  aggro: {fileID: 4440601284765390205}
+  RotateSpeed: 0
+  StunCooldownTime: 5

@@ -12,6 +12,7 @@ namespace RFG
     public string ToScene = "";
     public int ToLevelPortalIndex = -1;
     public Vector3 SpawnOffset = Vector2.zero;
+    public bool StopSoundTrack = false;
 
     [Header("Event Observer")]
     public ObserverString LevelPortalObserver;
@@ -22,6 +23,10 @@ namespace RFG
       {
         if (ToLevelPortalIndex != -1 && !ToScene.Equals(""))
         {
+          if (StopSoundTrack)
+          {
+            SoundManager.Instance.StopAll(true);
+          }
           PlayerPrefs.SetInt("levelPortalTo", ToLevelPortalIndex);
           LevelPortalObserver.Raise(ToScene);
           // SceneManager.Instance.LoadScene(ToScene);

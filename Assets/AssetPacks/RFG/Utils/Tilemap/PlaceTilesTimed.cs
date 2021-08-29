@@ -23,6 +23,7 @@ namespace RFG
     public TileData[] tileData;
 
     [Header("Effects")]
+    public Vector3 EffectsPostionOffset = Vector3.zero;
     public string[] PlaceEffects;
     public string[] RemoveEffects;
 
@@ -54,7 +55,7 @@ namespace RFG
       TileData data = tileData[_tileIndex];
       if (_transform != null)
       {
-        _transform.position = Tilemap.CellToWorld(data.Coordinates);
+        _transform.position = Tilemap.CellToWorld(data.Coordinates) + EffectsPostionOffset;
         _transform.SpawnFromPool("Effects", PlaceEffects);
       }
       Tilemap.SetTile(data.Coordinates, data.Tile);

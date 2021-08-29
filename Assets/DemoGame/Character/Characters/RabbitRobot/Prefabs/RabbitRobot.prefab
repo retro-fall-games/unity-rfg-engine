@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 2278201137077972767}
   - component: {fileID: 2278201137077972837}
   - component: {fileID: 2278201137077972836}
-  - component: {fileID: 2278201137077972839}
   - component: {fileID: 682367867821734120}
   - component: {fileID: 4178682084421645794}
   m_Layer: 14
@@ -279,18 +278,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   KnockbackData: {fileID: 11400000, guid: ab32812cd5174034a907ca895f726aba, type: 2}
---- !u!114 &2278201137077972839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2278201137077972838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04603684b48aae64486f1a40ef505fd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &682367867821734120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,6 +295,7 @@ MonoBehaviour:
   Health: 5
   MaxHealth: 5
   DefaultMaxHealth: 5
+  KillEvent: {fileID: 0}
 --- !u!114 &4178682084421645794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,3 +312,6 @@ MonoBehaviour:
   CurrentState: {fileID: 0}
   CurrentDecision: {fileID: 0}
   PreviousDecision: {fileID: 0}
+  aggro: {fileID: 2278201137077972837}
+  RotateSpeed: 0
+  StunCooldownTime: 5

@@ -7,7 +7,7 @@ namespace RFG
   namespace Platformer
   {
     [AddComponentMenu("RFG/Platformer/Character/Ability/Attack")]
-    public class AttackAbility : MonoBehaviour
+    public class AttackAbility : MonoBehaviour, IAbility
     {
       [Header("Input")]
       /// <summary>Input Action to initiate the Primary Attack</summary>

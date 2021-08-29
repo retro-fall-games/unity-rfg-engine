@@ -133,7 +133,10 @@ namespace RFG
         _ctx.aiBrain = _aiBrain;
         _ctx.aiState = this;
         _ctx.RotateSpeed = RotateSpeed;
-        _ctx.RunningPower = AIBrain.RunningSettings.RunningPower;
+        if (_aiBrain.RunningSettings != null)
+        {
+          _ctx.RunningPower = _aiBrain.RunningSettings.RunningPower;
+        }
 
         _states = new Dictionary<Type, AIState>();
         foreach (AIState state in _aiBrain.States)

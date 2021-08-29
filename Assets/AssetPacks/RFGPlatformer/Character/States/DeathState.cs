@@ -12,19 +12,6 @@ namespace RFG
       {
         return typeof(DeadState);
       }
-
-      public override void Exit(Transform transform, Animator animator)
-      {
-        base.Exit(transform, animator);
-        Character character = transform.GetComponent<Character>();
-        if (character.CharacterType == CharacterType.Player)
-        {
-          GameManager.Instance.StartCoroutine(character.Respawn());
-        }
-        character.Controller.enabled = false;
-        transform.gameObject.SetActive(false);
-      }
-
     }
   }
 }

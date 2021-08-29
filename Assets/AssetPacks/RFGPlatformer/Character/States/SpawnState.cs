@@ -25,6 +25,7 @@ namespace RFG
         transform.gameObject.SetActive(true);
         character.Controller.ResetVelocity();
         character.Controller.enabled = true;
+        character.EnableAllAbilities();
       }
 
       public override Type Execute(Transform transform, Animator animator)

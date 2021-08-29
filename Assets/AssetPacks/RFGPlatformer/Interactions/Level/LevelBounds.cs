@@ -34,10 +34,10 @@ namespace RFG
 
       private void HandleLevelBounds(Character character)
       {
-        // if (character.CharacterState.CurrentStateType == typeof(DeadState))
-        // {
-        //   return;
-        // }
+        if (character.CurrentStateType != typeof(AliveState))
+        {
+          return;
+        }
         if (Bounds.size != Vector3.zero)
         {
           if (Top != BoundsBehaviour.Nothing && character.Controller.ColliderTopPosition.y > Bounds.max.y)
@@ -74,6 +74,7 @@ namespace RFG
       {
         if (Behaviour == BoundsBehaviour.Kill)
         {
+          character.transform.position = constrainedPosition;
           character.Kill();
         }
         else if (Behaviour == BoundsBehaviour.Constrain)

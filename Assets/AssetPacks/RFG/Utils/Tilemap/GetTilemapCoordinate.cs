@@ -1,7 +1,6 @@
-using UnityEngine;
 #if UNITY_EDITOR
+using UnityEngine;
 using UnityEditor;
-#endif
 
 namespace RFG
 {
@@ -32,3 +31,4 @@ namespace RFG
     }
   }
 }
+#endif

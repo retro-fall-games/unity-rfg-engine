@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/DemoGame/Scenes/Intro.unity
     guid: 74b2e8ecaaa1e874084c87405d28e09e
   - enabled: 1
+    path: Assets/DemoGame/Scenes/EndCredits.unity
+    guid: 03badd9f48948ce4da9e32f6ab86527d
+  - enabled: 1
     path: Assets/DemoGame/Scenes/Levels/Level1.unity
     guid: 321d8f85168a3d54db35b6b9515caae9
   - enabled: 1

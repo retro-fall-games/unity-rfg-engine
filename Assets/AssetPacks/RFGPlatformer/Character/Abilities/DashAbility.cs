@@ -7,7 +7,7 @@ namespace RFG
   namespace Platformer
   {
     [AddComponentMenu("RFG/Platformer/Character/Ability/Dash")]
-    public class DashAbility : MonoBehaviour
+    public class DashAbility : MonoBehaviour, IAbility
     {
       [Header("Input")]
       /// <summary>Input Action to initiate the Jump State</summary>

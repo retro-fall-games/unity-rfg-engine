@@ -6,7 +6,7 @@ namespace RFG
   namespace Platformer
   {
     [AddComponentMenu("RFG/Platformer/Character/Ability/Walking")]
-    public class WalkingAbility : MonoBehaviour
+    public class WalkingAbility : MonoBehaviour, IAbility
     {
       [Header("Input")]
       /// <summary>Input Action to read the xy axis</summary>

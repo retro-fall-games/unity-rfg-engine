@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using RFG;
 using TMPro;
@@ -10,15 +11,13 @@ namespace Game
     [Header("Settings")]
     public Profile profile;
     public TMP_Text headerText;
+    public TMP_Text timePlayedText;
     public TMP_Text startText;
     public GameObject deleteButton;
 
     private void Start()
     {
-      if (profile.CreatedAt > 0)
-      {
-        profile.Load();
-      }
+      profile.Load();
       SetUI();
     }
 
@@ -27,11 +26,14 @@ namespace Game
       headerText.SetText($"Profile {profile.Id}");
       if (profile.TimePlayed > 0)
       {
+        TimeSpan time = TimeSpan.FromSeconds(profile.TimePlayed);
+        timePlayedText.SetText(time.ToString(@"hh\:mm\:ss"));
         deleteButton.SetActive(true);
         startText.SetText("Continue");
       }
       else
       {
+        timePlayedText.SetText("--:--");
         deleteButton.SetActive(false);
         startText.SetText("Create");
       }
