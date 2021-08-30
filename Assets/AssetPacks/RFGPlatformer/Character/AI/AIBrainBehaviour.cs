@@ -18,6 +18,7 @@ namespace RFG
         public Aggro aggro;
         public Animator animator;
         public MovementPath movementPath;
+        public EquipmentSet equipmentSet;
         public AIBrain aiBrain;
         public AIBrainBehaviour aiState;
         public bool JustRotated = false;
@@ -50,6 +51,10 @@ namespace RFG
       [Tooltip("The stun cooldown time to start making decisions again")]
       public float StunCooldownTime = 5f;
 
+      [Header("Weapons To Equip")]
+      public WeaponItem PrimaryWeapon;
+      public WeaponItem SecondaryWeapon;
+
       [HideInInspector]
       private float _decisionTimeElapsed = 0f;
       private bool _hasAggro = false;
@@ -62,6 +67,7 @@ namespace RFG
       private CharacterController2D _controller;
       private Animator _animator;
       private MovementPath _movementPath;
+      private EquipmentSet _equipmentSet;
       private AIStateContext _ctx;
       private AIBrain.SettingsSetOverride _defaultSettings;
       private AIBrain.SettingsSetOverride _previousSettings;
@@ -73,6 +79,7 @@ namespace RFG
         _controller = GetComponent<CharacterController2D>();
         _animator = GetComponent<Animator>();
         _movementPath = GetComponent<MovementPath>();
+        _equipmentSet = GetComponent<EquipmentSet>();
         _defaultSettings = new AIBrain.SettingsSetOverride();
         _previousSettings = new AIBrain.SettingsSetOverride();
 
@@ -111,6 +118,7 @@ namespace RFG
           {
             _aiBrain.SettingsSetOverrides = AIBrain.SettingsSetOverrides;
           }
+          _aiBrain.CanFollowVertically = AIBrain.CanFollowVertically;
         }
         else
         {
@@ -130,6 +138,7 @@ namespace RFG
         _ctx.aggro = aggro;
         _ctx.animator = _animator;
         _ctx.movementPath = _movementPath;
+        _ctx.equipmentSet = _equipmentSet;
         _ctx.aiBrain = _aiBrain;
         _ctx.aiState = this;
         _ctx.RotateSpeed = RotateSpeed;
@@ -147,6 +156,16 @@ namespace RFG
         // Start with the normal decision tree
         CurrentDecision = _aiBrain.RootDecision;
         PreviousDecision = CurrentDecision;
+
+        // Equip Weapons
+        if (PrimaryWeapon != null)
+        {
+          _equipmentSet.EquipPrimaryWeapon(PrimaryWeapon);
+        }
+        if (SecondaryWeapon != null)
+        {
+          _equipmentSet.EquipSecondaryWeapon(SecondaryWeapon);
+        }
       }
 
       private void Start()

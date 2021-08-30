@@ -77,8 +77,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1889315743
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 3727881820157045684, guid: 675f97b40d173c443b7fa34b739aba1f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -259,7 +259,8 @@ MonoBehaviour:
   target1: {fileID: 4501051043929579598}
   target2: {fileID: 0}
   target2IsPlayer: 1
-  minDistance: 5
+  minDistance: 10
+  WarmUpTime: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 768

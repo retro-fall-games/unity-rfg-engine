@@ -9,8 +9,10 @@ namespace Game
   {
     [Header("AI Brains")]
     public Character player;
+    public IdleSettings IdleSettings;
 
     [Header("Camera")]
+    public Animator playerAnimator;
     public Animator CameraAnimator;
 
     [Header("PlaceTilesTimed")]
@@ -31,7 +33,11 @@ namespace Game
       yield return new WaitUntil(() => Dialog.Instance != null);
       Dialog.Instance.ClearAllSpeakers();
 
+      // Disable player
+      player.Controller.ResetVelocity();
       player.Controller.enabled = false;
+      playerAnimator.Play(IdleSettings.IdleClip);
+      player.DisableAllAbilities();
 
       yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "Boss Defeated", 1.5f);
 
@@ -55,6 +61,7 @@ namespace Game
       yield return new WaitForSeconds(2f);
 
       player.Controller.enabled = true;
+      player.EnableAllAbilities();
     }
 
     protected override void OnSkipEnter()

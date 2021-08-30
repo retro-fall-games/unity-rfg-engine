@@ -11,8 +11,10 @@ namespace Game
     public Character player;
     public Character boss;
     public AIBrainBehaviour bossAIBrain;
+    public IdleSettings IdleSettings;
 
     [Header("Camera")]
+    public Animator playerAnimator;
     public Animator CameraAnimator;
 
     [Header("PlaceTilesTimed")]
@@ -30,9 +32,10 @@ namespace Game
       yield return new WaitUntil(() => Dialog.Instance != null);
       Dialog.Instance.ClearAllSpeakers();
 
-      // Disable both player and boss
+      // Disable player
       player.Controller.ResetVelocity();
       player.Controller.enabled = false;
+      playerAnimator.Play(IdleSettings.IdleClip);
       player.DisableAllAbilities();
 
       // Player Talks

@@ -95,12 +95,12 @@ namespace RFG
 
       private void OnDisable()
       {
-        PrimaryAttackInput.action.Enable();
+        PrimaryAttackInput.action.Disable();
         PrimaryAttackInput.action.started -= OnPrimaryAttackStarted;
         PrimaryAttackInput.action.canceled -= OnPrimaryAttackCanceled;
         PrimaryAttackInput.action.performed -= OnPrimaryAttackPerformed;
 
-        SecondaryAttackInput.action.Enable();
+        SecondaryAttackInput.action.Disable();
         SecondaryAttackInput.action.started -= OnSecondaryAttackStarted;
         SecondaryAttackInput.action.canceled -= OnSecondaryAttackCanceled;
         SecondaryAttackInput.action.performed -= OnSecondaryAttackPerformed;

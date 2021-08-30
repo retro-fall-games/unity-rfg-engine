@@ -16,12 +16,15 @@ MonoBehaviour:
   OverrideDefaultStates: 0
   OverrideDefaultDecisionTrees: 0
   OverrideDefaultSettings: 1
+  OverrideDefaultSettingsSetOverrides: 0
   States: []
   DefaultState: {fileID: 0}
   RootDecision: {fileID: 0}
   AggroRootDecision: {fileID: 0}
+  CanFollowVertically: 1
   IdleSettings: {fileID: 11400000, guid: 47d6652c88a96eb47a38c0e42b2f8aa1, type: 2}
   AttackSettings: {fileID: 11400000, guid: f42744fcf36bf8b4ab674572cc5d20f8, type: 2}
   WalkingSettings: {fileID: 11400000, guid: 9b9018512565f9d4d8e98aa08fe247d0, type: 2}
   RunningSettings: {fileID: 11400000, guid: 1e36108d706c6a64d839d169e7a7804f, type: 2}
   JumpSettings: {fileID: 0}
+  SettingsSetOverrides: []

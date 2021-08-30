@@ -17,7 +17,7 @@ namespace RFG
   public abstract class Item : ScriptableObject, IItem
   {
     [Header("Settings")]
-    [ReadOnly] public string Guid;
+    public string Guid;
     public string Description;
 
     [Header("Pick Up")]

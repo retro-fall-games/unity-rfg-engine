@@ -109,7 +109,7 @@ namespace RFG
           }
         }
 
-        if (CurrentStateType == typeof(WeaponIdleState) && !WeaponItem.IsInCooldown)
+        if (CurrentStateType == typeof(WeaponIdleState) && !WeaponItem.IsInCooldown && !WeaponItem.UnlimitedAmmo)
         {
           _gainAmmoOverTimeElapsed += Time.deltaTime;
           if (_gainAmmoOverTimeElapsed >= WeaponItem.GainAmmoOverTime)

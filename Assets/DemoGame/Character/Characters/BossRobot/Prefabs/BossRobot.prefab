@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &351559941270903869
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3686635160995854236}
+  m_Layer: 14
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3686635160995854236
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351559941270903869}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.49, y: 0.12, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1050720796950071075}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &481577120403963238
 GameObject:
   m_ObjectHideFlags: 0
@@ -54,6 +84,7 @@ GameObject:
   - component: {fileID: 791404059676000016}
   - component: {fileID: 7259447922422885773}
   - component: {fileID: 6666384196207066980}
+  - component: {fileID: 3089422158893714881}
   m_Layer: 14
   m_Name: BossRobot
   m_TagString: AI Character
@@ -76,6 +107,8 @@ Transform:
   - {fileID: 6738891848263130342}
   - {fileID: 1327162808453023633}
   - {fileID: 2954735438393488397}
+  - {fileID: 3686635160995854236}
+  - {fileID: 4900689858569290746}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -116,8 +149,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1889315743
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -2430797556690289393, guid: 3fcbb8ccb1a0d2248beb584023ab19f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -299,6 +332,7 @@ MonoBehaviour:
   target2: {fileID: 0}
   target2IsPlayer: 1
   minDistance: 100
+  WarmUpTime: 2
   layerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -316,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca8af7f6b393d7e4aa05157fd914015a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KnockbackData: {fileID: 11400000, guid: ab32812cd5174034a907ca895f726aba, type: 2}
+  KnockbackData: {fileID: 11400000, guid: d1c09d8b247f30c459ae4edb7c510030, type: 2}
 --- !u!114 &-683921638566704468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,9 +365,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthReference: {fileID: 11400000, guid: d1dde3eeda0a79843a6730d95599f9cd, type: 2}
   MaxHealthReference: {fileID: 0}
-  Health: 10
-  MaxHealth: 10
-  DefaultMaxHealth: 10
+  Health: 100
+  MaxHealth: 100
+  DefaultMaxHealth: 100
   KillEvent: {fileID: 11400000, guid: 67a63fe9058cd794a8aa90e1ae86fd8b, type: 2}
 --- !u!114 &7303288535273652425
 MonoBehaviour:
@@ -351,9 +385,11 @@ MonoBehaviour:
   CurrentState: {fileID: 0}
   CurrentDecision: {fileID: 0}
   PreviousDecision: {fileID: 0}
-  aggro: {fileID: 0}
+  aggro: {fileID: 6645292463913712492}
   RotateSpeed: 0
   StunCooldownTime: 5
+  PrimaryWeapon: {fileID: 11400000, guid: c0182ebaec16e5a4690eb1c4d14d47cb, type: 2}
+  SecondaryWeapon: {fileID: 0}
 --- !u!114 &6645292463913712492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,6 +406,7 @@ MonoBehaviour:
   target2: {fileID: 0}
   target2IsPlayer: 1
   minDistance: 100
+  WarmUpTime: 2
   layerMask:
     serializedVersion: 2
     m_Bits: 256
@@ -388,7 +425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reference: {fileID: 11400000, guid: d1dde3eeda0a79843a6730d95599f9cd, type: 2}
-  WatchValue: 5
+  WatchValue: 50
   watchType: 1
   GameEvent: {fileID: 11400000, guid: b7a10cd0c35a26940b4fae74292d9c4d, type: 2}
 --- !u!114 &791404059676000016
@@ -431,6 +468,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 4505411691036346409}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7259447922422885773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,13 +496,25 @@ MonoBehaviour:
   Response:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 6666384196207066980}
+        m_TargetAssemblyTypeName: RFG.EffectTrigger, Assembly-CSharp
+        m_MethodName: SpawnEffects
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: RFG.Cutscene, Assembly-CSharp
+        m_MethodName: Run
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -479,6 +540,103 @@ MonoBehaviour:
   WaitTimeInBetween: 1
   Effects:
   - DeathHit
+--- !u!114 &3089422158893714881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050720796950071124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04603684b48aae64486f1a40ef505fd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &1660696154515254096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9114236285259089614}
+  - component: {fileID: 4201652163881636865}
+  m_Layer: 0
+  m_Name: Electricity
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9114236285259089614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660696154515254096}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4900689858569290746}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4201652163881636865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660696154515254096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aaae75c993698b43a778f18af71e897, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WeaponItem: {fileID: 11400000, guid: c0182ebaec16e5a4690eb1c4d14d47cb, type: 2}
+  FirePoint: {fileID: 3686635160995854236}
+  EquipmentSet: {fileID: 3089422158893714881}
+  States:
+  - {fileID: 11400000, guid: 4273c53332c0a4b4786c95cb439d7a9d, type: 2}
+  - {fileID: 11400000, guid: 4e13e034ebb113346a8daafc0807a576, type: 2}
+  - {fileID: 11400000, guid: b8711aa1c89cfe64b9d20e8e335bb679, type: 2}
+  - {fileID: 11400000, guid: 1af857885486d6646bced1a52643ad5e, type: 2}
+  - {fileID: 11400000, guid: 477eb8edd4a63ff46809401e79768407, type: 2}
+  DefaultState: {fileID: 11400000, guid: 477eb8edd4a63ff46809401e79768407, type: 2}
+  CurrentState: {fileID: 0}
+--- !u!1 &1697967716173850044
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4900689858569290746}
+  m_Layer: 0
+  m_Name: Weapons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4900689858569290746
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697967716173850044}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 9114236285259089614}
+  m_Father: {fileID: 1050720796950071075}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2249046553872745832
 GameObject:
   m_ObjectHideFlags: 0

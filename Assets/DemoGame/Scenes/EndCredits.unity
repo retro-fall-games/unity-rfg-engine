@@ -1566,9 +1566,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f6412b4d25cde041bd044a84d2e6a5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skipButton: {fileID: 0}
+  skipButton: {fileID: 2135230094}
   isRunning: 0
-  isSkipable: 0
+  isSkipable: 1
   WaitForSecondsToStart: 0
   EndCreditsAnimator: {fileID: 32454143}
 --- !u!1 &1855482266
@@ -1980,6 +1980,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2641909827465794316, guid: aedfaabf6d20301439835cb618378ce0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1631296028}
+    - target: {fileID: 2641909827465794316, guid: aedfaabf6d20301439835cb618378ce0, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Skip
+      objectReference: {fileID: 0}
     - target: {fileID: 2641909827465794318, guid: aedfaabf6d20301439835cb618378ce0, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1987,6 +1995,10 @@ PrefabInstance:
     - target: {fileID: 2641909827488626529, guid: aedfaabf6d20301439835cb618378ce0, type: 3}
       propertyPath: m_Name
       value: DialogUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 2641909827488626554, guid: aedfaabf6d20301439835cb618378ce0, type: 3}
+      propertyPath: fadeSpeed
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2641909827488626556, guid: aedfaabf6d20301439835cb618378ce0, type: 3}
       propertyPath: m_Camera
@@ -2078,3 +2090,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aedfaabf6d20301439835cb618378ce0, type: 3}
+--- !u!114 &2135230094 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2641909827465794316, guid: aedfaabf6d20301439835cb618378ce0, type: 3}
+  m_PrefabInstance: {fileID: 2135230093}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

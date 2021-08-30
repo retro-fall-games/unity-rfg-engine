@@ -33,6 +33,7 @@ namespace RFG
       public int RefillAmmo = 10;
       public float GainAmmoOverTime = 0;
       public int AmmoGain = 0;
+      public bool UnlimitedAmmo = false;
 
       public Action<int> OnAmmoChange;
       public Action<Type> OnStateChange;
@@ -64,12 +65,15 @@ namespace RFG
 
       public void Perform()
       {
-        if (!IsEquipped || !CanUse || IsInCooldown || Ammo <= 0 || (weaponType == WeaponItem.WeaponType.Chargable && !IsFiring))
+        if (!IsEquipped || !CanUse || IsInCooldown || (Ammo <= 0 && !UnlimitedAmmo) || (weaponType == WeaponItem.WeaponType.Chargable && !IsFiring))
         {
           return;
         }
         OnStateChange?.Invoke(typeof(WeaponFiringState));
-        AddAmmo(-1);
+        if (!UnlimitedAmmo)
+        {
+          AddAmmo(-1);
+        }
         CanUse = false;
       }
 

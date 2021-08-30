@@ -14,6 +14,7 @@ namespace RFG
 
     [Header("Controls")]
     public float minDistance = 5f;
+    public float WarmUpTime = 2f;
     public bool HasAggro { get; private set; }
     public event Action<bool> OnAggroChange;
 
@@ -22,7 +23,6 @@ namespace RFG
     public string[] tags;
 
     [HideInInspector]
-    private float _warmupTime = 2f;
     private float _warmupTimeElapsed = 0f;
 
     private void Start()
@@ -46,7 +46,7 @@ namespace RFG
     private void LateUpdate()
     {
       _warmupTimeElapsed += Time.deltaTime;
-      if (_warmupTimeElapsed >= _warmupTime)
+      if (_warmupTimeElapsed >= WarmUpTime)
       {
         _warmupTimeElapsed = 0;
         CheckAggro();

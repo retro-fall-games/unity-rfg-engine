@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee3503e3bed8f1648a36b3788b5ee971, type: 3}
+  m_Name: Electricity
+  m_EditorClassIdentifier: 
+  Guid: efb283a8-1614-4c1e-9457-a7cd592124eb
+  Description: The electricity weapon
+  PickUpSprite: {fileID: 0}
+  PickUpText: 
+  PickUpEffects: []
+  ConsumeOnPickUp: 0
+  AddToInventory: 0
+  ConsumeText: 
+  ConsumeEffects: []
+  IsEquipped: 1
+  EquipOnPickUp: 0
+  EquipSprite: {fileID: 0}
+  EquipText: 
+  UnequipText: 
+  EquipEffects: []
+  UnequipEffects: []
+  weaponType: 0
+  FireRate: 5
+  Cooldown: 0
+  IsInCooldown: 0
+  IsFiring: 0
+  CanUse: 1
+  Ammo: 0
+  MaxAmmo: 0
+  StartingAmmo: 0
+  RefillAmmo: 0
+  GainAmmoOverTime: 0
+  AmmoGain: 0
+  UnlimitedAmmo: 1

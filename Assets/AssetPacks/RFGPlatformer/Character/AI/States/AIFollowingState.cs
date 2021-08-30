@@ -10,6 +10,16 @@ namespace RFG
     {
       public override Type Execute(AIBrainBehaviour.AIStateContext ctx)
       {
+        if (ctx.JustRotated)
+        {
+          if (Time.time - ctx.LastTimeRotated < ctx.RotateSpeed)
+          {
+            ctx.controller.SetHorizontalForce(0);
+            ctx.controller.SetVerticalForce(0);
+            return null;
+          }
+        }
+
         FollowTarget(ctx);
         return null;
       }
@@ -17,7 +27,18 @@ namespace RFG
       private void FollowTarget(AIBrainBehaviour.AIStateContext ctx)
       {
         // Rotate to always face the target
-        ctx.controller.RotateTowards(ctx.aggro.target2);
+        if (ctx.aggro.target2 != null)
+        {
+          bool didRotate = ctx.controller.RotateTowards(ctx.aggro.target2);
+          if (didRotate && ctx.RotateSpeed > 0)
+          {
+            ctx.JustRotated = true;
+            ctx.LastTimeRotated = Time.time;
+            ctx.controller.SetHorizontalForce(0);
+            ctx.controller.SetVerticalForce(0);
+            return;
+          }
+        }
 
         // Move towards that target
         float normalizedHorizontalSpeed = 0f;
@@ -25,6 +46,7 @@ namespace RFG
         if (ctx.controller.State.IsFacingRight)
         {
           normalizedHorizontalSpeed = 1f;
+
         }
         else
         {
@@ -39,6 +61,23 @@ namespace RFG
         float horizontalMovementForce = Mathf.Lerp(ctx.controller.Velocity.x, movementSpeed, Time.deltaTime * movementFactor);
 
         ctx.controller.SetHorizontalForce(horizontalMovementForce);
+
+        if (ctx.aiBrain.CanFollowVertically)
+        {
+          float normalizedVerticalSpeed = 0f;
+          if (ctx.aggro.target2.transform.position.y > ctx.transform.position.y)
+          {
+            normalizedVerticalSpeed = 1f;
+          }
+          else
+          {
+            normalizedVerticalSpeed = -1f;
+          }
+          float airMovementFactor = ctx.controller.Parameters.AirSpeedFactor;
+          float airMovementSpeed = normalizedVerticalSpeed * ctx.aiBrain.RunningSettings.RunningSpeed * ctx.controller.Parameters.SpeedFactor;
+          float verticalMovementForce = Mathf.Lerp(ctx.controller.Velocity.y, airMovementSpeed, Time.deltaTime * airMovementFactor);
+          ctx.controller.SetVerticalForce(verticalMovementForce);
+        }
       }
     }
   }

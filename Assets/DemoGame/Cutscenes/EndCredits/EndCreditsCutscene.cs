@@ -39,7 +39,7 @@ namespace Game
 
     protected override void OnSkipExit()
     {
-      // SceneManager.Instance.LoadScene("Title");
+      SceneManager.Instance.LoadScene("Title");
     }
 
   }

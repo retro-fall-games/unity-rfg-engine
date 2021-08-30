@@ -63,7 +63,7 @@ namespace Game
 
       // // Stop everything and go play the game
       SoundManager.Instance.StopAll(true);
-      yield return new WaitForSeconds(3f);
+      yield return new WaitForSeconds(1f);
       SceneManager.Instance.LoadScene("Level1");
     }
 

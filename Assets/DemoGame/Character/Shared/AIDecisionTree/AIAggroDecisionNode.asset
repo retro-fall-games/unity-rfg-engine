@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48d009bcd2dde51419d35edf2e01f80c, type: 3}
   m_Name: AIAggroDecisionNode
   m_EditorClassIdentifier: 
-  DecisionSpeed: 3
+  DecisionSpeed: 2
   DecisionOffset: 10
   State: {fileID: 11400000, guid: 2f36d1072f218a448aaa7d8c5e18e90a, type: 2}
   AIDecisions:
   - {fileID: 11400000, guid: 81ab8df01274df44aa060dff073b1745, type: 2}
+  - {fileID: 11400000, guid: 7965775b65e5d994eba17261cd415793, type: 2}
+  - {fileID: 11400000, guid: 7965775b65e5d994eba17261cd415793, type: 2}
+  - {fileID: 11400000, guid: 7965775b65e5d994eba17261cd415793, type: 2}
+  - {fileID: 11400000, guid: 7965775b65e5d994eba17261cd415793, type: 2}
   - {fileID: 11400000, guid: 7965775b65e5d994eba17261cd415793, type: 2}

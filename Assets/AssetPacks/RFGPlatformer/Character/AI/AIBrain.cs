@@ -51,6 +51,11 @@ namespace RFG
       public AIDecision AggroRootDecision;
 
       [Header("Settings")]
+
+      /// <summary>This is meant for flying ai, can the ai follow vertically</summary>
+      [Tooltip("This is meant for flying ai, can the ai follow vertically")]
+      public bool CanFollowVertically = false;
+
       /// <summary>Idle Settings to know effects</summary>
       [Tooltip("Idle Settings to know effects")]
       public IdleSettings IdleSettings;
