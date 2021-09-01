@@ -34,7 +34,6 @@ namespace RFG
         ctx.animator.Play(ctx.aiBrain.JumpSettings.JumpingClip);
 
         // Jump
-        ctx.controller.CollisionsOnStairs(true);
         ctx.controller.State.IsFalling = false;
         ctx.controller.State.IsJumping = true;
         ctx.controller.AddVerticalForce(Mathf.Sqrt(2f * ctx.aiBrain.JumpSettings.JumpHeight * Mathf.Abs(ctx.controller.Parameters.Gravity)));
@@ -58,7 +57,7 @@ namespace RFG
 
         float movementFactor = ctx.controller.Parameters.AirSpeedFactor;
         float movementSpeed = normalizedHorizontalSpeed * speed * ctx.controller.Parameters.SpeedFactor;
-        float horizontalMovementForce = Mathf.Lerp(ctx.controller.Velocity.x, movementSpeed, Time.deltaTime * movementFactor);
+        float horizontalMovementForce = Mathf.Lerp(ctx.controller.Speed.x, movementSpeed, Time.deltaTime * movementFactor);
 
         ctx.controller.SetHorizontalForce(horizontalMovementForce);
 

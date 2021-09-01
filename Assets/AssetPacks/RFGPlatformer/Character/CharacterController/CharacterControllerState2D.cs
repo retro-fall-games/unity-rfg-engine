@@ -13,8 +13,18 @@ namespace RFG
       public bool IsGrounded { get { return IsCollidingBelow; } }
       public bool JustGotGrounded { get; set; }
       public bool WasGroundedLastFrame { get; set; }
-      public float SlopeAngle { get; set; }
+      public bool WasTouchingTheCeilingLastFrame { get; set; }
+      /// returns the slope angle met horizontally
+      public float LateralSlopeAngle { get; set; }
+      /// returns the slope the character is moving on angle
+      public float BelowSlopeAngle { get; set; }
+      /// returns true if the slope angle is ok to walk on
+      public bool SlopeAngleOK { get; set; }
       public bool HasCollisions { get { return IsCollidingRight || IsCollidingLeft || IsCollidingAbove || IsCollidingBelow; } }
+      /// returns the distance to the left collider, equals -1 if not colliding left
+      public float DistanceToLeftCollider;
+      /// returns the distance to the right collider, equals -1 if not colliding right
+      public float DistanceToRightCollider;
       public bool IsFacingRight { get; set; }
       public bool IsFalling { get; set; }
       public bool IsJumping { get; set; }
@@ -25,41 +35,23 @@ namespace RFG
       public bool IsIdle { get; set; }
       public bool IsWallClinging { get; set; }
       public bool IsWallJumping { get; set; }
-
-      // public float DistanceToLeftCollider;
-      // public float DistanceToRightCollider;
-      // public float LateralSlopeAngle { get; set; }
-      // public float BelowSlopeAngle { get; set; }
-      // public bool SlopeAngleOK { get; set; }
-      // public bool OnAMovingPlatform { get; set; }
-
-      // public bool WasGroundedLastFrame { get; set; }
-      // public bool WasTouchingTheCeilingLastFrame { get; set; }
-      // public bool ColliderResized { get; set; }
-      // public bool TouchingLevelBounds { get; set; }
+      public bool OnAMovingPlatform { get; set; }
+      public bool ColliderResized { get; set; }
+      public bool TouchingLevelBounds { get; set; }
 
       public void Reset()
       {
         IsCollidingLeft = false;
         IsCollidingRight = false;
         IsCollidingAbove = false;
-        IsCollidingBelow = false;
-        IsMovingDownSlope = false;
-        IsMovingUpSlope = false;
+        DistanceToLeftCollider = -1;
+        DistanceToRightCollider = -1;
+        SlopeAngleOK = false;
         JustGotGrounded = false;
-        IsDashing = false;
-        IsWalking = false;
-        IsIdle = false;
-        IsWallClinging = false;
-        IsWallJumping = false;
         IsFalling = true;
-        SlopeAngle = 0f;
+        LateralSlopeAngle = 0;
       }
 
-      public override string ToString()
-      {
-        return $"Controller R:{IsCollidingRight} L:{IsCollidingLeft} A:{IsCollidingAbove} B:{IsCollidingBelow} D-SLOPE:{IsMovingDownSlope} U-SLOPE:{IsMovingUpSlope} SLOPE-ANGLE: {SlopeAngle}";
-      }
     }
   }
 }

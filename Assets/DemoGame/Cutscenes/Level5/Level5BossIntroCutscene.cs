@@ -33,7 +33,7 @@ namespace Game
       Dialog.Instance.ClearAllSpeakers();
 
       // Disable player
-      player.Controller.ResetVelocity();
+      player.Controller.SetForce(Vector2.zero);
       player.Controller.enabled = false;
       playerAnimator.Play(IdleSettings.IdleClip);
       player.DisableAllAbilities();

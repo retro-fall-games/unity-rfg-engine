@@ -21,6 +21,18 @@ namespace RFG
       public float JumpHeight = 12f;
       public float OneWayPlatformFallVelocity = -10f;
 
+      /// the minimum horizontal and vertical value you need to reach to trigger movement on an analog controller (joystick for example)
+      [Tooltip("the minimum horizontal and vertical value you need to reach to trigger movement on an analog controller (joystick for example)")]
+      public Vector2 JumpThreshold = new Vector2(0.1f, 0.4f);
+
+      /// duration (in seconds) we need to disable collisions when jumping down a 1 way platform
+      [Tooltip("duration (in seconds) we need to disable collisions when jumping down a 1 way platform")]
+      public float OneWayPlatformsJumpCollisionOffDuration = 0.3f;
+
+      /// duration (in seconds) we need to disable collisions when jumping off a moving platform
+      [Tooltip("duration (in seconds) we need to disable collisions when jumping off a moving platform")]
+      public float MovingPlatformsJumpCollisionOffDuration = 0.05f;
+
       [Header("Jump Restrictions")]
       public JumpRestrictions Restrictions;
       public int NumberOfJumps = 1;

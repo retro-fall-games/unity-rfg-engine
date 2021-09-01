@@ -23,7 +23,7 @@ namespace RFG
           character.CalculatePlayerSpawnAt();
         }
         transform.gameObject.SetActive(true);
-        character.Controller.ResetVelocity();
+        character.Controller.SetForce(Vector2.zero);
         character.Controller.enabled = true;
         character.EnableAllAbilities();
       }

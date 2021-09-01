@@ -44,7 +44,6 @@ namespace RFG
         }
 
         float horizontalSpeed = XYAxis.action.ReadValue<Vector2>().x;
-        // float _verticalInput = inputMovement.y;
 
         if (horizontalSpeed > 0f)
         {
@@ -67,12 +66,6 @@ namespace RFG
           return;
         }
 
-        // if (_verticalInput >= 1 || _verticalInput <= -1)
-        // {
-        //   _controller.CollisionsOnStairs(true);
-        // }
-
-
         if ((!_controller.State.IsJumping && !_controller.State.IsFalling && _controller.State.IsGrounded) || _controller.State.JustGotGrounded)
         {
           if (horizontalSpeed == 0)
@@ -92,8 +85,54 @@ namespace RFG
 
         float movementFactor = _controller.State.IsGrounded ? _controller.Parameters.GroundSpeedFactor : _controller.Parameters.AirSpeedFactor;
         float movementSpeed = horizontalSpeed * WalkingSettings.WalkingSpeed * _controller.Parameters.SpeedFactor;
-        float horizontalMovementForce = Mathf.Lerp(_controller.Velocity.x, movementSpeed, Time.deltaTime * movementFactor);
+        float horizontalMovementForce = Mathf.Lerp(_controller.Speed.x, movementSpeed, Time.deltaTime * movementFactor);
+
+        // add any external forces that may be active right now
+        // if (Mathf.Abs(_controller.ExternalForce.x) > 0)
+        // {
+        //   horizontalMovementForce += _controller.ExternalForce.x;
+        // }
+
+        // we handle friction
+        horizontalMovementForce = HandleFriction(horizontalMovementForce);
+
         _controller.SetHorizontalForce(horizontalMovementForce);
+
+        DetectWalls();
+      }
+
+      /// <summary>
+      /// Handles surface friction.
+      /// </summary>
+      /// <returns>The modified current force.</returns>
+      /// <param name="force">the force we want to apply friction to.</param>
+      protected virtual float HandleFriction(float force)
+      {
+        // if we have a friction above 1 (mud, water, stuff like that), we divide our speed by that friction
+        if (_controller.Friction > 1)
+        {
+          force = force / _controller.Friction;
+        }
+
+        // if we have a low friction (ice, marbles...) we lerp the speed accordingly
+        if (_controller.Friction < 1 && _controller.Friction > 0)
+        {
+          force = Mathf.Lerp(_controller.Speed.x, force, Time.deltaTime * _controller.Friction * 10);
+        }
+
+        return force;
+      }
+
+      protected virtual void DetectWalls()
+      {
+        if ((_controller.State.IsWalking || _controller.State.IsRunning))
+        {
+          if ((_controller.State.IsCollidingLeft) || (_controller.State.IsCollidingRight))
+          {
+            _controller.State.IsWalking = false;
+            _controller.State.IsRunning = false;
+          }
+        }
       }
 
       private void OnEnable()

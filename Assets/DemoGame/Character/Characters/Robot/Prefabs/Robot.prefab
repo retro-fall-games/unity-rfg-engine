@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 4501051043929579588}
   - component: {fileID: -2106617864864617881}
   - component: {fileID: 606159811577918091}
+  - component: {fileID: -3407430650193267883}
   m_Layer: 14
   m_Name: Robot
   m_TagString: AI Character
@@ -193,57 +194,37 @@ MonoBehaviour:
   DefaultParameters: {fileID: 11400000, guid: 43e65d9f02b6dd4458ec41a431779bc2, type: 2}
   OverrideParameters: {fileID: 0}
   rotateOnMouseCursor: 0
-  facingOnStart: Face Right
-  platformMask:
+  PlatformMask:
     serializedVersion: 2
     m_Bits: 33280
-  oneWayPlatformMask:
+  OneWayPlatformMask:
     serializedVersion: 2
     m_Bits: 1024
-  movingPlatformMask:
+  MovingPlatformMask:
     serializedVersion: 2
     m_Bits: 4096
-  oneWayMovingPlatformMask:
+  OneWayMovingPlatformMask:
     serializedVersion: 2
     m_Bits: 8192
-  stairsMask:
+  StairsMask:
     serializedVersion: 2
     m_Bits: 2048
-  numberOfHorizontalRays: 8
-  numberOfVerticalRays: 4
-  slopeSpeedMultiplier:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -90
-      value: 1.5
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 90
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  UpdateMode: 0
+  DetachmentMethod: 0
+  AutomaticGravtiySettings: 1
+  SafeSetTransform: 0
+  AutomaticallySetPhysicsSettings: 0
+  StandingOn: {fileID: 0}
+  NumberOfHorizontalRays: 8
+  NumberOfVerticalRays: 8
+  RayOffset: 0.05
+  CrouchedRaycastLengthMultiplier: 1
+  CastRaysOnBothSides: 0
+  DistanceToTheGroundRayMaximumLength: 100
+  PerformSafetyBoxcast: 0
+  StickToSlopes: 0
+  StickyRaycastLength: 0
+  StickToSlopesOffsetY: 0.2
 --- !u!114 &4501051043929579587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,7 +244,7 @@ MonoBehaviour:
   WarmUpTime: 0
   layerMask:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 256
   tags:
   - Player
 --- !u!114 &4501051043929579588
@@ -316,3 +297,17 @@ MonoBehaviour:
   aggro: {fileID: 4501051043929579587}
   RotateSpeed: 0
   StunCooldownTime: 5
+  PrimaryWeapon: {fileID: 0}
+  SecondaryWeapon: {fileID: 0}
+--- !u!114 &-3407430650193267883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4501051043929579633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04603684b48aae64486f1a40ef505fd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -86,7 +86,7 @@ namespace RFG
       Vector2 start = target1.position;
       Vector2 direction = (target2.position - target1.position).normalized;
       float distance = Vector2.Distance(target2.position, target1.position);
-      RaycastHit2D hit = RFG.Physics2D.Raycast(start, direction, distance, layerMask, Color.green);
+      RaycastHit2D hit = RFG.Physics2D.RayCast(start, direction, distance, layerMask, Color.green, true);
       if (hit)
       {
         return CheckTags(hit.transform.gameObject);

@@ -14348,6 +14348,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 183072823}
     m_Modifications:
+    - target: {fileID: 7725811167184495156, guid: b40ec1da52828e644b55ff733568399c, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7725811167184495157, guid: b40ec1da52828e644b55ff733568399c, type: 3}
+      propertyPath: XYAxis
+      value: 
+      objectReference: {fileID: -328637352972670201, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
+    - target: {fileID: 7725811167184495158, guid: b40ec1da52828e644b55ff733568399c, type: 3}
+      propertyPath: RotateOnMouseCursor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7725811167184495159, guid: b40ec1da52828e644b55ff733568399c, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7725811167184495160, guid: b40ec1da52828e644b55ff733568399c, type: 3}
       propertyPath: m_RootOrder
       value: 0

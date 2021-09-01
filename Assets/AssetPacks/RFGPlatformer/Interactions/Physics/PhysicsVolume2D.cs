@@ -16,14 +16,14 @@ namespace RFG
         CharacterController2D character = other.gameObject.GetComponent<CharacterController2D>();
         if (character != null)
         {
-          // character.ResetVelocity();
+          character.SetForce(Vector2.zero);
           character.SetOverrideParameters(parameters);
         }
-        // JumpBehaviour jumpBehaviour = other.gameObject.GetComponent<JumpBehaviour>();
-        // if (jumpBehaviour != null)
-        // {
-        //   jumpBehaviour.jumpRestrictions = JumpBehaviour.JumpRestrictions.CanJumpAnywhere;
-        // }
+        JumpAbility jumpAbility = other.gameObject.GetComponent<JumpAbility>();
+        if (jumpAbility != null)
+        {
+          jumpAbility.JumpSettings.Restrictions = JumpSettings.JumpRestrictions.CanJumpAnywhere;
+        }
       }
 
       private void OnTriggerExit2D(Collider2D other)
@@ -31,14 +31,14 @@ namespace RFG
         CharacterController2D character = other.gameObject.GetComponent<CharacterController2D>();
         if (character != null)
         {
-          // character.ResetVelocity();
+          character.SetForce(Vector2.zero);
           character.SetOverrideParameters(null);
         }
-        // JumpBehaviour jumpBehaviour = other.gameObject.GetComponent<JumpBehaviour>();
-        // if (jumpBehaviour != null)
-        // {
-        //   jumpBehaviour.jumpRestrictions = JumpBehaviour.JumpRestrictions.CanJumpOnGround;
-        // }
+        JumpAbility jumpAbility = other.gameObject.GetComponent<JumpAbility>();
+        if (jumpAbility != null)
+        {
+          jumpAbility.JumpSettings.Restrictions = JumpSettings.JumpRestrictions.CanJumpOnGround;
+        }
       }
     }
   }

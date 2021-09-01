@@ -81,11 +81,11 @@ namespace RFG
         }
 
         CharacterController2D _controller = (character.GetComponent<CharacterController2D>() == null) ? character.gameObject.AddComponent<CharacterController2D>() : character.GetComponent<CharacterController2D>();
-        _controller.platformMask = LayerMask.GetMask("Platforms");
-        _controller.oneWayPlatformMask = LayerMask.GetMask("OneWayPlatforms");
-        _controller.movingPlatformMask = LayerMask.GetMask("MovingPlatforms");
-        _controller.oneWayMovingPlatformMask = LayerMask.GetMask("OneWayMovingPlatforms");
-        _controller.stairsMask = LayerMask.GetMask("Stairs");
+        _controller.PlatformMask = LayerMask.GetMask("Platforms");
+        _controller.OneWayPlatformMask = LayerMask.GetMask("OneWayPlatforms");
+        _controller.MovingPlatformMask = LayerMask.GetMask("MovingPlatforms");
+        _controller.OneWayMovingPlatformMask = LayerMask.GetMask("OneWayMovingPlatforms");
+        _controller.StairsMask = LayerMask.GetMask("Stairs");
 
         if (character.GetComponent<HealthBehaviour>() == null)
         {
@@ -119,6 +119,10 @@ namespace RFG
         {
           character.gameObject.AddComponent<WallJumpAbility>();
         }
+        if (character.GetComponent<StairsAbility>() == null)
+        {
+          character.gameObject.AddComponent<StairsAbility>();
+        }
       }
 
       private void GenerateAICharacter()
@@ -144,11 +148,11 @@ namespace RFG
         _collider.isTrigger = true;
 
         CharacterController2D _controller = (character.GetComponent<CharacterController2D>() == null) ? character.gameObject.AddComponent<CharacterController2D>() : character.GetComponent<CharacterController2D>();
-        _controller.platformMask = LayerMask.GetMask("Platforms") | LayerMask.GetMask("AI Edge Colliders");
-        _controller.oneWayPlatformMask = LayerMask.GetMask("OneWayPlatforms");
-        _controller.movingPlatformMask = LayerMask.GetMask("MovingPlatforms");
-        _controller.oneWayMovingPlatformMask = LayerMask.GetMask("OneWayMovingPlatforms");
-        _controller.stairsMask = LayerMask.GetMask("Stairs");
+        _controller.PlatformMask = LayerMask.GetMask("Platforms") | LayerMask.GetMask("AI Edge Colliders");
+        _controller.OneWayPlatformMask = LayerMask.GetMask("OneWayPlatforms");
+        _controller.MovingPlatformMask = LayerMask.GetMask("MovingPlatforms");
+        _controller.OneWayMovingPlatformMask = LayerMask.GetMask("OneWayMovingPlatforms");
+        _controller.StairsMask = LayerMask.GetMask("Stairs");
 
         Aggro _aggro = (character.GetComponent<Aggro>() == null) ? character.gameObject.AddComponent<Aggro>() : character.GetComponent<Aggro>();
 

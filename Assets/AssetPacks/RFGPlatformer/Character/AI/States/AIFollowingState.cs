@@ -46,7 +46,6 @@ namespace RFG
         if (ctx.controller.State.IsFacingRight)
         {
           normalizedHorizontalSpeed = 1f;
-
         }
         else
         {
@@ -58,7 +57,7 @@ namespace RFG
 
         float movementFactor = ctx.controller.Parameters.GroundSpeedFactor;
         float movementSpeed = normalizedHorizontalSpeed * ctx.aiBrain.RunningSettings.RunningSpeed * ctx.controller.Parameters.SpeedFactor;
-        float horizontalMovementForce = Mathf.Lerp(ctx.controller.Velocity.x, movementSpeed, Time.deltaTime * movementFactor);
+        float horizontalMovementForce = Mathf.Lerp(ctx.controller.Speed.x, movementSpeed, Time.deltaTime * movementFactor);
 
         ctx.controller.SetHorizontalForce(horizontalMovementForce);
 
@@ -75,7 +74,7 @@ namespace RFG
           }
           float airMovementFactor = ctx.controller.Parameters.AirSpeedFactor;
           float airMovementSpeed = normalizedVerticalSpeed * ctx.aiBrain.RunningSettings.RunningSpeed * ctx.controller.Parameters.SpeedFactor;
-          float verticalMovementForce = Mathf.Lerp(ctx.controller.Velocity.y, airMovementSpeed, Time.deltaTime * airMovementFactor);
+          float verticalMovementForce = Mathf.Lerp(ctx.controller.Speed.y, airMovementSpeed, Time.deltaTime * airMovementFactor);
           ctx.controller.SetVerticalForce(verticalMovementForce);
         }
       }

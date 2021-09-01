@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 7725811167184495151}
   - component: {fileID: 7725811167184495148}
   - component: {fileID: 7725811167184495149}
+  - component: {fileID: 5283418761544756412}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -307,7 +308,7 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 2
+  m_Interpolate: 0
   m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 0
@@ -321,7 +322,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.005862236, y: -0.12310767}
@@ -372,56 +373,37 @@ MonoBehaviour:
   OverrideParameters: {fileID: 0}
   rotateOnMouseCursor: 1
   facingOnStart: Face Right
-  platformMask:
+  PlatformMask:
     serializedVersion: 2
     m_Bits: 512
-  oneWayPlatformMask:
+  OneWayPlatformMask:
     serializedVersion: 2
     m_Bits: 1024
-  movingPlatformMask:
+  MovingPlatformMask:
     serializedVersion: 2
     m_Bits: 4096
-  oneWayMovingPlatformMask:
+  OneWayMovingPlatformMask:
     serializedVersion: 2
     m_Bits: 8192
-  stairsMask:
+  StairsMask:
     serializedVersion: 2
     m_Bits: 2048
-  numberOfHorizontalRays: 8
-  numberOfVerticalRays: 4
-  slopeSpeedMultiplier:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -90
-      value: 1.5
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 90
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
+  UpdateMode: 0
+  DetachmentMethod: 0
+  AutomaticGravtiySettings: 1
+  SafeSetTransform: 0
+  AutomaticallySetPhysicsSettings: 0
+  StandingOn: {fileID: 0}
+  NumberOfHorizontalRays: 8
+  NumberOfVerticalRays: 8
+  RayOffset: 0.05
+  CrouchedRaycastLengthMultiplier: 1
+  CastRaysOnBothSides: 0
+  DistanceToTheGroundRayMaximumLength: 100
+  PerformSafetyBoxcast: 0
+  StickToSlopes: 1
+  StickyRaycastLength: 0.5
+  StickToSlopesOffsetY: 0.2
 --- !u!114 &1176818730661543689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,6 +449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662240caaed85154281c647957d75890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  XYAxis: {fileID: -328637352972670201, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
   JumpInput: {fileID: -5419074670395114859, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
   JumpSettings: {fileID: 11400000, guid: bf332cb3ac2612c419d99cedb5216b7a, type: 2}
 --- !u!114 &7725811167184495154
@@ -576,3 +559,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxItems: 10
+--- !u!114 &5283418761544756412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7725811167184495165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2b6bbb8946c3514bac350fb5b65c7d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  XYAxis: {fileID: -328637352972670201, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
+  Threshold: {x: 0.1, y: 0.4}
+  OnStairs: 0
+  StairsBelow: 0
+  StairsAhead: 0
+  StairsAheadDetectionRaycastOrigin: {x: -3, y: 0, z: 0}
+  StairsAheadDetectionRaycastLength: 6
+  StairsBelowDetectionRaycastOrigin: {x: 0.2, y: 0, z: 0}
+  StairsBelowDetectionRaycastLength: 1
+  StairsBelowLockTime: 0.2

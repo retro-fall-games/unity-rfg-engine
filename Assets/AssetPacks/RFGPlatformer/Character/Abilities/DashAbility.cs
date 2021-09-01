@@ -27,6 +27,7 @@ namespace RFG
 
       [HideInInspector]
       private Vector2 _dashDirection;
+      private float _slopeAngleSave = 0f;
       private float _distanceTraveled = 0f;
       private bool _shouldKeepDashing = true;
       private Vector3 _initialPosition;
@@ -69,7 +70,6 @@ namespace RFG
 
         _transform.SpawnFromPool("Effects", DashSettings.DashEffects);
 
-        _controller.CollisionsOnStairs(true);
         _controller.State.IsDashing = true;
         _cooldownTimestamp = Time.time + DashSettings.Cooldown;
         _distanceTraveled = 0f;
@@ -78,6 +78,10 @@ namespace RFG
         _lastDashAt = Time.time;
 
         _numberOfDashesLeft--;
+
+        _slopeAngleSave = _controller.Parameters.MaxSlopeAngle;
+        _controller.Parameters.MaxSlopeAngle = 0;
+
 
         ComputerDashDirection();
         CheckFlipCharacter();
@@ -153,6 +157,9 @@ namespace RFG
         {
           StopCoroutine(_dashCoroutine);
         }
+
+        _controller.DefaultParameters.MaxSlopeAngle = _slopeAngleSave;
+        _controller.Parameters.MaxSlopeAngle = _slopeAngleSave;
         _controller.GravityActive(true);
         _controller.SetForce(Vector2.zero);
 

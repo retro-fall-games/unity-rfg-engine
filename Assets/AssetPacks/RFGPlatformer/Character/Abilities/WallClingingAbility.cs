@@ -41,7 +41,7 @@ namespace RFG
 
       private void WallCling()
       {
-        if (_controller.State.IsGrounded || _controller.Velocity.y >= 0)
+        if (_controller.State.IsGrounded || _controller.Speed.y >= 0)
         {
           _controller.SlowFall(0f);
           return;
@@ -72,7 +72,7 @@ namespace RFG
         if (_controller.State.IsWallClinging)
         {
           bool shouldExit = false;
-          if (_controller.State.IsGrounded || _controller.Velocity.y >= 0)
+          if (_controller.State.IsGrounded || _controller.Speed.y >= 0)
           {
             // If the character is grounded or moving up
             shouldExit = true;
@@ -94,9 +94,9 @@ namespace RFG
           raycastOrigin = raycastOrigin + right * _controller.Width() / 2 + _transform.up * WallClingingSettings.RaycastVerticalOffset;
           raycastDirection = right - _transform.up;
 
-          LayerMask mask = _controller.platformMask & (~_controller.oneWayPlatformMask | ~_controller.oneWayMovingPlatformMask);
+          LayerMask mask = _controller.PlatformMask & (~_controller.OneWayPlatformMask | ~_controller.OneWayMovingPlatformMask);
 
-          RaycastHit2D hit = RFG.Physics2D.Raycast(raycastOrigin, raycastDirection, WallClingingSettings.WallClingingTolerance, mask, Color.red);
+          RaycastHit2D hit = RFG.Physics2D.RayCast(raycastOrigin, raycastDirection, WallClingingSettings.WallClingingTolerance, mask, Color.red, true);
 
           if (isClingingRight)
           {
