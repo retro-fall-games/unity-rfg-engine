@@ -13,9 +13,59 @@ MonoBehaviour:
   m_Name: DefaultCharacterControllerParameters2D
   m_EditorClassIdentifier: 
   Gravity: -25
+  FallMultiplier: 1
+  AscentMultiplier: 1
   MaxVelocity: {x: 20, y: 20}
   SpeedFactor: 3
   GroundSpeedFactor: 20
   AirSpeedFactor: 20
-  MaxSlopeAngle: 30
-  SkinWidth: 0.02
+  MaxSlopeAngle: 40
+  SlopeAngleSpeedFactor:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -90
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 90
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  NumberOfHorizontalRays: 4
+  NumberOfVerticalRays: 4
+  RayOffset: 0.05
+  CrouchedRaycastLengthMultiplier: 1
+  CastRaysOnBothSides: 1
+  DistanceToTheGroundRayMaximumLength: 100
+  PerformSafetyBoxcast: 0
+  StickToSlopes: 1
+  StickyRaycastLength: 0.5
+  StickToSlopesOffsetY: 0.2
+  AutomaticGravtiySettings: 1
+  SafeSetTransform: 0
+  AutomaticallySetPhysicsSettings: 0
+  Physics2DInteraction: 1
+  Physics2DPushForce: 2
+  Weight: 1

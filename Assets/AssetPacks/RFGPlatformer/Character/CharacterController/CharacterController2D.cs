@@ -10,15 +10,12 @@ namespace RFG
   namespace Platformer
   {
     [AddComponentMenu("RFG/Platformer/Character/Character Controller 2D")]
-    public class CharacterController2D : MonoBehaviour
+    public class CharacterController2D : MonoBehaviour, IMoveable
     {
       /// Enums
 
       // the possible modes this controller can update on
       public enum UpdateModes { Update, FixedUpdate }
-
-      // the possible direcations a ray can be cast
-      public enum RaycastDirections { Up, Down, Left, Right }
 
       // the possible ways a character can detach from a oneway or moving platform
       public enum DetachmentMethods { Layer, Object }
@@ -63,25 +60,13 @@ namespace RFG
       public LayerMask StairsMask;
 
       /// Modes
+      [Header("Modes")]
 
       [Tooltip("Whether this controller should run on Update or FixedUpdate")]
       public UpdateModes UpdateMode = UpdateModes.Update;
 
       [Tooltip("When a character jumps from a oneway or moving platform, collisions are off for a short moment. You can decide if they should happen a whole moving one way platform layer basis or just with the object the character just left")]
       public DetachmentMethods DetachmentMethod = DetachmentMethods.Layer;
-
-      /// Safety
-
-      [Header("Safety")]
-
-      [Tooltip("If this is true, gravitiy ability settings will be automatically set. It's recommended to set this to true.")]
-      public bool AutomaticGravtiySettings = true;
-
-      [Tooltip("Whether or not to perform additional checks when setting the transform's position. Slightly more expensive in terms of performance, but also safer.")]
-      public bool SafeSetTransform = false;
-
-      [Tooltip("If this is true, this controller will set a number of physics settings automatically on init, to ensure they're correct")]
-      public bool AutomaticallySetPhysicsSettings = false;
 
       /// Standing On
 
@@ -111,43 +96,7 @@ namespace RFG
       // The value of forces applied at one point in time
       public Vector2 ForcesApplied { get; private set; }
 
-      /// Raycasting
 
-      [Header("Raycasting")]
-
-      [Tooltip("The number of rays cast horizontally")]
-      public int NumberOfHorizontalRays = 8;
-
-      [Tooltip("The number of rays cast vertically")]
-      public int NumberOfVerticalRays = 8;
-
-      [Tooltip("A small value added to all raycasts to accomodate for edge cases")]
-      public float RayOffset = 0.05f;
-
-      [Tooltip("The length of the raycasts used to get back to normal size will be auto generated based on your characters normal standing height, but here you can specify a different value")]
-      public float CrouchedRaycastLengthMultiplier = 1f;
-
-      [Tooltip("If this is true rays will cast on both sides, otherwise only in the current movements direction")]
-      public bool CastRaysOnBothSides = false;
-
-      [Tooltip("The maximum length of the ray used to detect the distance to the ground")]
-      public float DistanceToTheGroundRayMaximumLength = 100f;
-
-      [Tooltip("If this is true, en extra boxcast will be performed to prevent going through a platform")]
-      public bool PerformSafetyBoxcast = false;
-
-      /// Stickiness
-
-      [Header("Stickiness")]
-
-      [Tooltip("If this is true, the character will stick to slopes when walking down them")]
-      public bool StickToSlopes = false;
-
-      [Tooltip("The length of the raycasts used to stick to downward slopes")]
-      public float StickyRaycastLength = 0f;
-
-      [Tooltip("The movements Y offset to evaluate for stickiness")]
-      public float StickToSlopesOffsetY = 0.2f;
 
       /// Collider Information
 
@@ -376,9 +325,9 @@ namespace RFG
         // Raycasts
 
         _contactList = new List<RaycastHit2D>();
-        _sideHitsStorage = new RaycastHit2D[NumberOfHorizontalRays];
-        _belowHitsStorage = new RaycastHit2D[NumberOfVerticalRays];
-        _aboveHitsStorage = new RaycastHit2D[NumberOfVerticalRays];
+        _sideHitsStorage = new RaycastHit2D[Parameters.NumberOfHorizontalRays];
+        _belowHitsStorage = new RaycastHit2D[Parameters.NumberOfVerticalRays];
+        _aboveHitsStorage = new RaycastHit2D[Parameters.NumberOfVerticalRays];
 
         SetRaysParameters();
 
@@ -407,7 +356,7 @@ namespace RFG
 
       private void ApplyGravitySettings()
       {
-        if (AutomaticGravtiySettings)
+        if (Parameters.AutomaticGravtiySettings)
         {
           // Gravity Ability / Behaviour
         }
@@ -415,7 +364,7 @@ namespace RFG
 
       private void ApplyPhysicsSettings()
       {
-        if (AutomaticallySetPhysicsSettings)
+        if (Parameters.AutomaticallySetPhysicsSettings)
         {
           UnityEngine.Physics2D.queriesHitTriggers = true;
           UnityEngine.Physics2D.queriesStartInColliders = true;
@@ -533,7 +482,7 @@ namespace RFG
 
         DetermineMovementDirection();
 
-        if (CastRaysOnBothSides)
+        if (Parameters.CastRaysOnBothSides)
         {
           CastRaysToTheLeft();
           CastRaysToTheRight();
@@ -565,8 +514,6 @@ namespace RFG
         FrameExit();
 
         _worldSpeed = _speed;
-
-
       }
 
       private void ApplyGravity()
@@ -716,90 +663,6 @@ namespace RFG
         State.IsFacingRight = _transform.right.x > 0;
       }
 
-      public bool CastRays(RaycastDirections direction, float rayLength, Color color, ref RaycastHit2D[] storageArray)
-      {
-        bool returnValue = false;
-
-        switch (direction)
-        {
-          case RaycastDirections.Left:
-            _horizontalRayCastFromBottom = (_boundsBottomRightCorner + _boundsBottomLeftCorner) / 2;
-            _horizontalRayCastToTop = (_boundsTopLeftCorner + _boundsTopRightCorner) / 2;
-            _horizontalRayCastFromBottom = _horizontalRayCastFromBottom + (Vector2)transform.up * _obstacleHeightTolerance;
-            _horizontalRayCastToTop = _horizontalRayCastToTop - (Vector2)transform.up * _obstacleHeightTolerance;
-            for (int i = 0; i < NumberOfHorizontalRays; i++)
-            {
-              Vector2 rayOriginPoint = Vector2.Lerp(_horizontalRayCastFromBottom, _horizontalRayCastToTop, (float)i / (float)(NumberOfHorizontalRays - 1));
-              storageArray[i] = RFG.Physics2D.RayCast(rayOriginPoint, -transform.right, rayLength, PlatformMask & ~OneWayPlatformMask & ~OneWayMovingPlatformMask, color, true);
-              if (storageArray[i])
-              {
-                returnValue = true;
-              }
-            }
-            return returnValue;
-          case RaycastDirections.Right:
-            _horizontalRayCastFromBottom = (_boundsBottomRightCorner + _boundsBottomLeftCorner) / 2;
-            _horizontalRayCastToTop = (_boundsTopLeftCorner + _boundsTopRightCorner) / 2;
-            _horizontalRayCastFromBottom = _horizontalRayCastFromBottom + (Vector2)transform.up * _obstacleHeightTolerance;
-            _horizontalRayCastToTop = _horizontalRayCastToTop - (Vector2)transform.up * _obstacleHeightTolerance;
-            for (int i = 0; i < NumberOfHorizontalRays; i++)
-            {
-              Vector2 rayOriginPoint = Vector2.Lerp(_horizontalRayCastFromBottom, _horizontalRayCastToTop, (float)i / (float)(NumberOfHorizontalRays - 1));
-              storageArray[i] = RFG.Physics2D.RayCast(rayOriginPoint, transform.right, rayLength, PlatformMask & ~OneWayPlatformMask & ~OneWayMovingPlatformMask, color, true);
-              if (storageArray[i])
-              {
-                returnValue = true;
-              }
-            }
-            return returnValue;
-          case RaycastDirections.Up:
-            // we determine the origin of our rays
-            _verticalRayCastFromLeft = (_boundsBottomLeftCorner + _boundsTopLeftCorner) / 2;
-            _verticalRayCastToRight = (_boundsBottomRightCorner + _boundsTopRightCorner) / 2;
-            _verticalRayCastFromLeft += (Vector2)transform.up * RayOffset;
-            _verticalRayCastToRight += (Vector2)transform.up * RayOffset;
-            _verticalRayCastFromLeft += (Vector2)transform.right * _newPosition.x;
-            _verticalRayCastToRight += (Vector2)transform.right * _newPosition.x;
-            for (int i = 0; i < NumberOfVerticalRays; i++)
-            {
-              Vector2 rayOriginPoint = Vector2.Lerp(_verticalRayCastFromLeft, _verticalRayCastToRight, (float)i / (float)(NumberOfVerticalRays - 1));
-
-              if ((_newPosition.y > 0) && (!State.WasGroundedLastFrame))
-              {
-                storageArray[i] = RFG.Physics2D.RayCast(rayOriginPoint, transform.up, rayLength, PlatformMask & ~OneWayPlatformMask & ~OneWayMovingPlatformMask, color, true);
-                if (storageArray[i])
-                {
-                  returnValue = true;
-                }
-              }
-            }
-            return returnValue;
-          case RaycastDirections.Down:
-            _verticalRayCastFromLeft = (_boundsBottomLeftCorner + _boundsTopLeftCorner) / 2;
-            _verticalRayCastToRight = (_boundsBottomRightCorner + _boundsTopRightCorner) / 2;
-            _verticalRayCastFromLeft += (Vector2)transform.up * RayOffset;
-            _verticalRayCastToRight += (Vector2)transform.up * RayOffset;
-            _verticalRayCastFromLeft += (Vector2)transform.right * _newPosition.x;
-            _verticalRayCastToRight += (Vector2)transform.right * _newPosition.x;
-            for (int i = 0; i < NumberOfVerticalRays; i++)
-            {
-              Vector2 rayOriginPoint = Vector2.Lerp(_verticalRayCastFromLeft, _verticalRayCastToRight, (float)i / (float)(NumberOfVerticalRays - 1));
-
-              if ((_newPosition.y < 0) && (!State.WasGroundedLastFrame))
-              {
-                storageArray[i] = RFG.Physics2D.RayCast(rayOriginPoint, -transform.up, rayLength, PlatformMask & ~OneWayPlatformMask & ~OneWayMovingPlatformMask, color, true);
-                if (storageArray[i])
-                {
-                  returnValue = true;
-                }
-              }
-            }
-            return returnValue;
-          default:
-            return false;
-        }
-      }
-
       private void CastRaysToTheLeft()
       {
         CastRaysToTheSides(-1);
@@ -823,18 +686,18 @@ namespace RFG
         _horizontalRayCastToTop = _horizontalRayCastToTop - (Vector2)transform.up * _obstacleHeightTolerance;
 
         // we determine the length of our rays
-        float horizontalRayLength = Mathf.Abs(_speed.x * Time.deltaTime) + _boundsWidth / 2 + RayOffset * 2;
+        float horizontalRayLength = Mathf.Abs(_speed.x * Time.deltaTime) + _boundsWidth / 2 + Parameters.RayOffset * 2;
 
         // we resize our storage if needed
-        if (_sideHitsStorage.Length != NumberOfHorizontalRays)
+        if (_sideHitsStorage.Length != Parameters.NumberOfHorizontalRays)
         {
-          _sideHitsStorage = new RaycastHit2D[NumberOfHorizontalRays];
+          _sideHitsStorage = new RaycastHit2D[Parameters.NumberOfHorizontalRays];
         }
 
         // we cast rays to the sides
-        for (int i = 0; i < NumberOfHorizontalRays; i++)
+        for (int i = 0; i < Parameters.NumberOfHorizontalRays; i++)
         {
-          Vector2 rayOriginPoint = Vector2.Lerp(_horizontalRayCastFromBottom, _horizontalRayCastToTop, (float)i / (float)(NumberOfHorizontalRays - 1));
+          Vector2 rayOriginPoint = Vector2.Lerp(_horizontalRayCastFromBottom, _horizontalRayCastToTop, (float)i / (float)(Parameters.NumberOfHorizontalRays - 1));
 
           // if we were grounded last frame and if this is our first ray, we don't cast against one way platforms
           if (State.WasGroundedLastFrame && i == 0)
@@ -885,7 +748,7 @@ namespace RFG
                 State.DistanceToRightCollider = _sideHitsStorage[i].distance;
               }
 
-              if ((_movementDirection == raysDirection) || (CastRaysOnBothSides && (_speed.x == 0f)))
+              if ((_movementDirection == raysDirection) || (Parameters.CastRaysOnBothSides && (_speed.x == 0f)))
               {
                 CurrentWallCollider = _sideHitsStorage[i].collider.gameObject;
                 State.SlopeAngleOK = false;
@@ -893,11 +756,11 @@ namespace RFG
                 float distance = Math.DistanceBetweenPointAndLine(_sideHitsStorage[i].point, _horizontalRayCastFromBottom, _horizontalRayCastToTop);
                 if (raysDirection <= 0)
                 {
-                  _newPosition.x = -distance + _boundsWidth / 2 + RayOffset * 2;
+                  _newPosition.x = -distance + _boundsWidth / 2 + Parameters.RayOffset * 2;
                 }
                 else
                 {
-                  _newPosition.x = distance - _boundsWidth / 2 - RayOffset * 2;
+                  _newPosition.x = distance - _boundsWidth / 2 - Parameters.RayOffset * 2;
                 }
 
                 // if we're in the air, we prevent the character from being pushed back.
@@ -935,7 +798,7 @@ namespace RFG
           return;
         }
 
-        float rayLength = (_boundsHeight / 2) + RayOffset;
+        float rayLength = (_boundsHeight / 2) + Parameters.RayOffset;
 
         if (State.OnAMovingPlatform)
         {
@@ -949,14 +812,14 @@ namespace RFG
 
         _verticalRayCastFromLeft = (_boundsBottomLeftCorner + _boundsTopLeftCorner) / 2;
         _verticalRayCastToRight = (_boundsBottomRightCorner + _boundsTopRightCorner) / 2;
-        _verticalRayCastFromLeft += (Vector2)transform.up * RayOffset;
-        _verticalRayCastToRight += (Vector2)transform.up * RayOffset;
-        _verticalRayCastFromLeft += (Vector2)transform.right * _newPosition.x;
-        _verticalRayCastToRight += (Vector2)transform.right * _newPosition.x;
+        _verticalRayCastFromLeft += (Vector2)transform.up * Parameters.RayOffset;
+        _verticalRayCastToRight += (Vector2)transform.up * Parameters.RayOffset;
+        _verticalRayCastFromLeft += (Vector2)Vector2.right * _newPosition.x;
+        _verticalRayCastToRight += (Vector2)Vector2.right * _newPosition.x;
 
-        if (_belowHitsStorage.Length != NumberOfVerticalRays)
+        if (_belowHitsStorage.Length != Parameters.NumberOfVerticalRays)
         {
-          _belowHitsStorage = new RaycastHit2D[NumberOfVerticalRays];
+          _belowHitsStorage = new RaycastHit2D[Parameters.NumberOfVerticalRays];
         }
 
         _raysBelowLayerMaskPlatforms = PlatformMask;
@@ -994,9 +857,9 @@ namespace RFG
         int smallestDistanceIndex = 0;
         bool hitConnected = false;
 
-        for (int i = 0; i < NumberOfVerticalRays; i++)
+        for (int i = 0; i < Parameters.NumberOfVerticalRays; i++)
         {
-          Vector2 rayOriginPoint = Vector2.Lerp(_verticalRayCastFromLeft, _verticalRayCastToRight, (float)i / (float)(NumberOfVerticalRays - 1));
+          Vector2 rayOriginPoint = Vector2.Lerp(_verticalRayCastFromLeft, _verticalRayCastToRight, (float)i / (float)(Parameters.NumberOfVerticalRays - 1));
 
           if ((_newPosition.y > 0) && (!State.WasGroundedLastFrame))
           {
@@ -1070,7 +933,7 @@ namespace RFG
           {
             float distance = Math.DistanceBetweenPointAndLine(_belowHitsStorage[smallestDistanceIndex].point, _verticalRayCastFromLeft, _verticalRayCastToRight);
 
-            _newPosition.y = -distance + _boundsHeight / 2 + RayOffset;
+            _newPosition.y = -distance + _boundsHeight / 2 + Parameters.RayOffset;
           }
 
           if (!State.WasGroundedLastFrame && _speed.y > 0)
@@ -1110,7 +973,7 @@ namespace RFG
           }
         }
 
-        if (StickToSlopes)
+        if (Parameters.StickToSlopes)
         {
           StickToSlope();
         }
@@ -1118,7 +981,7 @@ namespace RFG
 
       private void CastRaysAbove()
       {
-        float rayLength = State.IsGrounded ? RayOffset : _newPosition.y;
+        float rayLength = State.IsGrounded ? Parameters.RayOffset : _newPosition.y;
         rayLength += _boundsHeight / 2;
 
         bool hitConnected = false;
@@ -1126,20 +989,20 @@ namespace RFG
         _aboveRayCastStart = (_boundsBottomLeftCorner + _boundsTopLeftCorner) / 2;
         _aboveRayCastEnd = (_boundsBottomRightCorner + _boundsTopRightCorner) / 2;
 
-        _aboveRayCastStart += (Vector2)transform.right * _newPosition.x;
-        _aboveRayCastEnd += (Vector2)transform.right * _newPosition.x;
+        _aboveRayCastStart += (Vector2)Vector2.right * _newPosition.x;
+        _aboveRayCastEnd += (Vector2)Vector2.right * _newPosition.x;
 
-        if (_aboveHitsStorage.Length != NumberOfVerticalRays)
+        if (_aboveHitsStorage.Length != Parameters.NumberOfVerticalRays)
         {
-          _aboveHitsStorage = new RaycastHit2D[NumberOfVerticalRays];
+          _aboveHitsStorage = new RaycastHit2D[Parameters.NumberOfVerticalRays];
         }
 
         float smallestDistance = float.MaxValue;
 
         int collidingIndex = 0;
-        for (int i = 0; i < NumberOfVerticalRays; i++)
+        for (int i = 0; i < Parameters.NumberOfVerticalRays; i++)
         {
-          Vector2 rayOriginPoint = Vector2.Lerp(_aboveRayCastStart, _aboveRayCastEnd, (float)i / (float)(NumberOfVerticalRays - 1));
+          Vector2 rayOriginPoint = Vector2.Lerp(_aboveRayCastStart, _aboveRayCastEnd, (float)i / (float)(Parameters.NumberOfVerticalRays - 1));
           _aboveHitsStorage[i] = RFG.Physics2D.RayCast(rayOriginPoint, (transform.up), rayLength, PlatformMask & ~OneWayPlatformMask & ~OneWayMovingPlatformMask, Color.green, true);
 
           if (_aboveHitsStorage[i])
@@ -1182,10 +1045,10 @@ namespace RFG
       {
         // if we're in the air, don't have to stick to slopes, being pushed up or on a moving platform, we exit
         if (
-          (_newPosition.y >= StickToSlopesOffsetY)
-          || (_newPosition.y <= -StickToSlopesOffsetY)
+          (_newPosition.y >= Parameters.StickToSlopesOffsetY)
+          || (_newPosition.y <= -Parameters.StickToSlopesOffsetY)
           || (State.IsJumping)
-          || (!StickToSlopes)
+          || (!Parameters.StickToSlopes)
           || (!State.WasGroundedLastFrame)
           || (_externalForce.y > 0)
         // || (_movingPlatform != null)
@@ -1208,14 +1071,14 @@ namespace RFG
 
         // we determine our ray's length
         float rayLength = 0;
-        if (StickyRaycastLength == 0)
+        if (Parameters.StickyRaycastLength == 0)
         {
           rayLength = _boundsWidth * Mathf.Abs(Mathf.Tan(Parameters.MaxSlopeAngle));
-          rayLength += _boundsHeight / 2 + RayOffset;
+          rayLength += _boundsHeight / 2 + Parameters.RayOffset;
         }
         else
         {
-          rayLength = StickyRaycastLength;
+          rayLength = Parameters.StickyRaycastLength;
         }
 
         // we cast rays on both sides to know what we're standing on
@@ -1223,11 +1086,11 @@ namespace RFG
 
         _rayCastOrigin.x = _boundsBottomLeftCorner.x;
         _rayCastOrigin.x += _newPosition.x;
-        _stickRaycastLeft = RFG.Physics2D.RayCast(_rayCastOrigin, -transform.up, rayLength, _raysBelowLayerMaskPlatforms, Color.yellow, true);
+        _stickRaycastLeft = RFG.Physics2D.RayCast(_rayCastOrigin, -transform.up, rayLength, _raysBelowLayerMaskPlatforms, Color.green, true);
 
         _rayCastOrigin.x = _boundsBottomRightCorner.x;
         _rayCastOrigin.x += _newPosition.x;
-        _stickRaycastRight = RFG.Physics2D.RayCast(_rayCastOrigin, -transform.up, rayLength, _raysBelowLayerMaskPlatforms, Color.yellow, true);
+        _stickRaycastRight = RFG.Physics2D.RayCast(_rayCastOrigin, -transform.up, rayLength, _raysBelowLayerMaskPlatforms, Color.green, true);
 
         bool castFromLeft = false;
         float belowSlopeAngleLeft = Vector2.Angle(_stickRaycastLeft.normal, transform.up);
@@ -1313,7 +1176,7 @@ namespace RFG
 
       private void MoveTransform()
       {
-        if (PerformSafetyBoxcast)
+        if (Parameters.PerformSafetyBoxcast)
         {
           _stickRaycast = RFG.Physics2D.BoxCast(_boundsCenter, Bounds, Vector2.Angle(transform.up, Vector2.up), _newPosition.normalized, _newPosition.magnitude, PlatformMask, Color.red, true);
           if (_stickRaycast)
@@ -1367,7 +1230,7 @@ namespace RFG
       }
       private void ComputeDistanceToTheGround()
       {
-        if (DistanceToTheGroundRayMaximumLength <= 0)
+        if (Parameters.DistanceToTheGroundRayMaximumLength <= 0)
         {
           return;
         }
@@ -1375,7 +1238,7 @@ namespace RFG
         _rayCastOrigin.x = (State.BelowSlopeAngle < 0) ? _boundsBottomLeftCorner.x : _boundsBottomRightCorner.x;
         _rayCastOrigin.y = _boundsCenter.y;
 
-        _distanceToTheGroundRaycast = RFG.Physics2D.RayCast(_rayCastOrigin, -transform.up, DistanceToTheGroundRayMaximumLength, _raysBelowLayerMaskPlatforms, Color.cyan, true);
+        _distanceToTheGroundRaycast = RFG.Physics2D.RayCast(_rayCastOrigin, -transform.up, Parameters.DistanceToTheGroundRayMaximumLength, _raysBelowLayerMaskPlatforms, Color.cyan, true);
 
         if (_distanceToTheGroundRaycast)
         {
@@ -1462,7 +1325,7 @@ namespace RFG
         {
           return true;
         }
-        float headCheckDistance = _originalColliderSize.y * transform.localScale.y * CrouchedRaycastLengthMultiplier;
+        float headCheckDistance = _originalColliderSize.y * transform.localScale.y * Parameters.CrouchedRaycastLengthMultiplier;
 
         // we cast two rays above our character to check for obstacles. If we didn't hit anything, we can go back to original size, otherwise we can't
         _originalSizeRaycastOrigin = _boundsTopLeftCorner + (Vector2)transform.up * _smallValue;
@@ -1624,7 +1487,7 @@ namespace RFG
       /// <param name="position"></param>
       public void SetTransformPosition(Vector2 position)
       {
-        if (SafeSetTransform)
+        if (Parameters.SafeSetTransform)
         {
           this.transform.position = GetClosestSafePosition(position);
         }
@@ -1651,7 +1514,7 @@ namespace RFG
         else
         {
           // if the original destination wasn't safe, we find the closest safe point between our controller and the obstacle
-          destination -= RayOffset * (Vector2)(hit.transform.position - this.transform.position).normalized;
+          destination -= Parameters.RayOffset * (Vector2)(hit.transform.position - this.transform.position).normalized;
           hit = UnityEngine.Physics2D.OverlapBox(destination, _boxCollider.size, this.transform.rotation.eulerAngles.z, PlatformMask);
 
           if (hit == null)

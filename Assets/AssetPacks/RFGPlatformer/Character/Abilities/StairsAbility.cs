@@ -16,9 +16,8 @@ namespace RFG
       [Tooltip("Input Action to read the xy axis")]
       public InputActionReference XYAxis;
 
-      /// the minimum horizontal and vertical value you need to reach to trigger movement on an analog controller (joystick for example)
-      [Tooltip("the minimum horizontal and vertical value you need to reach to trigger movement on an analog controller (joystick for example)")]
-      public Vector2 Threshold = new Vector2(0.1f, 0.4f);
+      [Header("Settings")]
+      public StairsSettings StairsSettings;
 
       [Header("Status")]
 
@@ -36,28 +35,6 @@ namespace RFG
       [ReadOnly]
       [Tooltip("true if there are stairs ahead of our character")]
       public bool StairsAhead = false;
-
-      [Header("Ahead stairs detection")]
-
-      /// the offset to apply when raycasting for stairs
-      [Tooltip("the offset to apply when raycasting for stairs")]
-      public Vector3 StairsAheadDetectionRaycastOrigin = new Vector3(-0.75f, 0f, 0f);
-
-      /// the length of the raycast looking for stairs
-      [Tooltip("the length of the raycast looking for stairs")]
-      public float StairsAheadDetectionRaycastLength = 2f;
-
-      /// the offset to apply when raycasting for stairs
-      [Tooltip("the offset to apply when raycasting for stairs")]
-      public Vector3 StairsBelowDetectionRaycastOrigin = new Vector3(-0.2f, 0f, 0f);
-
-      /// the length of the raycast looking for stairs
-      [Tooltip("the length of the raycast looking for stairs")]
-      public float StairsBelowDetectionRaycastLength = 0.25f;
-
-      /// the duration, in seconds, during which collisions with one way platforms should be ignored when starting to get down a stair
-      [Tooltip("the duration, in seconds, during which collisions with one way platforms should be ignored when starting to get down a stair")]
-      public float StairsBelowLockTime = 0.2f;
 
       private bool _stairsInputUp = false;
       private bool _stairsInputDown = false;
@@ -78,8 +55,8 @@ namespace RFG
       private void Update()
       {
         float verticalInput = XYAxis.action.ReadValue<Vector2>().y;
-        _stairsInputUp = (verticalInput > Threshold.y);
-        _stairsInputDown = (verticalInput < -Threshold.y);
+        _stairsInputUp = (verticalInput > StairsSettings.Threshold.y);
+        _stairsInputDown = (verticalInput < -StairsSettings.Threshold.y);
         HandleEntryBounds();
         CheckIfStairsAhead();
         CheckIfStairsBelow();
@@ -92,36 +69,47 @@ namespace RFG
       /// </summary>
       private void HandleStairsAuthorization()
       {
-
         bool authorize = true;
-        if (_controller.State.IsGrounded // or if we're  grounded
-            && (!_controller.State.IsJumping) // or if we're jumping
-            && (!_controller.State.IsWallJumping) // or if we're wall jumping
-            && (!_controller.State.IsDashing))
+        if (_controller.State.IsGrounded && !_controller.State.IsJumping && !_controller.State.IsWallJumping && !_controller.State.IsDashing)
         {
+          // If there are stairs ahead and you're not on stairs
           if (StairsAhead && !OnStairs)
           {
+            // if you have no input to go up the stairs
             if (!_stairsInputUp)
             {
               authorize = false;
             }
-            if ((_stairsAheadAngle < 0) || (_stairsAheadAngle >= 90f))
+            // or if the stairs ahead angle is too much, then dont turn on collisions with stairs
+            if (_stairsAheadAngle < 0 || _stairsAheadAngle >= 90f)
             {
               authorize = false;
             }
           }
 
+          // If there are stairs below and you're not on stairs and the One Way Platform mask is the one you are standing on
           if (StairsBelow && !OnStairs && _controller.OneWayPlatformMask.Contains(_controller.StandingOn.layer))
           {
+            // If you have input going down
             if (_stairsInputDown)
             {
-              if ((_stairsBelowAngle > 0) && (_stairsBelowAngle <= 90f))
+              // and the angle is good to go
+              if (_stairsBelowAngle > 0 && _stairsBelowAngle <= 90f)
               {
+                // Then jump through the one way platform
                 _controller.State.IsJumping = true;
+
+                // Record what collider we were standing on
                 _goingDownEntryBoundsCollider = _controller.StandingOnCollider;
+
+                // Remove one way platforms in the platform mask
                 _controller.PlatformMask -= _controller.OneWayPlatformMask;
                 _controller.PlatformMask -= _controller.OneWayMovingPlatformMask;
+
+                // Add stairs to the platform mask
                 _controller.PlatformMask |= _controller.StairsMask;
+
+                // Record the time when you went through the one way platform
                 _goingDownEntryAt = Time.time;
               }
             }
@@ -130,11 +118,11 @@ namespace RFG
 
         if (authorize)
         {
-          AuthorizeStairs();
+          _controller.CollisionsOnWithStairs();
         }
         else
         {
-          DenyStairs();
+          _controller.CollisionsOffWithStairs();
         }
       }
 
@@ -143,35 +131,26 @@ namespace RFG
       /// </summary>
       private void HandleEntryBounds()
       {
+        // If we weren't standing on any collider then return
         if (_goingDownEntryBoundsCollider == null)
         {
           return;
         }
-        if (Time.time - _goingDownEntryAt < StairsBelowLockTime)
+
+        // If the time hasn't passed yet to exceed the StairsBelow lock time then return
+        if (Time.time - _goingDownEntryAt < StairsSettings.StairsBelowLockTime)
         {
           return;
         }
+
+        // Getting here means we have a collider we were standing on, we have passed the lock time
+        // and the collider doesn't contain the controllers collider bottom position
+        // then turn back on collisions
         if (!_goingDownEntryBoundsCollider.bounds.Contains(_controller.ColliderBottomPosition))
         {
           _controller.CollisionsOn();
           _goingDownEntryBoundsCollider = null;
         }
-      }
-
-      /// <summary>
-      /// Authorizes collisions with stairs
-      /// </summary>
-      private void AuthorizeStairs()
-      {
-        _controller.CollisionsOnWithStairs();
-      }
-
-      /// <summary>
-      /// Prevents collisions with stairs
-      /// </summary>
-      private void DenyStairs()
-      {
-        _controller.CollisionsOffWithStairs();
       }
 
       /// <summary>
@@ -183,17 +162,17 @@ namespace RFG
 
         if (_controller.State.IsFacingRight)
         {
-          _raycastOrigin = transform.position + StairsAheadDetectionRaycastOrigin.x * transform.right + StairsAheadDetectionRaycastOrigin.y * transform.up;
-          _raycastDirection = transform.right;
+          _raycastOrigin = transform.position + StairsSettings.StairsAheadDetectionRaycastOrigin.x * Vector3.right + StairsSettings.StairsAheadDetectionRaycastOrigin.y * transform.up;
+          _raycastDirection = Vector3.right;
         }
         else
         {
-          _raycastOrigin = transform.position + StairsAheadDetectionRaycastOrigin.x * transform.right + StairsAheadDetectionRaycastOrigin.y * transform.up;
-          _raycastDirection = transform.right;
+          _raycastOrigin = transform.position - StairsSettings.StairsAheadDetectionRaycastOrigin.x * Vector3.right + StairsSettings.StairsAheadDetectionRaycastOrigin.y * transform.up;
+          _raycastDirection = -Vector3.right;
         }
 
         // we cast our ray in front of us
-        RaycastHit2D hit = RFG.Physics2D.RayCast(_raycastOrigin, _raycastDirection, StairsAheadDetectionRaycastLength, _controller.StairsMask, Color.yellow, true);
+        RaycastHit2D hit = RFG.Physics2D.RayCast(_raycastOrigin, _raycastDirection, StairsSettings.StairsAheadDetectionRaycastLength, _controller.StairsMask, Color.yellow, true);
 
         if (hit)
         {
@@ -212,31 +191,27 @@ namespace RFG
         _raycastOrigin = _controller.BoundsCenter;
         if (_controller.State.IsFacingRight)
         {
-          _raycastOrigin = _controller.ColliderBottomPosition + StairsBelowDetectionRaycastOrigin.x * transform.right + StairsBelowDetectionRaycastOrigin.y * transform.up;
+          _raycastOrigin = _controller.ColliderBottomPosition + StairsSettings.StairsBelowDetectionRaycastOrigin.x * Vector3.right + StairsSettings.StairsBelowDetectionRaycastOrigin.y * transform.up;
         }
         else
         {
-          _raycastOrigin = _controller.ColliderBottomPosition + StairsBelowDetectionRaycastOrigin.x * transform.right + StairsBelowDetectionRaycastOrigin.y * transform.up;
+          _raycastOrigin = _controller.ColliderBottomPosition - StairsSettings.StairsBelowDetectionRaycastOrigin.x * Vector3.right + StairsSettings.StairsBelowDetectionRaycastOrigin.y * transform.up;
         }
 
-        RaycastHit2D hit = RFG.Physics2D.RayCast(_raycastOrigin, -transform.up, StairsBelowDetectionRaycastLength, _controller.StairsMask, Color.yellow, true);
+        RaycastHit2D hit = RFG.Physics2D.RayCast(_raycastOrigin, -transform.up, StairsSettings.StairsBelowDetectionRaycastLength, _controller.StairsMask, Color.yellow, true);
 
         if (hit)
         {
           if (_controller.State.IsFacingRight)
           {
-            _stairsBelowAngle = Mathf.Abs(Vector2.Angle(hit.normal, transform.right));
+            _stairsBelowAngle = Mathf.Abs(Vector2.Angle(hit.normal, Vector3.right));
           }
           else
           {
-            _stairsBelowAngle = Mathf.Abs(Vector2.Angle(hit.normal, transform.right));
+            _stairsBelowAngle = Mathf.Abs(Vector2.Angle(hit.normal, -Vector3.right));
           }
 
           StairsBelow = true;
-        }
-        else
-        {
-          Debug.Log("Not Hit");
         }
       }
 
@@ -248,6 +223,7 @@ namespace RFG
         OnStairs = false;
         if (_controller.StandingOn != null)
         {
+          // Are we actually standing on a layer with the Stairs layer mask?
           if (_controller.StairsMask.Contains(_controller.StandingOn.layer))
           {
             OnStairs = true;
@@ -264,7 +240,6 @@ namespace RFG
       {
         XYAxis.action.Disable();
       }
-
 
     }
   }

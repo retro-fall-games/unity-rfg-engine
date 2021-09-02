@@ -13,10 +13,59 @@ MonoBehaviour:
   m_Name: RabbitRobotCharacterControllerParameters2D
   m_EditorClassIdentifier: 
   Gravity: -25
+  FallMultiplier: 1
+  AscentMultiplier: 1
   MaxVelocity: {x: 3, y: 10}
   SpeedFactor: 3
   GroundSpeedFactor: 10
   AirSpeedFactor: 5
   MaxSlopeAngle: 30
-  SkinWidth: 0.02
+  SlopeAngleSpeedFactor:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: -90
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 90
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  NumberOfHorizontalRays: 4
+  NumberOfVerticalRays: 4
+  RayOffset: 0.05
+  CrouchedRaycastLengthMultiplier: 1
+  CastRaysOnBothSides: 0
+  DistanceToTheGroundRayMaximumLength: 100
+  PerformSafetyBoxcast: 0
+  StickToSlopes: 0
+  StickyRaycastLength: 0
+  StickToSlopesOffsetY: 0.2
+  AutomaticGravtiySettings: 1
+  SafeSetTransform: 0
+  AutomaticallySetPhysicsSettings: 0
+  Physics2DInteraction: 1
+  Physics2DPushForce: 2
   Weight: 3

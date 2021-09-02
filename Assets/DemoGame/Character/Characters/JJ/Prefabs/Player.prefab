@@ -389,16 +389,16 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   UpdateMode: 0
-  DetachmentMethod: 0
+  DetachmentMethod: 1
   AutomaticGravtiySettings: 1
   SafeSetTransform: 0
   AutomaticallySetPhysicsSettings: 0
   StandingOn: {fileID: 0}
-  NumberOfHorizontalRays: 8
-  NumberOfVerticalRays: 8
-  RayOffset: 0.05
+  NumberOfHorizontalRays: 4
+  NumberOfVerticalRays: 4
+  RayOffset: 0.01
   CrouchedRaycastLengthMultiplier: 1
-  CastRaysOnBothSides: 0
+  CastRaysOnBothSides: 1
   DistanceToTheGroundRayMaximumLength: 100
   PerformSafetyBoxcast: 0
   StickToSlopes: 1
@@ -572,12 +572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   XYAxis: {fileID: -328637352972670201, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
-  Threshold: {x: 0.1, y: 0.4}
+  StairsSettings: {fileID: 11400000, guid: a6ff2dfc6be48754d9cad6eba74cea8a, type: 2}
   OnStairs: 0
   StairsBelow: 0
   StairsAhead: 0
-  StairsAheadDetectionRaycastOrigin: {x: -3, y: 0, z: 0}
-  StairsAheadDetectionRaycastLength: 6
-  StairsBelowDetectionRaycastOrigin: {x: 0.2, y: 0, z: 0}
-  StairsBelowDetectionRaycastLength: 1
-  StairsBelowLockTime: 0.2
