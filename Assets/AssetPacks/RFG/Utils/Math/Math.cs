@@ -22,7 +22,7 @@ namespace RFG
         lhs = (Vector3)(lhs / magnitude);
       }
       float num2 = Mathf.Clamp(Vector3.Dot(lhs, rhs), 0f, magnitude);
-      return (lineStart + (Vector3)(lhs * num2));
+      return (lineStart + ((Vector3)(lhs * num2)));
     }
 
     public static float RoundToClosest(float value, float[] possibleValues, bool pickSmallestDistance = false)

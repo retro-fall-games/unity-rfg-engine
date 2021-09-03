@@ -55,12 +55,12 @@ MonoBehaviour:
     m_RotationOrder: 4
   NumberOfHorizontalRays: 4
   NumberOfVerticalRays: 4
-  RayOffset: 0.05
+  RayOffset: 0.01
   CrouchedRaycastLengthMultiplier: 1
   CastRaysOnBothSides: 1
   DistanceToTheGroundRayMaximumLength: 100
   PerformSafetyBoxcast: 0
-  StickToSlopes: 1
+  StickToSlopes: 0
   StickyRaycastLength: 0.5
   StickToSlopesOffsetY: 0.2
   AutomaticGravtiySettings: 1

@@ -907,12 +907,8 @@ namespace RFG
           // if the character is jumping onto a (1-way) platform but not high enough, we do nothing
           if (
             !State.WasGroundedLastFrame
-            && (smallestDistance < _boundsHeight / 2)
-            && (
-              OneWayPlatformMask.Contains(StandingOn.layer)
-              ||
-              (OneWayMovingPlatformMask.Contains(StandingOn.layer) && (_speed.y > 0))
-            )
+            && smallestDistance < _boundsHeight / 2
+            && (OneWayPlatformMask.Contains(StandingOn.layer) || (OneWayMovingPlatformMask.Contains(StandingOn.layer) && _speed.y > 0))
           )
           {
             State.IsCollidingBelow = false;
@@ -932,7 +928,6 @@ namespace RFG
           else
           {
             float distance = Math.DistanceBetweenPointAndLine(_belowHitsStorage[smallestDistanceIndex].point, _verticalRayCastFromLeft, _verticalRayCastToRight);
-
             _newPosition.y = -distance + _boundsHeight / 2 + Parameters.RayOffset;
           }
 
@@ -1045,12 +1040,11 @@ namespace RFG
       {
         // if we're in the air, don't have to stick to slopes, being pushed up or on a moving platform, we exit
         if (
-          (_newPosition.y >= Parameters.StickToSlopesOffsetY)
-          || (_newPosition.y <= -Parameters.StickToSlopesOffsetY)
-          || (State.IsJumping)
-          || (!Parameters.StickToSlopes)
-          || (!State.WasGroundedLastFrame)
-          || (_externalForce.y > 0)
+          _newPosition.y >= Parameters.StickToSlopesOffsetY || _newPosition.y <= -Parameters.StickToSlopesOffsetY
+          || State.IsJumping
+          || !Parameters.StickToSlopes
+          || !State.WasGroundedLastFrame
+          || _externalForce.y > 0
         // || (_movingPlatform != null)
         )
         {
@@ -1140,9 +1134,9 @@ namespace RFG
         }
 
         // if we're on a damn spike, we handle it and exit
-        if ((belowSlopeAngleLeft > 0f) && (belowSlopeAngleRight < 0f))
+        if (belowSlopeAngleLeft > 0f && belowSlopeAngleRight < 0f)
         {
-          _stickRaycast = RFG.Physics2D.BoxCast(_boundsCenter, Bounds, Vector2.Angle(transform.up, Vector2.up), -transform.up, rayLength, _raysBelowLayerMaskPlatforms, Color.red, true);
+          _stickRaycast = RFG.Physics2D.BoxCast(_boundsCenter, Bounds, Vector2.Angle(transform.up, Vector2.up), -transform.up, rayLength, _raysBelowLayerMaskPlatforms, Color.yellow, true);
           if (_stickRaycast)
           {
             if (_stickRaycast.collider == _ignoredCollider)
