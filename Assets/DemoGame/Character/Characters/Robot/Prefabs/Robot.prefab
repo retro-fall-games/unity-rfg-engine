@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: -2106617864864617881}
   - component: {fileID: 606159811577918091}
   - component: {fileID: -3407430650193267883}
+  - component: {fileID: 7218993472743152935}
   m_Layer: 14
   m_Name: Robot
   m_TagString: AI Character
@@ -52,6 +53,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -194,6 +196,7 @@ MonoBehaviour:
   DefaultParameters: {fileID: 11400000, guid: 43e65d9f02b6dd4458ec41a431779bc2, type: 2}
   OverrideParameters: {fileID: 0}
   rotateOnMouseCursor: 0
+  facingOnStart: Face Right
   PlatformMask:
     serializedVersion: 2
     m_Bits: 33280
@@ -211,20 +214,7 @@ MonoBehaviour:
     m_Bits: 2048
   UpdateMode: 0
   DetachmentMethod: 0
-  AutomaticGravtiySettings: 1
-  SafeSetTransform: 0
-  AutomaticallySetPhysicsSettings: 0
   StandingOn: {fileID: 0}
-  NumberOfHorizontalRays: 8
-  NumberOfVerticalRays: 8
-  RayOffset: 0.05
-  CrouchedRaycastLengthMultiplier: 1
-  CastRaysOnBothSides: 0
-  DistanceToTheGroundRayMaximumLength: 100
-  PerformSafetyBoxcast: 0
-  StickToSlopes: 0
-  StickyRaycastLength: 0
-  StickToSlopesOffsetY: 0.2
 --- !u!114 &4501051043929579587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,3 +301,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04603684b48aae64486f1a40ef505fd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7218993472743152935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4501051043929579633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8832b6531ce70f54990c281530028d8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DanglingSettings: {fileID: 11400000, guid: 9b6545bd790c82d4cae38c8038b48db4, type: 2}

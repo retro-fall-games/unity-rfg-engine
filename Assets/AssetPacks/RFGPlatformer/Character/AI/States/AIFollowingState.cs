@@ -40,6 +40,11 @@ namespace RFG
           }
         }
 
+        if (ctx.controller.State.IsDangling)
+        {
+          return;
+        }
+
         // Move towards that target
         float normalizedHorizontalSpeed = 0f;
 

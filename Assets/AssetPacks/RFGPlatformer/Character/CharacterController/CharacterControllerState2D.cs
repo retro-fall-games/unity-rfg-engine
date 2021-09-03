@@ -27,6 +27,7 @@ namespace RFG
       public float DistanceToRightCollider;
       public bool IsFacingRight { get; set; }
       public bool IsFalling { get; set; }
+      public bool IsDangling { get; set; }
       public bool IsJumping { get; set; }
       public bool IsStandingOnStairs { get; set; }
       public bool IsDashing { get; set; }

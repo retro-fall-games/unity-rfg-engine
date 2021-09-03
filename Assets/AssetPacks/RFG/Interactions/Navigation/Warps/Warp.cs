@@ -11,16 +11,17 @@ namespace RFG
     public int index = 0;
     public int warpToIndex = 0;
 
-    [Header("Audio")]
-    public string[] soundFx;
-    public bool soundFxFade;
+    [Header("Effects")]
+    public string[] Effects;
 
     [HideInInspector]
     private bool JustWarped { get; set; }
     private List<Warp> _warps = new List<Warp>();
+    private Transform _transform;
 
     private void Awake()
     {
+      _transform = transform;
       GameObject[] warps = GameObject.FindGameObjectsWithTag("Warp");
       foreach (GameObject warp in warps)
       {
@@ -33,7 +34,7 @@ namespace RFG
       }
     }
 
-    public void OnTriggerEnter2D(Collider2D col)
+    private void OnTriggerEnter2D(Collider2D col)
     {
       if (col.gameObject.CompareTag("Player"))
       {
@@ -43,16 +44,12 @@ namespace RFG
           warpTo.JustWarped = true;
           JustWarped = true;
           col.gameObject.transform.position = warpTo.transform.position;
-          // EventManager.TriggerEvent(new WarpEvent(index, warpToIndex));
-          if (soundFx != null && soundFx.Length > 0)
-          {
-            // FXAudio.Instance.Play(soundFx, soundFxFade);
-          }
+          warpTo.transform.SpawnFromPool("Effects", Effects);
         }
       }
     }
 
-    public void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D other)
     {
       JustWarped = false;
     }

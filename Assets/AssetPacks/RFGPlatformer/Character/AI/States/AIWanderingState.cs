@@ -10,7 +10,7 @@ namespace RFG
     {
       public override Type Execute(AIBrainBehaviour.AIStateContext ctx)
       {
-        if (ctx.controller.State.IsCollidingLeft || ctx.controller.State.IsCollidingRight)
+        if (ctx.controller.State.IsCollidingLeft || ctx.controller.State.IsCollidingRight || ctx.controller.State.IsDangling)
         {
           ctx.controller.Flip();
         }

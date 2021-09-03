@@ -97,7 +97,7 @@ namespace RFG
               if (_stairsBelowAngle > 0 && _stairsBelowAngle <= 90f)
               {
                 // Then jump through the one way platform
-                _controller.State.IsJumping = true;
+                // _controller.State.IsJumping = true;
 
                 // Record what collider we were standing on
                 _goingDownEntryBoundsCollider = _controller.StandingOnCollider;
