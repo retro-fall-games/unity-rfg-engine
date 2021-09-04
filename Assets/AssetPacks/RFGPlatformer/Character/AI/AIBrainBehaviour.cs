@@ -10,25 +10,6 @@ namespace RFG
     [AddComponentMenu("RFG/Platformer/Character/AI Behaviours/AI Brain")]
     public class AIBrainBehaviour : MonoBehaviour
     {
-      public class AIStateContext
-      {
-        public Transform transform;
-        public Character character;
-        public CharacterController2D controller;
-        public Aggro aggro;
-        public Animator animator;
-        public MovementPath movementPath;
-        public EquipmentSet equipmentSet;
-        public AIBrain aiBrain;
-        public AIBrainBehaviour aiState;
-        public bool JustRotated = false;
-        public float LastTimeRotated = 0f;
-        public float RotateSpeed = 0f;
-        public bool RunningCooldown = false;
-        public float RunningPower = 0f;
-        public float LastTimeRunningCooldown = 0f;
-      }
-
       [Header("AI Brain Settings")]
       public AIBrain AIBrain;
       public AIState CurrentState;
@@ -96,6 +77,7 @@ namespace RFG
           _aiBrain.WalkingSettings = AIBrain.DefaultBrain.WalkingSettings;
           _aiBrain.RunningSettings = AIBrain.DefaultBrain.RunningSettings;
           _aiBrain.JumpSettings = AIBrain.DefaultBrain.JumpSettings;
+          _aiBrain.DanglingSettings = AIBrain.DefaultBrain.DanglingSettings;
           if (AIBrain.OverrideDefaultStates)
           {
             _aiBrain.States = AIBrain.States;
@@ -113,6 +95,7 @@ namespace RFG
             _aiBrain.WalkingSettings = AIBrain.WalkingSettings;
             _aiBrain.RunningSettings = AIBrain.RunningSettings;
             _aiBrain.JumpSettings = AIBrain.JumpSettings;
+            _aiBrain.DanglingSettings = AIBrain.DanglingSettings;
           }
           if (AIBrain.OverrideDefaultSettingsSetOverrides)
           {
@@ -130,6 +113,7 @@ namespace RFG
         _defaultSettings.WalkingSettings = _aiBrain.WalkingSettings;
         _defaultSettings.RunningSettings = _aiBrain.RunningSettings;
         _defaultSettings.JumpSettings = _aiBrain.JumpSettings;
+        _defaultSettings.DanglingSettings = _aiBrain.DanglingSettings;
 
         _ctx = new AIStateContext();
         _ctx.transform = _transform;
@@ -310,6 +294,11 @@ namespace RFG
               _previousSettings.JumpSettings = _aiBrain.JumpSettings;
               _aiBrain.JumpSettings = overrides.JumpSettings;
             }
+            if (overrides.DanglingSettings != null)
+            {
+              _previousSettings.DanglingSettings = _aiBrain.DanglingSettings;
+              _aiBrain.DanglingSettings = overrides.DanglingSettings;
+            }
           }
         }
       }
@@ -336,6 +325,10 @@ namespace RFG
         {
           _aiBrain.JumpSettings = _defaultSettings.JumpSettings;
         }
+        if (_defaultSettings.DanglingSettings != null)
+        {
+          _aiBrain.DanglingSettings = _defaultSettings.DanglingSettings;
+        }
       }
 
       public void RestorePreviousSettingsSetOverride(int index)
@@ -359,6 +352,10 @@ namespace RFG
         if (_previousSettings.JumpSettings != null)
         {
           _aiBrain.JumpSettings = _previousSettings.JumpSettings;
+        }
+        if (_previousSettings.DanglingSettings != null)
+        {
+          _aiBrain.DanglingSettings = _previousSettings.DanglingSettings;
         }
       }
 

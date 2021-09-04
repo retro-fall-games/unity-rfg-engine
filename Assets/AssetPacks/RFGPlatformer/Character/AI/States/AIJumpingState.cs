@@ -8,7 +8,7 @@ namespace RFG
     [CreateAssetMenu(fileName = "New AI Jumping State", menuName = "RFG/Platformer/Character/AI State/Jumping")]
     public class AIJumpingState : AIState
     {
-      public override Type Execute(AIBrainBehaviour.AIStateContext ctx)
+      public override Type Execute(AIStateContext ctx)
       {
         if (ctx.controller.State.JustGotGrounded)
         {
@@ -23,7 +23,7 @@ namespace RFG
         return null;
       }
 
-      public void JumpStart(AIBrainBehaviour.AIStateContext ctx)
+      public void JumpStart(AIStateContext ctx)
       {
         if (!CanJump(ctx))
         {
@@ -64,14 +64,14 @@ namespace RFG
         JumpStop(ctx);
       }
 
-      private void JumpStop(AIBrainBehaviour.AIStateContext ctx)
+      private void JumpStop(AIStateContext ctx)
       {
         ctx.controller.State.IsFalling = true;
         ctx.controller.State.IsJumping = false;
         ctx.aiState.RestorePreviousDecision();
       }
 
-      private bool CanJump(AIBrainBehaviour.AIStateContext ctx)
+      private bool CanJump(AIStateContext ctx)
       {
         if (ctx.aiBrain.JumpSettings.Restrictions == JumpSettings.JumpRestrictions.CanJumpAnywhere)
         {

@@ -11,9 +11,6 @@ namespace RFG
     {
       public enum BoundsBehaviour { Nothing, Constrain, Kill }
 
-      [Header("Characters")]
-      public List<Character> Characters;
-
       [Header("Level Bounds")]
       public BoundsBehaviour Top = BoundsBehaviour.Constrain;
       public BoundsBehaviour Bottom = BoundsBehaviour.Kill;
@@ -24,15 +21,7 @@ namespace RFG
       [HideInInspector]
       private Vector2 _constrainedPosition = Vector2.zero;
 
-      private void LateUpdate()
-      {
-        foreach (Character character in Characters)
-        {
-          HandleLevelBounds(character);
-        }
-      }
-
-      private void HandleLevelBounds(Character character)
+      public void HandleLevelBounds(Character character)
       {
         if (character.CurrentStateType != typeof(AliveState))
         {

@@ -33,12 +33,6 @@ namespace RFG
           _controller.State.IsFalling = true;
         }
 
-        // if (!_controller.State.IsDangling && _startFeedbackIsPlaying)
-        // {
-        //   StopStartFeedbacks();
-        //   PlayAbilityStopFeedbacks();
-        // }
-
         // if dangling is disabled or if we're not grounded, we do nothing and exit
         if (_controller.State.IsWalking || _controller.State.IsRunning || _controller.State.IsJumping || _controller.State.IsDashing || !_controller.State.IsGrounded)
         {

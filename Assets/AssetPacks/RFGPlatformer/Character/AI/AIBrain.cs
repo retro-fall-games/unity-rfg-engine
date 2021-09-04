@@ -31,6 +31,10 @@ namespace RFG
         /// <summary>Jump Settings to know how many jumps left and jump restrictions</summary>
         [Tooltip("Jump Settings to know how many jumps left and jump restrictions")]
         public JumpSettings JumpSettings;
+
+        /// <summary>Dangling Settings to know raycast info</summary>
+        [Tooltip("Dangling Settings to know raycast info")]
+        public DanglingSettings DanglingSettings;
       }
 
 
@@ -75,6 +79,10 @@ namespace RFG
       /// <summary>Jump Settings to know how many jumps left and jump restrictions</summary>
       [Tooltip("Jump Settings to know how many jumps left and jump restrictions")]
       public JumpSettings JumpSettings;
+
+      /// <summary>Dangling Settings to know raycast info</summary>
+      [Tooltip("Dangling Settings to know raycast info")]
+      public DanglingSettings DanglingSettings;
 
       [Header("Overrides")]
       /// <summary>Settings Set Override, useful for bosses that go into different modes</summary>

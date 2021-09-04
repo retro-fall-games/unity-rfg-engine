@@ -8,7 +8,7 @@ namespace RFG
     [CreateAssetMenu(fileName = "New AI Movement Path State", menuName = "RFG/Platformer/Character/AI State/Movement Path")]
     public class AIMovementPathState : AIState
     {
-      public override Type Execute(AIBrainBehaviour.AIStateContext ctx)
+      public override Type Execute(AIStateContext ctx)
       {
         ctx.controller.RotateTowards(ctx.movementPath.NextPath);
         if (!ctx.movementPath.autoMove)

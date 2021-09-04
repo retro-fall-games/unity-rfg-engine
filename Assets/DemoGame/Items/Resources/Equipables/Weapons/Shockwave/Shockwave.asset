@@ -30,7 +30,7 @@ MonoBehaviour:
   EquipEffects: []
   UnequipEffects: []
   weaponType: 0
-  FireRate: 0.1
+  FireRate: 0.3
   Cooldown: 0
   IsInCooldown: 0
   IsFiring: 0
@@ -41,3 +41,4 @@ MonoBehaviour:
   RefillAmmo: 10
   GainAmmoOverTime: 0
   AmmoGain: 0
+  UnlimitedAmmo: 0

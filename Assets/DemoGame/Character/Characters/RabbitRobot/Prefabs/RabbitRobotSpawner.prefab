@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5987286674580362214
 Transform:
@@ -66,6 +66,7 @@ MonoBehaviour:
   target2: {fileID: 0}
   target2IsPlayer: 1
   minDistance: 20
+  WarmUpTime: 2
   layerMask:
     serializedVersion: 2
     m_Bits: 256

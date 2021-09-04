@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BubbleKnockbackData
   m_EditorClassIdentifier: 
   Damage: 1
-  Velocity: {x: 15, y: 10}
+  Velocity: {x: 15, y: 15}
   Threshold: 0.5
   LayerMask:
     serializedVersion: 2

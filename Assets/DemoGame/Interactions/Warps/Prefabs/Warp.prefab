@@ -18,7 +18,7 @@ GameObject:
   m_TagString: Warp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6565820846406025257
 Transform:
@@ -126,7 +126,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 0
   warpToIndex: 1
-  WaitToWarpTime: 2
   Effects:
   - WarpEffect
 --- !u!95 &7335928673338816440

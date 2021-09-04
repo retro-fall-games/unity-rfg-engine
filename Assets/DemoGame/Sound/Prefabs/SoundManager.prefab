@@ -16,7 +16,7 @@ GameObject:
   m_TagString: SoundTrack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2607678419347834609
 Transform:
@@ -157,7 +157,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1056412678968907845
 Transform:
@@ -231,7 +231,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1056412679082778226
 Transform:
@@ -276,7 +276,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1056412679344497193
 Transform:
@@ -330,7 +330,7 @@ GameObject:
   m_TagString: SoundAmbience
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1056412680520570056
 Transform:
@@ -471,7 +471,7 @@ GameObject:
   m_TagString: SoundFx
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1056412680772438799
 Transform:
@@ -612,7 +612,7 @@ GameObject:
   m_TagString: SoundTrack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1056412681052831640
 Transform:
@@ -753,7 +753,7 @@ GameObject:
   m_TagString: SoundTrack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &568108488393584905
 Transform:
@@ -894,7 +894,7 @@ GameObject:
   m_TagString: SoundFx
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7224111836444247586
 Transform:
@@ -1035,7 +1035,7 @@ GameObject:
   m_TagString: SoundTrack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2707295849260562362
 Transform:
@@ -1175,7 +1175,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5880390793070529704
 Transform:
@@ -1226,7 +1226,7 @@ GameObject:
   m_TagString: SoundFx
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2234825500494585928
 Transform:
@@ -1367,7 +1367,7 @@ GameObject:
   m_TagString: SoundFx
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2990282623024165936
 Transform:
@@ -1508,7 +1508,7 @@ GameObject:
   m_TagString: SoundFx
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2782705735343383592
 Transform:
@@ -1649,7 +1649,7 @@ GameObject:
   m_TagString: SoundFx
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5536065690371129574
 Transform:
@@ -1790,7 +1790,7 @@ GameObject:
   m_TagString: SoundFx
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2800467557931870215
 Transform:
@@ -1931,7 +1931,7 @@ GameObject:
   m_TagString: SoundTrack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1552130576127021834
 Transform:
@@ -2072,7 +2072,7 @@ GameObject:
   m_TagString: SoundTrack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3440915674697730194
 Transform:
@@ -2213,7 +2213,7 @@ GameObject:
   m_TagString: SoundFx
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2481223392237377879
 Transform:
@@ -2354,7 +2354,7 @@ GameObject:
   m_TagString: SoundFx
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1163866794880427873
 Transform:

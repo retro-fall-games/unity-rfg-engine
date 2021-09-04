@@ -8,7 +8,7 @@ namespace RFG
     [CreateAssetMenu(fileName = "New AI Idle State", menuName = "RFG/Platformer/Character/AI State/Idle")]
     public class AIIdleState : AIState
     {
-      public override Type Execute(AIBrainBehaviour.AIStateContext ctx)
+      public override Type Execute(AIStateContext ctx)
       {
         ctx.controller.SetHorizontalForce(0);
         return null;

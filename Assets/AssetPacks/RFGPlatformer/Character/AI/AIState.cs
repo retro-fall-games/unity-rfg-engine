@@ -23,18 +23,18 @@ namespace RFG
       [Tooltip("Define what effect to run when the state exits")]
       public string[] ExitEffects;
 
-      public virtual void Enter(AIBrainBehaviour.AIStateContext ctx)
+      public virtual void Enter(AIStateContext ctx)
       {
         PlayEffects(ctx.transform, EnterEffects);
         PlayAnimations(ctx.animator, EnterClip);
       }
 
-      public virtual Type Execute(AIBrainBehaviour.AIStateContext ctx)
+      public virtual Type Execute(AIStateContext ctx)
       {
         return null;
       }
 
-      public virtual void Exit(AIBrainBehaviour.AIStateContext ctx)
+      public virtual void Exit(AIStateContext ctx)
       {
         PlayEffects(ctx.transform, ExitEffects);
         PlayAnimations(ctx.animator, ExitClip);
