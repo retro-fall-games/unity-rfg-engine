@@ -1,5 +1,10 @@
 using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
+using MyBox;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace RFG
 {
@@ -15,9 +20,11 @@ namespace RFG
     public float speed = 3f;
     public bool spawnAtStart = false;
     public bool autoMove = false;
-    public Transform[] paths;
+    public bool Paused = false;
+    public List<Transform> paths = new List<Transform>();
     public bool ReachedEnd { get; private set; }
     public bool ReachedStart { get; private set; }
+    public Vector2 CurrentSpeed { get; private set; }
     public Transform NextPath
     {
       get
@@ -56,16 +63,22 @@ namespace RFG
 
     private void Update()
     {
-      if (autoMove)
+      if (autoMove && !Paused)
       {
         Move();
       }
     }
 
+    public void TogglePause()
+    {
+      Paused = !Paused;
+    }
+
     public void Move()
     {
       CheckPath();
-      _transform.position = Vector2.MoveTowards(_transform.position, NextPath.position, speed * Time.deltaTime);
+      CurrentSpeed = Vector2.MoveTowards(_transform.position, NextPath.position, speed * Time.deltaTime);
+      _transform.position = CurrentSpeed;
     }
 
     public void CheckPath()
@@ -85,13 +98,13 @@ namespace RFG
 
     public void Reverse()
     {
-      System.Array.Reverse(paths);
+      paths.Reverse();
     }
 
     private void SetNextPath()
     {
       int nextIndex = direction == Direction.Forwards ? _nextIndex + 1 : _nextIndex - 1;
-      ReachedEnd = nextIndex >= paths.Length;
+      ReachedEnd = nextIndex >= paths.Count;
       ReachedStart = nextIndex < 0;
 
       if (state == State.PingPong && (ReachedEnd || ReachedStart))
@@ -116,11 +129,11 @@ namespace RFG
       }
       else if (state == State.Loop && ReachedStart)
       {
-        nextIndex = paths.Length - 1;
+        nextIndex = paths.Count - 1;
       }
       else if (ReachedEnd)
       {
-        nextIndex = paths.Length - 1;
+        nextIndex = paths.Count - 1;
       }
       else if (ReachedStart)
       {
@@ -130,9 +143,10 @@ namespace RFG
 
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-      if (paths == null || paths.Length < 2)
+      if (paths == null || paths.Count < 2)
       {
         return;
       }
@@ -143,6 +157,26 @@ namespace RFG
         Gizmos.DrawLine(paths[i - 1].position, paths[i].position);
       }
     }
+
+
+    [ButtonMethod]
+    private void CreatePath()
+    {
+      string path = "Assets/AssetPacks/RFG/Navigation/Paths/Prefabs";
+      string objName = "Path";
+      Object obj = AssetDatabase.LoadAssetAtPath($"{path}/{objName}.prefab", typeof(GameObject));
+      GameObject clone = Instantiate(obj) as GameObject;
+      clone.name = objName;
+      GameObject parentObj = GameObject.Find("Navigation");
+      clone.transform.SetParent(parentObj.transform);
+
+      foreach (Transform t in clone.transform)
+      {
+        paths.Add(t);
+      }
+      EditorUtility.SetDirty(transform);
+    }
+#endif
 
   }
 }

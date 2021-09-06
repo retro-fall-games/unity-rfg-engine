@@ -14,22 +14,28 @@ namespace RFG
 
     public void OnTriggerEnter2D(Collider2D col)
     {
-      if (!_triggered && col.gameObject.CompareTags(Tags))
+      if (col.gameObject.CompareTags(Tags))
       {
-        _triggered = true;
-        OnTriggerEnter?.Invoke();
+        if (!_triggered)
+        {
+          _triggered = true;
+          OnTriggerEnter?.Invoke();
+        }
       }
     }
 
     public void OnTriggerExit2D(Collider2D col)
     {
-      if (!_triggered && col.gameObject.CompareTags(Tags))
+      if (col.gameObject.CompareTags(Tags))
       {
-        if (!OnlyOnce)
+        if (_triggered)
         {
-          _triggered = false;
+          if (!OnlyOnce)
+          {
+            _triggered = false;
+            OnTriggerExit?.Invoke();
+          }
         }
-        OnTriggerExit?.Invoke();
       }
     }
 

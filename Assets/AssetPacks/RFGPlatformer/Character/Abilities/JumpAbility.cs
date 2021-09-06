@@ -148,7 +148,6 @@ namespace RFG
           _controller.State.IsJumping = true;
           // we turn the boxcollider off for a few milliseconds, so the character doesn't get stuck mid platform
           StartCoroutine(_controller.DisableCollisionsWithOneWayPlatforms(JumpSettings.OneWayPlatformsJumpCollisionOffDuration));
-          _controller.DetachFromMovingPlatform();
           return true;
         }
         else
@@ -167,7 +166,6 @@ namespace RFG
         {
           // we turn the boxcollider off for a few milliseconds, so the character doesn't get stuck mid air
           StartCoroutine(_controller.DisableCollisionsWithMovingPlatforms(JumpSettings.MovingPlatformsJumpCollisionOffDuration));
-          _controller.DetachFromMovingPlatform();
         }
       }
 

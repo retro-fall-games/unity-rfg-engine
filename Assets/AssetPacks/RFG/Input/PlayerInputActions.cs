@@ -67,6 +67,14 @@ namespace RFG
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Use"",
+                    ""type"": ""Button"",
+                    ""id"": ""b26a45a7-a87f-40ca-baa9-3d491df7ea0e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -238,7 +246,7 @@ namespace RFG
                 {
                     ""name"": """",
                     ""id"": ""d3807bd5-d3ad-4ef7-9d56-3edab2a242ae"",
-                    ""path"": ""<SwitchProControllerHID>/buttonNorth"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -289,6 +297,28 @@ namespace RFG
                     ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c0b99ef6-6144-4a06-8a6e-cefc6f83398a"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard & Mouse"",
+                    ""action"": ""Use"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""db1bd919-9600-416e-9fe6-f2161233b614"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Use"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -331,6 +361,7 @@ namespace RFG
             m_PlayerControls_Pause = m_PlayerControls.FindAction("Pause", throwIfNotFound: true);
             m_PlayerControls_Jump = m_PlayerControls.FindAction("Jump", throwIfNotFound: true);
             m_PlayerControls_Dash = m_PlayerControls.FindAction("Dash", throwIfNotFound: true);
+            m_PlayerControls_Use = m_PlayerControls.FindAction("Use", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -386,6 +417,7 @@ namespace RFG
         private readonly InputAction m_PlayerControls_Pause;
         private readonly InputAction m_PlayerControls_Jump;
         private readonly InputAction m_PlayerControls_Dash;
+        private readonly InputAction m_PlayerControls_Use;
         public struct PlayerControlsActions
         {
             private @PlayerInputActions m_Wrapper;
@@ -396,6 +428,7 @@ namespace RFG
             public InputAction @Pause => m_Wrapper.m_PlayerControls_Pause;
             public InputAction @Jump => m_Wrapper.m_PlayerControls_Jump;
             public InputAction @Dash => m_Wrapper.m_PlayerControls_Dash;
+            public InputAction @Use => m_Wrapper.m_PlayerControls_Use;
             public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -423,6 +456,9 @@ namespace RFG
                     @Dash.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDash;
                     @Dash.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDash;
                     @Dash.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDash;
+                    @Use.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnUse;
+                    @Use.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnUse;
+                    @Use.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnUse;
                 }
                 m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
                 if (instance != null)
@@ -445,6 +481,9 @@ namespace RFG
                     @Dash.started += instance.OnDash;
                     @Dash.performed += instance.OnDash;
                     @Dash.canceled += instance.OnDash;
+                    @Use.started += instance.OnUse;
+                    @Use.performed += instance.OnUse;
+                    @Use.canceled += instance.OnUse;
                 }
             }
         }
@@ -475,6 +514,7 @@ namespace RFG
             void OnPause(InputAction.CallbackContext context);
             void OnJump(InputAction.CallbackContext context);
             void OnDash(InputAction.CallbackContext context);
+            void OnUse(InputAction.CallbackContext context);
         }
     }
 }

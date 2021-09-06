@@ -239,8 +239,8 @@ namespace RFG
 
       // Moving Platforms
 
-      private float _movingPlatformCurrentGravity;
-      // private MMPathMovement _movingPlatform = null;
+      private Vector3 _activeLocalPlatformPoint;
+      private Vector3 _activeGlobalPlatformPoint;
 
       // Distances
 
@@ -529,7 +529,7 @@ namespace RFG
         }
         if (_gravityActive)
         {
-          _speed.y += (_currentGravity + _movingPlatformCurrentGravity) * Time.deltaTime;
+          _speed.y += _currentGravity * Time.deltaTime;
         }
         if (_fallSlowFactor != 0)
         {
@@ -579,56 +579,16 @@ namespace RFG
 
       private void HandleMovingPlatforms()
       {
-        // if (_movingPlatform != null)
-        // {
-        //   if (!float.IsNaN(_movingPlatform.CurrentSpeed.x) && !float.IsNaN(_movingPlatform.CurrentSpeed.y) && !float.IsNaN(_movingPlatform.CurrentSpeed.z))
-        //   {
-        //     _transform.Translate(this.transform.rotation * _movingPlatform.CurrentSpeed * Time.deltaTime);
-        //   }
-
-        //   if ((Time.timeScale == 0) || float.IsNaN(_movingPlatform.CurrentSpeed.x) || float.IsNaN(_movingPlatform.CurrentSpeed.y) || float.IsNaN(_movingPlatform.CurrentSpeed.z))
-        //   {
-        //     return;
-        //   }
-
-        //   if ((Time.deltaTime <= 0))
-        //   {
-        //     return;
-        //   }
-
-        //   if (State.WasTouchingTheCeilingLastFrame)
-        //   {
-        //     return;
-        //   }
-
-        //   State.OnAMovingPlatform = true;
-
-        //   GravityActive(false);
-
-        //   _movingPlatformCurrentGravity = _movingPlatformsGravity;
-
-        //   _newPosition.y = _movingPlatform.CurrentSpeed.y * Time.deltaTime;
-
-        //   _speed = -_newPosition / Time.deltaTime;
-        //   _speed.x = -_speed.x;
-
-        //   SetRaysParameters();
-        // }
-      }
-
-      /// <summary>
-      /// Disconnects from the current moving platform.
-      /// </summary>
-      public void DetachFromMovingPlatform()
-      {
-        // if (_movingPlatform == null)
-        // {
-        //   return;
-        // }
-        GravityActive(true);
-        State.OnAMovingPlatform = false;
-        // _movingPlatform = null;
-        _movingPlatformCurrentGravity = 0;
+        if (StandingOn != null && (MovingPlatformMask.Contains(StandingOn.layer) || OneWayMovingPlatformMask.Contains(StandingOn.layer)))
+        {
+          var newGlobalPlatformPoint = StandingOn.transform.TransformPoint(_activeLocalPlatformPoint);
+          var moveDistance = newGlobalPlatformPoint - _activeGlobalPlatformPoint;
+          if (moveDistance != Vector3.zero)
+          {
+            transform.Translate(moveDistance, Space.World);
+          }
+        }
+        StandingOn = null;
       }
 
       private void DetermineMovementDirection()
@@ -651,13 +611,6 @@ namespace RFG
           _movementDirection = 1;
         }
 
-        // if (_movingPlatform != null)
-        // {
-        //   if (Mathf.Abs(_movingPlatform.CurrentSpeed.x) > Mathf.Abs(_speed.x))
-        //   {
-        //     _movementDirection = Mathf.Sign(_movingPlatform.CurrentSpeed.x);
-        //   }
-        // }
         _storedMovementDirection = _movementDirection;
 
         State.IsFacingRight = _transform.right.x > 0;
@@ -947,25 +900,10 @@ namespace RFG
           // {
           //   _friction = _belowHitsStorage[smallestDistanceIndex].collider.GetComponent<SurfaceModifier>().Friction;
           // }
-
-          // we check if the character is standing on a moving platform
-          // _movingPlatformTest = _belowHitsStorage[smallestDistanceIndex].collider.gameObject.MMGetComponentNoAlloc<MMPathMovement>();
-          // if (_movingPlatformTest != null && State.IsGrounded)
-          // {
-          //   _movingPlatform = _movingPlatformTest.GetComponent<MMPathMovement>();
-          // }
-          // else
-          // {
-          //   DetachFromMovingPlatform();
-          // }
         }
         else
         {
           State.IsCollidingBelow = false;
-          if (State.OnAMovingPlatform)
-          {
-            DetachFromMovingPlatform();
-          }
         }
 
         if (Parameters.StickToSlopes)
@@ -1045,7 +983,6 @@ namespace RFG
           || !Parameters.StickToSlopes
           || !State.WasGroundedLastFrame
           || _externalForce.y > 0
-        // || (_movingPlatform != null)
         )
         {
           // edge case for stairs
@@ -1185,6 +1122,12 @@ namespace RFG
 
         // we move our transform to its next position
         _transform.Translate(_newPosition, Space.World);
+
+        if (StandingOn != null)
+        {
+          _activeGlobalPlatformPoint = _transform.position;
+          _activeLocalPlatformPoint = StandingOn.transform.InverseTransformPoint(_transform.position);
+        }
       }
 
       private void ComputeNewSpeed()

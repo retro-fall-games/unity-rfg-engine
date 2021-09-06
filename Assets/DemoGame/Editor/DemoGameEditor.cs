@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -8,7 +8,6 @@ namespace Game
 {
   public class DemoGameEditor : EditorWindow
   {
-
     private const string Path = "Assets/DemoGame";
     private const string ItemsPath = "Assets/DemoGame/Items";
     private const string PickUpsPath = "Assets/DemoGame/Items/PickUps";
@@ -38,12 +37,12 @@ namespace Game
 
       if (GUILayout.Button("Slingshot", GUILayout.Width(150)))
       {
-        CreatePrefab(WeaponsPickUpsPath, "SlingshotPickUp", "WeaponPickUps");
+        CreatePrefab(WeaponsPickUpsPath, "SlingshotPickUp");
       }
       GUILayout.FlexibleSpace();
       if (GUILayout.Button("Shockwave", GUILayout.Width(150)))
       {
-        CreatePrefab(WeaponsPickUpsPath, "ShockwavePickUp", "WeaponPickUps");
+        CreatePrefab(WeaponsPickUpsPath, "ShockwavePickUp");
       }
       GUILayout.FlexibleSpace();
 
@@ -60,12 +59,12 @@ namespace Game
 
       if (GUILayout.Button("Low Health", GUILayout.Width(150)))
       {
-        CreatePrefab(HealthPickUpsPath, "LowHealthPickUp", "HealthPickUps");
+        CreatePrefab(HealthPickUpsPath, "LowHealthPickUp");
       }
       GUILayout.FlexibleSpace();
       if (GUILayout.Button("Max Health", GUILayout.Width(150)))
       {
-        CreatePrefab(HealthPickUpsPath, "MaxHealthPickUp", "HealthPickUps");
+        CreatePrefab(HealthPickUpsPath, "MaxHealthPickUp");
       }
 
       GUILayout.FlexibleSpace();
@@ -83,11 +82,11 @@ namespace Game
 
       if (GUILayout.Button("Dash", GUILayout.Width(150)))
       {
-        CreatePrefab(AbilityPickUpsPath, "DashPickUp", "AbilityPickUps");
+        CreatePrefab(AbilityPickUpsPath, "DashPickUp");
       }
       if (GUILayout.Button("Double Jump", GUILayout.Width(150)))
       {
-        CreatePrefab(AbilityPickUpsPath, "DoubleJumpPickUp", "AbilityPickUps");
+        CreatePrefab(AbilityPickUpsPath, "DoubleJumpPickUp");
       }
 
       GUILayout.FlexibleSpace();
@@ -100,7 +99,7 @@ namespace Game
 
       if (GUILayout.Button("Wall Clinging", GUILayout.Width(150)))
       {
-        CreatePrefab(AbilityPickUpsPath, "WallClingingPickUp", "AbilityPickUps");
+        CreatePrefab(AbilityPickUpsPath, "WallClingingPickUp");
       }
 
       GUILayout.FlexibleSpace();
@@ -118,12 +117,12 @@ namespace Game
 
       if (GUILayout.Button("Checkpoint", GUILayout.Width(150)))
       {
-        CreatePrefab("Assets/AssetPacks/RFG/Interactions/Checkpoints/Prefabs", "Checkpoint", "Checkpoints");
+        CreatePrefab("Assets/AssetPacks/RFG/Interactions/Checkpoints/Prefabs", "Checkpoint");
       }
 
       if (GUILayout.Button("Warp", GUILayout.Width(150)))
       {
-        CreatePrefab("Assets/DemoGame/Interactions/Warps/Prefabs", "Warp", "Warps");
+        CreatePrefab("Assets/DemoGame/Interactions/Warps/Prefabs", "Warp");
       }
 
 
@@ -137,12 +136,12 @@ namespace Game
 
       if (GUILayout.Button("Start", GUILayout.Width(150)))
       {
-        CreatePrefab(LevelPortalsPath, "StartPortal", "LevelPortals");
+        CreatePrefab(LevelPortalsPath, "StartPortal");
       }
 
       if (GUILayout.Button("Exit", GUILayout.Width(150)))
       {
-        CreatePrefab(LevelPortalsPath, "ExitPortal", "LevelPortals");
+        CreatePrefab(LevelPortalsPath, "ExitPortal");
       }
 
 
@@ -156,7 +155,7 @@ namespace Game
 
       if (GUILayout.Button("Trigger", GUILayout.Width(150)))
       {
-        CreatePrefab("Assets/AssetPacks/RFG/Interactions/Trigger/Prefabs", "Trigger", "Triggers");
+        CreatePrefab("Assets/AssetPacks/RFG/Interactions/Trigger/Prefabs", "Trigger");
       }
 
       GUILayout.FlexibleSpace();
@@ -174,11 +173,11 @@ namespace Game
 
       if (GUILayout.Button("Stairs", GUILayout.Width(150)))
       {
-        CreatePrefab(FloorsPath, "Stairs", "Platforms");
+        CreatePrefab(FloorsPath, "Stairs");
       }
       if (GUILayout.Button("One Way", GUILayout.Width(150)))
       {
-        CreatePrefab(FloorsPath, "OneWayPlatform", "Platforms");
+        CreatePrefab(FloorsPath, "OneWayPlatform");
       }
 
       GUILayout.FlexibleSpace();
@@ -191,11 +190,36 @@ namespace Game
 
       if (GUILayout.Button("Moving", GUILayout.Width(150)))
       {
-        CreatePrefab(FloorsPath, "MovingPlatform", "Platforms");
+        CreatePrefab(FloorsPath, "MovingPlatform");
       }
       if (GUILayout.Button("One Way Moving", GUILayout.Width(150)))
       {
-        CreatePrefab(FloorsPath, "OneWayMovingPlatform", "Platforms");
+        CreatePrefab(FloorsPath, "OneWayMovingPlatform");
+      }
+
+      GUILayout.FlexibleSpace();
+
+      GUILayout.EndHorizontal();
+
+      GUILayout.Space(10);
+
+      GUILayout.Label("Navigation");
+      GUILayout.Space(10);
+
+      GUILayout.BeginHorizontal();
+
+      GUILayout.FlexibleSpace();
+
+      if (GUILayout.Button("Movement Path", GUILayout.Width(150)))
+      {
+        CreatePrefab("Assets/AssetPacks/RFG/Navigation/Paths/Prefabs", "MovementPath");
+      }
+
+      GUILayout.FlexibleSpace();
+
+      if (GUILayout.Button("Path", GUILayout.Width(150)))
+      {
+        CreatePrefab("Assets/AssetPacks/RFG/Navigation/Paths/Prefabs", "Path");
       }
 
       GUILayout.FlexibleSpace();
@@ -213,11 +237,11 @@ namespace Game
 
       if (GUILayout.Button("Bat", GUILayout.Width(150)))
       {
-        CreatePrefab("Assets/DemoGame/Character/Characters/Bat/Prefabs", "BatSpawner", "Spawners");
+        CreatePrefab("Assets/DemoGame/Character/Characters/Bat/Prefabs", "BatSpawner");
       }
       if (GUILayout.Button("Robot", GUILayout.Width(150)))
       {
-        CreatePrefab("Assets/DemoGame/Character/Characters/Robot/Prefabs", "RobotSpawner", "Spawners");
+        CreatePrefab("Assets/DemoGame/Character/Characters/Robot/Prefabs", "RobotSpawner");
       }
 
       GUILayout.FlexibleSpace();
@@ -230,7 +254,7 @@ namespace Game
 
       if (GUILayout.Button("Rabbit Robot", GUILayout.Width(150)))
       {
-        CreatePrefab("Assets/DemoGame/Character/Characters/RabbitRobot/Prefabs", "RabbitRobotSpawner", "Spawners");
+        CreatePrefab("Assets/DemoGame/Character/Characters/RabbitRobot/Prefabs", "RabbitRobotSpawner");
       }
 
       GUILayout.FlexibleSpace();
@@ -239,14 +263,13 @@ namespace Game
 
     }
 
-    private void CreatePrefab(string path, string objName, string parent)
+    private void CreatePrefab(string path, string objName)
     {
-      Object obj = AssetDatabase.LoadAssetAtPath($"{path}/{objName}.prefab", typeof(GameObject));
-      GameObject clone = PrefabUtility.InstantiatePrefab(obj) as GameObject;
+      UnityEngine.Object obj = AssetDatabase.LoadAssetAtPath($"{path}/{objName}.prefab", typeof(GameObject));
+      GameObject clone = null;
+      clone = PrefabUtility.InstantiatePrefab(obj) as GameObject;
       Selection.activeObject = clone;
       clone.name = objName;
-      GameObject parentObj = GameObject.Find(parent);
-      clone.transform.SetParent(parentObj.transform);
     }
 
   }
