@@ -294,6 +294,8 @@ MonoBehaviour:
   CurrentState: {fileID: 0}
   CharacterType: 0
   SpawnAt: {fileID: 0}
+  InputPack: {fileID: 11400000, guid: c925b201bb21aef4e85bc2c0a313fbf8, type: 2}
+  SettingsPack: {fileID: 11400000, guid: 56417ebe58e517847a7e8c86732e219d, type: 2}
 --- !u!50 &7725811167184495156
 Rigidbody2D:
   serializedVersion: 4

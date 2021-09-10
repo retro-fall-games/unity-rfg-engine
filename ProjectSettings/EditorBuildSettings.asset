@@ -35,4 +35,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/DemoGame/Scenes/Levels/Level5.unity
     guid: 28aefe82f32faf04180414d0984b0a55
+  - enabled: 1
+    path: Assets/DemoGame/Scenes/Levels/Level6.unity
+    guid: 42a938fde7d498e4490a71617872024d
+  - enabled: 1
+    path: Assets/DemoGame/Scenes/Levels/Level7.unity
+    guid: d3fd70c5ae3106f45954de72c18b0c51
   m_configObjects: {}

@@ -8,7 +8,7 @@ namespace RFG
     [CreateAssetMenu(fileName = "New Death State", menuName = "RFG/Platformer/Character/State/Death")]
     public class DeathState : State
     {
-      public override Type Execute(Transform transform, Animator animator)
+      public override Type Execute(IStateContext context)
       {
         return typeof(DeadState);
       }

@@ -8,33 +8,37 @@ namespace RFG
     [CreateAssetMenu(fileName = "New Spawn State", menuName = "RFG/Platformer/Character/State/Spawn")]
     public class SpawnState : State
     {
-      public override void Enter(Transform transform, Animator animator)
+      public override void Enter(IStateContext context)
       {
-        base.Enter(transform, animator);
+        base.Enter(context);
 
-        HealthBehaviour health = transform.GetComponent<HealthBehaviour>();
-        if (health != null)
+        StateCharacterContext characterContext = context as StateCharacterContext;
+
+        // Reset health
+        characterContext.healthBehaviour?.ResetHealth();
+
+        // If its a player then need to respawn at a player spawn
+        if (characterContext.character.CharacterType == CharacterType.Player)
         {
-          health.ResetHealth();
+          characterContext.character.CalculatePlayerSpawnAt();
         }
-        Character character = transform.GetComponent<Character>();
-        if (character.CharacterType == CharacterType.Player)
-        {
-          character.CalculatePlayerSpawnAt();
-        }
-        transform.gameObject.SetActive(true);
-        character.Controller.SetForce(Vector2.zero);
-        character.Controller.enabled = true;
-        character.EnableAllAbilities();
+
+        // Reenable all the components
+        characterContext.transform.gameObject.SetActive(true);
+        characterContext.controller.SetForce(Vector2.zero);
+        characterContext.controller.enabled = true;
+        characterContext.character.EnableAllAbilities();
       }
 
-      public override Type Execute(Transform transform, Animator animator)
+      public override Type Execute(IStateContext context)
       {
-        Character character = transform.GetComponent<Character>();
-        if (character.SpawnAt != null)
+        // Set the spawn position
+        StateCharacterContext characterContext = context as StateCharacterContext;
+        if (characterContext.character.SpawnAt != null)
         {
-          transform.position = character.SpawnAt.position;
+          characterContext.transform.position = characterContext.character.SpawnAt.position;
         }
+
         return typeof(AliveState);
       }
 

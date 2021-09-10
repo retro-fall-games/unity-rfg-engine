@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36585e6d24cefa4c8266a9dc0cb4a4e, type: 3}
+  m_Name: SettingsPack
+  m_EditorClassIdentifier: 
+  AttackSettings: {fileID: 0}
+  DanglingSettings: {fileID: 11400000, guid: 9b6545bd790c82d4cae38c8038b48db4, type: 2}
+  DashSettings: {fileID: 11400000, guid: 8e739acf839401d40bbfc0680fef64b3, type: 2}
+  HealthSettings: {fileID: 11400000, guid: 4b5a58eacde4e54459160e01f2720899, type: 2}
+  IdleSettings: {fileID: 11400000, guid: 55182c08d6e36ba40917c38759dc7ae1, type: 2}
+  JumpSettings: {fileID: 11400000, guid: bf332cb3ac2612c419d99cedb5216b7a, type: 2}
+  PauseSettings: {fileID: 11400000, guid: 4e32bca53f86989439aae200d8c0f174, type: 2}
+  RunningSettings: {fileID: 0}
+  StairsSettings: {fileID: 11400000, guid: a6ff2dfc6be48754d9cad6eba74cea8a, type: 2}
+  WalkingSettings: {fileID: 11400000, guid: 236ba19ef12adb74e887f04f879687ee, type: 2}
+  WallClingingSettings: {fileID: 11400000, guid: dcbf435cd23f9a049b32efec066c1f67, type: 2}
+  WallJumpSettings: {fileID: 11400000, guid: f3eb2db1c3d57784cb0a6462e5d5c465, type: 2}

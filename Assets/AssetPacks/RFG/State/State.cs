@@ -21,36 +21,38 @@ namespace RFG
     [Tooltip("Define what effect to run when the state exits")]
     public string[] ExitEffects;
 
-    public virtual void Enter(Transform transform, Animator animator)
+    public virtual void Enter(IStateContext context)
     {
-      PlayEffects(transform, EnterEffects);
-      PlayAnimations(animator, EnterClip);
+      PlayEffects(context, EnterEffects);
+      PlayAnimations(context, EnterClip);
     }
 
-    public virtual Type Execute(Transform transform, Animator animator)
+    public virtual Type Execute(IStateContext context)
     {
       return null;
     }
 
-    public virtual void Exit(Transform transform, Animator animator)
+    public virtual void Exit(IStateContext context)
     {
-      PlayEffects(transform, ExitEffects);
-      PlayAnimations(animator, ExitClip);
+      PlayEffects(context, ExitEffects);
+      PlayAnimations(context, ExitClip);
     }
 
-    protected void PlayAnimations(Animator animator, string clip)
+    protected void PlayAnimations(IStateContext context, string clip)
     {
+      StateAnimatorContext animatorContext = context as StateAnimatorContext;
       int hash = Animator.StringToHash(clip);
-      int layerIndex = animator.GetLayerIndex(Layer);
-      if (animator.HasState(layerIndex, hash))
+      int layerIndex = animatorContext.animator.GetLayerIndex(Layer);
+      if (animatorContext.animator.HasState(layerIndex, hash))
       {
-        animator.Play(clip);
+        animatorContext.animator.Play(clip);
       }
     }
 
-    protected void PlayEffects(Transform transform, string[] effects)
+    protected void PlayEffects(IStateContext context, string[] effects)
     {
-      transform.SpawnFromPool("Effects", effects);
+      StateTransformContext transformContext = context as StateTransformContext;
+      transformContext.transform.SpawnFromPool("Effects", effects);
     }
   }
 }

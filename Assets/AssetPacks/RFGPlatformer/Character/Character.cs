@@ -10,11 +10,18 @@ namespace RFG
     [AddComponentMenu("RFG/Platformer/Character/Character")]
     public class Character : StateMachineBehaviour, IPooledObject
     {
-      [Header("Settings")]
+      [Header("Type")]
       public CharacterType CharacterType = CharacterType.Player;
+
+      [Header("Location")]
       public Transform SpawnAt;
 
+      [Header("Settings")]
+      public InputPack InputPack;
+      public SettingsPack SettingsPack;
+
       [HideInInspector]
+      private StateCharacterContext _characterContext = new StateCharacterContext();
       public CharacterController2D Controller => _controller;
       private CharacterController2D _controller;
       private Dictionary<int, LevelPortal> _levelPortals;
@@ -23,7 +30,20 @@ namespace RFG
       protected override void Awake()
       {
         base.Awake();
+        _characterContext = new StateCharacterContext();
+
         _controller = GetComponent<CharacterController2D>();
+
+        _characterContext.transform = transform;
+        _characterContext.animator = GetComponent<Animator>();
+        _characterContext.character = this;
+        _characterContext.controller = _controller;
+        _characterContext.inputPack = InputPack;
+        _characterContext.settingsPack = SettingsPack;
+        _characterContext.healthBehaviour = GetComponent<HealthBehaviour>();
+
+        // Bind the character context
+        Context = _characterContext;
 
         Component[] abilities = GetComponents(typeof(IAbility)) as Component[];
         if (abilities.Length > 0)
@@ -107,6 +127,28 @@ namespace RFG
           foreach (Behaviour ability in _abilities)
           {
             ability.enabled = false;
+          }
+        }
+      }
+
+      private void OnEnable()
+      {
+        if (_characterContext.inputPack != null)
+        {
+          if (_characterContext.inputPack.Movement != null)
+          {
+            _characterContext.inputPack.Movement.action.Enable();
+          }
+        }
+      }
+
+      private void OnDisable()
+      {
+        if (_characterContext.inputPack != null)
+        {
+          if (_characterContext.inputPack.Movement != null)
+          {
+            _characterContext.inputPack.Movement.action.Disable();
           }
         }
       }

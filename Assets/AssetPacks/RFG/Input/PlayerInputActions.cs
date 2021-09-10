@@ -8,12 +8,12 @@ using UnityEngine.InputSystem.Utilities;
 
 namespace RFG
 {
-    public class @PlayerInputActions : IInputActionCollection, IDisposable
+  public class @PlayerInputActions : IInputActionCollection, IDisposable
+  {
+    public InputActionAsset asset { get; }
+    public @PlayerInputActions()
     {
-        public InputActionAsset asset { get; }
-        public @PlayerInputActions()
-        {
-            asset = InputActionAsset.FromJson(@"{
+      asset = InputActionAsset.FromJson(@"{
     ""name"": ""PlayerInputActions"",
     ""maps"": [
         {
@@ -353,168 +353,168 @@ namespace RFG
         }
     ]
 }");
-            // PlayerControls
-            m_PlayerControls = asset.FindActionMap("PlayerControls", throwIfNotFound: true);
-            m_PlayerControls_PrimaryAttack = m_PlayerControls.FindAction("PrimaryAttack", throwIfNotFound: true);
-            m_PlayerControls_SecondaryAttack = m_PlayerControls.FindAction("SecondaryAttack", throwIfNotFound: true);
-            m_PlayerControls_Movement = m_PlayerControls.FindAction("Movement", throwIfNotFound: true);
-            m_PlayerControls_Pause = m_PlayerControls.FindAction("Pause", throwIfNotFound: true);
-            m_PlayerControls_Jump = m_PlayerControls.FindAction("Jump", throwIfNotFound: true);
-            m_PlayerControls_Dash = m_PlayerControls.FindAction("Dash", throwIfNotFound: true);
-            m_PlayerControls_Use = m_PlayerControls.FindAction("Use", throwIfNotFound: true);
-        }
-
-        public void Dispose()
-        {
-            UnityEngine.Object.Destroy(asset);
-        }
-
-        public InputBinding? bindingMask
-        {
-            get => asset.bindingMask;
-            set => asset.bindingMask = value;
-        }
-
-        public ReadOnlyArray<InputDevice>? devices
-        {
-            get => asset.devices;
-            set => asset.devices = value;
-        }
-
-        public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
-
-        public bool Contains(InputAction action)
-        {
-            return asset.Contains(action);
-        }
-
-        public IEnumerator<InputAction> GetEnumerator()
-        {
-            return asset.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        public void Enable()
-        {
-            asset.Enable();
-        }
-
-        public void Disable()
-        {
-            asset.Disable();
-        }
-
-        // PlayerControls
-        private readonly InputActionMap m_PlayerControls;
-        private IPlayerControlsActions m_PlayerControlsActionsCallbackInterface;
-        private readonly InputAction m_PlayerControls_PrimaryAttack;
-        private readonly InputAction m_PlayerControls_SecondaryAttack;
-        private readonly InputAction m_PlayerControls_Movement;
-        private readonly InputAction m_PlayerControls_Pause;
-        private readonly InputAction m_PlayerControls_Jump;
-        private readonly InputAction m_PlayerControls_Dash;
-        private readonly InputAction m_PlayerControls_Use;
-        public struct PlayerControlsActions
-        {
-            private @PlayerInputActions m_Wrapper;
-            public PlayerControlsActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-            public InputAction @PrimaryAttack => m_Wrapper.m_PlayerControls_PrimaryAttack;
-            public InputAction @SecondaryAttack => m_Wrapper.m_PlayerControls_SecondaryAttack;
-            public InputAction @Movement => m_Wrapper.m_PlayerControls_Movement;
-            public InputAction @Pause => m_Wrapper.m_PlayerControls_Pause;
-            public InputAction @Jump => m_Wrapper.m_PlayerControls_Jump;
-            public InputAction @Dash => m_Wrapper.m_PlayerControls_Dash;
-            public InputAction @Use => m_Wrapper.m_PlayerControls_Use;
-            public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
-            public void Enable() { Get().Enable(); }
-            public void Disable() { Get().Disable(); }
-            public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(PlayerControlsActions set) { return set.Get(); }
-            public void SetCallbacks(IPlayerControlsActions instance)
-            {
-                if (m_Wrapper.m_PlayerControlsActionsCallbackInterface != null)
-                {
-                    @PrimaryAttack.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryAttack;
-                    @PrimaryAttack.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryAttack;
-                    @PrimaryAttack.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryAttack;
-                    @SecondaryAttack.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSecondaryAttack;
-                    @SecondaryAttack.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSecondaryAttack;
-                    @SecondaryAttack.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSecondaryAttack;
-                    @Movement.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMovement;
-                    @Movement.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMovement;
-                    @Movement.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMovement;
-                    @Pause.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
-                    @Pause.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
-                    @Pause.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
-                    @Jump.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
-                    @Jump.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
-                    @Jump.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
-                    @Dash.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDash;
-                    @Dash.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDash;
-                    @Dash.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDash;
-                    @Use.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnUse;
-                    @Use.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnUse;
-                    @Use.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnUse;
-                }
-                m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
-                if (instance != null)
-                {
-                    @PrimaryAttack.started += instance.OnPrimaryAttack;
-                    @PrimaryAttack.performed += instance.OnPrimaryAttack;
-                    @PrimaryAttack.canceled += instance.OnPrimaryAttack;
-                    @SecondaryAttack.started += instance.OnSecondaryAttack;
-                    @SecondaryAttack.performed += instance.OnSecondaryAttack;
-                    @SecondaryAttack.canceled += instance.OnSecondaryAttack;
-                    @Movement.started += instance.OnMovement;
-                    @Movement.performed += instance.OnMovement;
-                    @Movement.canceled += instance.OnMovement;
-                    @Pause.started += instance.OnPause;
-                    @Pause.performed += instance.OnPause;
-                    @Pause.canceled += instance.OnPause;
-                    @Jump.started += instance.OnJump;
-                    @Jump.performed += instance.OnJump;
-                    @Jump.canceled += instance.OnJump;
-                    @Dash.started += instance.OnDash;
-                    @Dash.performed += instance.OnDash;
-                    @Dash.canceled += instance.OnDash;
-                    @Use.started += instance.OnUse;
-                    @Use.performed += instance.OnUse;
-                    @Use.canceled += instance.OnUse;
-                }
-            }
-        }
-        public PlayerControlsActions @PlayerControls => new PlayerControlsActions(this);
-        private int m_KeyboardMouseSchemeIndex = -1;
-        public InputControlScheme KeyboardMouseScheme
-        {
-            get
-            {
-                if (m_KeyboardMouseSchemeIndex == -1) m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard & Mouse");
-                return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
-            }
-        }
-        private int m_GamepadSchemeIndex = -1;
-        public InputControlScheme GamepadScheme
-        {
-            get
-            {
-                if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
-                return asset.controlSchemes[m_GamepadSchemeIndex];
-            }
-        }
-        public interface IPlayerControlsActions
-        {
-            void OnPrimaryAttack(InputAction.CallbackContext context);
-            void OnSecondaryAttack(InputAction.CallbackContext context);
-            void OnMovement(InputAction.CallbackContext context);
-            void OnPause(InputAction.CallbackContext context);
-            void OnJump(InputAction.CallbackContext context);
-            void OnDash(InputAction.CallbackContext context);
-            void OnUse(InputAction.CallbackContext context);
-        }
+      // PlayerControls
+      m_PlayerControls = asset.FindActionMap("PlayerControls", throwIfNotFound: true);
+      m_PlayerControls_PrimaryAttack = m_PlayerControls.FindAction("PrimaryAttack", throwIfNotFound: true);
+      m_PlayerControls_SecondaryAttack = m_PlayerControls.FindAction("SecondaryAttack", throwIfNotFound: true);
+      m_PlayerControls_Movement = m_PlayerControls.FindAction("Movement", throwIfNotFound: true);
+      m_PlayerControls_Pause = m_PlayerControls.FindAction("Pause", throwIfNotFound: true);
+      m_PlayerControls_Jump = m_PlayerControls.FindAction("Jump", throwIfNotFound: true);
+      m_PlayerControls_Dash = m_PlayerControls.FindAction("Dash", throwIfNotFound: true);
+      m_PlayerControls_Use = m_PlayerControls.FindAction("Use", throwIfNotFound: true);
     }
+
+    public void Dispose()
+    {
+      UnityEngine.Object.Destroy(asset);
+    }
+
+    public InputBinding? bindingMask
+    {
+      get => asset.bindingMask;
+      set => asset.bindingMask = value;
+    }
+
+    public ReadOnlyArray<InputDevice>? devices
+    {
+      get => asset.devices;
+      set => asset.devices = value;
+    }
+
+    public ReadOnlyArray<InputControlScheme> controlSchemes => asset.controlSchemes;
+
+    public bool Contains(InputAction action)
+    {
+      return asset.Contains(action);
+    }
+
+    public IEnumerator<InputAction> GetEnumerator()
+    {
+      return asset.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+      return GetEnumerator();
+    }
+
+    public void Enable()
+    {
+      asset.Enable();
+    }
+
+    public void Disable()
+    {
+      asset.Disable();
+    }
+
+    // PlayerControls
+    private readonly InputActionMap m_PlayerControls;
+    private IPlayerControlsActions m_PlayerControlsActionsCallbackInterface;
+    private readonly InputAction m_PlayerControls_PrimaryAttack;
+    private readonly InputAction m_PlayerControls_SecondaryAttack;
+    private readonly InputAction m_PlayerControls_Movement;
+    private readonly InputAction m_PlayerControls_Pause;
+    private readonly InputAction m_PlayerControls_Jump;
+    private readonly InputAction m_PlayerControls_Dash;
+    private readonly InputAction m_PlayerControls_Use;
+    public struct PlayerControlsActions
+    {
+      private @PlayerInputActions m_Wrapper;
+      public PlayerControlsActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+      public InputAction @PrimaryAttack => m_Wrapper.m_PlayerControls_PrimaryAttack;
+      public InputAction @SecondaryAttack => m_Wrapper.m_PlayerControls_SecondaryAttack;
+      public InputAction @Movement => m_Wrapper.m_PlayerControls_Movement;
+      public InputAction @Pause => m_Wrapper.m_PlayerControls_Pause;
+      public InputAction @Jump => m_Wrapper.m_PlayerControls_Jump;
+      public InputAction @Dash => m_Wrapper.m_PlayerControls_Dash;
+      public InputAction @Use => m_Wrapper.m_PlayerControls_Use;
+      public InputActionMap Get() { return m_Wrapper.m_PlayerControls; }
+      public void Enable() { Get().Enable(); }
+      public void Disable() { Get().Disable(); }
+      public bool enabled => Get().enabled;
+      public static implicit operator InputActionMap(PlayerControlsActions set) { return set.Get(); }
+      public void SetCallbacks(IPlayerControlsActions instance)
+      {
+        if (m_Wrapper.m_PlayerControlsActionsCallbackInterface != null)
+        {
+          @PrimaryAttack.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryAttack;
+          @PrimaryAttack.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryAttack;
+          @PrimaryAttack.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPrimaryAttack;
+          @SecondaryAttack.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSecondaryAttack;
+          @SecondaryAttack.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSecondaryAttack;
+          @SecondaryAttack.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnSecondaryAttack;
+          @Movement.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMovement;
+          @Movement.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMovement;
+          @Movement.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnMovement;
+          @Pause.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
+          @Pause.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
+          @Pause.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnPause;
+          @Jump.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
+          @Jump.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
+          @Jump.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnJump;
+          @Dash.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDash;
+          @Dash.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDash;
+          @Dash.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnDash;
+          @Use.started -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnUse;
+          @Use.performed -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnUse;
+          @Use.canceled -= m_Wrapper.m_PlayerControlsActionsCallbackInterface.OnUse;
+        }
+        m_Wrapper.m_PlayerControlsActionsCallbackInterface = instance;
+        if (instance != null)
+        {
+          @PrimaryAttack.started += instance.OnPrimaryAttack;
+          @PrimaryAttack.performed += instance.OnPrimaryAttack;
+          @PrimaryAttack.canceled += instance.OnPrimaryAttack;
+          @SecondaryAttack.started += instance.OnSecondaryAttack;
+          @SecondaryAttack.performed += instance.OnSecondaryAttack;
+          @SecondaryAttack.canceled += instance.OnSecondaryAttack;
+          @Movement.started += instance.OnMovement;
+          @Movement.performed += instance.OnMovement;
+          @Movement.canceled += instance.OnMovement;
+          @Pause.started += instance.OnPause;
+          @Pause.performed += instance.OnPause;
+          @Pause.canceled += instance.OnPause;
+          @Jump.started += instance.OnJump;
+          @Jump.performed += instance.OnJump;
+          @Jump.canceled += instance.OnJump;
+          @Dash.started += instance.OnDash;
+          @Dash.performed += instance.OnDash;
+          @Dash.canceled += instance.OnDash;
+          @Use.started += instance.OnUse;
+          @Use.performed += instance.OnUse;
+          @Use.canceled += instance.OnUse;
+        }
+      }
+    }
+    public PlayerControlsActions @PlayerControls => new PlayerControlsActions(this);
+    private int m_KeyboardMouseSchemeIndex = -1;
+    public InputControlScheme KeyboardMouseScheme
+    {
+      get
+      {
+        if (m_KeyboardMouseSchemeIndex == -1) m_KeyboardMouseSchemeIndex = asset.FindControlSchemeIndex("Keyboard & Mouse");
+        return asset.controlSchemes[m_KeyboardMouseSchemeIndex];
+      }
+    }
+    private int m_GamepadSchemeIndex = -1;
+    public InputControlScheme GamepadScheme
+    {
+      get
+      {
+        if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+        return asset.controlSchemes[m_GamepadSchemeIndex];
+      }
+    }
+    public interface IPlayerControlsActions
+    {
+      void OnPrimaryAttack(InputAction.CallbackContext context);
+      void OnSecondaryAttack(InputAction.CallbackContext context);
+      void OnMovement(InputAction.CallbackContext context);
+      void OnPause(InputAction.CallbackContext context);
+      void OnJump(InputAction.CallbackContext context);
+      void OnDash(InputAction.CallbackContext context);
+      void OnUse(InputAction.CallbackContext context);
+    }
+  }
 }

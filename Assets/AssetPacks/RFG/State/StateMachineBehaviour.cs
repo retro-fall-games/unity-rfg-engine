@@ -12,16 +12,23 @@ namespace RFG
     public State CurrentState;
     public Type PreviousStateType { get; private set; }
     public Type CurrentStateType { get; private set; }
+    public IStateContext Context { get { return _context; } set { _context = value; } }
 
     [HideInInspector]
     private Dictionary<Type, State> _states;
-    private Transform _transform;
-    private Animator _animator;
+    private IStateContext _context;
 
     protected virtual void Awake()
     {
-      _transform = transform;
-      _animator = GetComponent<Animator>();
+      // Set the default context
+      StateAnimatorContext context = new StateAnimatorContext();
+      context.transform = transform;
+      context.animator = GetComponent<Animator>();
+
+      // Set the context interface
+      _context = context;
+
+      // Setup the states
       _states = new Dictionary<Type, State>();
       foreach (State state in States)
       {
@@ -36,7 +43,7 @@ namespace RFG
 
     private void Update()
     {
-      Type newStateType = CurrentState.Execute(_transform, _animator);
+      Type newStateType = CurrentState.Execute(_context);
       if (newStateType != null)
       {
         ChangeState(newStateType);
@@ -52,11 +59,11 @@ namespace RFG
       if (CurrentState != null)
       {
         PreviousStateType = CurrentState.GetType();
-        CurrentState.Exit(_transform, _animator);
+        CurrentState.Exit(_context);
       }
       CurrentState = _states[newStateType];
       CurrentStateType = newStateType;
-      CurrentState.Enter(_transform, _animator);
+      CurrentState.Enter(_context);
     }
 
     public void ResetToDefaultState()

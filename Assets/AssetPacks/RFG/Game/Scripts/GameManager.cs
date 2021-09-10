@@ -55,12 +55,5 @@ namespace RFG
 #endif
     }
 
-#if UNITY_EDITOR
-    private void OnGUI()
-    {
-      GUI.Label(new Rect(0, 0, 300, 100), "FPS: " + ((int)(1.0f / Time.smoothDeltaTime)).ToString());
-    }
-#endif
-
   }
 }

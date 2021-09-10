@@ -8,32 +8,24 @@ namespace RFG
     [AddComponentMenu("RFG/Platformer/Character/Ability/Walking")]
     public class WalkingAbility : MonoBehaviour, IAbility
     {
-      [Header("Input")]
-      /// <summary>Input Action to read the xy axis</summary>
-      [Tooltip("Input Action to read the xy axis")]
-      public InputActionReference XYAxis;
-
-      [Header("Settings")]
-      /// <summary>Idle Settings for animations</summary>
-      [Tooltip("Idle Settings for animations")]
-      public IdleSettings IdleSettings;
-
-      /// <summary>Walking Settings to know if there is any input and changing state</summary>
-      [Tooltip("Walking Settings to know if there is any input and changing state")]
-      public WalkingSettings WalkingSettings;
-
       [HideInInspector]
-      private Transform _transform;
+      private StateCharacterContext _context;
       private Character _character;
       private CharacterController2D _controller;
-      private Animator _animator;
+      private CharacterControllerState2D _state;
+      private InputActionReference _movement;
+      private IdleSettings _idleSettings;
+      private WalkingSettings _walkingSettings;
 
-      private void Awake()
+      private void Start()
       {
-        _transform = transform;
         _character = GetComponent<Character>();
-        _controller = GetComponent<CharacterController2D>();
-        _animator = GetComponent<Animator>();
+        _context = _character.Context as StateCharacterContext;
+        _controller = _context.controller;
+        _state = _controller.State;
+        _movement = _context.inputPack.Movement;
+        _idleSettings = _context.settingsPack.IdleSettings;
+        _walkingSettings = _context.settingsPack.WalkingSettings;
       }
 
       private void Update()
@@ -43,48 +35,48 @@ namespace RFG
           return;
         }
 
-        float horizontalSpeed = XYAxis.action.ReadValue<Vector2>().x;
+        float horizontalSpeed = _movement.action.ReadValue<Vector2>().x;
 
         if (horizontalSpeed > 0f)
         {
-          if (!_controller.State.IsFacingRight && !_controller.rotateOnMouseCursor)
+          if (!_state.IsFacingRight && !_controller.rotateOnMouseCursor)
           {
             _controller.Flip();
           }
         }
         else if (horizontalSpeed < 0f)
         {
-          if (_controller.State.IsFacingRight && !_controller.rotateOnMouseCursor)
+          if (_state.IsFacingRight && !_controller.rotateOnMouseCursor)
           {
             _controller.Flip();
           }
         }
 
         // If the movement state is dashing return so it wont get set back to idle
-        if (_controller.State.IsDashing)
+        if (_state.IsDashing)
         {
           return;
         }
 
-        if ((!_controller.State.IsJumping && !_controller.State.IsFalling && _controller.State.IsGrounded) || _controller.State.JustGotGrounded)
+        if ((!_state.IsJumping && !_state.IsFalling && _state.IsGrounded) || _state.JustGotGrounded)
         {
           if (horizontalSpeed == 0)
           {
-            _controller.State.IsIdle = true;
-            _controller.State.IsWalking = false;
-            _animator.Play(IdleSettings.IdleClip);
+            _state.IsIdle = true;
+            _state.IsWalking = false;
+            _context.animator.Play(_idleSettings.IdleClip);
           }
           else
           {
-            _controller.State.IsIdle = false;
-            _controller.State.IsWalking = true;
-            _transform.SpawnFromPool("Effects", WalkingSettings.WalkingEffects);
-            _animator.Play(WalkingSettings.WalkingClip);
+            _state.IsIdle = false;
+            _state.IsWalking = true;
+            _context.transform.SpawnFromPool("Effects", _walkingSettings.WalkingEffects);
+            _context.animator.Play(_walkingSettings.WalkingClip);
           }
         }
 
-        float movementFactor = _controller.State.IsGrounded ? _controller.Parameters.GroundSpeedFactor : _controller.Parameters.AirSpeedFactor;
-        float movementSpeed = horizontalSpeed * WalkingSettings.WalkingSpeed * _controller.Parameters.SpeedFactor;
+        float movementFactor = _state.IsGrounded ? _controller.Parameters.GroundSpeedFactor : _controller.Parameters.AirSpeedFactor;
+        float movementSpeed = horizontalSpeed * _walkingSettings.WalkingSpeed * _controller.Parameters.SpeedFactor;
         float horizontalMovementForce = Mathf.Lerp(_controller.Speed.x, movementSpeed, Time.deltaTime * movementFactor);
 
         // add any external forces that may be active right now
@@ -125,26 +117,15 @@ namespace RFG
 
       protected virtual void DetectWalls()
       {
-        if ((_controller.State.IsWalking || _controller.State.IsRunning))
+        if ((_state.IsWalking || _state.IsRunning))
         {
-          if ((_controller.State.IsCollidingLeft) || (_controller.State.IsCollidingRight))
+          if ((_state.IsCollidingLeft) || (_state.IsCollidingRight))
           {
-            _controller.State.IsWalking = false;
-            _controller.State.IsRunning = false;
+            _state.IsWalking = false;
+            _state.IsRunning = false;
           }
         }
       }
-
-      private void OnEnable()
-      {
-        XYAxis.action.Enable();
-      }
-
-      private void OnDisable()
-      {
-        XYAxis.action.Disable();
-      }
-
     }
   }
 }

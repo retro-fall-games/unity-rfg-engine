@@ -7,17 +7,17 @@ namespace RFG
     [CreateAssetMenu(fileName = "New Dead State", menuName = "RFG/Platformer/Character/State/Dead")]
     public class DeadState : State
     {
-      public override void Enter(Transform transform, Animator animator)
+      public override void Enter(IStateContext context)
       {
-        base.Enter(transform, animator);
-        Character character = transform.GetComponent<Character>();
-        if (character.CharacterType == CharacterType.Player)
+        base.Enter(context);
+        StateCharacterContext characterContext = context as StateCharacterContext;
+        if (characterContext.character.CharacterType == CharacterType.Player)
         {
-          GameManager.Instance.StartCoroutine(character.Respawn());
+          GameManager.Instance.StartCoroutine(characterContext.character.Respawn());
         }
-        character.Controller.enabled = false;
-        character.DisableAllAbilities();
-        transform.gameObject.SetActive(false);
+        characterContext.controller.enabled = false;
+        characterContext.character.DisableAllAbilities();
+        characterContext.transform.gameObject.SetActive(false);
       }
     }
   }
