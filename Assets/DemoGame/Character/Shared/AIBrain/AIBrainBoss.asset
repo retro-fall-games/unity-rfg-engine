@@ -12,19 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce4742a76b8cc8e4694c5fe22821bc2a, type: 3}
   m_Name: AIBrainBoss
   m_EditorClassIdentifier: 
-  DefaultBrain: {fileID: 0}
-  OverrideDefaultStates: 0
-  OverrideDefaultDecisionTrees: 0
-  OverrideDefaultSettings: 0
-  States:
-  - {fileID: 11400000, guid: fd54f737a6b08724896b57aa4214dfcc, type: 2}
-  - {fileID: 11400000, guid: 71f719909088dde4ea3a262d61101d81, type: 2}
-  - {fileID: 11400000, guid: 00b1480583dde564c8aebad6e32e9309, type: 2}
-  DefaultState: {fileID: 11400000, guid: fd54f737a6b08724896b57aa4214dfcc, type: 2}
+  States: []
+  DefaultState: {fileID: 0}
   RootDecision: {fileID: 11400000, guid: 4b56ee818a296f0478406303cb7a01f7, type: 2}
   AggroRootDecision: {fileID: 11400000, guid: 4b56ee818a296f0478406303cb7a01f7, type: 2}
-  IdleSettings: {fileID: 0}
-  AttackSettings: {fileID: 0}
-  WalkingSettings: {fileID: 0}
-  RunningSettings: {fileID: 0}
-  JumpSettings: {fileID: 0}
+  CanFollowVertically: 0
+  BaseAIBrain: {fileID: 11400000, guid: 8bb046e5ca2f19a4792739bf9b3f7c42, type: 2}

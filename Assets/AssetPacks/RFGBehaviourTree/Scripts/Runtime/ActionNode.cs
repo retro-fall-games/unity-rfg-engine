@@ -1,6 +1,9 @@
 namespace RFG
 {
-  public abstract class ActionNode : Node
+  namespace BehaviourTree
   {
+    public abstract class ActionNode : Node
+    {
+    }
   }
 }

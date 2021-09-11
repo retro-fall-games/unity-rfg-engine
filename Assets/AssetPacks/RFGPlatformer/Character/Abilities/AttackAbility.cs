@@ -9,21 +9,25 @@ namespace RFG
     [AddComponentMenu("RFG/Platformer/Character/Ability/Attack")]
     public class AttackAbility : MonoBehaviour, IAbility
     {
-      [Header("Input")]
-      /// <summary>Input Action to initiate the Primary Attack</summary>
-      [Tooltip("Input Action to initiate the Primary Attack")]
-      public InputActionReference PrimaryAttackInput;
-
-      /// <summary>Input Action to initiate the Secondary Attack</summary>
-      [Tooltip("Input Action to initiate the Secondary Attack")]
-      public InputActionReference SecondaryAttackInput;
-
       [HideInInspector]
+      private Character _character;
       private EquipmentSet _equipmentSet;
+      private InputActionReference _primaryAttackInput;
+      private InputActionReference _secondaryAttackInput;
 
       private void Awake()
       {
+        _character = GetComponent<Character>();
         _equipmentSet = GetComponent<EquipmentSet>();
+      }
+
+      private void Start()
+      {
+        _primaryAttackInput = _character.Context.inputPack.PrimaryAttackInput;
+        _secondaryAttackInput = _character.Context.inputPack.SecondaryAttackInput;
+
+        // Setup Events
+        OnEnable();
       }
 
       public void OnPrimaryAttackStarted(InputAction.CallbackContext ctx)
@@ -82,28 +86,44 @@ namespace RFG
 
       private void OnEnable()
       {
-        PrimaryAttackInput.action.Enable();
-        PrimaryAttackInput.action.started += OnPrimaryAttackStarted;
-        PrimaryAttackInput.action.canceled += OnPrimaryAttackCanceled;
-        PrimaryAttackInput.action.performed += OnPrimaryAttackPerformed;
 
-        SecondaryAttackInput.action.Enable();
-        SecondaryAttackInput.action.started += OnSecondaryAttackStarted;
-        SecondaryAttackInput.action.canceled += OnSecondaryAttackCanceled;
-        SecondaryAttackInput.action.performed += OnSecondaryAttackPerformed;
+        // Make sure to setup new events
+        OnDisable();
+
+        if (_primaryAttackInput != null)
+        {
+          _primaryAttackInput.action.Enable();
+          _primaryAttackInput.action.started += OnPrimaryAttackStarted;
+          _primaryAttackInput.action.canceled += OnPrimaryAttackCanceled;
+          _primaryAttackInput.action.performed += OnPrimaryAttackPerformed;
+        }
+
+        if (_secondaryAttackInput != null)
+        {
+          _secondaryAttackInput.action.Enable();
+          _secondaryAttackInput.action.started += OnSecondaryAttackStarted;
+          _secondaryAttackInput.action.canceled += OnSecondaryAttackCanceled;
+          _secondaryAttackInput.action.performed += OnSecondaryAttackPerformed;
+        }
       }
 
       private void OnDisable()
       {
-        PrimaryAttackInput.action.Disable();
-        PrimaryAttackInput.action.started -= OnPrimaryAttackStarted;
-        PrimaryAttackInput.action.canceled -= OnPrimaryAttackCanceled;
-        PrimaryAttackInput.action.performed -= OnPrimaryAttackPerformed;
+        if (_primaryAttackInput != null)
+        {
+          _primaryAttackInput.action.Disable();
+          _primaryAttackInput.action.started -= OnPrimaryAttackStarted;
+          _primaryAttackInput.action.canceled -= OnPrimaryAttackCanceled;
+          _primaryAttackInput.action.performed -= OnPrimaryAttackPerformed;
+        }
 
-        SecondaryAttackInput.action.Disable();
-        SecondaryAttackInput.action.started -= OnSecondaryAttackStarted;
-        SecondaryAttackInput.action.canceled -= OnSecondaryAttackCanceled;
-        SecondaryAttackInput.action.performed -= OnSecondaryAttackPerformed;
+        if (_secondaryAttackInput != null)
+        {
+          _secondaryAttackInput.action.Disable();
+          _secondaryAttackInput.action.started -= OnSecondaryAttackStarted;
+          _secondaryAttackInput.action.canceled -= OnSecondaryAttackCanceled;
+          _secondaryAttackInput.action.performed -= OnSecondaryAttackPerformed;
+        }
       }
 
     }

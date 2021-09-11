@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce4742a76b8cc8e4694c5fe22821bc2a, type: 3}
   m_Name: AIBrainMovementPath
   m_EditorClassIdentifier: 
-  States:
-  - {fileID: 11400000, guid: 00b1480583dde564c8aebad6e32e9309, type: 2}
-  - {fileID: 11400000, guid: ce4b8d774b7fc0c4287d81304a06cd27, type: 2}
-  DefaultState: {fileID: 11400000, guid: 00b1480583dde564c8aebad6e32e9309, type: 2}
+  States: []
+  DefaultState: {fileID: 0}
+  RootDecision: {fileID: 0}
+  AggroRootDecision: {fileID: 0}
+  CanFollowVertically: 0
+  BaseAIBrain: {fileID: 11400000, guid: 8bb046e5ca2f19a4792739bf9b3f7c42, type: 2}

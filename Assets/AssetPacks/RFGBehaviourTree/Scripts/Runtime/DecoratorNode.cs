@@ -2,15 +2,18 @@ using UnityEngine;
 
 namespace RFG
 {
-  public abstract class DecoratorNode : Node
+  namespace BehaviourTree
   {
-    [HideInInspector] public Node child;
-
-    public override Node Clone()
+    public abstract class DecoratorNode : Node
     {
-      DecoratorNode node = Instantiate(this);
-      node.child = child.Clone();
-      return node;
+      [HideInInspector] public Node child;
+
+      public override Node Clone()
+      {
+        DecoratorNode node = Instantiate(this);
+        node.child = child.Clone();
+        return node;
+      }
     }
   }
 }

@@ -8,42 +8,7 @@ namespace RFG
     [CreateAssetMenu(fileName = "New AI Brain", menuName = "RFG/Platformer/Character/AI State/Brain")]
     public class AIBrain : ScriptableObject
     {
-      [Serializable]
-      public class SettingsSetOverride
-      {
-        [Header("Settings")]
-        /// <summary>Idle Settings to know effects</summary>
-        [Tooltip("Idle Settings to know effects")]
-        public IdleSettings IdleSettings;
-
-        /// <summary>Attack Settings to know speed and effects</summary>
-        [Tooltip("Attack Settings to know speed and effects")]
-        public AttackSettings AttackSettings;
-
-        /// <summary>Walking Settings to know how fast to move horizontally</summary>
-        [Tooltip("Walking Settings to know how fast to move horizontally when aggro is false")]
-        public WalkingSettings WalkingSettings;
-
-        /// <summary>Running Settings to know how fast to move horizontally</summary>
-        [Tooltip("Running Settings to know how fast to move horizontally when aggro is true")]
-        public RunningSettings RunningSettings;
-
-        /// <summary>Jump Settings to know how many jumps left and jump restrictions</summary>
-        [Tooltip("Jump Settings to know how many jumps left and jump restrictions")]
-        public JumpSettings JumpSettings;
-
-        /// <summary>Dangling Settings to know raycast info</summary>
-        [Tooltip("Dangling Settings to know raycast info")]
-        public DanglingSettings DanglingSettings;
-      }
-
-
-      [Header("Brain States")]
-      public AIBrain DefaultBrain;
-      public bool OverrideDefaultStates = false;
-      public bool OverrideDefaultDecisionTrees = false;
-      public bool OverrideDefaultSettings = false;
-      public bool OverrideDefaultSettingsSetOverrides = false;
+      [Header("States")]
       public AIState[] States;
       public AIState DefaultState;
 
@@ -60,34 +25,8 @@ namespace RFG
       [Tooltip("This is meant for flying ai, can the ai follow vertically")]
       public bool CanFollowVertically = false;
 
-      /// <summary>Idle Settings to know effects</summary>
-      [Tooltip("Idle Settings to know effects")]
-      public IdleSettings IdleSettings;
-
-      /// <summary>Attack Settings to know speed and effects</summary>
-      [Tooltip("Attack Settings to know speed and effects")]
-      public AttackSettings AttackSettings;
-
-      /// <summary>Walking Settings to know how fast to move horizontally</summary>
-      [Tooltip("Walking Settings to know how fast to move horizontally when aggro is false")]
-      public WalkingSettings WalkingSettings;
-
-      /// <summary>Running Settings to know how fast to move horizontally</summary>
-      [Tooltip("Running Settings to know how fast to move horizontally when aggro is true")]
-      public RunningSettings RunningSettings;
-
-      /// <summary>Jump Settings to know how many jumps left and jump restrictions</summary>
-      [Tooltip("Jump Settings to know how many jumps left and jump restrictions")]
-      public JumpSettings JumpSettings;
-
-      /// <summary>Dangling Settings to know raycast info</summary>
-      [Tooltip("Dangling Settings to know raycast info")]
-      public DanglingSettings DanglingSettings;
-
-      [Header("Overrides")]
-      /// <summary>Settings Set Override, useful for bosses that go into different modes</summary>
-      [Tooltip("Settings Set Override, useful for bosses that go into different modes")]
-      public SettingsSetOverride[] SettingsSetOverrides;
+      [Header("Base")]
+      public AIBrain BaseAIBrain;
 
     }
   }

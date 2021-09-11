@@ -20,7 +20,7 @@ namespace RFG
       private void Start()
       {
         _character = GetComponent<Character>();
-        _context = _character.Context as StateCharacterContext;
+        _context = _character.Context;
         _controller = _context.controller;
         _state = _controller.State;
         _movement = _context.inputPack.Movement;

@@ -8,36 +8,40 @@ namespace RFG
     [AddComponentMenu("RFG/Platformer/Character/Ability/Wall Jump")]
     public class WallJumpAbility : MonoBehaviour, IAbility
     {
-      [Header("Input")]
-      /// <summary>Input Action to initiate the Wall Jump State</summary>
-      [Tooltip("Input Action to initiate the Wall Jump State")]
-      public InputActionReference WallJumpInput;
-
-      /// <summary>Input Action to read the xy axis</summary>
-      [Tooltip("Input Action to read the xy axis")]
-      public InputActionReference XYAxis;
-
-      [Header("Settings")]
-      /// <summary>Wall Jump Settings to know threshold and force</summary>
-      [Tooltip("Wall Jump Settings to know threshold and force")]
-      public WallJumpSettings WallJumpSettings;
       public bool HasAbility;
 
       [HideInInspector]
       private Transform _transform;
+      private Character _character;
       private CharacterController2D _controller;
+      private CharacterControllerState2D _state;
       private Animator _animator;
+      private InputActionReference _wallJumpInput;
+      private InputActionReference _movement;
+      private WallJumpSettings _wallJumpSettings;
 
       private void Awake()
       {
-        _transform = GetComponent<Transform>();
-        _controller = GetComponent<CharacterController2D>();
-        _animator = GetComponent<Animator>();
+        _transform = transform;
+        _character = GetComponent<Character>();
+      }
+
+      private void Start()
+      {
+        _animator = _character.Context.animator;
+        _controller = _character.Context.controller;
+        _state = _character.Context.controller.State;
+        _movement = _character.Context.inputPack.Movement;
+        _wallJumpInput = _character.Context.inputPack.JumpInput;
+        _wallJumpSettings = _character.Context.settingsPack.WallJumpSettings;
+
+        // Setup events
+        OnEnable();
       }
 
       private void OnJumpStarted(InputAction.CallbackContext ctx)
       {
-        if (HasAbility && _controller.State.IsWallClinging)
+        if (HasAbility && _state.IsWallClinging)
         {
           WallJump();
         }
@@ -45,15 +49,15 @@ namespace RFG
 
       private void WallJump()
       {
-        _transform.SpawnFromPool("Effects", WallJumpSettings.JumpEffects);
-        _animator.Play(WallJumpSettings.WallJumpClip);
-        _controller.State.IsWallJumping = true;
+        _transform.SpawnFromPool("Effects", _wallJumpSettings.JumpEffects);
+        _animator.Play(_wallJumpSettings.WallJumpClip);
+        _state.IsWallJumping = true;
         _controller.SlowFall(0f);
 
-        Vector2 _movementVector = XYAxis.action.ReadValue<Vector2>();
+        Vector2 _movementVector = _movement.action.ReadValue<Vector2>();
         float _horizontalInput = _movementVector.x;
-        bool isClingingLeft = _controller.State.IsCollidingLeft && _horizontalInput <= -WallJumpSettings.Threshold;
-        bool isClingingRight = _controller.State.IsCollidingRight && _horizontalInput >= WallJumpSettings.Threshold;
+        bool isClingingLeft = _state.IsCollidingLeft && _horizontalInput <= -_wallJumpSettings.Threshold;
+        bool isClingingRight = _state.IsCollidingRight && _horizontalInput >= _wallJumpSettings.Threshold;
 
         float wallJumpDirection;
         if (isClingingRight)
@@ -65,23 +69,30 @@ namespace RFG
           wallJumpDirection = 1f;
         }
 
-        Vector2 wallJumpVector = new Vector2(wallJumpDirection * WallJumpSettings.WallJumpForce.x, Mathf.Sqrt(2f * WallJumpSettings.WallJumpForce.y * Mathf.Abs(_controller.Parameters.Gravity)));
+        Vector2 wallJumpVector = new Vector2(wallJumpDirection * _wallJumpSettings.WallJumpForce.x, Mathf.Sqrt(2f * _wallJumpSettings.WallJumpForce.y * Mathf.Abs(_controller.Parameters.Gravity)));
 
         _controller.AddForce(wallJumpVector);
       }
 
       private void OnEnable()
       {
-        XYAxis.action.Enable();
-        WallJumpInput.action.Enable();
-        WallJumpInput.action.started += OnJumpStarted;
+        // Make sure to setup new events
+        OnDisable();
+
+        if (_wallJumpInput != null)
+        {
+          _wallJumpInput.action.Enable();
+          _wallJumpInput.action.started += OnJumpStarted;
+        }
       }
 
       private void OnDisable()
       {
-        XYAxis.action.Disable();
-        WallJumpInput.action.Disable();
-        WallJumpInput.action.started -= OnJumpStarted;
+        if (_wallJumpInput != null)
+        {
+          _wallJumpInput.action.Disable();
+          _wallJumpInput.action.started -= OnJumpStarted;
+        }
       }
 
     }

@@ -21,6 +21,7 @@ namespace RFG
       public SettingsPack SettingsPack;
 
       [HideInInspector]
+      public new StateCharacterContext Context => _characterContext;
       private StateCharacterContext _characterContext = new StateCharacterContext();
       public CharacterController2D Controller => _controller;
       private CharacterController2D _controller;
@@ -39,11 +40,11 @@ namespace RFG
         _characterContext.character = this;
         _characterContext.controller = _controller;
         _characterContext.inputPack = InputPack;
-        _characterContext.settingsPack = SettingsPack;
+        _characterContext.DefaultSettingsPack = SettingsPack;
         _characterContext.healthBehaviour = GetComponent<HealthBehaviour>();
 
-        // Bind the character context
-        Context = _characterContext;
+        // Bind the character context to the state context
+        base.Context = _characterContext;
 
         Component[] abilities = GetComponents(typeof(IAbility)) as Component[];
         if (abilities.Length > 0)
@@ -60,6 +61,21 @@ namespace RFG
             _levelPortals.Add(portal.Index, portal);
           }
         }
+      }
+
+      public void SetCurrentSettingsPack(int overrideIndex)
+      {
+        _characterContext.SetCurrentSettingsPack(overrideIndex);
+      }
+
+      public void OverrideSettingsPack(SettingsPack settings)
+      {
+        _characterContext.OverrideSettingsPack(settings);
+      }
+
+      public void ResetSettingsPack()
+      {
+        _characterContext.ResetSettingsPack();
       }
 
       public void OnObjectSpawn(params object[] objects)

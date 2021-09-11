@@ -2,28 +2,31 @@ using UnityEngine;
 
 namespace RFG
 {
-  public class RootNode : Node
+  namespace BehaviourTree
   {
-    [HideInInspector] public Node child;
-
-    protected override void OnStart()
+    public class RootNode : Node
     {
-    }
+      [HideInInspector] public Node child;
 
-    protected override void OnStop()
-    {
-    }
+      protected override void OnStart()
+      {
+      }
 
-    protected override State OnUpdate()
-    {
-      return child.Update();
-    }
+      protected override void OnStop()
+      {
+      }
 
-    public override Node Clone()
-    {
-      RootNode node = Instantiate(this);
-      node.child = child.Clone();
-      return node;
+      protected override State OnUpdate()
+      {
+        return child.Update();
+      }
+
+      public override Node Clone()
+      {
+        RootNode node = Instantiate(this);
+        node.child = child.Clone();
+        return node;
+      }
     }
   }
 }

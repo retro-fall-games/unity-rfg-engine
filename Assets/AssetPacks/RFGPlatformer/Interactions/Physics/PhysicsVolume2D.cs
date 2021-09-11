@@ -7,8 +7,6 @@ namespace RFG
     [AddComponentMenu("RFG/Platformer/Interactions/Physics/PhysicsVolume2D")]
     public class PhysicsVolume2D : MonoBehaviour
     {
-      public enum VolumeType { Water }
-      public VolumeType volumeType = VolumeType.Water;
       public CharacterControllerParameters2D parameters;
 
       private void OnTriggerEnter2D(Collider2D other)
@@ -19,11 +17,7 @@ namespace RFG
           character.SetForce(Vector2.zero);
           character.SetOverrideParameters(parameters);
         }
-        JumpAbility jumpAbility = other.gameObject.GetComponent<JumpAbility>();
-        if (jumpAbility != null)
-        {
-          jumpAbility.JumpSettings.Restrictions = JumpSettings.JumpRestrictions.CanJumpAnywhere;
-        }
+        // TODO - also add override for settings pack or input
       }
 
       private void OnTriggerExit2D(Collider2D other)
@@ -34,11 +28,7 @@ namespace RFG
           character.SetForce(Vector2.zero);
           character.SetOverrideParameters(null);
         }
-        JumpAbility jumpAbility = other.gameObject.GetComponent<JumpAbility>();
-        if (jumpAbility != null)
-        {
-          jumpAbility.JumpSettings.Restrictions = JumpSettings.JumpRestrictions.CanJumpOnGround;
-        }
+        // TODO - also add override for settings pack or input
       }
     }
   }

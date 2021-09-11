@@ -426,9 +426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1613ba45188697d4798f94f2a7887541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  XYAxis: {fileID: -328637352972670201, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
-  IdleSettings: {fileID: 11400000, guid: 55182c08d6e36ba40917c38759dc7ae1, type: 2}
-  WalkingSettings: {fileID: 11400000, guid: 236ba19ef12adb74e887f04f879687ee, type: 2}
 --- !u!114 &7725811167184495157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,9 +438,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 662240caaed85154281c647957d75890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  XYAxis: {fileID: -328637352972670201, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
-  JumpInput: {fileID: -5419074670395114859, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
-  JumpSettings: {fileID: 11400000, guid: bf332cb3ac2612c419d99cedb5216b7a, type: 2}
 --- !u!114 &7725811167184495154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -456,8 +450,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3255b2450749684399d5daa898476f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PauseInput: {fileID: 1402240842833120363, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
-  PauseSettings: {fileID: 11400000, guid: 4e32bca53f86989439aae200d8c0f174, type: 2}
 --- !u!114 &7725811167184495155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -470,17 +462,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c357e47c55ded9547be38e906565a2be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DashInput: {fileID: 3764478464603691049, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
-  XYAxis: {fileID: -328637352972670201, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
-  DashSettings: {fileID: 11400000, guid: 8e739acf839401d40bbfc0680fef64b3, type: 2}
+  HasAbility: 0
   Aim:
     aimControl: 2
     rotationMode: 2
     minAngle: -180
     maxAngle: 180
     currentAngle: 0
-  HasAbility: 0
-  _numberOfDashesLeft: 2
 --- !u!114 &7725811167184495153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,8 +481,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d817d99c8b57e648845959087e70f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  XYAxis: {fileID: -328637352972670201, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
-  WallClingingSettings: {fileID: 11400000, guid: dcbf435cd23f9a049b32efec066c1f67, type: 2}
   HasAbility: 0
 --- !u!114 &7725811167184495150
 MonoBehaviour:
@@ -508,9 +494,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbd75798f78cfe449f53fcd6ddb08b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WallJumpInput: {fileID: -5419074670395114859, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
-  XYAxis: {fileID: -328637352972670201, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
-  WallJumpSettings: {fileID: 11400000, guid: f3eb2db1c3d57784cb0a6462e5d5c465, type: 2}
   HasAbility: 0
 --- !u!114 &7725811167184495151
 MonoBehaviour:
@@ -524,8 +507,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c97c0a0880f2e74b85224404664529b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrimaryAttackInput: {fileID: 2803245851525323484, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
-  SecondaryAttackInput: {fileID: 1258528368091341028, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
 --- !u!114 &7725811167184495148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,8 +544,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2b6bbb8946c3514bac350fb5b65c7d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  XYAxis: {fileID: -328637352972670201, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
-  StairsSettings: {fileID: 11400000, guid: a6ff2dfc6be48754d9cad6eba74cea8a, type: 2}
   OnStairs: 0
   StairsBelow: 0
   StairsAhead: 0
@@ -580,7 +559,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8832b6531ce70f54990c281530028d8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DanglingSettings: {fileID: 11400000, guid: 9b6545bd790c82d4cae38c8038b48db4, type: 2}
 --- !u!114 &6484881070722333550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,4 +571,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcec7c5e571b8c74f84b25a975d9d706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelBounds: {fileID: 0}
+  Top: 1
+  Bottom: 2
+  Left: 1
+  Right: 1
+  Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 5, y: 5, z: 5}

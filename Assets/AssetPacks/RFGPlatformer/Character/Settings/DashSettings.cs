@@ -16,6 +16,13 @@ namespace RFG
       [Header("Cooldown")]
       public float Cooldown = 1f;
 
+      [Header("Animations")]
+      [Tooltip("Define what layer to play animations")]
+      public string Layer = "Base Layer";
+
+      [Tooltip("Define what animation to play for dashing")]
+      public string DashingClip;
+
       [Header("Effects")]
       public string[] DashEffects;
     }

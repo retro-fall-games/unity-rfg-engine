@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c36585e6d24cefa4c8266a9dc0cb4a4e, type: 3}
+  m_Name: RobotSettingsPack
+  m_EditorClassIdentifier: 
+  AttackSettings: {fileID: 11400000, guid: b09a9f3761c89fc429a048caead5cdd9, type: 2}
+  DanglingSettings: {fileID: 0}
+  DashSettings: {fileID: 0}
+  HealthSettings: {fileID: 0}
+  IdleSettings: {fileID: 11400000, guid: 8fcc68ea480724e44961870be4498fe8, type: 2}
+  JumpSettings: {fileID: 11400000, guid: 45e56a2642db8344299f211d9b581057, type: 2}
+  PauseSettings: {fileID: 0}
+  RunningSettings: {fileID: 11400000, guid: c48f605c39f9e4c43ae36b016c0df16e, type: 2}
+  StairsSettings: {fileID: 0}
+  WalkingSettings: {fileID: 11400000, guid: cff391ce3a274be4ead1aaeaf8eb4851, type: 2}
+  WallClingingSettings: {fileID: 0}
+  WallJumpSettings: {fileID: 0}
+  BaseSettingsPack: {fileID: 11400000, guid: fbb69b92439cbed449ffaf205be01472, type: 2}
+  SettingsPackOverrides: []

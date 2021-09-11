@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 606159811577918091}
   - component: {fileID: -3407430650193267883}
   - component: {fileID: 2012698602972541869}
+  - component: {fileID: 2864621117487161515}
   m_Layer: 14
   m_Name: Robot
   m_TagString: AI Character
@@ -134,6 +135,8 @@ MonoBehaviour:
   CurrentState: {fileID: 0}
   CharacterType: 1
   SpawnAt: {fileID: 0}
+  InputPack: {fileID: 0}
+  SettingsPack: {fileID: 11400000, guid: c1d97333e9ea34a4ba71e099903225e0, type: 2}
 --- !u!50 &4501051043929579592
 Rigidbody2D:
   serializedVersion: 4
@@ -280,12 +283,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8643958b01ee3e45a00a830c911aa87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AIBrain: {fileID: 11400000, guid: baf022d71d031b243b6c448c81bc7fd9, type: 2}
+  DefaultAIBrain: {fileID: 11400000, guid: baf022d71d031b243b6c448c81bc7fd9, type: 2}
+  CurrentAIBrain: {fileID: 0}
   CurrentState: {fileID: 0}
   CurrentDecision: {fileID: 0}
   PreviousDecision: {fileID: 0}
   aggro: {fileID: 4501051043929579587}
-  RotateSpeed: 0
+  RotateSpeed: 0.5
   StunCooldownTime: 5
   PrimaryWeapon: {fileID: 0}
   SecondaryWeapon: {fileID: 0}
@@ -313,4 +317,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcec7c5e571b8c74f84b25a975d9d706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelBounds: {fileID: 0}
+  Top: 1
+  Bottom: 2
+  Left: 1
+  Right: 1
+  Bounds:
+    m_Center: {x: 70, y: 10, z: 0}
+    m_Extent: {x: 70, y: 15, z: 0}
+--- !u!114 &2864621117487161515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4501051043929579633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c6f9b140a52a14881ec09eaebb66eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tree: {fileID: 11400000, guid: 52cf11241a566394dbacc45b0d6f6dad, type: 2}

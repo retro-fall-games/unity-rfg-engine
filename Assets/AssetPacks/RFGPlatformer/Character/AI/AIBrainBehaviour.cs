@@ -2,19 +2,23 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using RFG.BehaviourTree;
 
 namespace RFG
 {
   namespace Platformer
   {
     [AddComponentMenu("RFG/Platformer/Character/AI Behaviours/AI Brain")]
-    public class AIBrainBehaviour : MonoBehaviour
+    public class AIBrainBehaviour : MonoBehaviour, INodeContext
     {
       [Header("AI Brain Settings")]
-      public AIBrain AIBrain;
+      public AIBrain DefaultAIBrain;
+
+      [HideInInspector] public AIBrain CurrentAIBrain;
       public AIState CurrentState;
       public Type PreviousStateType { get; private set; }
       public Type CurrentStateType { get; private set; }
+
 
       [Header("Decision Tree")]
       [Tooltip("The current AI decision that has been made")]
@@ -37,11 +41,11 @@ namespace RFG
       public WeaponItem SecondaryWeapon;
 
       [HideInInspector]
+      public AIStateContext Context => _ctx;
+      public bool HasAggro { get; set; }
       private float _decisionTimeElapsed = 0f;
-      private bool _hasAggro = false;
       private float _lastStunTime = 0f;
 
-      private AIBrain _aiBrain;
       private Dictionary<Type, AIState> _states;
       private Transform _transform;
       private Character _character;
@@ -50,8 +54,6 @@ namespace RFG
       private MovementPath _movementPath;
       private EquipmentSet _equipmentSet;
       private AIStateContext _ctx;
-      private AIBrain.SettingsSetOverride _defaultSettings;
-      private AIBrain.SettingsSetOverride _previousSettings;
 
       private void Awake()
       {
@@ -61,84 +63,18 @@ namespace RFG
         _animator = GetComponent<Animator>();
         _movementPath = GetComponent<MovementPath>();
         _equipmentSet = GetComponent<EquipmentSet>();
-        _defaultSettings = new AIBrain.SettingsSetOverride();
-        _previousSettings = new AIBrain.SettingsSetOverride();
 
-        if (AIBrain.DefaultBrain != null)
-        {
-          _aiBrain = AIBrain.DefaultBrain.CreateNewInstance<AIBrain>();
-          _aiBrain.DefaultBrain = null;
-          _aiBrain.States = AIBrain.DefaultBrain.States;
-          _aiBrain.DefaultState = AIBrain.DefaultBrain.DefaultState;
-          _aiBrain.RootDecision = AIBrain.DefaultBrain.RootDecision;
-          _aiBrain.AggroRootDecision = AIBrain.DefaultBrain.AggroRootDecision;
-          _aiBrain.IdleSettings = AIBrain.DefaultBrain.IdleSettings;
-          _aiBrain.AttackSettings = AIBrain.DefaultBrain.AttackSettings;
-          _aiBrain.WalkingSettings = AIBrain.DefaultBrain.WalkingSettings;
-          _aiBrain.RunningSettings = AIBrain.DefaultBrain.RunningSettings;
-          _aiBrain.JumpSettings = AIBrain.DefaultBrain.JumpSettings;
-          _aiBrain.DanglingSettings = AIBrain.DefaultBrain.DanglingSettings;
-          if (AIBrain.OverrideDefaultStates)
-          {
-            _aiBrain.States = AIBrain.States;
-            _aiBrain.DefaultState = AIBrain.DefaultState;
-          }
-          if (AIBrain.OverrideDefaultDecisionTrees)
-          {
-            _aiBrain.RootDecision = AIBrain.RootDecision;
-            _aiBrain.AggroRootDecision = AIBrain.AggroRootDecision;
-          }
-          if (AIBrain.OverrideDefaultSettings)
-          {
-            _aiBrain.IdleSettings = AIBrain.IdleSettings;
-            _aiBrain.AttackSettings = AIBrain.AttackSettings;
-            _aiBrain.WalkingSettings = AIBrain.WalkingSettings;
-            _aiBrain.RunningSettings = AIBrain.RunningSettings;
-            _aiBrain.JumpSettings = AIBrain.JumpSettings;
-            _aiBrain.DanglingSettings = AIBrain.DanglingSettings;
-          }
-          if (AIBrain.OverrideDefaultSettingsSetOverrides)
-          {
-            _aiBrain.SettingsSetOverrides = AIBrain.SettingsSetOverrides;
-          }
-          _aiBrain.CanFollowVertically = AIBrain.CanFollowVertically;
-        }
-        else
-        {
-          _aiBrain = AIBrain;
-        }
-
-        _defaultSettings.IdleSettings = _aiBrain.IdleSettings;
-        _defaultSettings.AttackSettings = _aiBrain.AttackSettings;
-        _defaultSettings.WalkingSettings = _aiBrain.WalkingSettings;
-        _defaultSettings.RunningSettings = _aiBrain.RunningSettings;
-        _defaultSettings.JumpSettings = _aiBrain.JumpSettings;
-        _defaultSettings.DanglingSettings = _aiBrain.DanglingSettings;
-
-        _ctx = new AIStateContext();
-        _ctx.transform = _transform;
-        _ctx.character = _character;
-        _ctx.controller = _controller;
-        _ctx.aggro = aggro;
-        _ctx.animator = _animator;
-        _ctx.movementPath = _movementPath;
-        _ctx.equipmentSet = _equipmentSet;
-        _ctx.aiBrain = _aiBrain;
-        _ctx.aiState = this;
-        _ctx.RotateSpeed = RotateSpeed;
-        if (_aiBrain.RunningSettings != null)
-        {
-          _ctx.RunningPower = _aiBrain.RunningSettings.RunningPower;
-        }
+        // Override any base brain properties
+        ResetAIBrain();
 
         _states = new Dictionary<Type, AIState>();
-        foreach (AIState state in _aiBrain.States)
+        foreach (AIState state in CurrentAIBrain.States)
         {
           _states.Add(state.GetType(), state);
         }
 
         // Start with the normal decision tree
-        CurrentDecision = _aiBrain.RootDecision;
+        CurrentDecision = CurrentAIBrain.RootDecision;
         PreviousDecision = CurrentDecision;
 
         // Equip Weapons
@@ -154,37 +90,49 @@ namespace RFG
 
       private void Start()
       {
+        _ctx = new AIStateContext();
+        _ctx.transform = _transform;
+        _ctx.character = _character;
+        _ctx.characterContext = _character.Context;
+        _ctx.controller = _controller;
+        _ctx.aggro = aggro;
+        _ctx.animator = _animator;
+        _ctx.movementPath = _movementPath;
+        _ctx.equipmentSet = _equipmentSet;
+        _ctx.aiBrain = CurrentAIBrain;
+        _ctx.aiState = this;
+        _ctx.RotateSpeed = RotateSpeed;
         ResetToDefaultState();
-      }
-
-      private void Update()
-      {
-        Type newStateType = CurrentState.Execute(_ctx);
-        if (newStateType != null)
-        {
-          ChangeState(newStateType);
-        }
       }
 
       private void LateUpdate()
       {
-        if (CurrentDecision != null && CurrentStateType != typeof(AIStunState))
-        {
-          _decisionTimeElapsed += Time.deltaTime;
-          if (_decisionTimeElapsed >= CurrentDecision.DecisionSpeed)
-          {
-            _decisionTimeElapsed = 0;
-            MakeDecision();
-          }
-        }
+        // if (CurrentState != null)
+        // {
+        //   Type newStateType = CurrentState.Execute(_ctx);
+        //   if (newStateType != null)
+        //   {
+        //     ChangeState(newStateType);
+        //   }
+        // }
 
-        if (CurrentStateType == typeof(AIStunState))
-        {
-          if (Time.time - _lastStunTime > StunCooldownTime)
-          {
-            RestorePreviousState();
-          }
-        }
+        // if (CurrentDecision != null && CurrentStateType != typeof(AIStunState))
+        // {
+        //   _decisionTimeElapsed += Time.deltaTime;
+        //   if (_decisionTimeElapsed >= CurrentDecision.DecisionSpeed)
+        //   {
+        //     _decisionTimeElapsed = 0;
+        //     MakeDecision();
+        //   }
+        // }
+
+        // if (CurrentStateType == typeof(AIStunState))
+        // {
+        //   if (Time.time - _lastStunTime > StunCooldownTime)
+        //   {
+        //     RestorePreviousState();
+        //   }
+        // }
       }
 
       public void ChangeState(Type newStateType)
@@ -206,9 +154,9 @@ namespace RFG
       public void ResetToDefaultState()
       {
         CurrentState = null;
-        if (_aiBrain.DefaultState != null)
+        if (CurrentAIBrain.DefaultState != null)
         {
-          ChangeState(_aiBrain.DefaultState.GetType());
+          ChangeState(CurrentAIBrain.DefaultState.GetType());
         }
       }
 
@@ -229,7 +177,7 @@ namespace RFG
           if (PreviousDecision == null)
           {
             PreviousDecision = CurrentDecision;
-            CurrentDecision = _aiBrain.RootDecision;
+            CurrentDecision = CurrentAIBrain.RootDecision;
           }
           else
           {
@@ -257,126 +205,29 @@ namespace RFG
         }
         else
         {
-          CurrentDecision = _aiBrain.RootDecision;
+          CurrentDecision = CurrentAIBrain.RootDecision;
           ChangeAIState(CurrentDecision.State.GetType());
-        }
-      }
-
-      public void ChangeSettingsSetOverride(int index)
-      {
-        if (index >= 0 && index < _aiBrain.SettingsSetOverrides.Length)
-        {
-          AIBrain.SettingsSetOverride overrides = _aiBrain.SettingsSetOverrides[index];
-          if (overrides != null)
-          {
-            if (overrides.IdleSettings != null)
-            {
-              _previousSettings.IdleSettings = _aiBrain.IdleSettings;
-              _aiBrain.IdleSettings = overrides.IdleSettings;
-            }
-            if (overrides.AttackSettings != null)
-            {
-              _previousSettings.AttackSettings = _aiBrain.AttackSettings;
-              _aiBrain.AttackSettings = overrides.AttackSettings;
-            }
-            if (overrides.WalkingSettings != null)
-            {
-              _previousSettings.WalkingSettings = _aiBrain.WalkingSettings;
-              _aiBrain.WalkingSettings = overrides.WalkingSettings;
-            }
-            if (overrides.RunningSettings != null)
-            {
-              _previousSettings.RunningSettings = _aiBrain.RunningSettings;
-              _aiBrain.RunningSettings = overrides.RunningSettings;
-            }
-            if (overrides.JumpSettings != null)
-            {
-              _previousSettings.JumpSettings = _aiBrain.JumpSettings;
-              _aiBrain.JumpSettings = overrides.JumpSettings;
-            }
-            if (overrides.DanglingSettings != null)
-            {
-              _previousSettings.DanglingSettings = _aiBrain.DanglingSettings;
-              _aiBrain.DanglingSettings = overrides.DanglingSettings;
-            }
-          }
-        }
-      }
-
-      public void RestoreDefaultsSettingsSetOverride(int index)
-      {
-        if (_defaultSettings.IdleSettings != null)
-        {
-          _aiBrain.IdleSettings = _defaultSettings.IdleSettings;
-        }
-        if (_defaultSettings.AttackSettings != null)
-        {
-          _aiBrain.AttackSettings = _defaultSettings.AttackSettings;
-        }
-        if (_defaultSettings.WalkingSettings != null)
-        {
-          _aiBrain.WalkingSettings = _defaultSettings.WalkingSettings;
-        }
-        if (_defaultSettings.RunningSettings != null)
-        {
-          _aiBrain.RunningSettings = _defaultSettings.RunningSettings;
-        }
-        if (_defaultSettings.JumpSettings != null)
-        {
-          _aiBrain.JumpSettings = _defaultSettings.JumpSettings;
-        }
-        if (_defaultSettings.DanglingSettings != null)
-        {
-          _aiBrain.DanglingSettings = _defaultSettings.DanglingSettings;
-        }
-      }
-
-      public void RestorePreviousSettingsSetOverride(int index)
-      {
-        if (_previousSettings.IdleSettings != null)
-        {
-          _aiBrain.IdleSettings = _previousSettings.IdleSettings;
-        }
-        if (_previousSettings.AttackSettings != null)
-        {
-          _aiBrain.AttackSettings = _previousSettings.AttackSettings;
-        }
-        if (_previousSettings.WalkingSettings != null)
-        {
-          _aiBrain.WalkingSettings = _previousSettings.WalkingSettings;
-        }
-        if (_previousSettings.RunningSettings != null)
-        {
-          _aiBrain.RunningSettings = _previousSettings.RunningSettings;
-        }
-        if (_previousSettings.JumpSettings != null)
-        {
-          _aiBrain.JumpSettings = _previousSettings.JumpSettings;
-        }
-        if (_previousSettings.DanglingSettings != null)
-        {
-          _aiBrain.DanglingSettings = _previousSettings.DanglingSettings;
         }
       }
 
       private void OnAggroChange(bool aggro)
       {
-        _hasAggro = aggro;
-        if (_aiBrain.AggroRootDecision != null)
+        HasAggro = aggro;
+        if (CurrentAIBrain.AggroRootDecision != null)
         {
-          if (_hasAggro)
+          if (HasAggro)
           {
             PreviousDecision = null;
-            CurrentDecision = _aiBrain.AggroRootDecision;
+            CurrentDecision = CurrentAIBrain.AggroRootDecision;
             if (CurrentDecision.State != null)
             {
               ChangeAIState(CurrentDecision.State.GetType());
             }
           }
-          else if (!_hasAggro)
+          else if (!HasAggro)
           {
             PreviousDecision = null;
-            CurrentDecision = _aiBrain.RootDecision;
+            CurrentDecision = CurrentAIBrain.RootDecision;
             if (CurrentDecision.State != null)
             {
               ChangeAIState(CurrentDecision.State.GetType());
@@ -393,15 +244,59 @@ namespace RFG
         }
         else
         {
-          if (_hasAggro)
+          if (HasAggro)
           {
-            CurrentDecision = _aiBrain.AggroRootDecision;
+            CurrentDecision = CurrentAIBrain.AggroRootDecision;
           }
           else
           {
-            CurrentDecision = _aiBrain.RootDecision;
+            CurrentDecision = CurrentAIBrain.RootDecision;
           }
         }
+      }
+
+      public void OverrideAIBrain(AIBrain brain)
+      {
+        if (brain == null)
+          return;
+
+        AIBrain brainClone = brain.CloneInstance<AIBrain>();
+
+        if (brainClone.BaseAIBrain != null)
+        {
+          OverrideAIBrain(brainClone.BaseAIBrain);
+        }
+
+        if (brainClone.States != null && brainClone.States.Length > 0)
+        {
+          CurrentAIBrain.States = brainClone.States;
+        }
+
+        if (brainClone.DefaultState != null)
+        {
+          CurrentAIBrain.DefaultState = brainClone.DefaultState;
+        }
+
+        if (brainClone.RootDecision != null)
+        {
+          CurrentAIBrain.RootDecision = brainClone.RootDecision;
+        }
+
+        if (brainClone.AggroRootDecision != null)
+        {
+          CurrentAIBrain.AggroRootDecision = brainClone.AggroRootDecision;
+        }
+
+        if (brainClone.CanFollowVertically != CurrentAIBrain.CanFollowVertically)
+        {
+          CurrentAIBrain.CanFollowVertically = brainClone.CanFollowVertically;
+        }
+      }
+
+      public void ResetAIBrain()
+      {
+        CurrentAIBrain = DefaultAIBrain;
+        OverrideAIBrain(DefaultAIBrain.BaseAIBrain);
       }
 
       private void OnEnable()

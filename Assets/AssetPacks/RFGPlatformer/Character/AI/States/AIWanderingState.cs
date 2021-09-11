@@ -10,10 +10,14 @@ namespace RFG
     {
       public override Type Execute(AIStateContext ctx)
       {
+        if (ctx.characterContext.settingsPack == null || ctx.characterContext.settingsPack.WalkingSettings == null)
+          return null;
+
+        WalkingSettings WalkingSettings = ctx.characterContext.settingsPack.WalkingSettings;
         ctx.FlipOnCollision();
         ctx.FlipOnDangle();
         ctx.controller.State.IsWalking = true;
-        ctx.MoveHorizontally(ctx.aiBrain.WalkingSettings.WalkingSpeed);
+        ctx.MoveHorizontally(WalkingSettings.WalkingSpeed);
         ctx.TouchingWalls();
         return null;
       }

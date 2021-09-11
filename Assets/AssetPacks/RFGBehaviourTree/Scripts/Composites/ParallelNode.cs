@@ -3,56 +3,59 @@ using System.Linq;
 
 namespace RFG
 {
-  public class Parallel : CompositeNode
+  namespace BehaviourTree
   {
-    List<State> childrenLeftToExecute = new List<State>();
-
-    protected override void OnStart()
+    public class ParallelNode : CompositeNode
     {
-      childrenLeftToExecute.Clear();
-      children.ForEach(a =>
+      List<State> childrenLeftToExecute = new List<State>();
+
+      protected override void OnStart()
       {
-        childrenLeftToExecute.Add(State.Running);
-      });
-    }
-
-    protected override void OnStop()
-    {
-    }
-
-    protected override State OnUpdate()
-    {
-      bool stillRunning = false;
-      for (int i = 0; i < childrenLeftToExecute.Count(); ++i)
-      {
-        if (childrenLeftToExecute[i] == State.Running)
+        childrenLeftToExecute.Clear();
+        children.ForEach(a =>
         {
-          var status = children[i].Update();
-          if (status == State.Failure)
-          {
-            AbortRunningChildren();
-            return State.Failure;
-          }
-
-          if (status == State.Running)
-          {
-            stillRunning = true;
-          }
-
-          childrenLeftToExecute[i] = status;
-        }
+          childrenLeftToExecute.Add(State.Running);
+        });
       }
 
-      return stillRunning ? State.Running : State.Success;
-    }
-
-    void AbortRunningChildren()
-    {
-      for (int i = 0; i < childrenLeftToExecute.Count(); ++i)
+      protected override void OnStop()
       {
-        if (childrenLeftToExecute[i] == State.Running)
+      }
+
+      protected override State OnUpdate()
+      {
+        bool stillRunning = false;
+        for (int i = 0; i < childrenLeftToExecute.Count(); ++i)
         {
-          children[i].Abort();
+          if (childrenLeftToExecute[i] == State.Running)
+          {
+            var status = children[i].Update();
+            if (status == State.Failure)
+            {
+              AbortRunningChildren();
+              return State.Failure;
+            }
+
+            if (status == State.Running)
+            {
+              stillRunning = true;
+            }
+
+            childrenLeftToExecute[i] = status;
+          }
+        }
+
+        return stillRunning ? State.Running : State.Success;
+      }
+
+      void AbortRunningChildren()
+      {
+        for (int i = 0; i < childrenLeftToExecute.Count(); ++i)
+        {
+          if (childrenLeftToExecute[i] == State.Running)
+          {
+            children[i].Abort();
+          }
         }
       }
     }

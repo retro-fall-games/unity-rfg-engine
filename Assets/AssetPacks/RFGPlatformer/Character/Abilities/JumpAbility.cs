@@ -8,43 +8,43 @@ namespace RFG
     [AddComponentMenu("RFG/Platformer/Character/Ability/Jump")]
     public class JumpAbility : MonoBehaviour, IAbility
     {
-      [Header("Input")]
-      /// <summary>Input Action to read the xy axis</summary>
-      [Tooltip("Input Action to read the xy axis")]
-      public InputActionReference XYAxis;
-
-      /// <summary>Input Action to initiate the Jump State</summary>
-      [Tooltip("Input Action to initiate the Jump State")]
-      public InputActionReference JumpInput;
-
-      [Header("Settings")]
-      /// <summary>Jump Settings to know how many jumps left and jump restrictions</summary>
-      [Tooltip("Jump Settings to know how many jumps left and jump restrictions")]
-      public JumpSettings JumpSettings;
-
       [HideInInspector]
+      private StateCharacterContext _context;
+      private Character _character;
       private Transform _transform;
       private CharacterController2D _controller;
       private Animator _animator;
+      private CharacterControllerState2D _state;
+      private InputActionReference _movement;
+      private InputActionReference _jumpInput;
+      private JumpSettings _jumpSettings;
       private int _numberOfJumpsLeft = 0;
       private float _lastJumpTime = 0f;
 
-      private void Awake()
+      private void Start()
       {
         _transform = transform;
-        _controller = GetComponent<CharacterController2D>();
-        _animator = GetComponent<Animator>();
+        _character = GetComponent<Character>();
+        _context = _character.Context;
+        _animator = _context.animator;
+        _controller = _context.controller;
+        _state = _context.controller.State;
+        _movement = _context.inputPack.Movement;
+        _jumpInput = _context.inputPack.JumpInput;
+        _jumpSettings = _context.settingsPack.JumpSettings;
+
+        // Setup events
+        OnEnable();
       }
 
       private void LateUpdate()
       {
-        if (_controller.State.JustGotGrounded)
+        if (_state.JustGotGrounded)
         {
-          _transform.SpawnFromPool("Effects", JumpSettings.LandEffects);
-          SetNumberOfJumpsLeft(JumpSettings.NumberOfJumps);
+          _transform.SpawnFromPool("Effects", _jumpSettings.LandEffects);
+          SetNumberOfJumpsLeft(_jumpSettings.NumberOfJumps);
         }
       }
-
 
       public void SetNumberOfJumpsLeft(int numberLeft)
       {
@@ -53,25 +53,25 @@ namespace RFG
 
       private bool EvaluateJumpConditions()
       {
-        if (JumpSettings.Restrictions == JumpSettings.JumpRestrictions.CanJumpAnywhere)
+        if (_jumpSettings.Restrictions == JumpSettings.JumpRestrictions.CanJumpAnywhere)
         {
           return true;
         }
 
-        if (JumpSettings.Restrictions == JumpSettings.JumpRestrictions.CanJumpOnGround && _numberOfJumpsLeft <= 0)
+        if (_jumpSettings.Restrictions == JumpSettings.JumpRestrictions.CanJumpOnGround && _numberOfJumpsLeft <= 0)
         {
           return false;
         }
 
-        if (_controller.State.IsWallClinging)
+        if (_state.IsWallClinging)
         {
           return false;
         }
 
-        float _verticalInput = XYAxis.action.ReadValue<Vector2>().y;
+        float _verticalInput = _movement.action.ReadValue<Vector2>().y;
 
         // if the character is standing on a one way platform and is also pressing the down button,
-        if (_verticalInput < -JumpSettings.JumpThreshold.y && _controller.State.IsGrounded)
+        if (_verticalInput < -_jumpSettings.JumpThreshold.y && _state.IsGrounded)
         {
           if (JumpDownFromOneWayPlatform())
           {
@@ -80,7 +80,7 @@ namespace RFG
         }
 
         // if the character is standing on a moving platform and not pressing the down button,
-        if (_controller.State.IsGrounded)
+        if (_state.IsGrounded)
         {
           JumpFromMovingPlatform();
         }
@@ -92,44 +92,44 @@ namespace RFG
       {
         if (EvaluateJumpConditions())
         {
-          _transform.SpawnFromPool("Effects", JumpSettings.JumpEffects);
-          _animator.Play(JumpSettings.JumpingClip);
+          _transform.SpawnFromPool("Effects", _jumpSettings.JumpEffects);
+          _animator.Play(_jumpSettings.JumpingClip);
           _numberOfJumpsLeft--;
 
           _controller.GravityActive(true);
           _controller.CollisionsOn();
 
           _lastJumpTime = Time.time;
-          _controller.State.IsIdle = false;
-          _controller.State.IsWalking = false;
-          _controller.State.IsFalling = false;
-          _controller.State.IsJumping = true;
+          _state.IsIdle = false;
+          _state.IsWalking = false;
+          _state.IsFalling = false;
+          _state.IsJumping = true;
 
-          _controller.SetVerticalForce(Mathf.Sqrt(2f * JumpSettings.JumpHeight * Mathf.Abs(_controller.Parameters.Gravity)));
+          _controller.SetVerticalForce(Mathf.Sqrt(2f * _jumpSettings.JumpHeight * Mathf.Abs(_controller.Parameters.Gravity)));
         }
       }
 
       private void JumpStop()
       {
-        if (JumpSettings.JumpIsProportionalToThePressTime)
+        if (_jumpSettings.JumpIsProportionalToThePressTime)
         {
-          bool hasMinAirTime = Time.time - _lastJumpTime >= JumpSettings.JumpMinAirTime;
+          bool hasMinAirTime = Time.time - _lastJumpTime >= _jumpSettings.JumpMinAirTime;
           bool speedGreaterThanGravity = _controller.Speed.y > Mathf.Sqrt(Mathf.Abs(_controller.Parameters.Gravity));
           if (hasMinAirTime && speedGreaterThanGravity)
           {
             _lastJumpTime = 0f;
-            if (JumpSettings.JumpReleaseForceFactor == 0f)
+            if (_jumpSettings.JumpReleaseForceFactor == 0f)
             {
               _controller.SetVerticalForce(0f);
             }
             else
             {
-              _controller.AddVerticalForce(-_controller.Speed.y / JumpSettings.JumpReleaseForceFactor);
+              _controller.AddVerticalForce(-_controller.Speed.y / _jumpSettings.JumpReleaseForceFactor);
             }
           }
         }
-        _controller.State.IsFalling = true;
-        _controller.State.IsJumping = false;
+        _state.IsFalling = true;
+        _state.IsJumping = false;
       }
 
       /// <summary>
@@ -137,7 +137,7 @@ namespace RFG
       /// </summary>
       protected virtual bool JumpDownFromOneWayPlatform()
       {
-        if (!JumpSettings.CanJumpDownOneWayPlatforms)
+        if (!_jumpSettings.CanJumpDownOneWayPlatforms)
         {
           return false;
         }
@@ -145,9 +145,9 @@ namespace RFG
           || _controller.OneWayMovingPlatformMask.Contains(_controller.StandingOn.layer)
           || _controller.StairsMask.Contains(_controller.StandingOn.layer))
         {
-          _controller.State.IsJumping = true;
+          _state.IsJumping = true;
           // we turn the boxcollider off for a few milliseconds, so the character doesn't get stuck mid platform
-          StartCoroutine(_controller.DisableCollisionsWithOneWayPlatforms(JumpSettings.OneWayPlatformsJumpCollisionOffDuration));
+          StartCoroutine(_controller.DisableCollisionsWithOneWayPlatforms(_jumpSettings.OneWayPlatformsJumpCollisionOffDuration));
           return true;
         }
         else
@@ -165,7 +165,7 @@ namespace RFG
           || _controller.OneWayMovingPlatformMask.Contains(_controller.StandingOn.layer))
         {
           // we turn the boxcollider off for a few milliseconds, so the character doesn't get stuck mid air
-          StartCoroutine(_controller.DisableCollisionsWithMovingPlatforms(JumpSettings.MovingPlatformsJumpCollisionOffDuration));
+          StartCoroutine(_controller.DisableCollisionsWithMovingPlatforms(_jumpSettings.MovingPlatformsJumpCollisionOffDuration));
         }
       }
 
@@ -181,18 +181,25 @@ namespace RFG
 
       private void OnEnable()
       {
-        XYAxis.action.Enable();
-        JumpInput.action.Enable();
-        JumpInput.action.started += OnJumpStarted;
-        JumpInput.action.canceled += OnJumpCanceled;
+        // Make sure to setup new events
+        OnDisable();
+
+        if (_jumpInput != null)
+        {
+          _jumpInput.action.Enable();
+          _jumpInput.action.started += OnJumpStarted;
+          _jumpInput.action.canceled += OnJumpCanceled;
+        }
       }
 
       private void OnDisable()
       {
-        XYAxis.action.Disable();
-        JumpInput.action.Disable();
-        JumpInput.action.started -= OnJumpStarted;
-        JumpInput.action.canceled -= OnJumpCanceled;
+        if (_jumpInput != null)
+        {
+          _jumpInput.action.Disable();
+          _jumpInput.action.started -= OnJumpStarted;
+          _jumpInput.action.canceled -= OnJumpCanceled;
+        }
       }
 
     }

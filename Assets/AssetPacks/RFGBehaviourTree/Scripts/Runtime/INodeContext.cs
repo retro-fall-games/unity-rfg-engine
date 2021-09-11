@@ -1,3 +1,9 @@
-public interface INodeContext
+namespace RFG
 {
+  namespace BehaviourTree
+  {
+    public interface INodeContext
+    {
+    }
+  }
 }

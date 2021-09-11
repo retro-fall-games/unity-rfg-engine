@@ -1,9 +1,9 @@
 #node-border {
-    background-color: rgba(51, 51, 51, 255);
-    border-left-color: rgba(204, 204, 204, 255);
-    border-right-color: rgba(204, 204, 204, 255);
-    border-top-color: rgba(204, 204, 204, 255);
-    border-bottom-color: rgba(204, 204, 204, 255);
+    background-color: rgb(51, 51, 51);
+    border-left-color: rgb(204, 204, 204);
+    border-right-color: rgb(204, 204, 204);
+    border-top-color: rgb(204, 204, 204);
+    border-bottom-color: rgb(204, 204, 204);
     border-left-width: 1px;
     border-right-width: 1px;
     border-top-width: 1px;
@@ -20,13 +20,15 @@
 
 #output {
     align-items: center;
+    flex-direction: row;
+    justify-content: center;
 }
 
 #selection-border {
-    border-left-color: rgba(146, 164, 255, 255);
-    border-right-color: rgba(146, 164, 255, 255);
-    border-top-color: rgba(146, 164, 255, 255);
-    border-bottom-color: rgba(146, 164, 255, 255);
+    border-left-color: rgb(146, 164, 255);
+    border-right-color: rgb(146, 164, 255);
+    border-top-color: rgb(146, 164, 255);
+    border-bottom-color: rgb(146, 164, 255);
     border-left-width: 0;
     border-right-width: 0;
     border-top-width: 0;
@@ -47,10 +49,10 @@
     border-right-width: 1px;
     border-top-width: 1px;
     border-bottom-width: 1px;
-    border-left-color: rgba(95, 255, 0, 255);
-    border-right-color: rgba(95, 255, 0, 255);
-    border-top-color: rgba(95, 255, 0, 255);
-    border-bottom-color: rgba(95, 255, 0, 255);
+    border-left-color: rgb(95, 255, 0);
+    border-right-color: rgb(95, 255, 0);
+    border-top-color: rgb(95, 255, 0);
+    border-bottom-color: rgb(95, 255, 0);
     position: absolute;
     left: 0;
     top: 0;
@@ -63,10 +65,10 @@
     border-right-width: 1px;
     border-top-width: 1px;
     border-bottom-width: 1px;
-    border-left-color: rgba(255, 10, 0, 255);
-    border-right-color: rgba(255, 10, 0, 255);
-    border-top-color: rgba(255, 10, 0, 255);
-    border-bottom-color: rgba(255, 10, 0, 255);
+    border-left-color: rgb(255, 10, 0);
+    border-right-color: rgb(255, 10, 0);
+    border-top-color: rgb(255, 10, 0);
+    border-bottom-color: rgb(255, 10, 0);
     position: absolute;
     left: 0;
     top: 0;
@@ -79,10 +81,10 @@
     border-right-width: 2px;
     border-top-width: 2px;
     border-bottom-width: 2px;
-    border-left-color: rgba(255, 0, 222, 255);
-    border-right-color: rgba(255, 0, 222, 255);
-    border-top-color: rgba(255, 0, 222, 255);
-    border-bottom-color: rgba(255, 0, 222, 255);
+    border-left-color: rgb(255, 0, 222);
+    border-right-color: rgb(255, 0, 222);
+    border-top-color: rgb(255, 0, 222);
+    border-bottom-color: rgb(255, 0, 222);
     position: absolute;
     left: 0;
     top: 0;
@@ -96,10 +98,10 @@
     margin-right: 0;
     margin-top: 0;
     margin-bottom: 0;
-    border-left-color: rgba(0, 0, 0, 255);
-    border-right-color: rgba(0, 0, 0, 255);
-    border-top-color: rgba(0, 0, 0, 255);
-    border-bottom-color: rgba(0, 0, 0, 255);
+    border-left-color: rgb(0, 0, 0);
+    border-right-color: rgb(0, 0, 0);
+    border-top-color: rgb(0, 0, 0);
+    border-bottom-color: rgb(0, 0, 0);
     border-left-width: 0;
     border-right-width: 0;
     border-top-width: 0;
@@ -122,19 +124,19 @@
 }
 
 .action #input {
-    background-color: rgba(246, 255, 149, 255);
+    background-color: rgb(246, 255, 149);
 }
 
 .composite #input {
-    background-color: rgba(153, 214, 213, 255);
+    background-color: rgb(153, 214, 213);
 }
 
 .decorator #input {
-    background-color: rgba(247, 108, 160, 255);
+    background-color: rgb(247, 108, 160);
 }
 
 .root #input {
-    background-color: rgba(53, 53, 68, 255);
+    background-color: rgb(53, 53, 68);
     min-height: 20px;
 }
 
@@ -151,15 +153,15 @@
 }
 
 .running #node-state {
-    background-color: rgba(255, 248, 0, 255);
+    background-color: rgb(255, 248, 0);
 }
 
 .success #node-state {
-    background-color: rgba(20, 192, 0, 255);
+    background-color: rgb(20, 192, 0);
 }
 
 .failure #node-state {
-    background-color: rgba(255, 0, 0, 255);
+    background-color: rgb(255, 0, 0);
 }
 
 #description {
@@ -173,5 +175,5 @@
 }
 
 #contents {
-    background-color: rgba(94, 94, 94, 255);
+    background-color: rgb(94, 94, 94);
 }

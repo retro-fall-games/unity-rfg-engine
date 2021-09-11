@@ -1,21 +1,24 @@
 namespace RFG
 {
-  public class InterruptSelector : SelectorNode
+  namespace BehaviourTree
   {
-    protected override State OnUpdate()
+    public class InterruptSelectorNode : SelectorNode
     {
-      int previous = current;
-      base.OnStart();
-      var status = base.OnUpdate();
-      if (previous != current)
+      protected override State OnUpdate()
       {
-        if (children[previous].state == State.Running)
+        int previous = current;
+        base.OnStart();
+        var status = base.OnUpdate();
+        if (previous != current)
         {
-          children[previous].Abort();
+          if (children[previous].state == State.Running)
+          {
+            children[previous].Abort();
+          }
         }
-      }
 
-      return status;
+        return status;
+      }
     }
   }
 }

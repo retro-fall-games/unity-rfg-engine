@@ -11942,11 +11942,11 @@ PrefabInstance:
     - target: {fileID: 62524312295252536, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 378470722339344310, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 532190771805926375, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: AggroRootDecision
       value: 
@@ -12006,27 +12006,27 @@ PrefabInstance:
     - target: {fileID: 812359770759765561, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 1025002104113493864, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 1597568972787439988, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 3483230409224430315, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 3775970594594647124, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 4390107623475317448, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 4426838231769638898, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: layerMask.m_Bits
       value: 768
@@ -12034,19 +12034,19 @@ PrefabInstance:
     - target: {fileID: 4571267689650096207, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 4632173001161560312, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 4971713842113174091, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 5353051273313847742, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 6519022763555374164, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -12054,35 +12054,35 @@ PrefabInstance:
     - target: {fileID: 6777410903378147229, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 7012046665012680605, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 7945081920676199028, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 7949289215715238725, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 8112025455945455121, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 8430914432260997744, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 8551233004709239424, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 9135549547690405072, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
 --- !u!1 &886363072
@@ -12521,7 +12521,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1245397659}
-  - component: {fileID: 1245397661}
   - component: {fileID: 1245397660}
   m_Layer: 0
   m_Name: LevelBounds
@@ -12573,25 +12572,6 @@ PolygonCollider2D:
       - {x: 0, y: 25}
       - {x: 140, y: 25}
       - {x: 140, y: -5}
---- !u!114 &1245397661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1245397658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2519446c97240246b64ce851a57e4fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Top: 1
-  Bottom: 2
-  Left: 1
-  Right: 1
-  Bounds:
-    m_Center: {x: 70, y: 10, z: 0}
-    m_Extent: {x: 70, y: 15, z: 5}
 --- !u!1 &1333713144
 GameObject:
   m_ObjectHideFlags: 0
@@ -13150,6 +13130,10 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 8722432135314193958}
+    - target: {fileID: 2554697862421512522, guid: 50a928365ba7eee4384d4f1e17ada3a3, type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 1.8709677
+      objectReference: {fileID: 0}
     - target: {fileID: 2554697862421512523, guid: 50a928365ba7eee4384d4f1e17ada3a3, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -14122,10 +14106,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6484881070722333550, guid: b40ec1da52828e644b55ff733568399c, type: 3}
-      propertyPath: LevelBounds
-      value: 
-      objectReference: {fileID: 1245397661}
+    - target: {fileID: 5283418761544756412, guid: b40ec1da52828e644b55ff733568399c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7725811167184495151, guid: b40ec1da52828e644b55ff733568399c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7725811167184495153, guid: b40ec1da52828e644b55ff733568399c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7725811167184495155, guid: b40ec1da52828e644b55ff733568399c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7725811167184495155, guid: b40ec1da52828e644b55ff733568399c, type: 3}
       propertyPath: HasAbility
       value: 1
@@ -14138,6 +14134,10 @@ PrefabInstance:
       propertyPath: XYAxis
       value: 
       objectReference: {fileID: -328637352972670201, guid: be21f7260bb1eb74cbafe1c63045a9c0, type: 3}
+    - target: {fileID: 7725811167184495158, guid: b40ec1da52828e644b55ff733568399c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7725811167184495158, guid: b40ec1da52828e644b55ff733568399c, type: 3}
       propertyPath: RotateOnMouseCursor
       value: 1
@@ -14194,9 +14194,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7725811167184495162, guid: b40ec1da52828e644b55ff733568399c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7725811167184495163, guid: b40ec1da52828e644b55ff733568399c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7725811167184495165, guid: b40ec1da52828e644b55ff733568399c, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7725811167184495165, guid: b40ec1da52828e644b55ff733568399c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7803616977735791526, guid: b40ec1da52828e644b55ff733568399c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b40ec1da52828e644b55ff733568399c, type: 3}

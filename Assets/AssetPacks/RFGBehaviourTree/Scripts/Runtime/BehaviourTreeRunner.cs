@@ -2,46 +2,53 @@ using UnityEngine;
 
 namespace RFG
 {
-  public class BehaviourTreeRunner : MonoBehaviour
+  namespace BehaviourTree
   {
-    public BehaviourTree tree;
-
-    [HideInInspector]
-    private INodeContext _context;
-
-    private void Awake()
+    [AddComponentMenu("RFG/Behaviour Tree/Behaviour Tree Runner")]
+    public class BehaviourTreeRunner : MonoBehaviour
     {
-      _context = GetComponent(typeof(INodeContext)) as INodeContext;
-    }
+      public BehaviourTree tree;
 
-    private void Start()
-    {
-      tree = tree.Clone();
-      tree.Bind(_context);
-    }
+      [HideInInspector]
+      private INodeContext _context;
 
-    private void Update()
-    {
-      if (tree)
+      private void Awake()
       {
-        tree.Update();
-      }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-      if (!tree)
-      {
-        return;
+        _context = GetComponent(typeof(INodeContext)) as INodeContext;
       }
 
-      BehaviourTree.Traverse(tree.rootNode, (n) =>
+      private void Start()
       {
-        if (n.drawGizmos)
+        tree = tree.Clone();
+        tree.Bind(_context);
+      }
+
+      private void Update()
+      {
+        if (tree)
         {
-          n.OnDrawGizmos();
+          tree.Update();
         }
-      });
+      }
+
+#if UNITY_EDITOR
+      private void OnDrawGizmosSelected()
+      {
+        if (!tree)
+        {
+          return;
+        }
+
+        BehaviourTree.Traverse(tree.rootNode, (n) =>
+        {
+          if (n.drawGizmos)
+          {
+            n.OnDrawGizmos();
+          }
+        });
+      }
     }
+#endif
+
   }
 }

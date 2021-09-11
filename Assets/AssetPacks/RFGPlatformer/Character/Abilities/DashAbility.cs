@@ -9,23 +9,19 @@ namespace RFG
     [AddComponentMenu("RFG/Platformer/Character/Ability/Dash")]
     public class DashAbility : MonoBehaviour, IAbility
     {
-      [Header("Input")]
-      /// <summary>Input Action to initiate the Jump State</summary>
-      [Tooltip("Input Action to initiate the Dash State")]
-      public InputActionReference DashInput;
-
-      /// <summary>Input Action to read the xy axis</summary>
-      [Tooltip("Input Action to read the xy axis")]
-      public InputActionReference XYAxis;
-
-      [Header("Settings")]
-      /// <summary>Dash Settings to know dash distance and direction</summary>
-      [Tooltip("Dash Settings to know dash distance and direction")]
-      public DashSettings DashSettings;
-      public Aim Aim;
       public bool HasAbility;
+      public Aim Aim;
 
       [HideInInspector]
+      private StateCharacterContext _context;
+      private Character _character;
+      private Transform _transform;
+      private CharacterController2D _controller;
+      private Animator _animator;
+      private CharacterControllerState2D _state;
+      private InputActionReference _movement;
+      private InputActionReference _dashInput;
+      private DashSettings _dashSettings;
       private Vector2 _dashDirection;
       private float _slopeAngleSave = 0f;
       private float _distanceTraveled = 0f;
@@ -34,22 +30,37 @@ namespace RFG
       private float _cooldownTimestamp;
       private IEnumerator _dashCoroutine;
       private float _lastDashAt = 0f;
-      public int _numberOfDashesLeft = 2;
-      private Transform _transform;
-      private CharacterController2D _controller;
+      private int _numberOfDashesLeft = 2;
 
       private void Awake()
       {
-        _transform = GetComponent<Transform>();
+        _transform = transform;
+        _character = GetComponent<Character>();
         _controller = GetComponent<CharacterController2D>();
+      }
+
+      private void Start()
+      {
+        _context = _character.Context;
+        _animator = _context.animator;
+        _controller = _context.controller;
+        _state = _context.controller.State;
+        _movement = _context.inputPack.Movement;
+        _dashInput = _context.inputPack.DashInput;
+        _dashSettings = _context.settingsPack.DashSettings;
+
+        // Setup events
+        OnEnable();
+
+        // Setup ability
         _cooldownTimestamp = 0;
-        _numberOfDashesLeft = DashSettings.TotalDashes;
+        _numberOfDashesLeft = _dashSettings.TotalDashes;
         Aim.Init();
       }
 
       private void LateUpdate()
       {
-        if (_controller.State.IsDashing)
+        if (_state.IsDashing)
         {
           _controller.GravityActive(false);
         }
@@ -68,10 +79,11 @@ namespace RFG
           return;
         }
 
-        _transform.SpawnFromPool("Effects", DashSettings.DashEffects);
+        _transform.SpawnFromPool("Effects", _dashSettings.DashEffects);
+        _animator.Play(_dashSettings.DashingClip);
 
-        _controller.State.IsDashing = true;
-        _cooldownTimestamp = Time.time + DashSettings.Cooldown;
+        _state.IsDashing = true;
+        _cooldownTimestamp = Time.time + _dashSettings.Cooldown;
         _distanceTraveled = 0f;
         _shouldKeepDashing = true;
         _initialPosition = _transform.position;
@@ -82,7 +94,6 @@ namespace RFG
         _slopeAngleSave = _controller.Parameters.MaxSlopeAngle;
         _controller.Parameters.MaxSlopeAngle = 0;
 
-
         ComputerDashDirection();
         CheckFlipCharacter();
 
@@ -92,15 +103,15 @@ namespace RFG
 
       private void ComputerDashDirection()
       {
-        Aim.PrimaryMovement = XYAxis.action.ReadValue<Vector2>();
+        Aim.PrimaryMovement = _movement.action.ReadValue<Vector2>();
         Aim.CurrentPosition = _transform.position;
         _dashDirection = Aim.GetCurrentAim();
 
         CheckAutoCorrectTrajectory();
 
-        if (_dashDirection.magnitude < DashSettings.MinInputThreshold)
+        if (_dashDirection.magnitude < _dashSettings.MinInputThreshold)
         {
-          _dashDirection = _controller.State.IsFacingRight ? Vector2.right : Vector2.left;
+          _dashDirection = _state.IsFacingRight ? Vector2.right : Vector2.left;
         }
         else
         {
@@ -110,7 +121,7 @@ namespace RFG
 
       private void CheckAutoCorrectTrajectory()
       {
-        if (_controller.State.IsCollidingBelow && _dashDirection.y < 0f)
+        if (_state.IsCollidingBelow && _dashDirection.y < 0f)
         {
           _dashDirection.y = 0f;
         }
@@ -120,7 +131,7 @@ namespace RFG
       {
         if (Mathf.Abs(_dashDirection.x) > 0.05f)
         {
-          if (_controller.State.IsFacingRight != _dashDirection.x > 0f)
+          if (_state.IsFacingRight != _dashDirection.x > 0f)
           {
             _controller.Flip();
           }
@@ -129,14 +140,14 @@ namespace RFG
 
       private IEnumerator Dash()
       {
-        while (_distanceTraveled < DashSettings.DashDistance && _shouldKeepDashing && _controller.State.IsDashing)
+        while (_distanceTraveled < _dashSettings.DashDistance && _shouldKeepDashing && _state.IsDashing)
         {
           _distanceTraveled = Vector3.Distance(_initialPosition, _transform.position);
 
-          if ((_controller.State.IsCollidingLeft && _dashDirection.x < 0f)
-            || (_controller.State.IsCollidingRight && _dashDirection.x > 0f)
-            || (_controller.State.IsCollidingAbove && _dashDirection.y > 0f)
-            || (_controller.State.IsCollidingBelow && _dashDirection.y < 0f))
+          if ((_state.IsCollidingLeft && _dashDirection.x < 0f)
+            || (_state.IsCollidingRight && _dashDirection.x > 0f)
+            || (_state.IsCollidingAbove && _dashDirection.y > 0f)
+            || (_state.IsCollidingBelow && _dashDirection.y < 0f))
           {
             _shouldKeepDashing = false;
             _controller.SetForce(Vector2.zero);
@@ -144,7 +155,7 @@ namespace RFG
           else
           {
             _controller.GravityActive(false);
-            _controller.SetForce(_dashDirection * DashSettings.DashForce);
+            _controller.SetForce(_dashDirection * _dashSettings.DashForce);
           }
           yield return null;
         }
@@ -163,9 +174,9 @@ namespace RFG
         _controller.GravityActive(true);
         _controller.SetForce(Vector2.zero);
 
-        if (_controller.State.IsDashing)
+        if (_state.IsDashing)
         {
-          _controller.State.IsDashing = false;
+          _state.IsDashing = false;
         }
       }
 
@@ -176,37 +187,43 @@ namespace RFG
 
       private void HandleAmountOfDashesLeft()
       {
-        if (Time.time - _lastDashAt < DashSettings.Cooldown)
+        if (Time.time - _lastDashAt < _dashSettings.Cooldown)
         {
           return;
         }
 
-        if (_controller.State.IsGrounded)
+        if (_state.IsGrounded)
         {
-          SetNumberOfDashesLeft(DashSettings.TotalDashes);
+          SetNumberOfDashesLeft(_dashSettings.TotalDashes);
         }
       }
 
       public void OnDashStarted(InputAction.CallbackContext ctx)
       {
-        if (HasAbility)
-        {
-          StartDash();
-        }
+        if (!HasAbility)
+          return;
+        StartDash();
       }
 
       private void OnEnable()
       {
-        XYAxis.action.Enable();
-        DashInput.action.Enable();
-        DashInput.action.started += OnDashStarted;
+        // Make sure to setup new events
+        OnDisable();
+
+        if (_dashInput != null)
+        {
+          _dashInput.action.Enable();
+          _dashInput.action.started += OnDashStarted;
+        }
       }
 
       private void OnDisable()
       {
-        XYAxis.action.Disable();
-        DashInput.action.Disable();
-        DashInput.action.started -= OnDashStarted;
+        if (_dashInput != null)
+        {
+          _dashInput.action.Disable();
+          _dashInput.action.started -= OnDashStarted;
+        }
       }
 
     }

@@ -2,23 +2,26 @@ using UnityEngine;
 
 namespace RFG
 {
-  public class RandomSelector : CompositeNode
+  namespace BehaviourTree
   {
-    protected int current;
-
-    protected override void OnStart()
+    public class RandomSelectorNode : CompositeNode
     {
-      current = Random.Range(0, children.Count);
-    }
+      protected int current;
 
-    protected override void OnStop()
-    {
-    }
+      protected override void OnStart()
+      {
+        current = Random.Range(0, children.Count);
+      }
 
-    protected override State OnUpdate()
-    {
-      var child = children[current];
-      return child.Update();
+      protected override void OnStop()
+      {
+      }
+
+      protected override State OnUpdate()
+      {
+        var child = children[current];
+        return child.Update();
+      }
     }
   }
 }

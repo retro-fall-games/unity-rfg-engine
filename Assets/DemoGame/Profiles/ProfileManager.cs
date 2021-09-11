@@ -72,9 +72,9 @@ namespace Game
       {
         Profile.EquipmentSet = equipmentSet.GetSave();
       }
-      if (jumpAbility != null)
+      if (character != null)
       {
-        if (jumpAbility.JumpSettings.NumberOfJumps == 2)
+        if (character.Context.settingsPack.JumpSettings.NumberOfJumps == 2)
         {
           Profile.HasDoubleJump = true;
         }
@@ -120,13 +120,11 @@ namespace Game
       {
         if (Profile.HasDoubleJump)
         {
-          jumpAbility.JumpSettings.NumberOfJumps = 2;
-          jumpAbility.SetNumberOfJumpsLeft(2);
+          character.Context.settingsPack.JumpSettings.NumberOfJumps = 2;
         }
         else
         {
-          jumpAbility.JumpSettings.NumberOfJumps = 1;
-          jumpAbility.SetNumberOfJumpsLeft(1);
+          character.Context.settingsPack.JumpSettings.NumberOfJumps = 1;
         }
       }
       if (dashAbility != null)

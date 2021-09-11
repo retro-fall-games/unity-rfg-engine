@@ -10,10 +10,14 @@ namespace RFG
     {
       public override Type Execute(AIStateContext ctx)
       {
+        if (ctx.characterContext.settingsPack == null || ctx.characterContext.settingsPack.JumpSettings == null)
+          return null;
+
         if (ctx.controller.State.JustGotGrounded)
         {
+          JumpSettings JumpSettings = ctx.characterContext.settingsPack.JumpSettings;
           ctx.controller.SetHorizontalForce(0);
-          ctx.transform.SpawnFromPool("Effects", ctx.aiBrain.JumpSettings.LandEffects);
+          ctx.transform.SpawnFromPool("Effects", JumpSettings.LandEffects);
           ctx.aiState.RestorePreviousDecision();
         }
         if (ctx.controller.State.IsGrounded)
@@ -30,36 +34,42 @@ namespace RFG
           return;
         }
 
-        ctx.transform.SpawnFromPool("Effects", ctx.aiBrain.JumpSettings.JumpEffects);
-        ctx.animator.Play(ctx.aiBrain.JumpSettings.JumpingClip);
+        JumpSettings JumpSettings = ctx.characterContext.settingsPack.JumpSettings;
+        WalkingSettings WalkingSettings = ctx.characterContext.settingsPack.WalkingSettings;
+        RunningSettings RunningSettings = ctx.characterContext.settingsPack.RunningSettings;
+        ctx.transform.SpawnFromPool("Effects", JumpSettings.JumpEffects);
+        ctx.animator.Play(JumpSettings.JumpingClip);
 
         // Jump
         ctx.controller.State.IsFalling = false;
         ctx.controller.State.IsJumping = true;
-        ctx.controller.AddVerticalForce(Mathf.Sqrt(2f * ctx.aiBrain.JumpSettings.JumpHeight * Mathf.Abs(ctx.controller.Parameters.Gravity)));
+        ctx.controller.AddVerticalForce(Mathf.Sqrt(2f * JumpSettings.JumpHeight * Mathf.Abs(ctx.controller.Parameters.Gravity)));
 
-        // Move horizontally
-        float normalizedHorizontalSpeed = 0f;
-        if (ctx.controller.State.IsFacingRight)
+        if (WalkingSettings != null)
         {
-          normalizedHorizontalSpeed = 1f;
-        }
-        else
-        {
-          normalizedHorizontalSpeed = -1f;
-        }
+          // Move horizontally
+          float normalizedHorizontalSpeed = 0f;
+          if (ctx.controller.State.IsFacingRight)
+          {
+            normalizedHorizontalSpeed = 1f;
+          }
+          else
+          {
+            normalizedHorizontalSpeed = -1f;
+          }
 
-        float speed = ctx.aiBrain.WalkingSettings.WalkingSpeed;
-        if (ctx.aggro != null && ctx.aggro.HasAggro)
-        {
-          speed = ctx.aiBrain.RunningSettings.RunningSpeed;
+          float speed = WalkingSettings.WalkingSpeed;
+          if (ctx.aggro != null && ctx.aggro.HasAggro && RunningSettings != null)
+          {
+            speed = RunningSettings.RunningSpeed;
+          }
+
+          float movementFactor = ctx.controller.Parameters.AirSpeedFactor;
+          float movementSpeed = normalizedHorizontalSpeed * speed * ctx.controller.Parameters.SpeedFactor;
+          float horizontalMovementForce = Mathf.Lerp(ctx.controller.Speed.x, movementSpeed, Time.deltaTime * movementFactor);
+
+          ctx.controller.SetHorizontalForce(horizontalMovementForce);
         }
-
-        float movementFactor = ctx.controller.Parameters.AirSpeedFactor;
-        float movementSpeed = normalizedHorizontalSpeed * speed * ctx.controller.Parameters.SpeedFactor;
-        float horizontalMovementForce = Mathf.Lerp(ctx.controller.Speed.x, movementSpeed, Time.deltaTime * movementFactor);
-
-        ctx.controller.SetHorizontalForce(horizontalMovementForce);
 
         JumpStop(ctx);
       }
@@ -73,11 +83,12 @@ namespace RFG
 
       private bool CanJump(AIStateContext ctx)
       {
-        if (ctx.aiBrain.JumpSettings.Restrictions == JumpSettings.JumpRestrictions.CanJumpAnywhere)
+        JumpSettings JumpSettings = ctx.characterContext.settingsPack.JumpSettings;
+        if (JumpSettings.Restrictions == JumpSettings.JumpRestrictions.CanJumpAnywhere)
         {
           return true;
         }
-        if (ctx.aiBrain.JumpSettings.Restrictions == JumpSettings.JumpRestrictions.CanJumpOnGround && ctx.controller.State.IsGrounded)
+        if (JumpSettings.Restrictions == JumpSettings.JumpRestrictions.CanJumpOnGround && ctx.controller.State.IsGrounded)
         {
           return true;
         }

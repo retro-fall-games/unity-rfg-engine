@@ -2,26 +2,29 @@ using UnityEngine;
 
 namespace RFG
 {
-  public class WaitNode : ActionNode
+  namespace BehaviourTree
   {
-    public float Duration = 1;
-    private float _startTime;
-    protected override void OnStart()
+    public class WaitNode : ActionNode
     {
-      _startTime = Time.time;
-    }
-
-    protected override void OnStop()
-    {
-    }
-
-    protected override State OnUpdate()
-    {
-      if (Time.time - _startTime > Duration)
+      public float Duration = 1;
+      private float _startTime;
+      protected override void OnStart()
       {
-        return State.Success;
+        _startTime = Time.time;
       }
-      return State.Running;
+
+      protected override void OnStop()
+      {
+      }
+
+      protected override State OnUpdate()
+      {
+        if (Time.time - _startTime > Duration)
+        {
+          return State.Success;
+        }
+        return State.Running;
+      }
     }
   }
 }

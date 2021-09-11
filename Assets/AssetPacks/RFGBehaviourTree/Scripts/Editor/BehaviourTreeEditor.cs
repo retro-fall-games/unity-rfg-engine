@@ -7,221 +7,224 @@ using UnityEditor.Callbacks;
 
 namespace RFG
 {
-  public class BehaviourTreeEditor : EditorWindow
+  namespace BehaviourTree
   {
-    private BehaviourTreeView treeView;
-    private BehaviourTree tree;
-    private InspectorView inspectorView;
-    private IMGUIContainer blackboardView;
-    private SerializedObject treeObject;
-    private SerializedProperty blackboardProperty;
-    private BehaviourTreeSettings settings;
-    private VisualElement overlay;
-    private ToolbarMenu toolbarMenu;
-    private TextField treeNameField;
-    private TextField locationPathField;
-    private Button createNewTreeButton;
-
-
-    [MenuItem("RFG/BehaviourTreeEditor")]
-    public static void OpenWindow()
+    public class BehaviourTreeEditor : EditorWindow
     {
-      BehaviourTreeEditor wnd = GetWindow<BehaviourTreeEditor>();
-      wnd.titleContent = new GUIContent("BehaviourTreeEditor");
-      wnd.minSize = new Vector2(800, 600);
-    }
+      private BehaviourTreeView treeView;
+      private BehaviourTree tree;
+      private InspectorView inspectorView;
+      private IMGUIContainer blackboardView;
+      private SerializedObject treeObject;
+      private SerializedProperty blackboardProperty;
+      private BehaviourTreeSettings settings;
+      private VisualElement overlay;
+      private ToolbarMenu toolbarMenu;
+      private TextField treeNameField;
+      private TextField locationPathField;
+      private Button createNewTreeButton;
 
-    [OnOpenAsset]
-    public static bool OnOpenAsset(int instanceId, int line)
-    {
-      if (Selection.activeObject is BehaviourTree)
+
+      [MenuItem("RFG/BehaviourTreeEditor")]
+      public static void OpenWindow()
       {
-        OpenWindow();
-        return true;
+        BehaviourTreeEditor wnd = GetWindow<BehaviourTreeEditor>();
+        wnd.titleContent = new GUIContent("BehaviourTreeEditor");
+        wnd.minSize = new Vector2(800, 600);
       }
-      return false;
-    }
 
-    private List<T> LoadAssets<T>() where T : UnityEngine.Object
-    {
-      string[] assetIds = AssetDatabase.FindAssets($"t:{typeof(T).Name}");
-      List<T> assets = new List<T>();
-      foreach (var assetId in assetIds)
+      [OnOpenAsset]
+      public static bool OnOpenAsset(int instanceId, int line)
       {
-        string path = AssetDatabase.GUIDToAssetPath(assetId);
-        T asset = AssetDatabase.LoadAssetAtPath<T>(path);
-        assets.Add(asset);
-      }
-      return assets;
-    }
-
-    public void CreateGUI()
-    {
-      settings = BehaviourTreeSettings.GetOrCreateSettings();
-
-      // Each editor window contains a root VisualElement object
-      VisualElement root = rootVisualElement;
-
-      // Import UXML
-      var visualTree = settings.behaviourTreeXml;
-      visualTree.CloneTree(root);
-
-      // A stylesheet can be added to a VisualElement.
-      // The style will be applied to the VisualElement and all of its children.
-      var styleSheet = settings.behaviourTreeStyle;
-      root.styleSheets.Add(styleSheet);
-
-      // // Main treeview
-      treeView = root.Q<BehaviourTreeView>();
-      treeView.OnNodeSelected = OnNodeSelectionChanged;
-
-      // Inspector View
-      inspectorView = root.Q<InspectorView>();
-
-      // Blackboard View
-      blackboardView = root.Q<IMGUIContainer>();
-      blackboardView.onGUIHandler = () =>
-      {
-        if (treeObject != null && treeObject.targetObject != null)
+        if (Selection.activeObject is BehaviourTree)
         {
-          treeObject.Update();
-          EditorGUILayout.PropertyField(blackboardProperty);
-          treeObject.ApplyModifiedProperties();
+          OpenWindow();
+          return true;
         }
-      };
+        return false;
+      }
 
-      // Toolbar assets menu
-      toolbarMenu = root.Q<ToolbarMenu>();
-      var behaviourTrees = LoadAssets<BehaviourTree>();
-      behaviourTrees.ForEach(tree =>
+      private List<T> LoadAssets<T>() where T : UnityEngine.Object
       {
-        toolbarMenu.menu.AppendAction($"{tree.name}", (a) =>
+        string[] assetIds = AssetDatabase.FindAssets($"t:{typeof(T).Name}");
+        List<T> assets = new List<T>();
+        foreach (var assetId in assetIds)
         {
-          Selection.activeObject = tree;
-        });
-      });
-      toolbarMenu.menu.AppendSeparator();
-      toolbarMenu.menu.AppendAction("New Tree...", (a) => CreateNewTree("NewBehaviourTree"));
-
-      // New Tree Dialog
-      treeNameField = root.Q<TextField>("TreeName");
-      locationPathField = root.Q<TextField>("LocationPath");
-      overlay = root.Q<VisualElement>("Overlay");
-      createNewTreeButton = root.Q<Button>("CreateButton");
-      createNewTreeButton.clicked += () => CreateNewTree(treeNameField.value);
-
-      if (tree == null)
-      {
-        OnSelectionChange();
+          string path = AssetDatabase.GUIDToAssetPath(assetId);
+          T asset = AssetDatabase.LoadAssetAtPath<T>(path);
+          assets.Add(asset);
+        }
+        return assets;
       }
-      else
+
+      public void CreateGUI()
       {
-        SelectTree(tree);
-      }
-    }
+        settings = BehaviourTreeSettings.GetOrCreateSettings();
 
-    private void OnEnable()
-    {
-      EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
-      EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
-    }
+        // Each editor window contains a root VisualElement object
+        VisualElement root = rootVisualElement;
 
-    private void OnDisable()
-    {
-      EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
-    }
+        // Import UXML
+        var visualTree = settings.behaviourTreeXml;
+        visualTree.CloneTree(root);
 
-    private void OnPlayModeStateChanged(PlayModeStateChange obj)
-    {
-      switch (obj)
-      {
-        case PlayModeStateChange.EnteredEditMode:
-          OnSelectionChange();
-          break;
-        case PlayModeStateChange.ExitingEditMode:
-          break;
-        case PlayModeStateChange.EnteredPlayMode:
-          OnSelectionChange();
-          break;
-        case PlayModeStateChange.ExitingPlayMode:
-          break;
-      }
-    }
+        // A stylesheet can be added to a VisualElement.
+        // The style will be applied to the VisualElement and all of its children.
+        var styleSheet = settings.behaviourTreeStyle;
+        root.styleSheets.Add(styleSheet);
 
-    private void OnSelectionChange()
-    {
-      EditorApplication.delayCall += () =>
-      {
-        BehaviourTree tree = Selection.activeObject as BehaviourTree;
-        if (!tree)
+        // // Main treeview
+        treeView = root.Q<BehaviourTreeView>();
+        treeView.OnNodeSelected = OnNodeSelectionChanged;
+
+        // Inspector View
+        inspectorView = root.Q<InspectorView>();
+
+        // Blackboard View
+        blackboardView = root.Q<IMGUIContainer>();
+        blackboardView.onGUIHandler = () =>
         {
-          if (Selection.activeGameObject)
+          if (treeObject != null && treeObject.targetObject != null)
           {
-            BehaviourTreeRunner runner = Selection.activeGameObject.GetComponent<BehaviourTreeRunner>();
-            if (runner)
+            treeObject.Update();
+            EditorGUILayout.PropertyField(blackboardProperty);
+            treeObject.ApplyModifiedProperties();
+          }
+        };
+
+        // Toolbar assets menu
+        toolbarMenu = root.Q<ToolbarMenu>();
+        var behaviourTrees = LoadAssets<BehaviourTree>();
+        behaviourTrees.ForEach(tree =>
+        {
+          toolbarMenu.menu.AppendAction($"{tree.name}", (a) =>
+          {
+            Selection.activeObject = tree;
+          });
+        });
+        toolbarMenu.menu.AppendSeparator();
+        toolbarMenu.menu.AppendAction("New Tree...", (a) => CreateNewTree("NewBehaviourTree"));
+
+        // New Tree Dialog
+        treeNameField = root.Q<TextField>("TreeName");
+        locationPathField = root.Q<TextField>("LocationPath");
+        overlay = root.Q<VisualElement>("Overlay");
+        createNewTreeButton = root.Q<Button>("CreateButton");
+        createNewTreeButton.clicked += () => CreateNewTree(treeNameField.value);
+
+        if (tree == null)
+        {
+          OnSelectionChange();
+        }
+        else
+        {
+          SelectTree(tree);
+        }
+      }
+
+      private void OnEnable()
+      {
+        EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+        EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+      }
+
+      private void OnDisable()
+      {
+        EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+      }
+
+      private void OnPlayModeStateChanged(PlayModeStateChange obj)
+      {
+        switch (obj)
+        {
+          case PlayModeStateChange.EnteredEditMode:
+            OnSelectionChange();
+            break;
+          case PlayModeStateChange.ExitingEditMode:
+            break;
+          case PlayModeStateChange.EnteredPlayMode:
+            OnSelectionChange();
+            break;
+          case PlayModeStateChange.ExitingPlayMode:
+            break;
+        }
+      }
+
+      private void OnSelectionChange()
+      {
+        EditorApplication.delayCall += () =>
+        {
+          BehaviourTree tree = Selection.activeObject as BehaviourTree;
+          if (!tree)
+          {
+            if (Selection.activeGameObject)
             {
-              tree = runner.tree;
+              BehaviourTreeRunner runner = Selection.activeGameObject.GetComponent<BehaviourTreeRunner>();
+              if (runner)
+              {
+                tree = runner.tree;
+              }
             }
           }
+          SelectTree(tree);
+        };
+      }
+
+      private void SelectTree(BehaviourTree newTree)
+      {
+        if (treeView == null)
+        {
+          return;
         }
-        SelectTree(tree);
-      };
-    }
 
-    private void SelectTree(BehaviourTree newTree)
-    {
-      if (treeView == null)
-      {
-        return;
+        if (!newTree)
+        {
+          return;
+        }
+
+        this.tree = newTree;
+
+        overlay.style.visibility = Visibility.Hidden;
+
+        if (Application.isPlaying)
+        {
+          treeView.PopulateView(tree);
+        }
+        else
+        {
+          treeView.PopulateView(tree);
+        }
+
+
+        treeObject = new SerializedObject(tree);
+        blackboardProperty = treeObject.FindProperty("blackboard");
+
+        EditorApplication.delayCall += () =>
+        {
+          treeView.FrameAll();
+        };
       }
 
-      if (!newTree)
+      private void OnNodeSelectionChanged(NodeView nodeView)
       {
-        return;
+        inspectorView.UpdateSelection(nodeView);
       }
 
-      this.tree = newTree;
-
-      overlay.style.visibility = Visibility.Hidden;
-
-      if (Application.isPlaying)
+      private void OnInspectorUpdate()
       {
-        treeView.PopulateView(tree);
-      }
-      else
-      {
-        treeView.PopulateView(tree);
+        treeView?.UpdateNodeStates();
       }
 
-
-      treeObject = new SerializedObject(tree);
-      blackboardProperty = treeObject.FindProperty("blackboard");
-
-      EditorApplication.delayCall += () =>
+      private void CreateNewTree(string assetName)
       {
-        treeView.FrameAll();
-      };
-    }
-
-    private void OnNodeSelectionChanged(NodeView nodeView)
-    {
-      inspectorView.UpdateSelection(nodeView);
-    }
-
-    private void OnInspectorUpdate()
-    {
-      treeView?.UpdateNodeStates();
-    }
-
-    private void CreateNewTree(string assetName)
-    {
-      string path = System.IO.Path.Combine(locationPathField.value, $"{assetName}.asset");
-      BehaviourTree tree = ScriptableObject.CreateInstance<BehaviourTree>();
-      tree.name = treeNameField.ToString();
-      AssetDatabase.CreateAsset(tree, path);
-      AssetDatabase.SaveAssets();
-      Selection.activeObject = tree;
-      EditorGUIUtility.PingObject(tree);
+        string path = System.IO.Path.Combine(locationPathField.value, $"{assetName}.asset");
+        BehaviourTree tree = ScriptableObject.CreateInstance<BehaviourTree>();
+        tree.name = treeNameField.ToString();
+        AssetDatabase.CreateAsset(tree, path);
+        AssetDatabase.SaveAssets();
+        Selection.activeObject = tree;
+        EditorGUIUtility.PingObject(tree);
+      }
     }
   }
 }

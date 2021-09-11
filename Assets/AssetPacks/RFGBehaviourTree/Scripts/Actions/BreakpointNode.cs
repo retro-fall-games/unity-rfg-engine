@@ -2,21 +2,24 @@ using UnityEngine;
 
 namespace RFG
 {
-  public class Breakpoint : ActionNode
+  namespace BehaviourTree
   {
-    protected override void OnStart()
+    public class Breakpoint : ActionNode
     {
-      Debug.Log("Triggering Breakpoint");
-      Debug.Break();
-    }
+      protected override void OnStart()
+      {
+        Debug.Log("Triggering Breakpoint");
+        Debug.Break();
+      }
 
-    protected override void OnStop()
-    {
-    }
+      protected override void OnStop()
+      {
+      }
 
-    protected override State OnUpdate()
-    {
-      return State.Success;
+      protected override State OnUpdate()
+      {
+        return State.Success;
+      }
     }
   }
 }

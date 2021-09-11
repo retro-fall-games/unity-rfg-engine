@@ -3,15 +3,18 @@ using UnityEngine;
 
 namespace RFG
 {
-  public abstract class CompositeNode : Node
+  namespace BehaviourTree
   {
-    [HideInInspector] public List<Node> children = new List<Node>();
-
-    public override Node Clone()
+    public abstract class CompositeNode : Node
     {
-      CompositeNode node = Instantiate(this);
-      node.children = children.ConvertAll(c => c.Clone());
-      return node;
+      [HideInInspector] public List<Node> children = new List<Node>();
+
+      public override Node Clone()
+      {
+        CompositeNode node = Instantiate(this);
+        node.children = children.ConvertAll(c => c.Clone());
+        return node;
+      }
     }
   }
 }

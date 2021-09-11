@@ -58,22 +58,38 @@ namespace RFG
         if (ctx.controller.State.IsCollidingLeft || ctx.controller.State.IsCollidingRight)
         {
           ctx.controller.Flip();
+          ctx.JustRotated = true;
+          ctx.LastTimeRotated = Time.time;
+        }
+      }
+
+      public static void FlipOnLevelBoundsCollision(this AIStateContext ctx)
+      {
+        if (ctx.controller.State.TouchingLevelBounds)
+        {
+          ctx.controller.Flip();
+          ctx.JustRotated = true;
+          ctx.LastTimeRotated = Time.time;
         }
       }
 
       public static bool IsDangling(this AIStateContext ctx)
       {
+        if (ctx.characterContext.settingsPack == null || ctx.characterContext.settingsPack.DanglingSettings == null)
+          return false;
+
         Vector3 raycastOrigin = Vector3.zero;
+        DanglingSettings danglingSettings = ctx.characterContext.settingsPack.DanglingSettings;
         if (ctx.controller.State.IsFacingRight)
         {
-          raycastOrigin = ctx.transform.position + ctx.aiBrain.DanglingSettings.DanglingRaycastOrigin.x * Vector3.right + ctx.aiBrain.DanglingSettings.DanglingRaycastOrigin.y * ctx.transform.up;
+          raycastOrigin = ctx.transform.position + ctx.characterContext.settingsPack.DanglingSettings.DanglingRaycastOrigin.x * Vector3.right + danglingSettings.DanglingRaycastOrigin.y * ctx.transform.up;
         }
         else
         {
-          raycastOrigin = ctx.transform.position - ctx.aiBrain.DanglingSettings.DanglingRaycastOrigin.x * Vector3.right + ctx.aiBrain.DanglingSettings.DanglingRaycastOrigin.y * ctx.transform.up;
+          raycastOrigin = ctx.transform.position - danglingSettings.DanglingRaycastOrigin.x * Vector3.right + danglingSettings.DanglingRaycastOrigin.y * ctx.transform.up;
         }
 
-        RaycastHit2D hit = RFG.Physics2D.RayCast(raycastOrigin, -ctx.transform.up, ctx.aiBrain.DanglingSettings.DanglingRaycastLength, ctx.controller.PlatformMask | ctx.controller.OneWayPlatformMask | ctx.controller.OneWayMovingPlatformMask, Color.gray, true);
+        RaycastHit2D hit = RFG.Physics2D.RayCast(raycastOrigin, -ctx.transform.up, danglingSettings.DanglingRaycastLength, ctx.controller.PlatformMask | ctx.controller.OneWayPlatformMask | ctx.controller.OneWayMovingPlatformMask, Color.gray, true);
 
         if (!hit)
         {
@@ -84,15 +100,25 @@ namespace RFG
 
       public static void FlipOnDangle(this AIStateContext ctx)
       {
-        if (ctx.aiBrain.DanglingSettings != null && ctx.IsDangling())
+        if (ctx.characterContext.settingsPack == null || ctx.characterContext.settingsPack.DanglingSettings == null)
+          return;
+
+        DanglingSettings danglingSettings = ctx.characterContext.settingsPack.DanglingSettings;
+        if (danglingSettings != null && ctx.IsDangling())
         {
           ctx.controller.Flip();
+          ctx.JustRotated = true;
+          ctx.LastTimeRotated = Time.time;
         }
       }
 
       public static bool PauseOnDangle(this AIStateContext ctx)
       {
-        if (ctx.aiBrain.DanglingSettings != null && ctx.IsDangling())
+        if (ctx.characterContext.settingsPack == null || ctx.characterContext.settingsPack.DanglingSettings == null)
+          return false;
+
+        DanglingSettings danglingSettings = ctx.characterContext.settingsPack.DanglingSettings;
+        if (danglingSettings != null && ctx.IsDangling())
         {
           ctx.MoveHorizontally(0);
           return true;
@@ -102,6 +128,13 @@ namespace RFG
 
       public static void MoveHorizontally(this AIStateContext ctx, float speed)
       {
+
+        if (speed == 0)
+        {
+          ctx.controller.SetHorizontalForce(speed);
+          return;
+        }
+
         float _normalizedHorizontalSpeed = 0f;
 
         if (ctx.controller.State.IsFacingRight)
@@ -159,44 +192,53 @@ namespace RFG
 
       public static float WalkOrRun(this AIStateContext ctx)
       {
+        if (ctx.characterContext.settingsPack == null
+          || ctx.characterContext.settingsPack.RunningSettings == null
+          || ctx.characterContext.settingsPack.WalkingSettings == null
+        )
+          return 0;
+
         bool useRunning = !ctx.RunningCooldown;
 
-        float speed = useRunning ? ctx.aiBrain.RunningSettings.RunningSpeed : ctx.aiBrain.WalkingSettings.WalkingSpeed;
+        RunningSettings RunningSettings = ctx.characterContext.settingsPack.RunningSettings;
+        WalkingSettings WalkingSettings = ctx.characterContext.settingsPack.WalkingSettings;
+
+        float speed = useRunning ? RunningSettings.RunningSpeed : WalkingSettings.WalkingSpeed;
 
         if (useRunning)
         {
 
-          ctx.RunningPower -= ctx.aiBrain.RunningSettings.PowerGainPerFrame;
+          ctx.RunningPower -= RunningSettings.PowerGainPerFrame;
           if (ctx.RunningPower <= 0)
           {
             ctx.RunningCooldown = true;
-            speed = ctx.aiBrain.WalkingSettings.WalkingSpeed;
+            speed = WalkingSettings.WalkingSpeed;
             ctx.LastTimeRunningCooldown = Time.time;
             ctx.controller.State.IsRunning = false;
             ctx.controller.State.IsWalking = true;
           }
           else
           {
-            ctx.transform.DeactivatePoolByTag("Effects", ctx.aiBrain.WalkingSettings.WalkingEffects);
-            ctx.transform.SpawnFromPool("Effects", ctx.aiBrain.RunningSettings.RunningEffects);
-            ctx.animator.Play(ctx.aiBrain.RunningSettings.RunningClip);
+            ctx.transform.DeactivatePoolByTag("Effects", WalkingSettings.WalkingEffects);
+            ctx.transform.SpawnFromPool("Effects", RunningSettings.RunningEffects);
+            ctx.animator.Play(RunningSettings.RunningClip);
             ctx.controller.State.IsRunning = true;
             ctx.controller.State.IsWalking = false;
           }
         }
         else
         {
-          ctx.transform.DeactivatePoolByTag("Effects", ctx.aiBrain.RunningSettings.RunningEffects);
-          ctx.transform.SpawnFromPool("Effects", ctx.aiBrain.WalkingSettings.WalkingEffects);
-          ctx.animator.Play(ctx.aiBrain.WalkingSettings.WalkingClip);
+          ctx.transform.DeactivatePoolByTag("Effects", RunningSettings.RunningEffects);
+          ctx.transform.SpawnFromPool("Effects", WalkingSettings.WalkingEffects);
+          ctx.animator.Play(WalkingSettings.WalkingClip);
           ctx.controller.State.IsWalking = true;
           ctx.controller.State.IsRunning = false;
-          if (Time.time - ctx.LastTimeRunningCooldown > ctx.aiBrain.RunningSettings.CooldownTimer)
+          if (Time.time - ctx.LastTimeRunningCooldown > RunningSettings.CooldownTimer)
           {
-            ctx.RunningPower += ctx.aiBrain.RunningSettings.PowerGainPerFrame;
-            if (ctx.RunningPower >= ctx.aiBrain.RunningSettings.RunningPower)
+            ctx.RunningPower += RunningSettings.PowerGainPerFrame;
+            if (ctx.RunningPower >= RunningSettings.RunningPower)
             {
-              ctx.RunningPower = ctx.aiBrain.RunningSettings.RunningPower;
+              ctx.RunningPower = RunningSettings.RunningPower;
               ctx.RunningCooldown = false;
             }
           }

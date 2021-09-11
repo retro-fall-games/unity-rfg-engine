@@ -15,7 +15,7 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="divider" class="vertical" />
                 <ui:Label text="This is a description" display-tooltip-when-elided="true" name="description" />
-                <ui:VisualElement name="output" />
+                <ui:VisualElement name="output" style="justify-content: center;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

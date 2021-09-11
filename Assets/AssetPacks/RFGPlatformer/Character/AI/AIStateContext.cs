@@ -9,6 +9,7 @@ namespace RFG
       public Transform transform;
       public Character character;
       public CharacterController2D controller;
+      public StateCharacterContext characterContext;
       public Aggro aggro;
       public Animator animator;
       public MovementPath movementPath;

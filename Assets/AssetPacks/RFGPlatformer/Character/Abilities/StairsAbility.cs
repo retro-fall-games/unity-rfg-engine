@@ -9,16 +9,6 @@ namespace RFG
     [AddComponentMenu("RFG/Platformer/Character/Ability/Stairs")]
     public class StairsAbility : MonoBehaviour, IAbility
     {
-
-      [Header("Input")]
-
-      /// <summary>Input Action to read the xy axis</summary>
-      [Tooltip("Input Action to read the xy axis")]
-      public InputActionReference XYAxis;
-
-      [Header("Settings")]
-      public StairsSettings StairsSettings;
-
       [Header("Status")]
 
       /// true if the character is on stairs this frame, false otherwise
@@ -45,18 +35,31 @@ namespace RFG
       private Collider2D _goingDownEntryBoundsCollider;
       private float _goingDownEntryAt;
 
+      private Character _character;
       private CharacterController2D _controller;
+      private CharacterControllerState2D _state;
+
+      private InputActionReference _movement;
+      private StairsSettings _stairsSettings;
 
       private void Awake()
       {
-        _controller = GetComponent<CharacterController2D>();
+        _character = GetComponent<Character>();
+      }
+
+      private void Start()
+      {
+        _controller = _character.Context.controller;
+        _state = _character.Context.controller.State;
+        _movement = _character.Context.inputPack.Movement;
+        _stairsSettings = _character.Context.settingsPack.StairsSettings;
       }
 
       private void Update()
       {
-        float verticalInput = XYAxis.action.ReadValue<Vector2>().y;
-        _stairsInputUp = (verticalInput > StairsSettings.Threshold.y);
-        _stairsInputDown = (verticalInput < -StairsSettings.Threshold.y);
+        float verticalInput = _movement.action.ReadValue<Vector2>().y;
+        _stairsInputUp = (verticalInput > _stairsSettings.Threshold.y);
+        _stairsInputDown = (verticalInput < -_stairsSettings.Threshold.y);
         HandleEntryBounds();
         CheckIfStairsAhead();
         CheckIfStairsBelow();
@@ -70,7 +73,7 @@ namespace RFG
       private void HandleStairsAuthorization()
       {
         bool authorize = true;
-        if (_controller.State.IsGrounded && !_controller.State.IsJumping && !_controller.State.IsWallJumping && !_controller.State.IsDashing)
+        if (_state.IsGrounded && !_state.IsJumping && !_state.IsWallJumping && !_state.IsDashing)
         {
           // If there are stairs ahead and you're not on stairs
           if (StairsAhead && !OnStairs)
@@ -97,7 +100,7 @@ namespace RFG
               if (_stairsBelowAngle > 0 && _stairsBelowAngle <= 90f)
               {
                 // Then jump through the one way platform
-                // _controller.State.IsJumping = true;
+                // _state.IsJumping = true;
 
                 // Record what collider we were standing on
                 _goingDownEntryBoundsCollider = _controller.StandingOnCollider;
@@ -138,7 +141,7 @@ namespace RFG
         }
 
         // If the time hasn't passed yet to exceed the StairsBelow lock time then return
-        if (Time.time - _goingDownEntryAt < StairsSettings.StairsBelowLockTime)
+        if (Time.time - _goingDownEntryAt < _stairsSettings.StairsBelowLockTime)
         {
           return;
         }
@@ -160,19 +163,19 @@ namespace RFG
       {
         StairsAhead = false;
 
-        if (_controller.State.IsFacingRight)
+        if (_state.IsFacingRight)
         {
-          _raycastOrigin = transform.position + StairsSettings.StairsAheadDetectionRaycastOrigin.x * Vector3.right + StairsSettings.StairsAheadDetectionRaycastOrigin.y * transform.up;
+          _raycastOrigin = transform.position + _stairsSettings.StairsAheadDetectionRaycastOrigin.x * Vector3.right + _stairsSettings.StairsAheadDetectionRaycastOrigin.y * transform.up;
           _raycastDirection = Vector3.right;
         }
         else
         {
-          _raycastOrigin = transform.position - StairsSettings.StairsAheadDetectionRaycastOrigin.x * Vector3.right + StairsSettings.StairsAheadDetectionRaycastOrigin.y * transform.up;
+          _raycastOrigin = transform.position - _stairsSettings.StairsAheadDetectionRaycastOrigin.x * Vector3.right + _stairsSettings.StairsAheadDetectionRaycastOrigin.y * transform.up;
           _raycastDirection = -Vector3.right;
         }
 
         // we cast our ray in front of us
-        RaycastHit2D hit = RFG.Physics2D.RayCast(_raycastOrigin, _raycastDirection, StairsSettings.StairsAheadDetectionRaycastLength, _controller.StairsMask, Color.yellow, true);
+        RaycastHit2D hit = RFG.Physics2D.RayCast(_raycastOrigin, _raycastDirection, _stairsSettings.StairsAheadDetectionRaycastLength, _controller.StairsMask, Color.yellow, true);
 
         if (hit)
         {
@@ -189,20 +192,20 @@ namespace RFG
         StairsBelow = false;
 
         _raycastOrigin = _controller.BoundsCenter;
-        if (_controller.State.IsFacingRight)
+        if (_state.IsFacingRight)
         {
-          _raycastOrigin = _controller.ColliderBottomPosition + StairsSettings.StairsBelowDetectionRaycastOrigin.x * Vector3.right + StairsSettings.StairsBelowDetectionRaycastOrigin.y * transform.up;
+          _raycastOrigin = _controller.ColliderBottomPosition + _stairsSettings.StairsBelowDetectionRaycastOrigin.x * Vector3.right + _stairsSettings.StairsBelowDetectionRaycastOrigin.y * transform.up;
         }
         else
         {
-          _raycastOrigin = _controller.ColliderBottomPosition - StairsSettings.StairsBelowDetectionRaycastOrigin.x * Vector3.right + StairsSettings.StairsBelowDetectionRaycastOrigin.y * transform.up;
+          _raycastOrigin = _controller.ColliderBottomPosition - _stairsSettings.StairsBelowDetectionRaycastOrigin.x * Vector3.right + _stairsSettings.StairsBelowDetectionRaycastOrigin.y * transform.up;
         }
 
-        RaycastHit2D hit = RFG.Physics2D.RayCast(_raycastOrigin, -transform.up, StairsSettings.StairsBelowDetectionRaycastLength, _controller.StairsMask, Color.yellow, true);
+        RaycastHit2D hit = RFG.Physics2D.RayCast(_raycastOrigin, -transform.up, _stairsSettings.StairsBelowDetectionRaycastLength, _controller.StairsMask, Color.yellow, true);
 
         if (hit)
         {
-          if (_controller.State.IsFacingRight)
+          if (_state.IsFacingRight)
           {
             _stairsBelowAngle = Mathf.Abs(Vector2.Angle(hit.normal, Vector3.right));
           }
@@ -230,17 +233,6 @@ namespace RFG
           }
         }
       }
-
-      private void OnEnable()
-      {
-        XYAxis.action.Enable();
-      }
-
-      private void OnDisable()
-      {
-        XYAxis.action.Disable();
-      }
-
     }
   }
 }

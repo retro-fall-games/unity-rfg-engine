@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RFG;
+using RFG.BehaviourTree;
 
 public class #SCRIPTNAME# : CompositeNode
 {

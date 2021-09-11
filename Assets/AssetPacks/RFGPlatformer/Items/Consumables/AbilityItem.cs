@@ -19,11 +19,10 @@ namespace RFG
         switch (AbilityToAdd)
         {
           case AbilityType.DoubleJump:
-            JumpAbility jumpAbility = inventory.GetComponent<JumpAbility>();
-            if (jumpAbility != null)
+            Character character = inventory.GetComponent<Character>();
+            if (character != null)
             {
-              jumpAbility.JumpSettings.NumberOfJumps = 2;
-              jumpAbility.SetNumberOfJumpsLeft(2);
+              character.Context.settingsPack.JumpSettings.NumberOfJumps = 2;
             }
             break;
           case AbilityType.Dash:

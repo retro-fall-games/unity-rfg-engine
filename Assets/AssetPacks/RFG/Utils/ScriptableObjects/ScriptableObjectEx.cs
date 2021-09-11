@@ -12,5 +12,10 @@ namespace RFG
       newObj.name = type.ToString();
       return newObj;
     }
+
+    public static T CloneInstance<T>(this ScriptableObject obj) where T : ScriptableObject
+    {
+      return ScriptableObject.Instantiate(obj) as T;
+    }
   }
 }

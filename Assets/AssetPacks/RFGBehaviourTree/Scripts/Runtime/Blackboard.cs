@@ -2,9 +2,12 @@ using UnityEngine;
 
 namespace RFG
 {
-  [System.Serializable]
-  public class Blackboard
+  namespace BehaviourTree
   {
-    public Vector2 moveToPosition;
+    [System.Serializable]
+    public class Blackboard
+    {
+      public Vector2 moveToPosition;
+    }
   }
 }
