@@ -12,7 +12,7 @@ namespace RFG
       private Transform _transform;
       private Character _character;
       private InputActionReference _pauseInput;
-      private PauseSettings _pauseSettings;
+      private SettingsPack _settings;
 
       private void Awake()
       {
@@ -23,7 +23,7 @@ namespace RFG
       {
         _character = GetComponent<Character>();
         _pauseInput = _character.Context.inputPack.PauseInput;
-        _pauseSettings = _character.Context.settingsPack.PauseSettings;
+        _settings = _character.Context.settingsPack;
 
         // Setup events
         OnEnable();
@@ -33,13 +33,13 @@ namespace RFG
       {
         if (GameManager.Instance.IsPaused)
         {
-          _transform.SpawnFromPool("Effects", _pauseSettings.PauseEffects);
+          _transform.SpawnFromPool("Effects", _settings.PauseEffects);
         }
         else
         {
-          _transform.SpawnFromPool("Effects", _pauseSettings.UnPauseEffects);
+          _transform.SpawnFromPool("Effects", _settings.UnPauseEffects);
         }
-        _pauseSettings.PauseEvent?.Raise();
+        _settings.PauseEvent?.Raise();
       }
 
       private void OnEnable()

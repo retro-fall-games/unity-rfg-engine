@@ -9,7 +9,6 @@ namespace Game
   {
     [Header("AI Brains")]
     public Character player;
-    public IdleSettings IdleSettings;
 
     [Header("Camera")]
     public Animator playerAnimator;
@@ -36,7 +35,7 @@ namespace Game
       // Disable player
       player.Controller.SetForce(Vector2.zero);
       player.Controller.enabled = false;
-      playerAnimator.Play(IdleSettings.IdleClip);
+      player.MovementState.ChangeState(typeof(IdleState));
       player.DisableAllAbilities();
 
       yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "Boss Defeated", 1.5f);

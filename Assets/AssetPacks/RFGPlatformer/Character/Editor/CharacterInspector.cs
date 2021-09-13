@@ -91,9 +91,9 @@ namespace RFG
         {
           character.gameObject.AddComponent<HealthBehaviour>();
         }
-        if (character.GetComponent<WalkingAbility>() == null)
+        if (character.GetComponent<MovementAbility>() == null)
         {
-          character.gameObject.AddComponent<WalkingAbility>();
+          character.gameObject.AddComponent<MovementAbility>();
         }
         if (character.GetComponent<JumpAbility>() == null)
         {

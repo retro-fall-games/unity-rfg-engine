@@ -22,10 +22,9 @@ namespace RFG
       protected override State OnUpdate()
       {
         AIBrainBehaviour brain = context as AIBrainBehaviour;
-        if (brain.Context.characterContext.settingsPack == null || brain.Context.characterContext.settingsPack.WalkingSettings == null)
+        if (brain.Context.characterContext.settingsPack == null)
           return State.Success;
 
-        WalkingSettings WalkingSettings = brain.Context.characterContext.settingsPack.WalkingSettings;
         brain.Context.FlipOnCollision();
         brain.Context.FlipOnDangle();
         if (!brain.Context.JustRotated())
@@ -33,7 +32,7 @@ namespace RFG
           brain.Context.FlipOnLevelBoundsCollision();
         }
         brain.Context.controller.State.IsWalking = true;
-        brain.Context.MoveHorizontally(WalkingSettings.WalkingSpeed);
+        brain.Context.MoveHorizontally(brain.Context.characterContext.settingsPack.WalkingSpeed);
         brain.Context.TouchingWalls();
         return State.Running;
       }

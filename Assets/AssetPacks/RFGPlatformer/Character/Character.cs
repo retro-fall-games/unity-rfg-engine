@@ -8,7 +8,7 @@ namespace RFG
   {
     public enum CharacterType { Player, AI }
     [AddComponentMenu("RFG/Platformer/Character/Character")]
-    public class Character : StateMachineBehaviour, IPooledObject
+    public class Character : MonoBehaviour, IPooledObject
     {
       [Header("Type")]
       public CharacterType CharacterType = CharacterType.Player;
@@ -20,21 +20,31 @@ namespace RFG
       public InputPack InputPack;
       public SettingsPack SettingsPack;
 
+      [Header("Character State")]
+      public RFG.StateMachine.StateMachine CharacterState;
+
+      [Header("Movement State")]
+      public RFG.StateMachine.StateMachine MovementState;
+
       [HideInInspector]
-      public new StateCharacterContext Context => _characterContext;
-      private StateCharacterContext _characterContext = new StateCharacterContext();
+      public StateCharacterContext Context => _characterContext;
       public CharacterController2D Controller => _controller;
+      private StateCharacterContext _characterContext = new StateCharacterContext();
       private CharacterController2D _controller;
       private Dictionary<int, LevelPortal> _levelPortals;
       private List<Component> _abilities;
 
-      protected override void Awake()
+      private void Awake()
       {
-        base.Awake();
+        InitContext();
+        InitAbilities();
+        InitLevelPortals();
+      }
+
+      private void InitContext()
+      {
         _characterContext = new StateCharacterContext();
-
         _controller = GetComponent<CharacterController2D>();
-
         _characterContext.transform = transform;
         _characterContext.animator = GetComponent<Animator>();
         _characterContext.character = this;
@@ -44,14 +54,24 @@ namespace RFG
         _characterContext.healthBehaviour = GetComponent<HealthBehaviour>();
 
         // Bind the character context to the state context
-        base.Context = _characterContext;
+        CharacterState.Init();
+        CharacterState.Bind(_characterContext);
 
+        MovementState.Init();
+        MovementState.Bind(_characterContext);
+      }
+
+      private void InitAbilities()
+      {
         Component[] abilities = GetComponents(typeof(IAbility)) as Component[];
         if (abilities.Length > 0)
         {
           _abilities = new List<Component>(abilities);
         }
+      }
 
+      private void InitLevelPortals()
+      {
         if (CharacterType == CharacterType.Player)
         {
           _levelPortals = new Dictionary<int, LevelPortal>();
@@ -63,9 +83,10 @@ namespace RFG
         }
       }
 
-      public void SetCurrentSettingsPack(int overrideIndex)
+      private void Update()
       {
-        _characterContext.SetCurrentSettingsPack(overrideIndex);
+        CharacterState.Update();
+        MovementState.Update();
       }
 
       public void OverrideSettingsPack(SettingsPack settings)
@@ -80,7 +101,8 @@ namespace RFG
 
       public void OnObjectSpawn(params object[] objects)
       {
-        ResetToDefaultState();
+        CharacterState.ResetToDefaultState();
+        MovementState.ResetToDefaultState();
       }
 
       public void CalculatePlayerSpawnAt()
@@ -115,13 +137,13 @@ namespace RFG
       public IEnumerator KillCo()
       {
         yield return new WaitForSeconds(0.1f);
-        ChangeState(typeof(DeathState));
+        CharacterState.ChangeState(typeof(DeathState));
       }
 
       public IEnumerator Respawn()
       {
         yield return new WaitForSecondsRealtime(1f);
-        ChangeState(typeof(SpawnState));
+        CharacterState.ChangeState(typeof(SpawnState));
         gameObject.SetActive(true);
       }
 

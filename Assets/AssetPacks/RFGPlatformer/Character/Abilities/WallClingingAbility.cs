@@ -17,7 +17,7 @@ namespace RFG
       private CharacterControllerState2D _state;
       private Animator _animator;
       private InputActionReference _movement;
-      private WallClingingSettings _wallClingingSettings;
+      private SettingsPack _settings;
 
       private void Awake()
       {
@@ -31,7 +31,7 @@ namespace RFG
         _controller = _character.Context.controller;
         _state = _character.Context.controller.State;
         _movement = _character.Context.inputPack.Movement;
-        _wallClingingSettings = _character.Context.settingsPack.WallClingingSettings;
+        _settings = _character.Context.settingsPack;
       }
 
       private void Update()
@@ -55,14 +55,14 @@ namespace RFG
         float _horizontalInput = _movementVector.x;
         float _verticalInput = _movementVector.y;
 
-        bool isClingingLeft = _state.IsCollidingLeft && _horizontalInput <= -_wallClingingSettings.Threshold;
-        bool isClingingRight = _state.IsCollidingRight && _horizontalInput >= _wallClingingSettings.Threshold;
+        bool isClingingLeft = _state.IsCollidingLeft && _horizontalInput <= -_settings.WallClingingInputThreshold;
+        bool isClingingRight = _state.IsCollidingRight && _horizontalInput >= _settings.WallClingingInputThreshold;
 
         // If we are wall clinging, then change the state
         if (isClingingLeft || isClingingRight)
         {
           // Slow the fall speed
-          _controller.SlowFall(_wallClingingSettings.WallClingingSlowFactor);
+          _controller.SlowFall(_settings.WallClingingSlowFactor);
           _state.IsWallClinging = true;
         }
         else
@@ -94,23 +94,23 @@ namespace RFG
             right = -right;
           }
 
-          raycastOrigin = raycastOrigin + right * _controller.Width() / 2 + _transform.up * _wallClingingSettings.RaycastVerticalOffset;
+          raycastOrigin = raycastOrigin + right * _controller.Width() / 2 + _transform.up * _settings.RaycastVerticalOffset;
           raycastDirection = right - _transform.up;
 
           LayerMask mask = _controller.PlatformMask & (~_controller.OneWayPlatformMask | ~_controller.OneWayMovingPlatformMask);
 
-          RaycastHit2D hit = RFG.Physics2D.RayCast(raycastOrigin, raycastDirection, _wallClingingSettings.WallClingingTolerance, mask, Color.red, true);
+          RaycastHit2D hit = RFG.Physics2D.RayCast(raycastOrigin, raycastDirection, _settings.WallClingingTolerance, mask, Color.red, true);
 
           if (isClingingRight)
           {
-            if (!hit || _horizontalInput <= _wallClingingSettings.Threshold)
+            if (!hit || _horizontalInput <= _settings.WallClingingInputThreshold)
             {
               shouldExit = true;
             }
           }
           else
           {
-            if (!hit || _horizontalInput >= -_wallClingingSettings.Threshold)
+            if (!hit || _horizontalInput >= -_settings.WallClingingInputThreshold)
             {
               shouldExit = true;
             }
@@ -118,13 +118,11 @@ namespace RFG
           if (shouldExit)
           {
             _controller.SlowFall(0f);
-            _state.IsFalling = true;
-            _state.IsWallClinging = false;
+            _character.MovementState.ChangeState(typeof(IdleState));
           }
           else
           {
-            _transform.SpawnFromPool("Effects", _wallClingingSettings.WallClingingEffects);
-            _animator.Play(_wallClingingSettings.WallClingingClip);
+            _character.MovementState.ChangeState(typeof(WallClingingState));
           }
         }
 

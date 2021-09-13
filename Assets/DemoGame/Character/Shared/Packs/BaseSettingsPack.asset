@@ -12,17 +12,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36585e6d24cefa4c8266a9dc0cb4a4e, type: 3}
   m_Name: BaseSettingsPack
   m_EditorClassIdentifier: 
-  AttackSettings: {fileID: 0}
-  DanglingSettings: {fileID: 11400000, guid: 9b6545bd790c82d4cae38c8038b48db4, type: 2}
-  DashSettings: {fileID: 0}
-  HealthSettings: {fileID: 0}
-  IdleSettings: {fileID: 0}
-  JumpSettings: {fileID: 0}
-  PauseSettings: {fileID: 0}
-  RunningSettings: {fileID: 0}
-  StairsSettings: {fileID: 11400000, guid: a6ff2dfc6be48754d9cad6eba74cea8a, type: 2}
-  WalkingSettings: {fileID: 0}
-  WallClingingSettings: {fileID: 0}
-  WallJumpSettings: {fileID: 0}
-  BaseSettingsPack: {fileID: 0}
-  SettingsPackOverrides: []
+  AttackSpeed: 5
+  DanglingRaycastOrigin: {x: 0.7, y: -0.25, z: 0}
+  DanglingRaycastLength: 2
+  DashDistance: 3
+  DashForce: 40
+  TotalDashes: 2
+  MinInputThreshold: 0.1
+  Cooldown: 1
+  JumpHeight: 3.5
+  OneWayPlatformFallVelocity: -10
+  JumpThreshold: {x: 0.1, y: 0.4}
+  OneWayPlatformsJumpCollisionOffDuration: 0.3
+  MovingPlatformsJumpCollisionOffDuration: 0.05
+  Restrictions: 0
+  NumberOfJumps: 1
+  CanJumpDownOneWayPlatforms: 1
+  JumpIsProportionalToThePressTime: 1
+  JumpMinAirTime: 0.05
+  JumpReleaseForceFactor: 2
+  PauseEvent: {fileID: 11400000, guid: 313c80fc5e6491c4e82451537c51b72d, type: 2}
+  PauseEffects: []
+  UnPauseEffects: []
+  RunningSpeed: 2
+  RunningPower: 0
+  PowerGainPerFrame: 0
+  CooldownTimer: 0
+  Threshold: {x: 0.1, y: 0.4}
+  StairsAheadDetectionRaycastOrigin: {x: -2, y: 0, z: 0}
+  StairsAheadDetectionRaycastLength: 4
+  StairsBelowDetectionRaycastOrigin: {x: -0.2, y: 0, z: 0}
+  StairsBelowDetectionRaycastLength: 0.5
+  StairsBelowLockTime: 0.2
+  WalkingSpeed: 2
+  WallClingingSlowFactor: 0.6
+  RaycastVerticalOffset: 0
+  WallClingingTolerance: 0.3
+  WallClingingInputThreshold: 0.1
+  WallJumpInputThreshold: 0.01
+  WallJumpForce: {x: 15, y: 4}

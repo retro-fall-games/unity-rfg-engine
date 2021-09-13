@@ -17,7 +17,7 @@ namespace RFG
       private CharacterControllerState2D _state;
       private InputActionReference _movement;
       private InputActionReference _jumpInput;
-      private JumpSettings _jumpSettings;
+      private SettingsPack _settings;
       private int _numberOfJumpsLeft = 0;
       private float _lastJumpTime = 0f;
 
@@ -31,18 +31,20 @@ namespace RFG
         _state = _context.controller.State;
         _movement = _context.inputPack.Movement;
         _jumpInput = _context.inputPack.JumpInput;
-        _jumpSettings = _context.settingsPack.JumpSettings;
+        _settings = _context.settingsPack;
 
         // Setup events
         OnEnable();
+
+        SetNumberOfJumpsLeft(_settings.NumberOfJumps);
       }
 
       private void LateUpdate()
       {
-        if (_state.JustGotGrounded)
+        if (_state.JustGotGrounded && _character.MovementState.CurrentStateType != typeof(IdleState))
         {
-          _transform.SpawnFromPool("Effects", _jumpSettings.LandEffects);
-          SetNumberOfJumpsLeft(_jumpSettings.NumberOfJumps);
+          _character.MovementState.ChangeState(typeof(LandedState));
+          SetNumberOfJumpsLeft(_settings.NumberOfJumps);
         }
       }
 
@@ -53,17 +55,17 @@ namespace RFG
 
       private bool EvaluateJumpConditions()
       {
-        if (_jumpSettings.Restrictions == JumpSettings.JumpRestrictions.CanJumpAnywhere)
+        if (_settings.Restrictions == JumpRestrictions.CanJumpAnywhere)
         {
           return true;
         }
 
-        if (_jumpSettings.Restrictions == JumpSettings.JumpRestrictions.CanJumpOnGround && _numberOfJumpsLeft <= 0)
+        if (_settings.Restrictions == JumpRestrictions.CanJumpOnGround && _numberOfJumpsLeft <= 0)
         {
           return false;
         }
 
-        if (_state.IsWallClinging)
+        if (_character.MovementState.CurrentStateType == typeof(WallClingingState))
         {
           return false;
         }
@@ -71,7 +73,7 @@ namespace RFG
         float _verticalInput = _movement.action.ReadValue<Vector2>().y;
 
         // if the character is standing on a one way platform and is also pressing the down button,
-        if (_verticalInput < -_jumpSettings.JumpThreshold.y && _state.IsGrounded)
+        if (_verticalInput < -_settings.JumpThreshold.y && _state.IsGrounded)
         {
           if (JumpDownFromOneWayPlatform())
           {
@@ -92,43 +94,39 @@ namespace RFG
       {
         if (EvaluateJumpConditions())
         {
-          _transform.SpawnFromPool("Effects", _jumpSettings.JumpEffects);
-          _animator.Play(_jumpSettings.JumpingClip);
+          _character.MovementState.ChangeState(typeof(JumpingState));
           _numberOfJumpsLeft--;
 
           _controller.GravityActive(true);
           _controller.CollisionsOn();
 
           _lastJumpTime = Time.time;
-          _state.IsIdle = false;
-          _state.IsWalking = false;
-          _state.IsFalling = false;
           _state.IsJumping = true;
 
-          _controller.SetVerticalForce(Mathf.Sqrt(2f * _jumpSettings.JumpHeight * Mathf.Abs(_controller.Parameters.Gravity)));
+          _controller.SetVerticalForce(Mathf.Sqrt(2f * _settings.JumpHeight * Mathf.Abs(_controller.Parameters.Gravity)));
         }
       }
 
       private void JumpStop()
       {
-        if (_jumpSettings.JumpIsProportionalToThePressTime)
+        if (_settings.JumpIsProportionalToThePressTime)
         {
-          bool hasMinAirTime = Time.time - _lastJumpTime >= _jumpSettings.JumpMinAirTime;
+          bool hasMinAirTime = Time.time - _lastJumpTime >= _settings.JumpMinAirTime;
           bool speedGreaterThanGravity = _controller.Speed.y > Mathf.Sqrt(Mathf.Abs(_controller.Parameters.Gravity));
           if (hasMinAirTime && speedGreaterThanGravity)
           {
             _lastJumpTime = 0f;
-            if (_jumpSettings.JumpReleaseForceFactor == 0f)
+            if (_settings.JumpReleaseForceFactor == 0f)
             {
               _controller.SetVerticalForce(0f);
             }
             else
             {
-              _controller.AddVerticalForce(-_controller.Speed.y / _jumpSettings.JumpReleaseForceFactor);
+              _controller.AddVerticalForce(-_controller.Speed.y / _settings.JumpReleaseForceFactor);
             }
           }
         }
-        _state.IsFalling = true;
+        _character.MovementState.ChangeState(typeof(FallingState));
         _state.IsJumping = false;
       }
 
@@ -137,7 +135,7 @@ namespace RFG
       /// </summary>
       protected virtual bool JumpDownFromOneWayPlatform()
       {
-        if (!_jumpSettings.CanJumpDownOneWayPlatforms)
+        if (!_settings.CanJumpDownOneWayPlatforms)
         {
           return false;
         }
@@ -146,8 +144,9 @@ namespace RFG
           || _controller.StairsMask.Contains(_controller.StandingOn.layer))
         {
           _state.IsJumping = true;
+          _character.MovementState.ChangeState(typeof(FallingState));
           // we turn the boxcollider off for a few milliseconds, so the character doesn't get stuck mid platform
-          StartCoroutine(_controller.DisableCollisionsWithOneWayPlatforms(_jumpSettings.OneWayPlatformsJumpCollisionOffDuration));
+          StartCoroutine(_controller.DisableCollisionsWithOneWayPlatforms(_settings.OneWayPlatformsJumpCollisionOffDuration));
           return true;
         }
         else
@@ -165,7 +164,7 @@ namespace RFG
           || _controller.OneWayMovingPlatformMask.Contains(_controller.StandingOn.layer))
         {
           // we turn the boxcollider off for a few milliseconds, so the character doesn't get stuck mid air
-          StartCoroutine(_controller.DisableCollisionsWithMovingPlatforms(_jumpSettings.MovingPlatformsJumpCollisionOffDuration));
+          StartCoroutine(_controller.DisableCollisionsWithMovingPlatforms(_settings.MovingPlatformsJumpCollisionOffDuration));
         }
       }
 

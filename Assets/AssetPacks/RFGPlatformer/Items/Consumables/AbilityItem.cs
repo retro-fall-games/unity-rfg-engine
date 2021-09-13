@@ -22,7 +22,7 @@ namespace RFG
             Character character = inventory.GetComponent<Character>();
             if (character != null)
             {
-              character.Context.settingsPack.JumpSettings.NumberOfJumps = 2;
+              character.Context.settingsPack.NumberOfJumps = 2;
             }
             break;
           case AbilityType.Dash:

@@ -14,7 +14,7 @@ namespace RFG
       private CharacterController2D _controller;
       private Animator _animator;
       private Transform _transform;
-      private DanglingSettings _danglingSettings;
+      private SettingsPack _settings;
 
       private void Awake()
       {
@@ -28,7 +28,7 @@ namespace RFG
         _animator = _character.Context.animator;
         _controller = _character.Context.controller;
         _state = _character.Context.controller.State;
-        _danglingSettings = _character.Context.settingsPack.DanglingSettings;
+        _settings = _character.Context.settingsPack;
       }
 
       private void Update()
@@ -40,7 +40,13 @@ namespace RFG
         }
 
         // if dangling is disabled or if we're not grounded, we do nothing and exit
-        if (_state.IsWalking || _state.IsRunning || _state.IsJumping || _state.IsDashing || !_state.IsGrounded)
+        if (
+             _character.MovementState.CurrentStateType == typeof(WalkingState)
+          || _character.MovementState.CurrentStateType == typeof(RunningState)
+          || _character.MovementState.CurrentStateType == typeof(JumpingState)
+          || _character.MovementState.CurrentStateType == typeof(DashingState)
+          || !_state.IsGrounded
+        )
         {
           return;
         }
@@ -49,36 +55,26 @@ namespace RFG
         Vector3 raycastOrigin = Vector3.zero;
         if (_state.IsFacingRight)
         {
-          raycastOrigin = _transform.position + _danglingSettings.DanglingRaycastOrigin.x * Vector3.right + _danglingSettings.DanglingRaycastOrigin.y * _transform.up;
+          raycastOrigin = _transform.position + _settings.DanglingRaycastOrigin.x * Vector3.right + _settings.DanglingRaycastOrigin.y * _transform.up;
         }
         else
         {
-          raycastOrigin = _transform.position - _danglingSettings.DanglingRaycastOrigin.x * Vector3.right + _danglingSettings.DanglingRaycastOrigin.y * _transform.up;
+          raycastOrigin = _transform.position - _settings.DanglingRaycastOrigin.x * Vector3.right + _settings.DanglingRaycastOrigin.y * _transform.up;
         }
 
         // we cast our ray downwards
-        RaycastHit2D hit = RFG.Physics2D.RayCast(raycastOrigin, -_transform.up, _danglingSettings.DanglingRaycastLength, _controller.PlatformMask | _controller.OneWayPlatformMask | _controller.OneWayMovingPlatformMask, Color.gray, true);
+        RaycastHit2D hit = RFG.Physics2D.RayCast(raycastOrigin, -_transform.up, _settings.DanglingRaycastLength, _controller.PlatformMask | _controller.OneWayPlatformMask | _controller.OneWayMovingPlatformMask, Color.gray, true);
 
         // if the ray didn't hit something, we're dangling
         if (!hit)
         {
-          // if this is the first time we dangle, we start our feedback
-          if (!_state.IsDangling)
-          {
-            _transform.SpawnFromPool("Effects", _danglingSettings.DanglingEffects);
-          }
-          if (!_danglingSettings.DanglingClip.Equals(""))
-          {
-            _animator.Play(_danglingSettings.DanglingClip);
-          }
-          _state.IsDangling = true;
+          _character.MovementState.ChangeState(typeof(DanglingState));
         }
 
         // if the ray hit something and we were dangling previously, we go back to Idle
-        if (hit && _state.IsDangling)
+        if (hit && _character.MovementState.CurrentStateType == typeof(DanglingState))
         {
-          _state.IsDangling = false;
-          _state.IsIdle = true;
+          _character.MovementState.ChangeState(typeof(IdleState));
         }
       }
     }

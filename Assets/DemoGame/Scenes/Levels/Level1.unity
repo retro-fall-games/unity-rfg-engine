@@ -465,7 +465,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221960913}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7434053, y: 0, z: 0}
+  m_LocalPosition: {x: 1.8112364, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 516613198}
@@ -11999,6 +11999,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ObjectPoolManager
       objectReference: {fileID: 0}
+    - target: {fileID: 586986070486870258, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 586986071368336179, guid: faf4599167583a04aa9c07a7ef28b9c7, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -13034,7 +13038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8098398653585821232, guid: aac3c7a68b9725d40862742966bc9961, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8098398653585821233, guid: aac3c7a68b9725d40862742966bc9961, type: 3}
       propertyPath: minDistance
@@ -13331,7 +13335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7475232957696695950, guid: 933f5826bd6d3da47904b86892e4d52b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.354838
+      value: 9.4905
       objectReference: {fileID: 0}
     - target: {fileID: 7475232957696695950, guid: 933f5826bd6d3da47904b86892e4d52b, type: 3}
       propertyPath: m_LocalPosition.y

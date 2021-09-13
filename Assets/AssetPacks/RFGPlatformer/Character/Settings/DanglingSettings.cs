@@ -15,15 +15,6 @@ namespace RFG
       /// the length of the raycast used to detect pits
       [Tooltip("the length of the raycast used to detect pits")]
       public float DanglingRaycastLength = 2f;
-
-      [Header("Animations")]
-
-      [Tooltip("Define what animation to play for dangling")]
-      public string DanglingClip;
-
-      [Header("Effects")]
-      public string[] DanglingEffects;
-
     }
   }
 }

@@ -11,7 +11,6 @@ namespace Game
     public Character player;
     public Character boss;
     public AIBrainBehaviour bossAIBrain;
-    public IdleSettings IdleSettings;
 
     [Header("Camera")]
     public Animator playerAnimator;
@@ -35,7 +34,7 @@ namespace Game
       // Disable player
       player.Controller.SetForce(Vector2.zero);
       player.Controller.enabled = false;
-      playerAnimator.Play(IdleSettings.IdleClip);
+      player.MovementState.ChangeState(typeof(IdleState));
       player.DisableAllAbilities();
 
       // Player Talks

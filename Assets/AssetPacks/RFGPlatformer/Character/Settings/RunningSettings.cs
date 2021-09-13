@@ -12,16 +12,6 @@ namespace RFG
       public float RunningPower = 5f;
       public float PowerGainPerFrame = .01f;
       public float CooldownTimer = 5f;
-
-      [Header("Effects")]
-      public string[] RunningEffects;
-
-      [Header("Animations")]
-      [Tooltip("Define what layer to play animations")]
-      public string Layer = "Base Layer";
-
-      [Tooltip("Define what animation to play for walking")]
-      public string RunningClip;
     }
   }
 }

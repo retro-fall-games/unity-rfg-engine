@@ -35,7 +35,7 @@ namespace RFG
 
       private void LateUpdate()
       {
-        if (_character.CurrentStateType != typeof(AliveState))
+        if (_character.CharacterState.CurrentStateType != typeof(AliveState))
           return;
         HandleLevelBounds();
       }
@@ -112,6 +112,7 @@ namespace RFG
           Bounds.min = new Vector3(collider.points[0].x, collider.points[0].y, 0);
           Bounds.max = new Vector3(collider.points[2].x, collider.points[2].y, 0);
         }
+        EditorUtility.SetDirty(gameObject);
       }
 
       [ButtonMethod]
@@ -126,6 +127,7 @@ namespace RFG
         new Vector2(Bounds.max.x, Bounds.min.y),
         };
         collider.SetPath(0, points);
+        EditorUtility.SetDirty(Selection.activeGameObject);
       }
 
       private void OnDrawGizmos()

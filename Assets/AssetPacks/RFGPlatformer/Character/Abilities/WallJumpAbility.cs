@@ -18,7 +18,7 @@ namespace RFG
       private Animator _animator;
       private InputActionReference _wallJumpInput;
       private InputActionReference _movement;
-      private WallJumpSettings _wallJumpSettings;
+      private SettingsPack _settings;
 
       private void Awake()
       {
@@ -33,7 +33,7 @@ namespace RFG
         _state = _character.Context.controller.State;
         _movement = _character.Context.inputPack.Movement;
         _wallJumpInput = _character.Context.inputPack.JumpInput;
-        _wallJumpSettings = _character.Context.settingsPack.WallJumpSettings;
+        _settings = _character.Context.settingsPack;
 
         // Setup events
         OnEnable();
@@ -41,7 +41,7 @@ namespace RFG
 
       private void OnJumpStarted(InputAction.CallbackContext ctx)
       {
-        if (HasAbility && _state.IsWallClinging)
+        if (HasAbility && _character.MovementState.CurrentStateType == typeof(WallClingingState))
         {
           WallJump();
         }
@@ -49,15 +49,13 @@ namespace RFG
 
       private void WallJump()
       {
-        _transform.SpawnFromPool("Effects", _wallJumpSettings.JumpEffects);
-        _animator.Play(_wallJumpSettings.WallJumpClip);
-        _state.IsWallJumping = true;
+        _character.MovementState.ChangeState(typeof(WallJumpingState));
         _controller.SlowFall(0f);
 
         Vector2 _movementVector = _movement.action.ReadValue<Vector2>();
         float _horizontalInput = _movementVector.x;
-        bool isClingingLeft = _state.IsCollidingLeft && _horizontalInput <= -_wallJumpSettings.Threshold;
-        bool isClingingRight = _state.IsCollidingRight && _horizontalInput >= _wallJumpSettings.Threshold;
+        bool isClingingLeft = _state.IsCollidingLeft && _horizontalInput <= -_settings.WallJumpInputThreshold;
+        bool isClingingRight = _state.IsCollidingRight && _horizontalInput >= _settings.WallJumpInputThreshold;
 
         float wallJumpDirection;
         if (isClingingRight)
@@ -69,7 +67,7 @@ namespace RFG
           wallJumpDirection = 1f;
         }
 
-        Vector2 wallJumpVector = new Vector2(wallJumpDirection * _wallJumpSettings.WallJumpForce.x, Mathf.Sqrt(2f * _wallJumpSettings.WallJumpForce.y * Mathf.Abs(_controller.Parameters.Gravity)));
+        Vector2 wallJumpVector = new Vector2(wallJumpDirection * _settings.WallJumpForce.x, Mathf.Sqrt(2f * _settings.WallJumpForce.y * Mathf.Abs(_controller.Parameters.Gravity)));
 
         _controller.AddForce(wallJumpVector);
       }

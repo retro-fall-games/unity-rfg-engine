@@ -30,10 +30,8 @@ namespace RFG
       public bool IsDangling { get; set; }
       public bool IsJumping { get; set; }
       public bool IsStandingOnStairs { get; set; }
-      public bool IsDashing { get; set; }
       public bool IsWalking { get; set; }
       public bool IsRunning { get; set; }
-      public bool IsIdle { get; set; }
       public bool IsWallClinging { get; set; }
       public bool IsWallJumping { get; set; }
       public bool OnAMovingPlatform { get; set; }

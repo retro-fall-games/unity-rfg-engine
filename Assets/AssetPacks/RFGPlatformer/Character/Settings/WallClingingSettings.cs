@@ -13,17 +13,6 @@ namespace RFG
       public float RaycastVerticalOffset = 0f;
       public float WallClingingTolerance = 0.3f;
       public float Threshold = 0.1f;
-
-      [Header("Animations")]
-      [Tooltip("Define what layer to play animations")]
-      public string Layer = "Base Layer";
-
-      [Tooltip("Define what animation to play for wall clinging")]
-      public string WallClingingClip;
-
-      [Header("Effects")]
-      public string[] WallClingingEffects;
-
     }
   }
 }

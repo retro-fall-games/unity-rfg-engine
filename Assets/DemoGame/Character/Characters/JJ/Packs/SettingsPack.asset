@@ -12,17 +12,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c36585e6d24cefa4c8266a9dc0cb4a4e, type: 3}
   m_Name: SettingsPack
   m_EditorClassIdentifier: 
-  AttackSettings: {fileID: 0}
-  DanglingSettings: {fileID: 0}
-  DashSettings: {fileID: 11400000, guid: 8e739acf839401d40bbfc0680fef64b3, type: 2}
-  HealthSettings: {fileID: 11400000, guid: 4b5a58eacde4e54459160e01f2720899, type: 2}
-  IdleSettings: {fileID: 11400000, guid: 55182c08d6e36ba40917c38759dc7ae1, type: 2}
-  JumpSettings: {fileID: 11400000, guid: bf332cb3ac2612c419d99cedb5216b7a, type: 2}
-  PauseSettings: {fileID: 11400000, guid: 4e32bca53f86989439aae200d8c0f174, type: 2}
-  RunningSettings: {fileID: 0}
-  StairsSettings: {fileID: 0}
-  WalkingSettings: {fileID: 11400000, guid: 236ba19ef12adb74e887f04f879687ee, type: 2}
-  WallClingingSettings: {fileID: 11400000, guid: dcbf435cd23f9a049b32efec066c1f67, type: 2}
-  WallJumpSettings: {fileID: 11400000, guid: f3eb2db1c3d57784cb0a6462e5d5c465, type: 2}
+  AttackSpeed: 5
+  DanglingRaycastOrigin: {x: 0.7, y: -0.25, z: 0}
+  DanglingRaycastLength: 2
+  DashDistance: 3
+  DashForce: 40
+  TotalDashes: 2
+  MinInputThreshold: 0.1
+  Cooldown: 1
+  JumpHeight: 3.5
+  OneWayPlatformFallVelocity: -10
+  JumpThreshold: {x: 0.1, y: 0.4}
+  OneWayPlatformsJumpCollisionOffDuration: 0.3
+  MovingPlatformsJumpCollisionOffDuration: 0.05
+  Restrictions: 0
+  NumberOfJumps: 1
+  CanJumpDownOneWayPlatforms: 1
+  JumpIsProportionalToThePressTime: 1
+  JumpMinAirTime: 0.05
+  JumpReleaseForceFactor: 2
+  PauseEvent: {fileID: 11400000, guid: 313c80fc5e6491c4e82451537c51b72d, type: 2}
+  PauseEffects: []
+  UnPauseEffects: []
+  RunningSpeed: 2
+  RunningPower: 0
+  PowerGainPerFrame: 0
+  CooldownTimer: 0
+  Threshold: {x: 0.1, y: 0.4}
+  StairsAheadDetectionRaycastOrigin: {x: -2, y: 0, z: 0}
+  StairsAheadDetectionRaycastLength: 4
+  StairsBelowDetectionRaycastOrigin: {x: -0.2, y: 0, z: 0}
+  StairsBelowDetectionRaycastLength: 0.5
+  StairsBelowLockTime: 0.2
+  WalkingSpeed: 2
+  WallClingingSlowFactor: 0.6
+  RaycastVerticalOffset: 0
+  WallClingingTolerance: 0.3
+  WallClingingInputThreshold: 0.1
+  WallJumpInputThreshold: 0.01
+  WallJumpForce: {x: 15, y: 4}
   BaseSettingsPack: {fileID: 11400000, guid: fbb69b92439cbed449ffaf205be01472, type: 2}
   SettingsPackOverrides: []

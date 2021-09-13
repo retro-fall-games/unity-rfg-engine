@@ -21,7 +21,7 @@ namespace RFG
       private CharacterControllerState2D _state;
       private InputActionReference _movement;
       private InputActionReference _dashInput;
-      private DashSettings _dashSettings;
+      private SettingsPack _settings;
       private Vector2 _dashDirection;
       private float _slopeAngleSave = 0f;
       private float _distanceTraveled = 0f;
@@ -47,20 +47,20 @@ namespace RFG
         _state = _context.controller.State;
         _movement = _context.inputPack.Movement;
         _dashInput = _context.inputPack.DashInput;
-        _dashSettings = _context.settingsPack.DashSettings;
+        _settings = _context.settingsPack;
 
         // Setup events
         OnEnable();
 
         // Setup ability
         _cooldownTimestamp = 0;
-        _numberOfDashesLeft = _dashSettings.TotalDashes;
+        _numberOfDashesLeft = _settings.TotalDashes;
         Aim.Init();
       }
 
       private void LateUpdate()
       {
-        if (_state.IsDashing)
+        if (_character.MovementState.CurrentStateType == typeof(DashingState))
         {
           _controller.GravityActive(false);
         }
@@ -79,11 +79,9 @@ namespace RFG
           return;
         }
 
-        _transform.SpawnFromPool("Effects", _dashSettings.DashEffects);
-        _animator.Play(_dashSettings.DashingClip);
+        _character.MovementState.ChangeState(typeof(DashingState));
 
-        _state.IsDashing = true;
-        _cooldownTimestamp = Time.time + _dashSettings.Cooldown;
+        _cooldownTimestamp = Time.time + _settings.Cooldown;
         _distanceTraveled = 0f;
         _shouldKeepDashing = true;
         _initialPosition = _transform.position;
@@ -109,7 +107,7 @@ namespace RFG
 
         CheckAutoCorrectTrajectory();
 
-        if (_dashDirection.magnitude < _dashSettings.MinInputThreshold)
+        if (_dashDirection.magnitude < _settings.MinInputThreshold)
         {
           _dashDirection = _state.IsFacingRight ? Vector2.right : Vector2.left;
         }
@@ -140,7 +138,7 @@ namespace RFG
 
       private IEnumerator Dash()
       {
-        while (_distanceTraveled < _dashSettings.DashDistance && _shouldKeepDashing && _state.IsDashing)
+        while (_distanceTraveled < _settings.DashDistance && _shouldKeepDashing && _character.MovementState.CurrentStateType == typeof(DashingState))
         {
           _distanceTraveled = Vector3.Distance(_initialPosition, _transform.position);
 
@@ -155,7 +153,7 @@ namespace RFG
           else
           {
             _controller.GravityActive(false);
-            _controller.SetForce(_dashDirection * _dashSettings.DashForce);
+            _controller.SetForce(_dashDirection * _settings.DashForce);
           }
           yield return null;
         }
@@ -174,9 +172,9 @@ namespace RFG
         _controller.GravityActive(true);
         _controller.SetForce(Vector2.zero);
 
-        if (_state.IsDashing)
+        if (_character.MovementState.CurrentStateType == typeof(DashingState))
         {
-          _state.IsDashing = false;
+          _character.MovementState.RestorePreviousState();
         }
       }
 
@@ -187,14 +185,14 @@ namespace RFG
 
       private void HandleAmountOfDashesLeft()
       {
-        if (Time.time - _lastDashAt < _dashSettings.Cooldown)
+        if (Time.time - _lastDashAt < _settings.Cooldown)
         {
           return;
         }
 
         if (_state.IsGrounded)
         {
-          SetNumberOfDashesLeft(_dashSettings.TotalDashes);
+          SetNumberOfDashesLeft(_settings.TotalDashes);
         }
       }
 
@@ -202,6 +200,7 @@ namespace RFG
       {
         if (!HasAbility)
           return;
+
         StartDash();
       }
 

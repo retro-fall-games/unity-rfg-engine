@@ -74,7 +74,7 @@ namespace Game
       }
       if (character != null)
       {
-        if (character.Context.settingsPack.JumpSettings.NumberOfJumps == 2)
+        if (character.Context.settingsPack.NumberOfJumps == 2)
         {
           Profile.HasDoubleJump = true;
         }
@@ -120,11 +120,11 @@ namespace Game
       {
         if (Profile.HasDoubleJump)
         {
-          character.Context.settingsPack.JumpSettings.NumberOfJumps = 2;
+          character.Context.settingsPack.NumberOfJumps = 2;
         }
         else
         {
-          character.Context.settingsPack.JumpSettings.NumberOfJumps = 1;
+          character.Context.settingsPack.NumberOfJumps = 1;
         }
       }
       if (dashAbility != null)

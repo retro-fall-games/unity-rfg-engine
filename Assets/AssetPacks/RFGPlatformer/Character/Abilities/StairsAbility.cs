@@ -40,7 +40,7 @@ namespace RFG
       private CharacterControllerState2D _state;
 
       private InputActionReference _movement;
-      private StairsSettings _stairsSettings;
+      private SettingsPack _settings;
 
       private void Awake()
       {
@@ -52,14 +52,14 @@ namespace RFG
         _controller = _character.Context.controller;
         _state = _character.Context.controller.State;
         _movement = _character.Context.inputPack.Movement;
-        _stairsSettings = _character.Context.settingsPack.StairsSettings;
+        _settings = _character.Context.settingsPack;
       }
 
       private void Update()
       {
         float verticalInput = _movement.action.ReadValue<Vector2>().y;
-        _stairsInputUp = (verticalInput > _stairsSettings.Threshold.y);
-        _stairsInputDown = (verticalInput < -_stairsSettings.Threshold.y);
+        _stairsInputUp = (verticalInput > _settings.Threshold.y);
+        _stairsInputDown = (verticalInput < -_settings.Threshold.y);
         HandleEntryBounds();
         CheckIfStairsAhead();
         CheckIfStairsBelow();
@@ -73,7 +73,11 @@ namespace RFG
       private void HandleStairsAuthorization()
       {
         bool authorize = true;
-        if (_state.IsGrounded && !_state.IsJumping && !_state.IsWallJumping && !_state.IsDashing)
+        if (
+             _state.IsGrounded
+          && _character.MovementState.CurrentStateType != typeof(JumpingState)
+          && _character.MovementState.CurrentStateType != typeof(DashingState)
+        )
         {
           // If there are stairs ahead and you're not on stairs
           if (StairsAhead && !OnStairs)
@@ -141,7 +145,7 @@ namespace RFG
         }
 
         // If the time hasn't passed yet to exceed the StairsBelow lock time then return
-        if (Time.time - _goingDownEntryAt < _stairsSettings.StairsBelowLockTime)
+        if (Time.time - _goingDownEntryAt < _settings.StairsBelowLockTime)
         {
           return;
         }
@@ -165,17 +169,17 @@ namespace RFG
 
         if (_state.IsFacingRight)
         {
-          _raycastOrigin = transform.position + _stairsSettings.StairsAheadDetectionRaycastOrigin.x * Vector3.right + _stairsSettings.StairsAheadDetectionRaycastOrigin.y * transform.up;
+          _raycastOrigin = transform.position + _settings.StairsAheadDetectionRaycastOrigin.x * Vector3.right + _settings.StairsAheadDetectionRaycastOrigin.y * transform.up;
           _raycastDirection = Vector3.right;
         }
         else
         {
-          _raycastOrigin = transform.position - _stairsSettings.StairsAheadDetectionRaycastOrigin.x * Vector3.right + _stairsSettings.StairsAheadDetectionRaycastOrigin.y * transform.up;
+          _raycastOrigin = transform.position - _settings.StairsAheadDetectionRaycastOrigin.x * Vector3.right + _settings.StairsAheadDetectionRaycastOrigin.y * transform.up;
           _raycastDirection = -Vector3.right;
         }
 
         // we cast our ray in front of us
-        RaycastHit2D hit = RFG.Physics2D.RayCast(_raycastOrigin, _raycastDirection, _stairsSettings.StairsAheadDetectionRaycastLength, _controller.StairsMask, Color.yellow, true);
+        RaycastHit2D hit = RFG.Physics2D.RayCast(_raycastOrigin, _raycastDirection, _settings.StairsAheadDetectionRaycastLength, _controller.StairsMask, Color.yellow, true);
 
         if (hit)
         {
@@ -194,14 +198,14 @@ namespace RFG
         _raycastOrigin = _controller.BoundsCenter;
         if (_state.IsFacingRight)
         {
-          _raycastOrigin = _controller.ColliderBottomPosition + _stairsSettings.StairsBelowDetectionRaycastOrigin.x * Vector3.right + _stairsSettings.StairsBelowDetectionRaycastOrigin.y * transform.up;
+          _raycastOrigin = _controller.ColliderBottomPosition + _settings.StairsBelowDetectionRaycastOrigin.x * Vector3.right + _settings.StairsBelowDetectionRaycastOrigin.y * transform.up;
         }
         else
         {
-          _raycastOrigin = _controller.ColliderBottomPosition - _stairsSettings.StairsBelowDetectionRaycastOrigin.x * Vector3.right + _stairsSettings.StairsBelowDetectionRaycastOrigin.y * transform.up;
+          _raycastOrigin = _controller.ColliderBottomPosition - _settings.StairsBelowDetectionRaycastOrigin.x * Vector3.right + _settings.StairsBelowDetectionRaycastOrigin.y * transform.up;
         }
 
-        RaycastHit2D hit = RFG.Physics2D.RayCast(_raycastOrigin, -transform.up, _stairsSettings.StairsBelowDetectionRaycastLength, _controller.StairsMask, Color.yellow, true);
+        RaycastHit2D hit = RFG.Physics2D.RayCast(_raycastOrigin, -transform.up, _settings.StairsBelowDetectionRaycastLength, _controller.StairsMask, Color.yellow, true);
 
         if (hit)
         {

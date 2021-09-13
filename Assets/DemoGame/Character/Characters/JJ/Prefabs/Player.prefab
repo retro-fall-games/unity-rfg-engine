@@ -285,17 +285,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65be5b1e4f0c73f4b9658fa06623599d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  States:
-  - {fileID: 11400000, guid: 71b8e023e6cb4d142a21f8120d0b8c22, type: 2}
-  - {fileID: 11400000, guid: a60b28bfcb8efd641a76816e3cdc89af, type: 2}
-  - {fileID: 11400000, guid: 549e7711fd93541459c7f61cecc3a593, type: 2}
-  - {fileID: 11400000, guid: 21f2244237613b2418726c59631e3d81, type: 2}
-  DefaultState: {fileID: 11400000, guid: 21f2244237613b2418726c59631e3d81, type: 2}
-  CurrentState: {fileID: 0}
   CharacterType: 0
   SpawnAt: {fileID: 0}
   InputPack: {fileID: 11400000, guid: c925b201bb21aef4e85bc2c0a313fbf8, type: 2}
   SettingsPack: {fileID: 11400000, guid: 56417ebe58e517847a7e8c86732e219d, type: 2}
+  CharacterState:
+    States:
+    - {fileID: 11400000, guid: 71b8e023e6cb4d142a21f8120d0b8c22, type: 2}
+    - {fileID: 11400000, guid: a60b28bfcb8efd641a76816e3cdc89af, type: 2}
+    - {fileID: 11400000, guid: 549e7711fd93541459c7f61cecc3a593, type: 2}
+    - {fileID: 11400000, guid: 21f2244237613b2418726c59631e3d81, type: 2}
+    DefaultState: {fileID: 11400000, guid: 21f2244237613b2418726c59631e3d81, type: 2}
+    CurrentState: {fileID: 0}
+  MovementState:
+    States:
+    - {fileID: 11400000, guid: f239c70158bef3c4c87b9a46455a00f3, type: 2}
+    - {fileID: 11400000, guid: 9295d824aa765d74084959e58b8d64b8, type: 2}
+    - {fileID: 11400000, guid: 0e293eae5d9703149857f60cf8142567, type: 2}
+    - {fileID: 11400000, guid: acfbf757c3f2d504b8b686a28f826798, type: 2}
+    - {fileID: 11400000, guid: 63e16b7a67c557c4da69a4ad1ff2bf20, type: 2}
+    DefaultState: {fileID: 11400000, guid: f239c70158bef3c4c87b9a46455a00f3, type: 2}
+    CurrentState: {fileID: 0}
 --- !u!50 &7725811167184495156
 Rigidbody2D:
   serializedVersion: 4
@@ -576,5 +586,5 @@ MonoBehaviour:
   Left: 1
   Right: 1
   Bounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 5, y: 5, z: 5}
+    m_Center: {x: 70, y: 10, z: 0}
+    m_Extent: {x: 70, y: 15, z: 0}

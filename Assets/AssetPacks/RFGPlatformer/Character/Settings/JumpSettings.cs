@@ -42,18 +42,6 @@ namespace RFG
       public bool JumpIsProportionalToThePressTime = true;
       public float JumpMinAirTime = 0.1f;
       public float JumpReleaseForceFactor = 2f;
-
-      [Header("Animations")]
-      [Tooltip("Define what layer to play animations")]
-      public string Layer = "Base Layer";
-
-      [Tooltip("Define what animation to play for jumping")]
-      public string JumpingClip;
-
-      [Header("Effects")]
-      public string[] JumpEffects;
-      public string[] LandEffects;
-
     }
   }
 }

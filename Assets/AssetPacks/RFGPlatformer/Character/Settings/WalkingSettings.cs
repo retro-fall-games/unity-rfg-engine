@@ -9,16 +9,6 @@ namespace RFG
     {
       [Header("Settings")]
       public float WalkingSpeed = 5f;
-
-      [Header("Effects")]
-      public string[] WalkingEffects;
-
-      [Header("Animations")]
-      [Tooltip("Define what layer to play animations")]
-      public string Layer = "Base Layer";
-
-      [Tooltip("Define what animation to play for walking")]
-      public string WalkingClip;
     }
   }
 }
