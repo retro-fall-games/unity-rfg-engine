@@ -72,25 +72,6 @@ namespace Game
       {
         Profile.EquipmentSet = equipmentSet.GetSave();
       }
-      if (character != null)
-      {
-        if (character.Context.settingsPack.NumberOfJumps == 2)
-        {
-          Profile.HasDoubleJump = true;
-        }
-        else
-        {
-          Profile.HasDoubleJump = false;
-        }
-      }
-      if (dashAbility != null)
-      {
-        Profile.HasDash = dashAbility.HasAbility;
-      }
-      if (wallJumpAbility != null)
-      {
-        Profile.HasWallJump = wallJumpAbility.HasAbility;
-      }
       Profile.Save();
     }
 
@@ -103,10 +84,6 @@ namespace Game
         character = player.GetComponent<Character>();
         inventory = player.GetComponent<Inventory>();
         equipmentSet = player.GetComponent<EquipmentSet>();
-        jumpAbility = player.GetComponent<JumpAbility>();
-        dashAbility = player.GetComponent<DashAbility>();
-        wallClingingAbility = player.GetComponent<WallClingingAbility>();
-        wallJumpAbility = player.GetComponent<WallJumpAbility>();
       }
       if (inventory != null)
       {
@@ -116,41 +93,6 @@ namespace Game
       {
         equipmentSet.RestoreSave(Profile.EquipmentSet);
       }
-      if (jumpAbility != null)
-      {
-        if (Profile.HasDoubleJump)
-        {
-          character.Context.settingsPack.NumberOfJumps = 2;
-        }
-        else
-        {
-          character.Context.settingsPack.NumberOfJumps = 1;
-        }
-      }
-      if (dashAbility != null)
-      {
-        if (Profile.HasDash)
-        {
-          dashAbility.HasAbility = true;
-        }
-        else
-        {
-          dashAbility.HasAbility = false;
-        }
-      }
-      if (wallClingingAbility != null && wallJumpAbility != null)
-      {
-        if (Profile.HasWallJump)
-        {
-          wallClingingAbility.HasAbility = true;
-          wallJumpAbility.HasAbility = true;
-        }
-        else
-        {
-          wallClingingAbility.HasAbility = false;
-          wallJumpAbility.HasAbility = false;
-        }
-      }
 
       // Go through all the pickups and turn of the Ability Pickups if the player already has them
       PickUp[] pickUps = GameObject.FindObjectsOfType<PickUp>();
@@ -158,29 +100,12 @@ namespace Game
       {
         Item item = pickUp.item;
 
-        // If the item is an ability then check if they alreay have it, if they do, the turn it off
+        // If the item is in inventory, if they do, the turn it off
         if (item is AbilityItem abilityItem)
         {
-          switch (abilityItem.AbilityToAdd)
+          if (inventory.InInventory(abilityItem.Guid))
           {
-            case AbilityItem.AbilityType.DoubleJump:
-              if (Profile.HasDoubleJump)
-              {
-                pickUp.gameObject.SetActive(false);
-              }
-              break;
-            case AbilityItem.AbilityType.Dash:
-              if (Profile.HasDash)
-              {
-                pickUp.gameObject.SetActive(false);
-              }
-              break;
-            case AbilityItem.AbilityType.WallJump:
-              if (Profile.HasWallJump)
-              {
-                pickUp.gameObject.SetActive(false);
-              }
-              break;
+            pickUp.gameObject.SetActive(false);
           }
         }
         if (item is MaxHealthItem maxHealthItem)

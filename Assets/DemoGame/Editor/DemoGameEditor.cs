@@ -1,8 +1,8 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-
+using System.Reflection;
+using RFG.StateMachine;
+using RFG.Platformer;
 
 namespace Game
 {
@@ -261,6 +261,28 @@ namespace Game
 
       GUILayout.EndHorizontal();
 
+      GUILayout.Space(10);
+
+      GUILayout.Label("States");
+      GUILayout.Space(10);
+
+      GUILayout.BeginHorizontal();
+
+      GUILayout.FlexibleSpace();
+
+      if (GUILayout.Button("Character States", GUILayout.Width(150)))
+      {
+        CreateCharacterStates();
+      }
+      if (GUILayout.Button("Movement States", GUILayout.Width(150)))
+      {
+        CreateMovementStates();
+      }
+
+      GUILayout.FlexibleSpace();
+
+      GUILayout.EndHorizontal();
+
     }
 
     private void CreatePrefab(string path, string objName)
@@ -270,6 +292,60 @@ namespace Game
       clone = PrefabUtility.InstantiatePrefab(obj) as GameObject;
       Selection.activeObject = clone;
       clone.name = objName;
+    }
+
+    private void CreateCharacterStates()
+    {
+      string path;
+      if (TryGetActiveFolderPath(out path))
+      {
+        StatePack statePack = CreateScriptableObject<StatePack>(path);
+        statePack.DefaultState = CreateScriptableObject<SpawnState>(path);
+        statePack.Add(statePack.DefaultState);
+        statePack.Add(CreateScriptableObject<AliveState>(path));
+        statePack.Add(CreateScriptableObject<DeadState>(path));
+        statePack.Add(CreateScriptableObject<DeathState>(path));
+      }
+    }
+
+    private void CreateMovementStates()
+    {
+      string path;
+      if (TryGetActiveFolderPath(out path))
+      {
+        StatePack statePack = CreateScriptableObject<StatePack>(path);
+        statePack.DefaultState = CreateScriptableObject<IdleState>(path);
+        statePack.Add(statePack.DefaultState);
+        statePack.Add(CreateScriptableObject<DanglingState>(path));
+        statePack.Add(CreateScriptableObject<FallingState>(path));
+        statePack.Add(CreateScriptableObject<JumpingState>(path));
+        statePack.Add(CreateScriptableObject<KnockbackState>(path));
+        statePack.Add(CreateScriptableObject<LandedState>(path));
+        statePack.Add(CreateScriptableObject<RunningState>(path));
+        statePack.Add(CreateScriptableObject<SwimmingState>(path));
+        statePack.Add(CreateScriptableObject<WalkingState>(path));
+      }
+    }
+
+    public static T CreateScriptableObject<T>(string path) where T : ScriptableObject
+    {
+      T asset = ScriptableObject.CreateInstance<T>();
+      string assetType = asset.GetType().ToString();
+      string name = assetType.Substring(assetType.LastIndexOf(".") + 1);
+      AssetDatabase.CreateAsset(asset, $"{path}/{name}.asset");
+      AssetDatabase.SaveAssets();
+      EditorUtility.FocusProjectWindow();
+      Selection.activeObject = asset;
+      return asset;
+    }
+
+    private static bool TryGetActiveFolderPath(out string path)
+    {
+      var _tryGetActiveFolderPath = typeof(ProjectWindowUtil).GetMethod("TryGetActiveFolderPath", BindingFlags.Static | BindingFlags.NonPublic);
+      object[] args = new object[] { null };
+      bool found = (bool)_tryGetActiveFolderPath.Invoke(null, args);
+      path = (string)args[0];
+      return found;
     }
 
   }

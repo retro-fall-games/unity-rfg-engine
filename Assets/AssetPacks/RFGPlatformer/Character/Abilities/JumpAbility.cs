@@ -36,7 +36,7 @@ namespace RFG
         // Setup events
         OnEnable();
 
-        SetNumberOfJumpsLeft(_settings.NumberOfJumps);
+        SetNumberOfJumpsLeft();
       }
 
       private void LateUpdate()
@@ -44,13 +44,20 @@ namespace RFG
         if (_state.JustGotGrounded && _character.MovementState.CurrentStateType != typeof(IdleState))
         {
           _character.MovementState.ChangeState(typeof(LandedState));
-          SetNumberOfJumpsLeft(_settings.NumberOfJumps);
+          SetNumberOfJumpsLeft();
         }
       }
 
-      public void SetNumberOfJumpsLeft(int numberLeft)
+      public void SetNumberOfJumpsLeft()
       {
-        _numberOfJumpsLeft = numberLeft;
+        _numberOfJumpsLeft = _settings.NumberOfJumps;
+        if (_character.MovementState.HasState(typeof(DoubleJumpState)))
+        {
+          if (_numberOfJumpsLeft == 1)
+          {
+            _numberOfJumpsLeft = 2;
+          }
+        }
       }
 
       private bool EvaluateJumpConditions()

@@ -36,7 +36,7 @@ namespace RFG
 
       private void Update()
       {
-        if (!HasAbility)
+        if (!_character.MovementState.HasState(typeof(WallClingingState)))
           return;
 
         WallCling();

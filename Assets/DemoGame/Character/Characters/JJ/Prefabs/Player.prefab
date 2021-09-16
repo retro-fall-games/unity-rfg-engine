@@ -290,21 +290,10 @@ MonoBehaviour:
   InputPack: {fileID: 11400000, guid: c925b201bb21aef4e85bc2c0a313fbf8, type: 2}
   SettingsPack: {fileID: 11400000, guid: 56417ebe58e517847a7e8c86732e219d, type: 2}
   CharacterState:
-    States:
-    - {fileID: 11400000, guid: 71b8e023e6cb4d142a21f8120d0b8c22, type: 2}
-    - {fileID: 11400000, guid: a60b28bfcb8efd641a76816e3cdc89af, type: 2}
-    - {fileID: 11400000, guid: 549e7711fd93541459c7f61cecc3a593, type: 2}
-    - {fileID: 11400000, guid: 21f2244237613b2418726c59631e3d81, type: 2}
-    DefaultState: {fileID: 11400000, guid: 21f2244237613b2418726c59631e3d81, type: 2}
+    StatePack: {fileID: 11400000, guid: f87c6b40ac2ddba488cccb5a173a5294, type: 2}
     CurrentState: {fileID: 0}
   MovementState:
-    States:
-    - {fileID: 11400000, guid: f239c70158bef3c4c87b9a46455a00f3, type: 2}
-    - {fileID: 11400000, guid: 9295d824aa765d74084959e58b8d64b8, type: 2}
-    - {fileID: 11400000, guid: 0e293eae5d9703149857f60cf8142567, type: 2}
-    - {fileID: 11400000, guid: acfbf757c3f2d504b8b686a28f826798, type: 2}
-    - {fileID: 11400000, guid: 63e16b7a67c557c4da69a4ad1ff2bf20, type: 2}
-    DefaultState: {fileID: 11400000, guid: f239c70158bef3c4c87b9a46455a00f3, type: 2}
+    StatePack: {fileID: 11400000, guid: 1e73673f0c67a204595f5f47357bde86, type: 2}
     CurrentState: {fileID: 0}
 --- !u!50 &7725811167184495156
 Rigidbody2D:
@@ -472,7 +461,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c357e47c55ded9547be38e906565a2be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HasAbility: 0
   Aim:
     aimControl: 2
     rotationMode: 2

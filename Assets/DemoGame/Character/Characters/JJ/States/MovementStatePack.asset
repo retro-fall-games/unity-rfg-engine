@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65162ed32c230984dadb5cab2a59c5c7, type: 3}
+  m_Name: MovementStatePack
+  m_EditorClassIdentifier: 
+  States:
+  - {fileID: 11400000, guid: f239c70158bef3c4c87b9a46455a00f3, type: 2}
+  - {fileID: 11400000, guid: 9295d824aa765d74084959e58b8d64b8, type: 2}
+  - {fileID: 11400000, guid: 89f17762b390cf24ea08f93e471e9436, type: 2}
+  - {fileID: 11400000, guid: 2444c512098667d4aa9f2cf646636f62, type: 2}
+  - {fileID: 11400000, guid: acfbf757c3f2d504b8b686a28f826798, type: 2}
+  - {fileID: 11400000, guid: 0e293eae5d9703149857f60cf8142567, type: 2}
+  - {fileID: 11400000, guid: d9266e13acb052a4692e1d34db044817, type: 2}
+  - {fileID: 11400000, guid: 63e16b7a67c557c4da69a4ad1ff2bf20, type: 2}
+  - {fileID: 11400000, guid: d66ee456532915c49af44316c36712b0, type: 2}
+  DefaultState: {fileID: 11400000, guid: f239c70158bef3c4c87b9a46455a00f3, type: 2}

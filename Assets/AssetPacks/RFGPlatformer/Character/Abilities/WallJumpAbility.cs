@@ -41,7 +41,10 @@ namespace RFG
 
       private void OnJumpStarted(InputAction.CallbackContext ctx)
       {
-        if (HasAbility && _character.MovementState.CurrentStateType == typeof(WallClingingState))
+        if (
+             _character.MovementState.HasState(typeof(WallJumpingState))
+          && _character.MovementState.CurrentStateType == typeof(WallClingingState)
+        )
         {
           WallJump();
         }

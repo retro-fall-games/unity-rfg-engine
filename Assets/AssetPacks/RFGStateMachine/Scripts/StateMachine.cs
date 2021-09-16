@@ -9,37 +9,24 @@ namespace RFG
     [Serializable]
     public class StateMachine
     {
-      public State[] States;
-      public State DefaultState;
+      public StatePack StatePack;
       public State CurrentState;
       public Type PreviousStateType { get; private set; }
       public Type CurrentStateType { get; private set; }
       public IStateContext Context { get { return _context; } set { _context = value; } }
-      private Dictionary<Type, State> _states = new Dictionary<Type, State>();
       private IStateContext _context;
 
       public void Init()
       {
-        if (States == null || States.Length == 0)
+        if (StatePack == null || StatePack.States == null || StatePack.States.Count == 0)
         {
           Debug.LogWarning("Init: There are no states");
           return;
-        }
-
-        foreach (State state in States)
-        {
-          _states.Add(state.GetType(), state);
         }
       }
 
       public void Update()
       {
-        if (_context == null)
-        {
-          Debug.LogWarning("Update: No context defined");
-          return;
-        }
-
         if (CurrentState == null)
           ResetToDefaultState();
 
@@ -52,20 +39,8 @@ namespace RFG
 
       public void ChangeState(Type newStateType)
       {
-        if (_context == null)
-        {
-          Debug.LogWarning("Change State: No context defined");
-          return;
-        }
-
-        if (!HasState(newStateType))
-        {
-          Debug.LogWarning($"State not defined: {newStateType.ToString()}");
-          return;
-        }
-
         // Dont change if current state
-        if (_states[newStateType].Equals(CurrentState))
+        if (CurrentStateType != null && CurrentStateType.Equals(newStateType))
         {
           return;
         }
@@ -78,7 +53,7 @@ namespace RFG
         }
 
         // Enter the new state
-        CurrentState = _states[newStateType];
+        CurrentState = Find(newStateType);
         CurrentStateType = newStateType;
         CurrentState.Enter(_context);
       }
@@ -86,9 +61,9 @@ namespace RFG
       public void ResetToDefaultState()
       {
         CurrentState = null;
-        if (DefaultState != null)
+        if (StatePack.DefaultState != null)
         {
-          ChangeState(DefaultState.GetType());
+          ChangeState(StatePack.DefaultState.GetType());
         }
         else
         {
@@ -103,12 +78,27 @@ namespace RFG
 
       public bool HasState(Type type)
       {
-        return _states.ContainsKey(type);
+        return StatePack.HasState(type);
       }
 
       public void Bind(IStateContext context)
       {
         _context = context;
+      }
+
+      public void Add(State state)
+      {
+        StatePack.Add(state);
+      }
+
+      public void Remove(State state)
+      {
+        StatePack.Remove(state);
+      }
+
+      public State Find(Type type)
+      {
+        return StatePack.Find(type);
       }
     }
   }

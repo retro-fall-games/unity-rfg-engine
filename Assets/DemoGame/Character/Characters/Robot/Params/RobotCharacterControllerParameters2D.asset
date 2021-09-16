@@ -18,7 +18,7 @@ MonoBehaviour:
   MaxVelocity: {x: 100, y: 100}
   SpeedFactor: 3
   GroundSpeedFactor: 10
-  AirSpeedFactor: 5
+  AirSpeedFactor: 1000
   MaxSlopeAngle: 30
   SlopeAngleSpeedFactor:
     serializedVersion: 2

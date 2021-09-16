@@ -9,7 +9,6 @@ namespace RFG
     [AddComponentMenu("RFG/Platformer/Character/Ability/Dash")]
     public class DashAbility : MonoBehaviour, IAbility
     {
-      public bool HasAbility;
       public Aim Aim;
 
       [HideInInspector]
@@ -198,7 +197,7 @@ namespace RFG
 
       public void OnDashStarted(InputAction.CallbackContext ctx)
       {
-        if (!HasAbility)
+        if (!_character.MovementState.HasState(typeof(DashingState)))
           return;
 
         StartDash();

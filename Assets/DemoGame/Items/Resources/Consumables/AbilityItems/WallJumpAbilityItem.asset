@@ -19,7 +19,9 @@ MonoBehaviour:
   PickUpEffects:
   - PickUpEffect
   ConsumeOnPickUp: 1
-  AddToInventory: 0
+  AddToInventory: 1
   ConsumeText: 
   ConsumeEffects: []
-  AbilityToAdd: 2
+  AbilityStates:
+  - {fileID: 11400000, guid: 50f443b2698742749b0c13e2d1b9282a, type: 2}
+  - {fileID: 11400000, guid: cf58be1c500fa2f42973fe9586fb91cf, type: 2}

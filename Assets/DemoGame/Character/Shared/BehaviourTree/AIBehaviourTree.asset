@@ -75,7 +75,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 638dd2e16c760674f87899a512bf5084
-  position: {x: -172.59998, y: 387}
+  position: {x: -306.56, y: 386}
   description: 
   drawGizmos: 0
 --- !u!114 &11400000
@@ -101,6 +101,7 @@ MonoBehaviour:
   - {fileID: 6984521642051532244}
   - {fileID: -749690914389431995}
   - {fileID: -1915155356723974200}
+  - {fileID: 6571096221257148701}
   blackboard:
     moveToPosition: {x: 0, y: 0}
 --- !u!114 &5910058613580434519
@@ -122,6 +123,24 @@ MonoBehaviour:
   description: Has Aggro
   drawGizmos: 0
   Message: Has Aggro
+--- !u!114 &6571096221257148701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78e4942a7f963c42aef3ec9a732ea81, type: 3}
+  m_Name: JumpActionNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 3273794835fbc554aac056833511ace8
+  position: {x: -145, y: 386}
+  description: 
+  drawGizmos: 0
 --- !u!114 &6984521642051532244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,7 +159,7 @@ MonoBehaviour:
   position: {x: 19, y: 387}
   description: 
   drawGizmos: 0
-  Duration: 1
+  Duration: 3
 --- !u!114 &8567827565136581576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,6 +199,7 @@ MonoBehaviour:
   drawGizmos: 0
   children:
   - {fileID: -749690914389431995}
+  - {fileID: 6571096221257148701}
   - {fileID: 6984521642051532244}
   DecisionTime: 1
-  DecisionWeight: 0.25
+  DecisionWeight: 0.76

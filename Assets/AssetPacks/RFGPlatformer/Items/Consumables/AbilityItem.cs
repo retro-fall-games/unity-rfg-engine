@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using RFG.StateMachine;
 
 namespace RFG
 {
@@ -7,43 +9,15 @@ namespace RFG
     [CreateAssetMenu(fileName = "New Ability Item", menuName = "RFG/Platformer/Items/Consumable/Ability")]
     public class AbilityItem : Consumable
     {
-      public enum AbilityType { DoubleJump, Dash, WallJump };
-
-      [Header("Ability Settings")]
-      public AbilityType AbilityToAdd = AbilityType.DoubleJump;
+      public List<State> AbilityStates;
 
       public override void Consume(Inventory inventory, bool showEffects = true)
       {
         base.Consume(inventory, showEffects);
-
-        switch (AbilityToAdd)
+        Character character = inventory.GetComponent<Character>();
+        if (character != null)
         {
-          case AbilityType.DoubleJump:
-            Character character = inventory.GetComponent<Character>();
-            if (character != null)
-            {
-              character.Context.settingsPack.NumberOfJumps = 2;
-            }
-            break;
-          case AbilityType.Dash:
-            DashAbility dashAbility = inventory.GetComponent<DashAbility>();
-            if (dashAbility != null)
-            {
-              dashAbility.HasAbility = true;
-            }
-            break;
-          case AbilityType.WallJump:
-            WallClingingAbility wallClingingAbility = inventory.GetComponent<WallClingingAbility>();
-            if (wallClingingAbility != null)
-            {
-              wallClingingAbility.HasAbility = true;
-            }
-            WallJumpAbility wallJumpAbility = inventory.GetComponent<WallJumpAbility>();
-            if (wallJumpAbility != null)
-            {
-              wallJumpAbility.HasAbility = true;
-            }
-            break;
+          AbilityStates.ForEach(state => character.MovementState.Add(state));
         }
       }
     }

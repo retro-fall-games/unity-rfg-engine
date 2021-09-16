@@ -126,17 +126,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65be5b1e4f0c73f4b9658fa06623599d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  States:
-  - {fileID: 11400000, guid: 076bea7e2d87173429c37e3a9f5733aa, type: 2}
-  - {fileID: 11400000, guid: 32b2fb95d9bb3494aa374e930fd012cb, type: 2}
-  - {fileID: 11400000, guid: 64f9319746da07a489bf69f521fc1561, type: 2}
-  - {fileID: 11400000, guid: 96547412bbf1a0d48a3f81a4291c3f7d, type: 2}
-  DefaultState: {fileID: 11400000, guid: 96547412bbf1a0d48a3f81a4291c3f7d, type: 2}
-  CurrentState: {fileID: 0}
   CharacterType: 1
   SpawnAt: {fileID: 0}
   InputPack: {fileID: 0}
   SettingsPack: {fileID: 11400000, guid: c1d97333e9ea34a4ba71e099903225e0, type: 2}
+  CharacterState:
+    StatePack: {fileID: 11400000, guid: c2c9ca0b108b2d348a782e400b1391c4, type: 2}
+    CurrentState: {fileID: 0}
+  MovementState:
+    StatePack: {fileID: 11400000, guid: 65bd297221c18b843a75f37c6364e4b6, type: 2}
+    CurrentState: {fileID: 0}
 --- !u!50 &4501051043929579592
 Rigidbody2D:
   serializedVersion: 4
@@ -283,11 +282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8643958b01ee3e45a00a830c911aa87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultAIBrain: {fileID: 11400000, guid: baf022d71d031b243b6c448c81bc7fd9, type: 2}
-  CurrentAIBrain: {fileID: 0}
-  CurrentState: {fileID: 0}
-  CurrentDecision: {fileID: 0}
-  PreviousDecision: {fileID: 0}
   aggro: {fileID: 4501051043929579587}
   RotateSpeed: 0.5
   StunCooldownTime: 5

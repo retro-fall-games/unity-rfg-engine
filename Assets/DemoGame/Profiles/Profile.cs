@@ -18,9 +18,6 @@ namespace Game
     public long TimePlayed = 0;
     public string Level = "Intro";
     public int CheckpointIndex = 0;
-    public bool HasDoubleJump = false;
-    public bool HasDash = false;
-    public bool HasWallJump = false;
     public InventorySave Inventory;
     public EquipmentSetSave EquipmentSet;
 
@@ -30,9 +27,6 @@ namespace Game
       Level = "Intro";
       CheckpointIndex = 0;
       CreatedAt = Epoch.Current();
-      HasDoubleJump = false;
-      HasDash = false;
-      HasWallJump = false;
       Inventory = new InventorySave();
       Inventory.Items = new ItemSave[0];
       EquipmentSet = new EquipmentSetSave();
@@ -70,9 +64,6 @@ namespace Game
         StartedAt = 0;
         TimePlayed = 0;
         CheckpointIndex = 0;
-        HasDoubleJump = false;
-        HasDash = false;
-        HasWallJump = false;
         Level = "Intro";
       }
     }
@@ -86,9 +77,6 @@ namespace Game
       CreatedAt = 0;
       StartedAt = 0;
       TimePlayed = 0;
-      HasDoubleJump = false;
-      HasDash = false;
-      HasWallJump = false;
       Inventory = new InventorySave();
       Inventory.Items = new ItemSave[0];
       EquipmentSet = new EquipmentSetSave();
