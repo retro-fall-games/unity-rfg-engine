@@ -95,7 +95,7 @@ namespace RFG
           }
 
           // If there are stairs below and you're not on stairs and the One Way Platform mask is the one you are standing on
-          if (StairsBelow && !OnStairs && _controller.OneWayPlatformMask.Contains(_controller.StandingOn.layer))
+          if (StairsBelow && !OnStairs && _controller.StandingOn != null && _controller.OneWayPlatformMask.Contains(_controller.StandingOn.layer))
           {
             // If you have input going down
             if (_stairsInputDown)

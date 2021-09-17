@@ -16,7 +16,7 @@ namespace RFG
 
     [HideInInspector]
     private bool JustWarped { get; set; }
-    private List<Warp> _warps = new List<Warp>();
+    private Dictionary<int, Warp> _warps = new Dictionary<int, Warp>();
     private Transform _transform;
 
     private void Awake()
@@ -29,7 +29,7 @@ namespace RFG
         if (_warp)
         {
           int index = _warp.index;
-          _warps.Insert(index, _warp);
+          _warps.Add(index, _warp);
         }
       }
     }

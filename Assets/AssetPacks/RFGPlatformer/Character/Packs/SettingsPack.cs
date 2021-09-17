@@ -31,6 +31,7 @@ namespace RFG
       /// the length of the raycast used to detect pits
       [Tooltip("the length of the raycast used to detect pits")]
       public float DanglingRaycastLength = 2f;
+      public bool CanDangle = true;
 
       [Header("Dash")]
       public float DashDistance = 3f;
@@ -114,6 +115,9 @@ namespace RFG
       [Header("Wall Jump Settings")]
       public float WallJumpInputThreshold = 0.01f;
       public Vector2 WallJumpForce = new Vector2(10f, 4f);
+
+      [Header("AI Settings")]
+      public bool CanFollowVertically = false;
 
 #if UNITY_EDITOR
       [ButtonMethod]

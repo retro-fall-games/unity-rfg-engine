@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RFG
@@ -75,7 +73,7 @@ namespace RFG
 
       public static bool IsDangling(this AIAjent ctx)
       {
-        if (ctx.characterContext.settingsPack == null)
+        if (ctx.characterContext.settingsPack == null || !ctx.characterContext.settingsPack.CanDangle)
           return false;
 
         SettingsPack _settings = ctx.characterContext.settingsPack;
@@ -101,7 +99,7 @@ namespace RFG
 
       public static void FlipOnDangle(this AIAjent ctx)
       {
-        if (ctx.characterContext.settingsPack == null)
+        if (ctx.characterContext.settingsPack == null || !ctx.characterContext.settingsPack.CanDangle)
           return;
 
         if (ctx.IsDangling())
@@ -114,7 +112,7 @@ namespace RFG
 
       public static bool PauseOnDangle(this AIAjent ctx)
       {
-        if (ctx.characterContext.settingsPack == null)
+        if (ctx.characterContext.settingsPack == null || !ctx.characterContext.settingsPack.CanDangle)
           return false;
 
         if (ctx.IsDangling())
@@ -154,22 +152,22 @@ namespace RFG
 
       public static void MoveVertically(this AIAjent ctx, float speed)
       {
-        // if (ctx.aiBrain.CanFollowVertically)
-        // {
-        //   float normalizedVerticalSpeed = 0f;
-        //   if (ctx.aggro.target2.transform.position.y > ctx.transform.position.y)
-        //   {
-        //     normalizedVerticalSpeed = 1f;
-        //   }
-        //   else
-        //   {
-        //     normalizedVerticalSpeed = -1f;
-        //   }
-        //   float airMovementFactor = ctx.controller.Parameters.AirSpeedFactor;
-        //   float airMovementSpeed = normalizedVerticalSpeed * speed * ctx.controller.Parameters.SpeedFactor;
-        //   float verticalMovementForce = Mathf.Lerp(ctx.controller.Speed.y, airMovementSpeed, Time.deltaTime * airMovementFactor);
-        //   ctx.controller.SetVerticalForce(verticalMovementForce);
-        // }
+        if (ctx.characterContext.settingsPack.CanFollowVertically)
+        {
+          float normalizedVerticalSpeed = 0f;
+          if (ctx.aggro.target2.transform.position.y > ctx.transform.position.y)
+          {
+            normalizedVerticalSpeed = 1f;
+          }
+          else
+          {
+            normalizedVerticalSpeed = -1f;
+          }
+          float airMovementFactor = ctx.controller.Parameters.AirSpeedFactor;
+          float airMovementSpeed = normalizedVerticalSpeed * speed * ctx.controller.Parameters.SpeedFactor;
+          float verticalMovementForce = Mathf.Lerp(ctx.controller.Speed.y, airMovementSpeed, Time.deltaTime * airMovementFactor);
+          ctx.controller.SetVerticalForce(verticalMovementForce);
+        }
       }
 
       public static void Attack(this AIAjent ctx)

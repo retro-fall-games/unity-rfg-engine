@@ -348,7 +348,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7475232957696695950, guid: 933f5826bd6d3da47904b86892e4d52b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.2000005
+      value: 2.1999962
       objectReference: {fileID: 0}
     - target: {fileID: 7475232957696695950, guid: 933f5826bd6d3da47904b86892e4d52b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -489,7 +489,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221960913}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1000023, y: 0, z: 0}
+  m_LocalPosition: {x: 1.1000001, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 516613198}
@@ -794,6 +794,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 791404059676000016, guid: 5d9b9a52c83e8504b873fac6109afcaf, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 791404059676000016, guid: 5d9b9a52c83e8504b873fac6109afcaf, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 10139474}
+    - target: {fileID: 791404059676000016, guid: 5d9b9a52c83e8504b873fac6109afcaf, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: SetMovementStatePack
+      objectReference: {fileID: 0}
+    - target: {fileID: 791404059676000016, guid: 5d9b9a52c83e8504b873fac6109afcaf, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: RFG.Platformer.Character, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 791404059676000016, guid: 5d9b9a52c83e8504b873fac6109afcaf, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 11400000, guid: 2dbd28c26aa34394a9fc652672fea00d, type: 2}
+    - target: {fileID: 791404059676000016, guid: 5d9b9a52c83e8504b873fac6109afcaf, type: 3}
+      propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: RFG.StateMachine.StatePack, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 1050720796950071075, guid: 5d9b9a52c83e8504b873fac6109afcaf, type: 3}
       propertyPath: m_RootOrder
       value: 20
@@ -5154,7 +5178,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.92535, y: 1}
+    m_SensorSize: {x: 1.908385, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -5301,7 +5325,7 @@ PrefabInstance:
     - target: {fileID: 6484881070722333550, guid: b40ec1da52828e644b55ff733568399c, type: 3}
       propertyPath: LevelBounds
       value: 
-      objectReference: {fileID: 1245397661}
+      objectReference: {fileID: 0}
     - target: {fileID: 7725811167184495160, guid: b40ec1da52828e644b55ff733568399c, type: 3}
       propertyPath: m_RootOrder
       value: 19
@@ -6100,7 +6124,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.92535, y: 1}
+    m_SensorSize: {x: 1.908385, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -6162,8 +6186,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1245397659}
-  - component: {fileID: 1245397661}
   - component: {fileID: 1245397660}
+  - component: {fileID: 1245397661}
   m_Layer: 0
   m_Name: LevelBounds
   m_TagString: Untagged
@@ -6223,7 +6247,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1245397658}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2519446c97240246b64ce851a57e4fe, type: 3}
+  m_Script: {fileID: 11500000, guid: c6383708932687348ac6d3387d8e007b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Top: 1
@@ -6231,8 +6255,8 @@ MonoBehaviour:
   Left: 1
   Right: 1
   Bounds:
-    m_Center: {x: 30.6, y: 14.32, z: 0}
-    m_Extent: {x: 67.7, y: 16.5, z: 5}
+    m_Center: {x: 30.599998, y: 14.32, z: 0}
+    m_Extent: {x: 67.7, y: 16.5, z: 0}
 --- !u!1001 &1315635396
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6833,7 +6857,6 @@ MonoBehaviour:
   isSkipable: 0
   WaitForSecondsToStart: 0
   player: {fileID: 690917578}
-  IdleSettings: {fileID: 11400000, guid: 55182c08d6e36ba40917c38759dc7ae1, type: 2}
   playerAnimator: {fileID: 1795865416}
   CameraAnimator: {fileID: 1431879464}
   PlaceTilesTimed: {fileID: 64924372}
@@ -7214,7 +7237,6 @@ MonoBehaviour:
   player: {fileID: 690917578}
   boss: {fileID: 10139474}
   bossAIBrain: {fileID: 603648299}
-  IdleSettings: {fileID: 11400000, guid: 55182c08d6e36ba40917c38759dc7ae1, type: 2}
   playerAnimator: {fileID: 1795865416}
   CameraAnimator: {fileID: 1431879464}
   PlaceTilesTimed: {fileID: 1356976343}

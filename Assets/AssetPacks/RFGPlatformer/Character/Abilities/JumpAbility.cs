@@ -41,7 +41,7 @@ namespace RFG
 
       private void LateUpdate()
       {
-        if (_state.JustGotGrounded && _character.MovementState.CurrentStateType != typeof(IdleState))
+        if (_state.JustGotGrounded)
         {
           _character.MovementState.ChangeState(typeof(LandedState));
           SetNumberOfJumpsLeft();

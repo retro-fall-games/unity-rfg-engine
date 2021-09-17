@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace RFG
@@ -15,6 +14,7 @@ namespace RFG
       public Type CurrentStateType { get; private set; }
       public IStateContext Context { get { return _context; } set { _context = value; } }
       private IStateContext _context;
+      private StatePack _defaultStatePack;
 
       public void Init()
       {
@@ -23,6 +23,17 @@ namespace RFG
           Debug.LogWarning("Init: There are no states");
           return;
         }
+        _defaultStatePack = StatePack;
+      }
+
+      public void SetStatePack(StatePack statePack)
+      {
+        StatePack = statePack;
+      }
+
+      public void RestoreDefaultStatePack()
+      {
+        StatePack = _defaultStatePack;
       }
 
       public void Update()

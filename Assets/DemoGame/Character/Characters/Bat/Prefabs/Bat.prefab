@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 2378934261524974490}
   - component: {fileID: 8494754636814983534}
   - component: {fileID: 797310085413398741}
+  - component: {fileID: 1330994731871204368}
   m_Layer: 14
   m_Name: Bat
   m_TagString: AI Character
@@ -125,15 +126,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65be5b1e4f0c73f4b9658fa06623599d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  States:
-  - {fileID: 11400000, guid: 076bea7e2d87173429c37e3a9f5733aa, type: 2}
-  - {fileID: 11400000, guid: 32b2fb95d9bb3494aa374e930fd012cb, type: 2}
-  - {fileID: 11400000, guid: f4abd6d072ba5b3459730258fa415209, type: 2}
-  - {fileID: 11400000, guid: 96547412bbf1a0d48a3f81a4291c3f7d, type: 2}
-  DefaultState: {fileID: 11400000, guid: 96547412bbf1a0d48a3f81a4291c3f7d, type: 2}
-  CurrentState: {fileID: 0}
   CharacterType: 1
   SpawnAt: {fileID: 0}
+  InputPack: {fileID: 0}
+  SettingsPack: {fileID: 11400000, guid: 9719bc46f0099de4fbc72d075594a57b, type: 2}
+  CharacterState:
+    StatePack: {fileID: 11400000, guid: 8629759046781a4448a163bb598b9b1f, type: 2}
+    CurrentState: {fileID: 0}
+  MovementState:
+    StatePack: {fileID: 11400000, guid: 0762a6be3d5efe049b987c2ee319e4ff, type: 2}
+    CurrentState: {fileID: 0}
 --- !u!50 &8001024858075428162
 Rigidbody2D:
   serializedVersion: 4
@@ -280,10 +282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8643958b01ee3e45a00a830c911aa87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AIBrain: {fileID: 11400000, guid: 24a1bacec17d0f746954ef8ae9b6d6f2, type: 2}
-  CurrentState: {fileID: 0}
-  CurrentDecision: {fileID: 0}
-  PreviousDecision: {fileID: 0}
   aggro: {fileID: 8001024858075428170}
   RotateSpeed: 0.5
   StunCooldownTime: 5
@@ -313,4 +311,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcec7c5e571b8c74f84b25a975d9d706, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LevelBounds: {fileID: 0}
+--- !u!114 &1330994731871204368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8001024858075428277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c6f9b140a52a14881ec09eaebb66eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tree: {fileID: 11400000, guid: 52cf11241a566394dbacc45b0d6f6dad, type: 2}

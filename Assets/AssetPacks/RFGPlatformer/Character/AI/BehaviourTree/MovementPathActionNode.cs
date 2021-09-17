@@ -1,0 +1,38 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using RFG.BehaviourTree;
+
+namespace RFG
+{
+  namespace Platformer
+  {
+    public class MovementPathActionNode : ActionNode
+    {
+      protected override void OnStart()
+      {
+      }
+
+      protected override void OnStop()
+      {
+      }
+
+      protected override State OnUpdate()
+      {
+        AIBrainBehaviour brain = context as AIBrainBehaviour;
+        brain.Context.controller.RotateTowards(brain.Context.movementPath.NextPath);
+        if (!brain.Context.movementPath.autoMove)
+        {
+          brain.Context.movementPath.Move();
+          brain.Context.movementPath.CheckPath();
+        }
+
+        if (brain.Context.movementPath.state == MovementPath.State.OneWay && brain.Context.movementPath.ReachedEnd)
+        {
+          return State.Success;
+        }
+        return State.Running;
+      }
+    }
+  }
+}

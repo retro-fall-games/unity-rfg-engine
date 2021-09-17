@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65162ed32c230984dadb5cab2a59c5c7, type: 3}
   m_Name: StatePack
   m_EditorClassIdentifier: 
-  States: []
-  DefaultState: {fileID: 0}
+  States:
+  - {fileID: 11400000, guid: 137cda8d9dc62384db25cbca4e8ee41d, type: 2}
+  - {fileID: 11400000, guid: c402752736cceb24aaac00bb44675a15, type: 2}
+  - {fileID: 11400000, guid: 48939b180c6e0e245852db54f7433e22, type: 2}
+  - {fileID: 11400000, guid: 182bfd9d8a03e19458c9b3ce68f24c32, type: 2}
+  DefaultState: {fileID: 11400000, guid: 137cda8d9dc62384db25cbca4e8ee41d, type: 2}

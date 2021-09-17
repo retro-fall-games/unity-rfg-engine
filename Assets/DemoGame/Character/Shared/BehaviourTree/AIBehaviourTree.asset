@@ -1,25 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4442258164518717866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c8d5100862dea842a57b959d34ef167, type: 3}
-  m_Name: SequencerNode
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: c8b85595234cab64a98c4655b5a61d5d
-  position: {x: 465.13177, y: 208}
-  description: Has Aggro
-  drawGizmos: 0
-  children:
-  - {fileID: 5910058613580434519}
 --- !u!114 &-4349525747646359051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39,6 +19,24 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   child: {fileID: 8567827565136581576}
+--- !u!114 &-2138095182640667979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd8e12e3c9ba41a4090f80701261e978, type: 3}
+  m_Name: AttackActionNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 5bbf1c17bec7e6746b0143a5d0722236
+  position: {x: 498.75015, y: 375}
+  description: 
+  drawGizmos: 0
 --- !u!114 &-1915155356723974200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,7 +57,7 @@ MonoBehaviour:
   drawGizmos: 0
   children:
   - {fileID: 9222186525910378521}
-  - {fileID: -4442258164518717866}
+  - {fileID: 7998614591633490819}
 --- !u!114 &-749690914389431995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,7 +73,25 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 638dd2e16c760674f87899a512bf5084
-  position: {x: -306.56, y: 386}
+  position: {x: -503.47693, y: 385.99997}
+  description: 
+  drawGizmos: 0
+--- !u!114 &-115028345595461142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78e4942a7f963c42aef3ec9a732ea81, type: 3}
+  m_Name: JumpActionNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: a058ef9929969bf4d9f0cf259d541aee
+  position: {x: 668.75024, y: 375}
   description: 
   drawGizmos: 0
 --- !u!114 &11400000
@@ -95,16 +111,19 @@ MonoBehaviour:
   nodes:
   - {fileID: -4349525747646359051}
   - {fileID: 8567827565136581576}
-  - {fileID: -4442258164518717866}
-  - {fileID: 5910058613580434519}
   - {fileID: 9222186525910378521}
   - {fileID: 6984521642051532244}
   - {fileID: -749690914389431995}
   - {fileID: -1915155356723974200}
   - {fileID: 6571096221257148701}
+  - {fileID: 18475806156008977}
+  - {fileID: -2138095182640667979}
+  - {fileID: 592203834808364091}
+  - {fileID: 7998614591633490819}
+  - {fileID: -115028345595461142}
   blackboard:
     moveToPosition: {x: 0, y: 0}
---- !u!114 &5910058613580434519
+--- !u!114 &18475806156008977
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,16 +132,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83c87091c8532ae4599e2967adb03268, type: 3}
-  m_Name: LogNode
+  m_Script: {fileID: 11500000, guid: 6da6a162c5f21434da9fb838841384d9, type: 3}
+  m_Name: ChangeDirectionActionNode
   m_EditorClassIdentifier: 
   state: 0
   started: 0
-  guid: d78069496af2c6344b235d4471686b41
-  position: {x: 505.13177, y: 383}
-  description: Has Aggro
+  guid: 82323dbf4e8aecb4eaad245c508f97f2
+  position: {x: -14.476982, y: 385.99997}
+  description: 
   drawGizmos: 0
-  Message: Has Aggro
+--- !u!114 &592203834808364091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48db027f2eb411c498e2f5ad44d08e2a, type: 3}
+  m_Name: FollowActionNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: e5ee2908dbb2c214596edbcca3b756e7
+  position: {x: 320.7501, y: 375}
+  description: 
+  drawGizmos: 0
 --- !u!114 &6571096221257148701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +174,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 3273794835fbc554aac056833511ace8
-  position: {x: -145, y: 386}
+  position: {x: -341.47693, y: 385.99997}
   description: 
   drawGizmos: 0
 --- !u!114 &6984521642051532244
@@ -156,10 +192,34 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: 953768cf40a956d4fa79237cd51f2af6
-  position: {x: 19, y: 387}
+  position: {x: -177.47694, y: 387}
   description: 
   drawGizmos: 0
   Duration: 3
+--- !u!114 &7998614591633490819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ab56b19d84a1374a95f831b64ee55ed, type: 3}
+  m_Name: DecisionSelectorNode
+  m_EditorClassIdentifier: 
+  state: 0
+  started: 0
+  guid: 7e92f030ecb6e9e4db96062d0d14ca21
+  position: {x: 498.75015, y: 207.99997}
+  description: Has aggro
+  drawGizmos: 0
+  children:
+  - {fileID: 592203834808364091}
+  - {fileID: -2138095182640667979}
+  - {fileID: -115028345595461142}
+  DecisionTime: 3
+  DecisionWeight: 0.5
 --- !u!114 &8567827565136581576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,12 +254,13 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: c3dd4347357f4644e88728f5a74849f8
-  position: {x: -79, y: 208}
+  position: {x: -275.47696, y: 207.99997}
   description: Doesn't have Aggro
   drawGizmos: 0
   children:
   - {fileID: -749690914389431995}
   - {fileID: 6571096221257148701}
   - {fileID: 6984521642051532244}
+  - {fileID: 18475806156008977}
   DecisionTime: 1
   DecisionWeight: 0.76

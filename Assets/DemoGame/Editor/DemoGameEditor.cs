@@ -305,6 +305,7 @@ namespace Game
         statePack.Add(CreateScriptableObject<AliveState>(path));
         statePack.Add(CreateScriptableObject<DeadState>(path));
         statePack.Add(CreateScriptableObject<DeathState>(path));
+        EditorUtility.SetDirty(statePack);
       }
     }
 
@@ -324,6 +325,7 @@ namespace Game
         statePack.Add(CreateScriptableObject<RunningState>(path));
         statePack.Add(CreateScriptableObject<SwimmingState>(path));
         statePack.Add(CreateScriptableObject<WalkingState>(path));
+        EditorUtility.SetDirty(statePack);
       }
     }
 

@@ -89,6 +89,16 @@ namespace RFG
         MovementState.Update();
       }
 
+      public void SetMovementStatePack(RFG.StateMachine.StatePack statePack)
+      {
+        MovementState.SetStatePack(statePack);
+      }
+
+      public void RestoreDefaultMovementStatePack()
+      {
+        MovementState.RestoreDefaultStatePack();
+      }
+
       public void OverrideSettingsPack(SettingsPack settings)
       {
         _characterContext.OverrideSettingsPack(settings);

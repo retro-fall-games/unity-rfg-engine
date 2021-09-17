@@ -34,7 +34,7 @@ MonoBehaviour:
   PauseEvent: {fileID: 0}
   PauseEffects: []
   UnPauseEffects: []
-  RunningSpeed: 5
+  RunningSpeed: 2
   RunningPower: 5
   PowerGainPerFrame: 0.01
   CooldownTimer: 5
