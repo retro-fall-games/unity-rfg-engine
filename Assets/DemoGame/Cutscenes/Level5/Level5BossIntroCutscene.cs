@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using RFG;
 using RFG.Platformer;
+using RFG.BehaviourTree;
 
 namespace Game
 {
@@ -10,7 +11,7 @@ namespace Game
     [Header("AI Brains")]
     public Character player;
     public Character boss;
-    public AIBrainBehaviour bossAIBrain;
+    public BehaviourTreeRunner bossBehaviourTree;
 
     [Header("Camera")]
     public Animator playerAnimator;
@@ -39,6 +40,7 @@ namespace Game
 
       // Player Talks
       yield return Dialog.Instance.Speak(Dialog.Speaker.Speaker1, "What's that noise?", 1.5f);
+      boss.MovementState.ChangeState(typeof(RunningState));
 
       PlaceTilesTimed.IsPlacing = true;
 
@@ -55,7 +57,7 @@ namespace Game
 
       boss.Controller.enabled = true;
       boss.Controller.SetHorizontalForce(-20f);
-      bossAIBrain.enabled = true;
+      bossBehaviourTree.enabled = true;
       yield return new WaitForSeconds(3f);
 
       // Follow the player

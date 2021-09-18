@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using System.Reflection;
+using RFG;
 using RFG.StateMachine;
 using RFG.Platformer;
 
@@ -333,7 +334,7 @@ namespace Game
     {
       T asset = ScriptableObject.CreateInstance<T>();
       string assetType = asset.GetType().ToString();
-      string name = assetType.Substring(assetType.LastIndexOf(".") + 1);
+      string name = asset.GetType().ToString().Last();
       AssetDatabase.CreateAsset(asset, $"{path}/{name}.asset");
       AssetDatabase.SaveAssets();
       EditorUtility.FocusProjectWindow();

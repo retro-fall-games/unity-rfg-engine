@@ -69,6 +69,7 @@ namespace RFG
         _ctx.equipmentSet = _equipmentSet;
         _ctx.aiState = this;
         _ctx.RotateSpeed = RotateSpeed;
+        _ctx.RunningPower = _character.Context.settingsPack.RunningPower;
       }
 
       private void OnAggroChange(bool aggro)

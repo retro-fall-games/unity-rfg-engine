@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a070f1a6392dd4e94f32502b3d2a2c, type: 3}
   m_Name: EngineEffectData
   m_EditorClassIdentifier: 
-  Lifetime: 3
+  Lifetime: 0
   PooledObject: 1
   AnimationClip: 
   SoundEffects:

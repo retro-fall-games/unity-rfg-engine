@@ -18,3 +18,4 @@ MonoBehaviour:
   EnterEffects:
   - EngineEffect
   ExitEffects: []
+  StopEnterEffectsOnExit: 1

@@ -15,7 +15,7 @@ MonoBehaviour:
   AttackSpeed: 5
   DanglingRaycastOrigin: {x: 0.7, y: -0.25, z: 0}
   DanglingRaycastLength: 2
-  CanDangle: 1
+  CanDangle: 0
   DashDistance: 3
   DashForce: 40
   TotalDashes: 2
@@ -36,7 +36,7 @@ MonoBehaviour:
   PauseEffects: []
   UnPauseEffects: []
   RunningSpeed: 5
-  RunningPower: 5
+  RunningPower: 15
   PowerGainPerFrame: 0.01
   CooldownTimer: 5
   Threshold: {x: 0.1, y: 0.4}

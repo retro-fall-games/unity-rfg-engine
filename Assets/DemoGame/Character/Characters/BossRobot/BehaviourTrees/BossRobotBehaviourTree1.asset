@@ -1,23 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-5439738478655311951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c78e4942a7f963c42aef3ec9a732ea81, type: 3}
-  m_Name: JumpActionNode
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: 0e74cc4207ea3334681251ebb1eced1f
-  position: {x: 187, y: 453}
-  description: 
-  drawGizmos: 0
 --- !u!114 &-4390392181975623687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36,7 +18,7 @@ MonoBehaviour:
   position: {x: 0, y: 143}
   description: 
   drawGizmos: 0
-  child: {fileID: 6272209761856886046}
+  child: {fileID: -2572111800443799105}
 --- !u!114 &-2572111800443799105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,7 +34,7 @@ MonoBehaviour:
   state: 0
   started: 0
   guid: c3b9f4bc36d0bb64ab64d79a7184ead6
-  position: {x: 0, y: 453}
+  position: {x: 0, y: 315.12}
   description: 
   drawGizmos: 0
 --- !u!114 &11400000
@@ -65,7 +47,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cae963d1f21f1e4e86d44f3a7e9b7f8, type: 3}
-  m_Name: AIBossBehaviourTree
+  m_Name: BossRobotBehaviourTree1
   m_EditorClassIdentifier: 
   rootNode: {fileID: 3732637476407864812}
   treeState: 0
@@ -73,9 +55,6 @@ MonoBehaviour:
   - {fileID: 3732637476407864812}
   - {fileID: -4390392181975623687}
   - {fileID: -2572111800443799105}
-  - {fileID: -5439738478655311951}
-  - {fileID: 6272209761856886046}
-  - {fileID: 7518134668716917688}
   blackboard:
     moveToPosition: {x: 0, y: 0}
 --- !u!114 &3732637476407864812
@@ -97,45 +76,3 @@ MonoBehaviour:
   description: 
   drawGizmos: 0
   child: {fileID: -4390392181975623687}
---- !u!114 &6272209761856886046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ab56b19d84a1374a95f831b64ee55ed, type: 3}
-  m_Name: DecisionSelectorNode
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: c413b5e2ceefdbc409f085dad6a2e002
-  position: {x: 0, y: 279}
-  description: 
-  drawGizmos: 0
-  children:
-  - {fileID: 7518134668716917688}
-  - {fileID: -2572111800443799105}
-  - {fileID: -5439738478655311951}
-  DecisionTime: 3
-  DecisionWeight: 0.5
---- !u!114 &7518134668716917688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48db027f2eb411c498e2f5ad44d08e2a, type: 3}
-  m_Name: FollowActionNode
-  m_EditorClassIdentifier: 
-  state: 0
-  started: 0
-  guid: 2fed167fd3fb4f2439ff87693aaad33c
-  position: {x: -177, y: 453}
-  description: 
-  drawGizmos: 0

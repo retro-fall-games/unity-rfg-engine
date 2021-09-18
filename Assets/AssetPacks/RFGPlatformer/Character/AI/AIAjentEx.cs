@@ -200,7 +200,6 @@ namespace RFG
 
         if (useRunning)
         {
-
           ctx.RunningPower -= _settings.PowerGainPerFrame;
           if (ctx.RunningPower <= 0)
           {
@@ -209,6 +208,7 @@ namespace RFG
             ctx.LastTimeRunningCooldown = Time.time;
             ctx.controller.State.IsRunning = false;
             ctx.controller.State.IsWalking = true;
+            ctx.character.MovementState.ChangeState(typeof(WalkingState));
           }
           else
           {

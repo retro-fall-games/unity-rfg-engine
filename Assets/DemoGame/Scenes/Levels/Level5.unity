@@ -348,11 +348,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7475232957696695950, guid: 933f5826bd6d3da47904b86892e4d52b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.1999962
+      value: -27.558073
       objectReference: {fileID: 0}
     - target: {fileID: 7475232957696695950, guid: 933f5826bd6d3da47904b86892e4d52b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.8199997
+      value: 4.41
       objectReference: {fileID: 0}
     - target: {fileID: 7475232957696695950, guid: 933f5826bd6d3da47904b86892e4d52b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -489,7 +489,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221960913}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1000001, y: 0, z: 0}
+  m_LocalPosition: {x: -13.779035, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 516613198}
@@ -786,7 +786,7 @@ MonoBehaviour:
   isSkipable: 0
   WaitForSecondsToStart: 0
   boss: {fileID: 10139474}
-  bossAIBrain: {fileID: 603648299}
+  bossBehaviourTree: {fileID: 1662347891}
 --- !u!1001 &294806987
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -794,6 +794,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9048564821918321475, guid: 5d9b9a52c83e8504b873fac6109afcaf, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 791404059676000016, guid: 5d9b9a52c83e8504b873fac6109afcaf, type: 3}
       propertyPath: Response.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
       value: 2
@@ -5104,17 +5108,6 @@ Transform:
   m_Father: {fileID: 221960914}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &603648299 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7303288535273652425, guid: 5d9b9a52c83e8504b873fac6109afcaf, type: 3}
-  m_PrefabInstance: {fileID: 294806987}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8643958b01ee3e45a00a830c911aa87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &614855731
 GameObject:
   m_ObjectHideFlags: 0
@@ -5329,6 +5322,14 @@ PrefabInstance:
     - target: {fileID: 7725811167184495160, guid: b40ec1da52828e644b55ff733568399c, type: 3}
       propertyPath: m_RootOrder
       value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7725811167184495160, guid: b40ec1da52828e644b55ff733568399c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -30.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 7725811167184495160, guid: b40ec1da52828e644b55ff733568399c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.41
       objectReference: {fileID: 0}
     - target: {fileID: 8630236380335962689, guid: b40ec1da52828e644b55ff733568399c, type: 3}
       propertyPath: m_Name
@@ -6278,11 +6279,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2554697862421512523, guid: 50a928365ba7eee4384d4f1e17ada3a3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.058881
+      value: -38.92888
       objectReference: {fileID: 0}
     - target: {fileID: 2554697862421512523, guid: 50a928365ba7eee4384d4f1e17ada3a3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.5169334
+      value: -3.6069336
       objectReference: {fileID: 0}
     - target: {fileID: 2554697862421512523, guid: 50a928365ba7eee4384d4f1e17ada3a3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6809,6 +6810,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.8688941, y: 12.692415}
   m_EdgeRadius: 0
+--- !u!114 &1662347891 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -9048564821918321475, guid: 5d9b9a52c83e8504b873fac6109afcaf, type: 3}
+  m_PrefabInstance: {fileID: 294806987}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c6f9b140a52a14881ec09eaebb66eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1687223442
 GameObject:
   m_ObjectHideFlags: 0
@@ -7236,7 +7248,7 @@ MonoBehaviour:
   WaitForSecondsToStart: 0
   player: {fileID: 690917578}
   boss: {fileID: 10139474}
-  bossAIBrain: {fileID: 603648299}
+  bossBehaviourTree: {fileID: 1662347891}
   playerAnimator: {fileID: 1795865416}
   CameraAnimator: {fileID: 1431879464}
   PlaceTilesTimed: {fileID: 1356976343}

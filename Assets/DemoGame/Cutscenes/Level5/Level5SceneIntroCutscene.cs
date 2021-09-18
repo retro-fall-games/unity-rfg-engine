@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using RFG;
 using RFG.Platformer;
+using RFG.BehaviourTree;
 
 namespace Game
 {
@@ -9,7 +10,7 @@ namespace Game
   {
     [Header("AI Brains")]
     public Character boss;
-    public AIBrainBehaviour bossAIBrain;
+    public BehaviourTreeRunner bossBehaviourTree;
 
     protected override void Awake()
     {
@@ -21,7 +22,7 @@ namespace Game
     {
       // Turn off the boss until the trigger
       boss.Controller.enabled = false;
-      bossAIBrain.enabled = false;
+      bossBehaviourTree.enabled = false;
       yield return null;
     }
 

@@ -23,6 +23,8 @@ namespace RFG
       [Tooltip("Define what effect to run when the state exits")]
       public string[] ExitEffects;
 
+      public bool StopEnterEffectsOnExit = false;
+
       public virtual void Enter(IStateContext context)
       {
         PlayEffects(context, EnterEffects);
@@ -36,6 +38,10 @@ namespace RFG
 
       public virtual void Exit(IStateContext context)
       {
+        if (StopEnterEffectsOnExit)
+        {
+          StopEffects(context, EnterEffects);
+        }
         PlayEffects(context, ExitEffects);
         PlayAnimations(context, ExitClip);
       }
@@ -55,6 +61,12 @@ namespace RFG
       {
         StateTransformContext transformContext = context as StateTransformContext;
         transformContext.transform.SpawnFromPool("Effects", effects);
+      }
+
+      protected void StopEffects(IStateContext context, string[] effects)
+      {
+        StateTransformContext transformContext = context as StateTransformContext;
+        transformContext.transform.DeactivatePoolByTag("Effects", effects);
       }
     }
   }
