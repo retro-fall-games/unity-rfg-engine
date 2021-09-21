@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace RFG
@@ -83,5 +84,17 @@ namespace RFG
       SceneChangeEvent.OnRaise -= LoadScene;
     }
 
+    public static List<string> GetAllScenes()
+    {
+      var list = new List<string>();
+
+      for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings; ++i)
+      {
+        string name = System.IO.Path.GetFileNameWithoutExtension(UnityEngine.SceneManagement.SceneUtility.GetScenePathByBuildIndex(i));
+        list.Add(name);
+      }
+
+      return list;
+    }
   }
 }
