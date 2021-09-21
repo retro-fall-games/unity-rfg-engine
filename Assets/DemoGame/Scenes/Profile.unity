@@ -2695,12 +2695,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 573089080}
-        m_TargetAssemblyTypeName: RFG.SceneManager, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 5
+        m_TargetAssemblyTypeName: RFG.Scene.SceneManager, Assembly-CSharp
+        m_MethodName: LoadFromSceneNode
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 4441903710071380019, guid: 6ee1c5c8ef45dac42a6d94416d2511ee, type: 2}
+          m_ObjectArgumentAssemblyTypeName: RFG.Scene.SceneNode, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Title

@@ -3,7 +3,7 @@ using UnityEditor;
 
 namespace RFG
 {
-  namespace SceneGraph
+  namespace Scene
   {
     public class InspectorView : VisualElement
     {

@@ -6,7 +6,7 @@ using UnityEditor.Callbacks;
 
 namespace RFG
 {
-  namespace SceneGraph
+  namespace Scene
   {
     public class SceneGraphEditor : EditorWindow
     {

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace RFG
 {
-  namespace SceneGraph
+  namespace Scene
   {
     public class SceneGraphView : GraphView
     {

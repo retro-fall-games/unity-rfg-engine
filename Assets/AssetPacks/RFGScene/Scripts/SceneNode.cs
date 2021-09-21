@@ -5,16 +5,17 @@ using UnityEngine;
 
 namespace RFG
 {
-  namespace SceneGraph
+  namespace Scene
   {
 
     [CreateAssetMenu(fileName = "New Scene Node", menuName = "RFG/Scene Graph/Scene Node")]
     public class SceneNode : ScriptableObject
     {
-      public List<SceneConnection> sceneConnections = new List<SceneConnection>();
       [HideInInspector] public string guid;
       [HideInInspector] public Vector2 position;
       [HideInInspector] public string SceneName;
+
+      public Bounds Bounds = new Bounds(Vector3.zero, Vector3.one * 10);
 
 #if UNITY_EDITOR
 
@@ -29,21 +30,21 @@ namespace RFG
         }
       }
 
-      public void AddConnection()
-      {
-        SceneConnection connection = ScriptableObject.CreateInstance<SceneConnection>();
-        connection.name = "SceneConnection";
-        connection.guid = GUID.Generate().ToString();
-        sceneConnections.Add(connection);
+      // public void AddConnection()
+      // {
+      //   SceneConnection connection = ScriptableObject.CreateInstance<SceneConnection>();
+      //   connection.name = "SceneConnection";
+      //   connection.guid = GUID.Generate().ToString();
+      //   sceneConnections.Add(connection);
 
-        if (!Application.isPlaying)
-        {
-          AssetDatabase.AddObjectToAsset(connection, this);
-        }
-        AssetDatabase.SaveAssets();
+      //   if (!Application.isPlaying)
+      //   {
+      //     AssetDatabase.AddObjectToAsset(connection, this);
+      //   }
+      //   AssetDatabase.SaveAssets();
 
-        EditorUtility.SetDirty(this);
-      }
+      //   EditorUtility.SetDirty(this);
+      // }
 
       // public void AddConnection(SceneNode FromScene, SceneNode ToScene)
       // {

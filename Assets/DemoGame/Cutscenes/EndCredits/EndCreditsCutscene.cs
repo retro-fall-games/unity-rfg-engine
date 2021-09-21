@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-using RFG;
+using RFG.Scene;
 
 namespace Game
 {

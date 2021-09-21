@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using RFG;
+using RFG.Scene;
 
 namespace Game
 {

@@ -253,6 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be88fa2628b0fa14995538abbd08f2ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SceneGraph: {fileID: 11400000, guid: 6ee1c5c8ef45dac42a6d94416d2511ee, type: 2}
   OnStart: {fileID: 0}
   WaitForSeconds: 3
   TransitionName: CrossFade

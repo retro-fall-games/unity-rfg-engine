@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace RFG
 {
-  namespace SceneGraph
+  namespace Scene
   {
 
     [CreateAssetMenu(fileName = "New Scene Graph", menuName = "RFG/Scene Graph/Scene Graph")]
@@ -16,7 +16,7 @@ namespace RFG
       public SceneNode CreateNode(System.Type type)
       {
         SceneNode node = ScriptableObject.CreateInstance(type) as SceneNode;
-        node.name = node.SceneName;
+        node.name = type.Name;
         node.guid = GUID.Generate().ToString();
         sceneNodes.Add(node);
 

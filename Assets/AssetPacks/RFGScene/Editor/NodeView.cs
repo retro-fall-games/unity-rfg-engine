@@ -8,7 +8,7 @@ using UnityEditor.UIElements;
 
 namespace RFG
 {
-  namespace SceneGraph
+  namespace Scene
   {
     public class NodeView : UnityEditor.Experimental.GraphView.Node
     {

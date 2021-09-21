@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using RFG;
 using TMPro;
+using RFG.Scene;
 
 namespace Game
 {

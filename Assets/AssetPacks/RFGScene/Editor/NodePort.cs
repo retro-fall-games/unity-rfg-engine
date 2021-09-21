@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 namespace RFG
 {
-  namespace SceneGraph
+  namespace Scene
   {
     public class NodePort : Port
     {

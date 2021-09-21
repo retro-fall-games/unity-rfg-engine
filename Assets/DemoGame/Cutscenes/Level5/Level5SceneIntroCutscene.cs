@@ -3,6 +3,7 @@ using UnityEngine;
 using RFG;
 using RFG.Platformer;
 using RFG.BehaviourTree;
+using RFG.Scene;
 
 namespace Game
 {

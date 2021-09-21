@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using RFG;
 using RFG.Platformer;
+using RFG.Scene;
 
 namespace Game
 {

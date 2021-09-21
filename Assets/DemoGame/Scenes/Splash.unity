@@ -724,9 +724,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faab92086a0af2742bc5e191d91d9ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextScene: Title
-  WaitForSeconds: 10
-  CanSkipOnAnyInput: 1
+  SceneNode: {fileID: 4441903710071380019, guid: 6ee1c5c8ef45dac42a6d94416d2511ee, type: 2}
+  AutoFlowWaitTime: 10
+  CanAutoFlowOnAnyInput: 1
 --- !u!1 &1370886178
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,6 +776,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -1144,18 +1145,6 @@ PrefabInstance:
     - target: {fileID: 3703359143927607007, guid: 57d583022cfe96447b21ce359cfac331, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7456764814719854302, guid: 57d583022cfe96447b21ce359cfac331, type: 3}
-      propertyPath: playOnStart
-      value: SineBleeps
-      objectReference: {fileID: 0}
-    - target: {fileID: 7456764814719854302, guid: 57d583022cfe96447b21ce359cfac331, type: 3}
-      propertyPath: fadeInOnStart
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7456764814719854302, guid: 57d583022cfe96447b21ce359cfac331, type: 3}
-      propertyPath: waitForSeconds
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7539986192635080117, guid: 57d583022cfe96447b21ce359cfac331, type: 3}
       propertyPath: WaitForSeconds

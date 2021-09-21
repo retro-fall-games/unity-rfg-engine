@@ -1,0 +1,138 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-406322161785471061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88c90571353cc64996c91fc43a50416, type: 3}
+  m_Name: Level1
+  m_EditorClassIdentifier: 
+  sceneConnections:
+  - ToScene: {fileID: 7088154296403749969}
+    AutoFlowWaitTime: 0
+    CanAutoFlowOnAnyInput: 0
+  guid: 0c31ce016334bc04b9674b26b37c347d
+  position: {x: 0, y: 0}
+  SceneName: Level1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efbd867bb9ccf3144ada0eb566d6aa27, type: 3}
+  m_Name: DemoGameSceneGraph
+  m_EditorClassIdentifier: 
+  sceneNodes:
+  - {fileID: 6395927432910672816}
+  - {fileID: -406322161785471061}
+  - {fileID: 4296203494118904324}
+  - {fileID: 7088154296403749969}
+  - {fileID: 4441903710071380019}
+  - {fileID: 6056391237449164503}
+--- !u!114 &4296203494118904324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88c90571353cc64996c91fc43a50416, type: 3}
+  m_Name: Intro
+  m_EditorClassIdentifier: 
+  sceneConnections:
+  - ToScene: {fileID: -406322161785471061}
+    AutoFlowWaitTime: 0
+    CanAutoFlowOnAnyInput: 0
+  guid: 04692f460927c8042b65e260a6b5ebf5
+  position: {x: 0, y: 0}
+  SceneName: Intro
+--- !u!114 &4441903710071380019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88c90571353cc64996c91fc43a50416, type: 3}
+  m_Name: Title
+  m_EditorClassIdentifier: 
+  sceneConnections:
+  - ToScene: {fileID: 6395927432910672816}
+    AutoFlowWaitTime: 0
+    CanAutoFlowOnAnyInput: 0
+  guid: bc86e36b76f32a842be3bf531f610129
+  position: {x: 0, y: 0}
+  SceneName: Title
+--- !u!114 &6056391237449164503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88c90571353cc64996c91fc43a50416, type: 3}
+  m_Name: Splash
+  m_EditorClassIdentifier: 
+  sceneConnections:
+  - ToScene: {fileID: 4441903710071380019}
+    AutoFlowWaitTime: 10
+    CanAutoFlowOnAnyInput: 1
+  guid: 5651f9d8750668f4ca1821d44aceaa5c
+  position: {x: 0, y: 0}
+  SceneName: Splash
+--- !u!114 &6395927432910672816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88c90571353cc64996c91fc43a50416, type: 3}
+  m_Name: Profile
+  m_EditorClassIdentifier: 
+  sceneConnections:
+  - ToScene: {fileID: 4296203494118904324}
+    AutoFlowWaitTime: 0
+    CanAutoFlowOnAnyInput: 0
+  - ToScene: {fileID: 4441903710071380019}
+    AutoFlowWaitTime: 0
+    CanAutoFlowOnAnyInput: 0
+  guid: 0fa5f7062144b784683da894036a4e3a
+  position: {x: 0, y: 0}
+  SceneName: Profile
+--- !u!114 &7088154296403749969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88c90571353cc64996c91fc43a50416, type: 3}
+  m_Name: Level2
+  m_EditorClassIdentifier: 
+  sceneConnections:
+  - ToScene: {fileID: -406322161785471061}
+    AutoFlowWaitTime: 0
+    CanAutoFlowOnAnyInput: 0
+  guid: 09c9e1c34b624c043955135c6f9f6892
+  position: {x: 0, y: 0}
+  SceneName: Level2
