@@ -14,8 +14,11 @@ namespace RFG
       [HideInInspector] public string guid;
       [HideInInspector] public Vector2 position;
       [HideInInspector] public string SceneName;
+      [HideInInspector] public List<SceneDoor> SceneDoors = new List<SceneDoor>();
 
       public Bounds Bounds = new Bounds(Vector3.zero, Vector3.one * 10);
+
+
 
 #if UNITY_EDITOR
 
@@ -24,36 +27,26 @@ namespace RFG
         if (!sceneName.Equals(SceneName))
         {
           SceneName = sceneName;
-          this.name = sceneName;
-          AssetDatabase.SaveAssets();
           EditorUtility.SetDirty(this);
         }
       }
 
-      // public void AddConnection()
-      // {
-      //   SceneConnection connection = ScriptableObject.CreateInstance<SceneConnection>();
-      //   connection.name = "SceneConnection";
-      //   connection.guid = GUID.Generate().ToString();
-      //   sceneConnections.Add(connection);
+      public SceneDoor CreateSceneDoor()
+      {
+        SceneDoor door = ScriptableObject.CreateInstance<SceneDoor>();
+        door.name = "SceneDoor";
+        door.guid = GUID.Generate().ToString();
+        SceneDoors.Add(door);
 
-      //   if (!Application.isPlaying)
-      //   {
-      //     AssetDatabase.AddObjectToAsset(connection, this);
-      //   }
-      //   AssetDatabase.SaveAssets();
+        if (!Application.isPlaying)
+        {
+          AssetDatabase.AddObjectToAsset(door, this);
+        }
+        AssetDatabase.SaveAssets();
 
-      //   EditorUtility.SetDirty(this);
-      // }
-
-      // public void AddConnection(SceneNode FromScene, SceneNode ToScene)
-      // {
-      //   SceneConnection connection = new SceneConnection();
-      //   connection.FromScene = FromScene;
-      //   connection.ToScene = ToScene;
-      //   sceneConnections.Add(connection);
-      //   EditorUtility.SetDirty(this);
-      // }
+        EditorUtility.SetDirty(this);
+        return door;
+      }
 
       // public void RemoveConnection(SceneNode FromScene, SceneNode ToScene)
       // {

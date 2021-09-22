@@ -116,3 +116,17 @@
     margin-top: 5px;
     margin-bottom: 5px;
 }
+
+#scene-name {
+    -unity-font-style: bold;
+    font-size: 14px;
+    -unity-text-align: upper-center;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

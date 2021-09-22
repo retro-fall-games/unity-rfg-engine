@@ -10,7 +10,7 @@ namespace RFG
     [CreateAssetMenu(fileName = "New Scene Graph", menuName = "RFG/Scene Graph/Scene Graph")]
     public class SceneGraph : ScriptableObject
     {
-      public List<SceneNode> sceneNodes = new List<SceneNode>();
+      [HideInInspector] public List<SceneNode> sceneNodes = new List<SceneNode>();
 
 #if UNITY_EDITOR
       public SceneNode CreateNode(System.Type type)

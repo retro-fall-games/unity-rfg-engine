@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="NodeViewStyle.uss" />
     <ui:VisualElement name="node-border">
@@ -12,7 +11,14 @@
                         </ui:VisualElement>
                     </ui:VisualElement>
                 </ui:VisualElement>
+                <ui:VisualElement name="scene-name">
+                    <ui:Label text="Label" display-tooltip-when-elided="true" name="scene-name-label" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="doors" />
+            <ui:VisualElement name="door-frame">
                 <ui:VisualElement name="input" />
+                <ui:Label name="door-frame-label" class="unity-text-element unity-label" />
                 <ui:VisualElement name="output" />
             </ui:VisualElement>
         </ui:VisualElement>

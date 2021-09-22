@@ -15,7 +15,7 @@ namespace RFG
       private VisualElement overlay;
       private InspectorView inspectorView;
 
-      [MenuItem("Window/UI Toolkit/SceneGraphEditor")]
+      [MenuItem("RFG/Scene Graph Editor")]
       public static void OpenWindow()
       {
         SceneGraphEditor wnd = GetWindow<SceneGraphEditor>();
@@ -37,10 +37,10 @@ namespace RFG
       {
         VisualElement root = rootVisualElement;
 
-        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/AssetPacks/RFGSceneGraph/UIBuilder/SceneGraphEditor.uxml");
+        var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/AssetPacks/RFGScene/UIBuilder/SceneGraphEditor.uxml");
         visualTree.CloneTree(root);
 
-        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/AssetPacks/RFGSceneGraph/UIBuilder/SceneGraphEditor.uss");
+        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/AssetPacks/RFGScene/UIBuilder/SceneGraphEditor.uss");
         root.styleSheets.Add(styleSheet);
 
         graphView = root.Q<SceneGraphView>();

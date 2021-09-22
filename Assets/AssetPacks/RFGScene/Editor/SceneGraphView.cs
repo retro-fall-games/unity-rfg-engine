@@ -26,7 +26,7 @@ namespace RFG
         this.AddManipulator(new SelectionDragger());
         this.AddManipulator(new RectangleSelector());
 
-        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/AssetPacks/RFGSceneGraph/UIBuilder/SceneGraphEditor.uss");
+        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/AssetPacks/RFGScene/UIBuilder/SceneGraphEditor.uss");
         styleSheets.Add(styleSheet);
       }
 
@@ -72,6 +72,14 @@ namespace RFG
       {
         NodeView nodeView = new NodeView(node);
         nodeView.title = node.name;
+
+        Label sceneName = nodeView.Q<Label>("scene-name-label");
+        sceneName.text = node.SceneName;
+
+        VisualElement doors = nodeView.Q<VisualElement>("doors");
+
+        doors.Add(new Label("Hello"));
+
         nodeView.OnNodeSelected = OnNodeSelected;
         AddElement(nodeView);
       }
@@ -127,7 +135,10 @@ namespace RFG
         graph.sceneNodes.ForEach((n) =>
         {
           NodeView nodeView = GetNodeByGuid(n.guid) as NodeView;
-          nodeView.UpdateState();
+          if (nodeView != null)
+          {
+            nodeView.UpdateState();
+          }
         });
       }
     }

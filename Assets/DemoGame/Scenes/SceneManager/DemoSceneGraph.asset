@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7567152832374900900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb23ed1c9db6bf74c807459353fcc872, type: 3}
+  m_Name: SceneDoor
+  m_EditorClassIdentifier: 
+  guid: 6fbcaf0665b705649ab218ed53753548
+  position: {x: 0, y: 0}
+  ToSceneNode: {fileID: 0}
+  ToSceneDoor: {fileID: 0}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efbd867bb9ccf3144ada0eb566d6aa27, type: 3}
+  m_Name: DemoSceneGraph
+  m_EditorClassIdentifier: 
+  sceneNodes:
+  - {fileID: 3504839675310329956}
+--- !u!114 &3504839675310329956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88c90571353cc64996c91fc43a50416, type: 3}
+  m_Name: SceneNode
+  m_EditorClassIdentifier: 
+  guid: 7f6cd247f584f324d8a78e45cf1774b2
+  position: {x: 83, y: -221}
+  SceneName: Splash
+  SceneDoors:
+  - {fileID: -7567152832374900900}
+  Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 5, y: 5, z: 5}

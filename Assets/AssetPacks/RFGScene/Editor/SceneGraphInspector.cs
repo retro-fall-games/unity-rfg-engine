@@ -16,7 +16,7 @@ namespace RFG
         serializedObject.Update();
 
         DrawDefaultInspector();
-        AddSceneNode();
+        // AddSceneNode();
 
         serializedObject.ApplyModifiedProperties();
       }

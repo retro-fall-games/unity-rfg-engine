@@ -18,7 +18,7 @@ namespace RFG
         DrawDefaultInspector();
 
         SceneDropdown();
-        // AddConnection();
+        // AddSceneDoor();
 
         serializedObject.ApplyModifiedProperties();
       }
@@ -37,15 +37,15 @@ namespace RFG
         sceneNode.ChangeSceneName(options[selected]);
       }
 
-      // private void AddConnection()
-      // {
-      //   SceneNode sceneNode = (SceneNode)target;
-      //   EditorGUILayout.Space();
-      //   if (GUILayout.Button("Add Connection"))
-      //   {
-      //     sceneNode.AddConnection();
-      //   }
-      // }
+      private void AddSceneDoor()
+      {
+        SceneNode sceneNode = (SceneNode)target;
+        EditorGUILayout.Space();
+        if (GUILayout.Button("Add Scene Door"))
+        {
+          // sceneNode.AddSceneDoor();
+        }
+      }
 
     }
   }

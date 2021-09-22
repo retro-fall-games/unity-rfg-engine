@@ -14,13 +14,12 @@ namespace RFG
     {
       public Action<NodeView> OnNodeSelected;
       public SceneNode sceneNode;
-      public List<Port> connections = new List<Port>();
 
-      public NodeView(SceneNode sceneNode) : base("Assets/AssetPacks/RFGSceneGraph/UIBuilder/NodeView.uxml")
+      public NodeView(SceneNode sceneNode) : base("Assets/AssetPacks/RFGScene/UIBuilder/NodeView.uxml")
       {
         this.sceneNode = sceneNode;
         this.sceneNode.name = sceneNode.GetType().Name;
-        this.title = sceneNode.SceneName;
+        this.title = "Scene Node";
         this.viewDataKey = sceneNode.guid;
 
         style.left = sceneNode.position.x;
@@ -41,6 +40,12 @@ namespace RFG
         OnNodeSelected?.Invoke(this);
       }
 
+      public override void BuildContextualMenu(ContextualMenuPopulateEvent evt)
+      {
+        // base.BuildContextualMenu(evt);
+        evt.menu.AppendAction("Create New Door", (a) => CreateSceneDoor());
+      }
+
       private void CreateConnections()
       {
         // Port p = new Port();
@@ -55,8 +60,13 @@ namespace RFG
 
       public void UpdateState()
       {
-        title = sceneNode.SceneName;
-        sceneNode.name = sceneNode.SceneName;
+        Label sceneName = this.Q<Label>("scene-name-label");
+        sceneName.text = sceneNode.SceneName;
+      }
+
+      private void CreateSceneDoor()
+      {
+        SceneDoor door = sceneNode.CreateSceneDoor();
       }
 
     }
