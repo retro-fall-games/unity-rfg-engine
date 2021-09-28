@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using MyBox;
-using RFG;
+using RFG.Core;
+using RFG.Items;
 using RFG.Platformer;
 #if UNITY_EDITOR
 using UnityEditor;

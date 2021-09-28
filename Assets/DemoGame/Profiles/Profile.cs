@@ -3,7 +3,8 @@ using System;
 using System.IO;
 using UnityEngine;
 using MyBox;
-using RFG;
+using RFG.Core;
+using RFG.Items;
 using RFG.Platformer;
 
 namespace Game

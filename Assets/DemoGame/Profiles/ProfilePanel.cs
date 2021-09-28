@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
-using RFG;
+using RFG.Core;
 using TMPro;
-using RFG.Scene;
+using RFG.SceneGraph;
 
 namespace Game
 {

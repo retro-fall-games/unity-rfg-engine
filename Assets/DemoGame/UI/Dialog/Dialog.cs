@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
-using RFG;
+using RFG.Core;
 
 namespace Game
 {

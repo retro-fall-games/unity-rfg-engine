@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 using System.Reflection;
-using RFG;
+using RFG.Core;
 using RFG.StateMachine;
 using RFG.Platformer;
 

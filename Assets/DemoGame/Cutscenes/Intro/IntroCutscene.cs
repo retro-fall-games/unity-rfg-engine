@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
-using RFG;
+using RFG.Core;
+using RFG.Navigation;
 using RFG.Platformer;
-using RFG.Scene;
+using RFG.SceneGraph;
 
 namespace Game
 {

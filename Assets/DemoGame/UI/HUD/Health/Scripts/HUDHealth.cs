@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using RFG;
-using RFG.Platformer;
+using RFG.Core;
 
 namespace Game
 {

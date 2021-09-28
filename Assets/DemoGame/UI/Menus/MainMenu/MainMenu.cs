@@ -1,5 +1,5 @@
 using UnityEngine;
-using RFG;
+using RFG.Core;
 
 namespace Game
 {

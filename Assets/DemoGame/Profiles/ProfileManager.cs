@@ -1,8 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using RFG;
+using RFG.Core;
 using RFG.Platformer;
-using RFG.Scene;
+using RFG.SceneGraph;
+using RFG.Items;
+using RFG.Interactions;
 
 namespace Game
 {
